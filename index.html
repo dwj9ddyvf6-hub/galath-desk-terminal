@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>FolioTend Paper Desk</title>
+<meta name="description" content="A paper-trading desk tracked live. Simulated money; not investment advice.">
+<style>
+:root{--teal-dark:#0b3b46;--teal-darker:#082d36;--teal:#1f8a78;--teal-soft:#e3f1ec;--navy:#10283a;--ink:#1c2b39;--muted:#5b6b75;
+--bg:#eef5f2;--card:#fff;--line:#cfe0da;--green:#1f8a5b;--red:#c2413b;--slate:#2a2d3a;--slate-2:#343849;--slate-line:#454a5e}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body{background:linear-gradient(160deg,#f4f9f7 0%,#e9f3ef 60%,#eef5f2 100%);min-height:100vh;padding-bottom:96px}
+a{color:var(--teal)}
+.hdr{position:sticky;top:0;z-index:10;background:linear-gradient(180deg,var(--teal-dark),var(--teal-darker));color:#fff;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 16px rgba(8,45,54,.25)}
+.logo{width:38px;height:38px;border-radius:10px;background:#0f2530;border:1px solid #2c5a63;display:grid;place-items:center}
+.brand{font-weight:800;font-size:20px;letter-spacing:-.01em}
+.pill{border:1.5px solid rgba(255,255,255,.45);border-radius:999px;padding:7px 14px;font-weight:700;font-size:13px;color:#fff;background:rgba(255,255,255,.04)}
+.sp{flex:1}
+.dot{width:12px;height:12px;border-radius:50%;background:#1e6f5c;box-shadow:0 0 0 3px rgba(30,111,92,.35)}
+.dot.live{background:#2bd49a;box-shadow:0 0 0 3px rgba(43,212,154,.25)}
+.dot.stale{background:#d9a441;box-shadow:0 0 0 3px rgba(217,164,65,.25)}
+.rbtn{width:44px;height:44px;border-radius:50%;background:#f3f8f6;border:0;display:grid;place-items:center;cursor:pointer;color:var(--teal-dark)}
+main{max-width:1100px;margin:0 auto;padding:18px 14px}
+.kicker{color:var(--teal);font-weight:800;font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px}
+h1{font-size:34px;line-height:1.1;margin:0 0 6px;color:var(--navy);font-weight:800;letter-spacing:-.02em}
+h2{font-size:26px;line-height:1.15;margin:0 0 6px;color:var(--navy);font-weight:600;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:14px;margin:0 0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin:0 0 16px;box-shadow:0 1px 2px rgba(16,40,58,.04)}
+.headline{font-size:20px;font-weight:800;color:var(--navy);line-height:1.3;margin:4px 0 8px}
+.meta{color:var(--muted);font-size:12.5px}
+.row-between{display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:720px){.grid{grid-template-columns:repeat(3,1fr)}.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(6,1fr)}}
+.stat{border:1px solid var(--line);border-radius:14px;padding:12px;background:#fbfdfc}
+.stat .l{font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.stat .v{font-size:21px;font-weight:800;color:var(--navy);margin-top:4px;font-variant-numeric:tabular-nums}
+.stat .s{font-size:12.5px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums}
+.pos{color:var(--green)}.neg{color:var(--red)}.flat{color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+.chip{border:1.5px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:8px 16px;font-weight:700;font-size:14px;cursor:pointer}
+.chip.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip .n{margin-left:6px;opacity:.85}
+.chart{background:var(--slate);border-radius:16px;padding:14px 12px 10px;color:#dfe3ee}
+.chart .top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px;padding:0 4px 8px;border-bottom:1px solid var(--slate-line)}
+.chart .tk{font-weight:800;color:#7ee0c3;font-size:18px}
+.chart .brandtag{font-size:10px;letter-spacing:.2em;color:#9aa3b8;text-transform:uppercase}
+.chart .brandtag b{color:#7ee0c3}
+.legend{display:flex;gap:14px;font-size:12.5px;color:#c9cfdd;padding:8px 4px 0}
+.legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+svg text{font-family:inherit}
+.list .it{display:flex;justify-content:space-between;gap:12px;padding:14px 4px 14px 12px;border-top:1px solid var(--line);border-left:3px solid transparent}
+.list .it:first-child{border-top:0}
+.list .it.up{border-left-color:var(--teal)}.list .it.down{border-left-color:#e3a19d}
+.tkr{font-size:21px;font-weight:800;color:var(--navy);letter-spacing:.01em}
+.nm{font-size:13.5px;color:var(--muted);margin-top:2px;max-width:46ch}
+.tags{font-size:13px;font-weight:700;color:var(--ink);margin-top:6px}
+.tags .t{display:inline-block;border:1.5px solid var(--line);border-radius:10px;padding:3px 8px;margin:4px 6px 0 0;color:var(--teal);font-size:12px;font-weight:800;letter-spacing:.03em}
+.det{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.5}
+.right{text-align:right;white-space:nowrap}
+.px{font-size:22px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
+.chg{font-size:14px;font-weight:800;margin-top:2px;font-variant-numeric:tabular-nums}
+.small{font-size:12px;color:var(--muted);margin-top:4px}
+.lane{margin:12px 0}
+.lane .top{display:flex;justify-content:space-between;font-weight:700;font-size:14px;color:var(--navy)}
+.bar{height:10px;border-radius:999px;background:var(--teal-soft);overflow:hidden;margin-top:6px;border:1px solid var(--line)}
+.bar>div{height:100%;background:var(--teal);border-radius:999px}
+.bar>div.full{background:#0b3b46}
+table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:8px 6px;border-bottom:1px solid var(--line)}
+td{padding:9px 6px;border-bottom:1px solid #e6efeb}
+td.r,th.r{text-align:right}
+.scroll{overflow-x:auto}
+.empty{color:var(--muted);font-size:14px;padding:10px 4px}
+.status{display:inline-flex;align-items:center;gap:8px;font-weight:800;border-radius:999px;padding:5px 12px;font-size:13px}
+.status.ok{background:#e1f3ea;color:var(--green)}.status.bad{background:#f8e3e1;color:var(--red)}.status.warn{background:#fbf0d9;color:#97660e}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px;margin-top:12px}
+.kv div:nth-child(odd){color:var(--muted)}
+.kv div:nth-child(even){font-weight:700;color:var(--navy)}
+.disc{border:1.5px dashed #b8d2ca;border-radius:16px;padding:14px 16px;background:#f7fbf9;color:var(--muted);font-size:13px;line-height:1.5}
+.disc b{color:var(--navy)}
+.nav{position:fixed;left:8px;right:8px;bottom:8px;z-index:10;background:var(--navy);border-radius:22px;display:flex;justify-content:space-around;padding:8px 6px calc(8px + env(safe-area-inset-bottom));box-shadow:0 6px 24px rgba(16,40,58,.35);max-width:760px;margin:0 auto}
+.nav a{color:#c9d6dd;text-decoration:none;font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 10px;border-radius:14px;min-width:58px}
+.nav a.on{background:#1d5a5a;color:#fff;box-shadow:inset 0 0 0 1px #2f7c74}
+.nav svg{width:20px;height:20px}
+.err{display:none;background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="logo" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7ee0c3" stroke-width="1.8" stroke-linecap="round"><path d="M4 20 C9 17 11 12 12 4"/><path d="M12 9 C14 7 17 7 19 8"/><path d="M11.5 13 C9 11 6.5 11 5 12"/><path d="M14 16 l3-4 3 1" stroke="#2bd49a"/></svg></div>
+  <div class="brand">FolioTend</div>
+  <span class="pill">Paper Desk</span>
+  <div class="sp"></div>
+  <div id="dot" class="dot" title="data freshness"></div>
+  <button class="rbtn" id="refresh" aria-label="Refresh"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M20 4v5h-5"/></svg></button>
+</header>
+<main>
+  <div class="err" id="err"></div>
+  <section id="overview">
+    <p class="kicker">Paper trading · simulated money</p>
+    <h1>Desk</h1>
+    <p class="sub">A rules-based paper desk, tracked live on an Alpaca paper account that started with $100,000 on Oct 1, 2026.</p>
+    <div class="card">
+      <div class="row-between"><span style="font-weight:600">Today</span><span class="meta" id="updated">loading…</span></div>
+      <div class="headline" id="headline">Loading the desk…</div>
+      <div class="meta" id="headmeta"></div>
+    </div>
+    <div class="grid" id="stats"></div>
+  </section>
+
+  <section id="chart" class="card" style="margin-top:16px">
+    <p class="kicker">Since the start</p>
+    <h2>Desk vs SPY</h2>
+    <p class="sub">Percent return since Oct 1, 2026. SPY is measured from its Sep 30 close, like the desk's $100k base.</p>
+    <div class="chips" id="cchips"><button class="chip on" data-v="both">Desk + SPY</button><button class="chip" data-v="desk">Desk only</button></div>
+    <div class="chart">
+      <div class="top"><span><span class="tk">EQUITY</span> <span style="color:#c9cfdd;font-weight:700">% since start</span></span><span class="brandtag">FolioTend <b>Desk</b><br>Paper account</span></div>
+      <div id="svgwrap"></div>
+      <div class="legend"><span><i style="background:#7ee0c3"></i>Desk</span><span id="lgspy"><i style="background:#f2d68a"></i>SPY</span></div>
+    </div>
+  </section>
+
+  <section id="positions" class="card">
+    <p class="kicker">Live paper positions</p>
+    <h2>Open positions</h2>
+    <p class="sub" id="possub"></p>
+    <div class="chips" id="lchips"></div>
+    <div class="list" id="poslist"></div>
+  </section>
+
+  <div class="two">
+  <section id="lanes" class="card">
+    <p class="kicker">Slot budget</p>
+    <h2>Lane usage</h2>
+    <p class="sub" id="lanesub"></p>
+    <div id="lanelist"></div>
+  </section>
+  <section id="pass" class="card">
+    <p class="kicker">Automation</p>
+    <h2>Last desk pass</h2>
+    <div id="passbox"></div>
+  </section>
+  </div>
+
+  <section id="trades" class="card">
+    <p class="kicker">Track record</p>
+    <h2>Closed trades</h2>
+    <p class="sub" id="tradesub"></p>
+    <div class="list" id="closedlist"></div>
+  </section>
+
+  <section id="signals" class="card">
+    <p class="kicker">Per signal</p>
+    <h2>Breakdown by signal</h2>
+    <p class="sub">Grouped by lane (bar size), signal type and the setup unit that was traded.</p>
+    <div class="scroll"><table id="bdt"></table></div>
+  </section>
+
+  <div class="disc" id="disc"><b>Paper trading, not investment advice.</b> Simulated money on a broker paper account. Not a recommendation to buy or sell anything.</div>
+  <p class="meta" style="text-align:center;margin-top:14px" id="foot"></p>
+</main>
+
+<nav class="nav">
+  <a href="#overview" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19h16M6 15l4-4 3 3 5-6"/></svg>Desk</a>
+  <a href="#positions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 7h14M5 12h14M5 17h14"/></svg>Positions</a>
+  <a href="#chart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 19V11M10 19V6M14 19v-9M18 19v-5"/></svg>Chart</a>
+  <a href="#trades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 18l5-7 4 4 7-9"/></svg>Trades</a>
+  <a href="#lanes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M4 10h16"/></svg>Lanes</a>
+</nav>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const usd=(v,d=2)=>v==null?"—":(v<0?"-$":"$")+Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
+const sgn=(v,d=2,suf="%")=>v==null?"—":(v>0?"+":v<0?"-":"")+Math.abs(v).toFixed(d)+suf;
+const cls=v=>v==null||v===0?"flat":v>0?"pos":"neg";
+const laneName=l=>({"1h":"1H","1d":"1D","1w":"1W"}[l]||String(l).toUpperCase());
+let D=null, chartMode="both", laneFilter="all";
+
+function render(){
+  const d=D, a=d.account||{};
+  $("updated").textContent=d.generated_at||"";
+  $("headline").textContent=d.headline||"";
+  $("headmeta").textContent=`Equity ${usd(a.equity)} vs ${usd(a.start_equity,0)} start · ${d.desk_version||""} · ${d.account_type||""}`;
+  const st=d.stats||{}, sz=d.sizing||{};
+  const wr=st.win_rate_pct==null?"—":st.win_rate_pct.toFixed(0)+"%";
+  $("stats").innerHTML=[
+    ["Equity",usd(a.equity),"",""],
+    ["Cash",usd(a.cash),a.equity?`${(100*a.cash/a.equity).toFixed(0)}% of equity`:"","flat"],
+    ["Day P&L",usd(a.day_pl),sgn(a.day_pl_pct),cls(a.day_pl)],
+    ["Total P&L",usd(a.total_pl),sgn(a.total_pl_pct),cls(a.total_pl)],
+    ["Win rate",wr,st.closed?`${st.wins} of ${st.closed} closed`:`no closed trades yet · ${st.open_in_profit||0}/${st.open||0} open in profit`,"flat"],
+    ["Slots used",`${sz.slots_used??"—"} / ${sz.slots??"—"}`,`${usd(sz.slot_usd,0)} per slot`,"flat"],
+  ].map(([l,v,s,c])=>`<div class="stat"><div class="l">${l}</div><div class="v">${v}</div><div class="s ${c}">${s}</div></div>`).join("");
+  drawChart();
+  // positions
+  const P=d.positions||[];
+  const lanes=["all",...new Set(P.map(p=>p.lane))];
+  $("lchips").innerHTML=lanes.map(l=>`<button class="chip ${l===laneFilter?"on":""}" data-l="${esc(l)}">${l==="all"?"All":laneName(l)}<span class="n">${l==="all"?P.length:P.filter(p=>p.lane===l).length}</span></button>`).join("");
+  const unrl=P.reduce((s,p)=>s+(p.unrealized_usd||0),0);
+  $("possub").textContent=P.length?`${P.length} open · unrealized ${usd(unrl)} · marks from the broker paper account`:"";
+  const F=P.filter(p=>laneFilter==="all"||p.lane===laneFilter);
+  $("poslist").innerHTML=F.length?F.map(p=>`<div class="it ${p.unrealized_pct>0?"up":p.unrealized_pct<0?"down":""}">
+    <div><div class="tkr">${esc(p.symbol)}</div><div class="nm">${esc(p.name||"")}</div>
+      <div class="tags"><span class="t">${laneName(p.lane)} ${esc((p.signal||"").toUpperCase())}</span><span class="t" style="color:var(--muted)">${esc(p.unit||"")}</span></div>
+      <div class="det">Entry ${usd(p.entry_price)} · ${esc(p.entry_date||"")}<br>Stop ${p.stop==null?"none":usd(p.stop)} · ${p.qty} sh · time exit ${esc(p.time_exit||"—")}</div></div>
+    <div class="right"><div class="px">${usd(p.current_price)}</div><div class="chg ${cls(p.unrealized_pct)}">${sgn(p.unrealized_pct)}</div>
+      <div class="small">${usd(p.unrealized_usd)} unrealized</div>${p.day_change_pct!=null?`<div class="small">today ${sgn(p.day_change_pct)}</div>`:""}</div></div>`).join(""):`<div class="empty">No open positions.</div>`;
+  // lanes
+  const L=d.lanes||[];
+  $("lanesub").textContent=`Each lane has its own cap on positions held; ${sz.slots} slots of ${usd(sz.slot_usd,0)} overall.`;
+  $("lanelist").innerHTML=L.map(l=>{const pct=l.cap?Math.min(100,100*l.used/l.cap):0;return `<div class="lane"><div class="top"><span>${laneName(l.lane)} lane <span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.lane]||"")})</span></span><span>${l.used} of ${l.cap}${l.used>=l.cap?" · full":""}</span></div><div class="bar"><div class="${l.used>=l.cap?"full":""}" style="width:${pct}%"></div></div></div>`}).join("");
+  const sk=d.skips_today||{}, skt=Object.entries(sk).map(([k,v])=>`${v} ${k.replace(/_/g," ")}`).join(", ");
+  if(skt) $("lanelist").innerHTML+=`<div class="meta" style="margin-top:10px">Skipped signals today: ${esc(skt)}.</div>`;
+  // pass
+  const lp=d.last_pass;
+  if(lp){const ok=lp.completed&&lp.ledger_verify==="OK"&&lp.ledger_chain_ok&&(!lp.scheduler_exit||lp.scheduler_exit.code===0);
+    $("passbox").innerHTML=`<span class="status ${ok?"ok":lp.completed?"warn":"bad"}">${ok?"● Healthy":lp.completed?"● Check":"● Incomplete"}</span>
+    <div class="kv"><div>Pass</div><div>${esc(lp.phase)} (${esc(lp.mode)})</div><div>Ran</div><div>${esc(lp.at)}</div>
+    <div>Signals offered</div><div>${lp.fires_offered??"—"}</div><div>Orders sent</div><div>${lp.orders_sent??"—"}</div>
+    <div>Passes today</div><div>${lp.passes_today??"—"}</div>
+    <div>Ledger</div><div>${lp.ledger_verify==="OK"&&lp.ledger_chain_ok?"verified":"NOT verified"} · ${lp.ledger_records} records</div>
+    <div>Scheduler exit</div><div>${lp.scheduler_exit?`${esc(lp.scheduler_exit.phase)} → ${lp.scheduler_exit.code}`:"—"}</div></div>`;}
+  else $("passbox").innerHTML=`<div class="empty">No desk pass recorded yet.</div>`;
+  // closed
+  const C=d.closed_trades||[];
+  $("tradesub").textContent=C.length?`${C.length} closed · realized ${usd(st.realized_usd)} · win rate ${wr}`:"No trades have closed yet. Win rate starts counting at the first exit.";
+  $("closedlist").innerHTML=C.length?C.slice().reverse().map(c=>`<div class="it ${c.realized_pct>0?"up":"down"}"><div><div class="tkr">${esc(c.symbol)}</div>
+    <div class="tags"><span class="t">${laneName(c.lane)} ${esc((c.signal||"").toUpperCase())}</span><span class="t" style="color:var(--muted)">${esc(c.unit||"")}</span></div>
+    <div class="det">${usd(c.entry_price)} → ${usd(c.exit_price)} · ${c.qty} sh<br>${esc(c.entry_date||"")} → ${esc(c.closed_date||"")}</div></div>
+    <div class="right"><div class="chg ${cls(c.realized_pct)}" style="font-size:20px">${sgn(c.realized_pct)}</div><div class="small">${usd(c.realized_usd)}</div></div></div>`).join(""):"";
+  // breakdown
+  const B=d.breakdown||[];
+  $("bdt").innerHTML=`<tr><th>Lane</th><th>Signal</th><th>Unit</th><th class="r">Open</th><th class="r">Closed</th><th class="r">Win rate</th><th class="r">Avg ret</th><th class="r">Realized</th><th class="r">Unrealized</th></tr>`+
+    (B.length?B.map(b=>`<tr><td><b>${laneName(b.lane)}</b></td><td>${esc(b.signal)}</td><td>${esc(b.unit)}</td><td class="r">${b.open}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="9" class="empty">No trades yet.</td></tr>`);
+  $("disc").innerHTML=`<b>Paper trading, not investment advice.</b> ${esc(d.disclaimer||"")}`;
+  $("foot").textContent=`Data updated ${d.generated_at||""} · page refreshes every 60 seconds`;
+  freshness();
+}
+
+function drawChart(){
+  const pts=(D.equity_curve||[]).filter(p=>p.desk_pct!=null);
+  const W=Math.max(320,Math.min(1040,$("svgwrap").clientWidth||640)),H=260,pl=8,pr=58,pt=14,pb=28;
+  if(pts.length<2){$("svgwrap").innerHTML=`<div style="padding:40px 8px;color:#9aa3b8">Not enough history yet.</div>`;return;}
+  const showSpy=chartMode==="both";
+  const vals=pts.flatMap(p=>[p.desk_pct].concat(showSpy&&p.spy_pct!=null?[p.spy_pct]:[]));
+  let lo=Math.min(0,...vals),hi=Math.max(0,...vals);const pad=Math.max(.1,(hi-lo)*.15);lo-=pad;hi+=pad;
+  const x=i=>pl+(W-pl-pr)*i/(pts.length-1), y=v=>pt+(H-pt-pb)*(hi-v)/(hi-lo);
+  const line=k=>pts.map((p,i)=>p[k]==null?null:[x(i),y(p[k])]).filter(Boolean).map((q,i)=>(i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1)).join(" ");
+  const step=(hi-lo)/4;let g="";
+  for(let k=0;k<=4;k++){const v=lo+step*k;g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="#454a5e" stroke-width="1"/><text x="${W-pr+8}" y="${y(v)+4}" fill="#9aa3b8" font-size="11">${(v>0?"+":"")+v.toFixed(2)}%</text>`;}
+  g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(0)}" y2="${y(0)}" stroke="#8a91a6" stroke-dasharray="4 4"/>`;
+  const area=line("desk_pct")+` L${x(pts.length-1)} ${y(lo)} L${x(0)} ${y(lo)} Z`;
+  const last=pts[pts.length-1], lab=[0,Math.floor((pts.length-1)/2),pts.length-1];
+  const xl=[...new Set(lab)].map(i=>`<text x="${x(i)}" y="${H-8}" fill="#9aa3b8" font-size="11" text-anchor="${i===0?"start":i===pts.length-1?"end":"middle"}">${esc(pts[i].label)}</text>`).join("");
+  const tag=(v,col,txt)=>`<rect x="${W-pr+2}" y="${y(v)-10}" width="${pr-4}" height="20" rx="5" fill="${col}"/><text x="${W-pr+pr/2}" y="${y(v)+4}" fill="${txt}" font-size="11.5" font-weight="700" text-anchor="middle">${(v>0?"+":"")+v.toFixed(2)}%</text>`;
+  $("svgwrap").innerHTML=`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Desk equity vs SPY, percent since start">
+    <defs><linearGradient id="ga" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7ee0c3" stop-opacity=".28"/><stop offset="1" stop-color="#7ee0c3" stop-opacity="0"/></linearGradient></defs>
+    ${g}<path d="${area}" fill="url(#ga)"/>
+    ${showSpy?`<path d="${line("spy_pct")}" fill="none" stroke="#f2d68a" stroke-width="2" stroke-dasharray="5 3"/>`:""}
+    <path d="${line("desk_pct")}" fill="none" stroke="#7ee0c3" stroke-width="2.6"/>
+    ${pts.map((p,i)=>`<circle cx="${x(i)}" cy="${y(p.desk_pct)}" r="2.6" fill="#7ee0c3"/>`).join("")}
+    ${xl}${showSpy&&last.spy_pct!=null?tag(last.spy_pct,"#f2d68a","#2a2d3a"):""}${tag(last.desk_pct,"#2e8b57","#fff")}</svg>`;
+  $("lgspy").style.display=showSpy?"":"none";
+}
+
+function freshness(){
+  const dot=$("dot"); if(!D||!D.generated_at_iso) return;
+  const age=(Date.now()-Date.parse(D.generated_at_iso))/60000;
+  dot.className="dot "+(age<20?"live":"stale"); dot.title=age<20?"fresh data":"data older than 20 minutes (market closed or publisher paused)";
+}
+
+async function load(){
+  try{
+    const r=await fetch("data.json?t="+Date.now(),{cache:"no-store"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    D=await r.json(); $("err").style.display="none"; render();
+  }catch(e){ $("err").style.display="block"; $("err").textContent="Could not load the latest data ("+e.message+"). Showing the last good copy; retrying every 60 seconds."; }
+}
+$("refresh").onclick=load;
+$("cchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;chartMode=b.dataset.v;[...$("cchips").children].forEach(c=>c.classList.toggle("on",c===b));drawChart();};
+$("lchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;laneFilter=b.dataset.l;render();};
+document.querySelectorAll(".nav a").forEach(a=>a.addEventListener("click",()=>{document.querySelectorAll(".nav a").forEach(x=>x.classList.toggle("on",x===a));}));
+window.addEventListener("resize",()=>{if(D)drawChart();});
+load(); setInterval(load,60000); setInterval(freshness,30000);
+</script>
+</body>
+</html>

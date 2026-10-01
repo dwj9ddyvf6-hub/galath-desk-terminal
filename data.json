@@ -1,0 +1,231 @@
+{
+ "schema": 1,
+ "title": "FolioTend Paper Desk",
+ "desk_version": "paper-desk 1.3.3",
+ "account_type": "Alpaca paper account (simulated money)",
+ "start_date": "2026-10-01",
+ "generated_at": "Oct 1, 2026 at 2:59 PM ET",
+ "generated_at_iso": "2026-10-01T14:59:41-04:00",
+ "headline": "The desk is up 0.43% today and ahead of SPY by 0.13 percentage points since it started.",
+ "account": {
+  "equity": 100432.25,
+  "cash": 75516.37,
+  "start_equity": 100000.0,
+  "long_market_value": 24915.88,
+  "day_pl": 432.25,
+  "day_pl_pct": 0.432,
+  "total_pl": 432.25,
+  "total_pl_pct": 0.432
+ },
+ "equity_curve": [
+  {
+   "t": "2026-10-01T09:30",
+   "label": "Oct 1 9:30 AM",
+   "desk_pct": 0.0,
+   "spy_pct": 0.262
+  },
+  {
+   "t": "2026-10-01T10:30",
+   "label": "Oct 1 10:30 AM",
+   "desk_pct": 0.0,
+   "spy_pct": -0.227
+  },
+  {
+   "t": "2026-10-01T11:30",
+   "label": "Oct 1 11:30 AM",
+   "desk_pct": 0.099,
+   "spy_pct": -0.248
+  },
+  {
+   "t": "2026-10-01T12:30",
+   "label": "Oct 1 12:30 PM",
+   "desk_pct": 0.374,
+   "spy_pct": -0.135
+  },
+  {
+   "t": "2026-10-01T13:30",
+   "label": "Oct 1 1:30 PM",
+   "desk_pct": 0.624,
+   "spy_pct": 0.168
+  },
+  {
+   "t": "2026-10-01T14:30",
+   "label": "Oct 1 2:30 PM",
+   "desk_pct": 0.459,
+   "spy_pct": 0.239
+  },
+  {
+   "t": "2026-10-01T14:59",
+   "label": "now",
+   "desk_pct": 0.432,
+   "spy_pct": 0.303
+  }
+ ],
+ "sizing": {
+  "slots": 20,
+  "slot_usd": 5000,
+  "slots_used": 5
+ },
+ "lanes": [
+  {
+   "lane": "1h",
+   "used": 5,
+   "cap": 5
+  },
+  {
+   "lane": "1d",
+   "used": 0,
+   "cap": 5
+  },
+  {
+   "lane": "1w",
+   "used": 0,
+   "cap": 10
+  }
+ ],
+ "positions": [
+  {
+   "symbol": "ASAN",
+   "name": "Asana, Inc. Class A Common Stock",
+   "lane": "1h",
+   "signal": "swing",
+   "unit": "1h-basket",
+   "plan": "disaster stop 15% / time exit 60 bars",
+   "status": "open",
+   "qty": 570,
+   "entry_date": "Oct 1, 2026 at 10:34 AM ET",
+   "entry_price": 8.71,
+   "current_price": 9.085,
+   "unrealized_pct": 4.31,
+   "unrealized_usd": 213.75,
+   "day_change_pct": 7.77,
+   "stop": 7.4,
+   "time_exit": "Oct 13, 2026 at 3:30 PM ET",
+   "realized_partial_usd": null
+  },
+  {
+   "symbol": "CIEN",
+   "name": "Ciena Corporation",
+   "lane": "1h",
+   "signal": "swing",
+   "unit": "1h-basket",
+   "plan": "disaster stop 15% / time exit 60 bars",
+   "status": "open",
+   "qty": 13,
+   "entry_date": "Oct 1, 2026 at 10:34 AM ET",
+   "entry_price": 363.73,
+   "current_price": 378.795,
+   "unrealized_pct": 4.14,
+   "unrealized_usd": 195.84,
+   "day_change_pct": 7.67,
+   "stop": 309.17,
+   "time_exit": "Oct 13, 2026 at 2:30 PM ET",
+   "realized_partial_usd": null
+  },
+  {
+   "symbol": "CRDO",
+   "name": "Credo Technology Group Holding Ltd Ordinary Shares",
+   "lane": "1h",
+   "signal": "swing",
+   "unit": "1h-basket",
+   "plan": "disaster stop 15% / time exit 60 bars",
+   "status": "open",
+   "qty": 24,
+   "entry_date": "Oct 1, 2026 at 10:34 AM ET",
+   "entry_price": 204.4,
+   "current_price": 207.25,
+   "unrealized_pct": 1.39,
+   "unrealized_usd": 68.4,
+   "day_change_pct": 6.4,
+   "stop": 173.74,
+   "time_exit": "Oct 13, 2026 at 2:30 PM ET",
+   "realized_partial_usd": null
+  },
+  {
+   "symbol": "MNDY",
+   "name": "monday.com Ltd. Ordinary Shares",
+   "lane": "1h",
+   "signal": "swing",
+   "unit": "1h-basket",
+   "plan": "disaster stop 15% / time exit 60 bars",
+   "status": "open",
+   "qty": 61,
+   "entry_date": "Oct 1, 2026 at 10:34 AM ET",
+   "entry_price": 80.82,
+   "current_price": 81.25,
+   "unrealized_pct": 0.53,
+   "unrealized_usd": 26.23,
+   "day_change_pct": 3.56,
+   "stop": 68.7,
+   "time_exit": "Oct 13, 2026 at 2:30 PM ET",
+   "realized_partial_usd": null
+  },
+  {
+   "symbol": "OUST",
+   "name": "Ouster, Inc. Common Stock",
+   "lane": "1h",
+   "signal": "swing",
+   "unit": "1h-basket",
+   "plan": "disaster stop 15% / time exit 60 bars",
+   "status": "open",
+   "qty": 118,
+   "entry_date": "Oct 1, 2026 at 1:34 PM ET",
+   "entry_price": 41.99,
+   "current_price": 41.36,
+   "unrealized_pct": -1.5,
+   "unrealized_usd": -74.34,
+   "day_change_pct": 2.53,
+   "stop": 35.69,
+   "time_exit": "Oct 14, 2026 at 10:30 AM ET",
+   "realized_partial_usd": null
+  }
+ ],
+ "closed_trades": [],
+ "stats": {
+  "closed": 0,
+  "wins": 0,
+  "win_rate_pct": null,
+  "realized_usd": 0.0,
+  "open_in_profit": 4,
+  "open": 5
+ },
+ "breakdown": [
+  {
+   "lane": "1h",
+   "signal": "swing",
+   "unit": "1h-basket",
+   "open": 5,
+   "closed": 0,
+   "wins": 0,
+   "realized_usd": 0.0,
+   "unrealized_usd": 429.88,
+   "avg_return_pct": 1.77,
+   "win_rate_closed_pct": null
+  }
+ ],
+ "last_pass": {
+  "phase": "hourly",
+  "mode": "live-paper",
+  "at": "Oct 1, 2026 at 2:33 PM ET",
+  "completed": true,
+  "status": "ok",
+  "fires_offered": 11,
+  "orders_sent": 0,
+  "positions_open": 5,
+  "queued": 0,
+  "scheduler_exit": {
+   "phase": "hourly",
+   "code": 0
+  },
+  "close_pass_exit": null,
+  "ledger_verify": "OK",
+  "ledger_chain_ok": true,
+  "ledger_records": 83,
+  "passes_today": 9
+ },
+ "skips_today": {
+  "lane_max_slots": 11,
+  "stale": 2
+ },
+ "disclaimer": "Paper trading with simulated money. Not investment advice. Past or simulated results do not predict future returns."
+}
