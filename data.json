@@ -4,18 +4,20 @@
  "desk_version": "paper-desk 1.3.3",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 1, 2026 at 11:30 PM ET",
- "generated_at_iso": "2026-10-01T23:30:02-04:00",
- "headline": "The desk is up 0.46% today and ahead of SPY by 0.23 percentage points since it started.",
+ "generated_at": "Oct 2, 2026 at 9:25 AM ET",
+ "generated_at_iso": "2026-10-02T09:25:02-04:00",
+ "headline": "As of the last close (Oct 1), the desk is up 0.38% on the day and behind SPY by 0.46 percentage points since it started.",
+ "headline_scope": "last_close",
+ "headline_as_of": "2026-10-01",
  "account": {
-  "equity": 100461.73,
-  "cash": 75516.37,
+  "equity": 100678.01,
+  "cash": 75516.36,
   "start_equity": 100000.0,
-  "long_market_value": 24945.36,
-  "day_pl": 461.73,
-  "day_pl_pct": 0.462,
-  "total_pl": 461.73,
-  "total_pl_pct": 0.462
+  "long_market_value": 25161.65,
+  "day_pl": 377.08,
+  "day_pl_pct": 0.376,
+  "total_pl": 678.01,
+  "total_pl_pct": 0.678
  },
  "equity_curve": [
   {
@@ -61,10 +63,10 @@
    "spy_pct": 0.285
   },
   {
-   "t": "2026-10-01T23:30",
+   "t": "2026-10-02T09:25",
    "label": "now",
-   "desk_pct": 0.462,
-   "spy_pct": 0.231
+   "desk_pct": 0.678,
+   "spy_pct": 1.137
   }
  ],
  "sizing": {
@@ -101,10 +103,10 @@
    "qty": 570,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 8.71,
-   "current_price": 9.01,
-   "unrealized_pct": 3.44,
-   "unrealized_usd": 171.0,
-   "day_change_pct": 0.9,
+   "current_price": 8.92,
+   "unrealized_pct": 2.41,
+   "unrealized_usd": 119.7,
+   "day_change_pct": -0.11,
    "stop": 7.4,
    "time_exit": "Oct 13, 2026 at 3:30 PM ET",
    "realized_partial_usd": null
@@ -120,10 +122,10 @@
    "qty": 13,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 363.73,
-   "current_price": 382.0,
-   "unrealized_pct": 5.02,
-   "unrealized_usd": 237.51,
-   "day_change_pct": 0.75,
+   "current_price": 386.25,
+   "unrealized_pct": 6.19,
+   "unrealized_usd": 292.76,
+   "day_change_pct": 1.88,
    "stop": 309.17,
    "time_exit": "Oct 13, 2026 at 2:30 PM ET",
    "realized_partial_usd": null
@@ -139,10 +141,10 @@
    "qty": 24,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 204.4,
-   "current_price": 210.7,
-   "unrealized_pct": 3.08,
-   "unrealized_usd": 151.2,
-   "day_change_pct": 0.25,
+   "current_price": 212.5,
+   "unrealized_pct": 3.96,
+   "unrealized_usd": 194.4,
+   "day_change_pct": 1.11,
    "stop": 173.74,
    "time_exit": "Oct 13, 2026 at 2:30 PM ET",
    "realized_partial_usd": null
@@ -158,10 +160,10 @@
    "qty": 61,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 80.82,
-   "current_price": 80.8,
-   "unrealized_pct": -0.02,
-   "unrealized_usd": -1.22,
-   "day_change_pct": 0.61,
+   "current_price": 81.0,
+   "unrealized_pct": 0.22,
+   "unrealized_usd": 10.98,
+   "day_change_pct": 0.86,
    "stop": 68.7,
    "time_exit": "Oct 13, 2026 at 2:30 PM ET",
    "realized_partial_usd": null
@@ -177,10 +179,10 @@
    "qty": 118,
    "entry_date": "Oct 1, 2026 at 1:34 PM ET",
    "entry_price": 41.99,
-   "current_price": 41.17,
-   "unrealized_pct": -1.95,
-   "unrealized_usd": -96.76,
-   "day_change_pct": 0.73,
+   "current_price": 42.5,
+   "unrealized_pct": 1.21,
+   "unrealized_usd": 60.18,
+   "day_change_pct": 3.99,
    "stop": 35.69,
    "time_exit": "Oct 14, 2026 at 10:30 AM ET",
    "realized_partial_usd": null
@@ -192,7 +194,7 @@
   "wins": 0,
   "win_rate_pct": null,
   "realized_usd": 0.0,
-  "open_in_profit": 3,
+  "open_in_profit": 5,
   "open": 5
  },
  "breakdown": [
@@ -204,8 +206,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 461.73,
-   "avg_return_pct": 1.91,
+   "unrealized_usd": 678.02,
+   "avg_return_pct": 2.8,
    "win_rate_closed_pct": null
   }
  ],
@@ -226,12 +228,9 @@
   "close_pass_exit": 0,
   "ledger_verify": "OK",
   "ledger_chain_ok": true,
-  "ledger_records": 99,
-  "passes_today": 13
+  "ledger_records": 106,
+  "passes_today": 0
  },
- "skips_today": {
-  "lane_max_slots": 11,
-  "stale": 6
- },
+ "skips_today": {},
  "disclaimer": "Paper trading with simulated money. Not investment advice. Past or simulated results do not predict future returns."
 }

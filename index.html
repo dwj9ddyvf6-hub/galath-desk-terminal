@@ -104,7 +104,7 @@ td.r,th.r{text-align:right}
     <h1>Desk</h1>
     <p class="sub">A rules-based paper desk, tracked live on an Alpaca paper account that started with $100,000 on Oct 1, 2026.</p>
     <div class="card">
-      <div class="row-between"><span style="font-weight:600">Today</span><span class="meta" id="updated">loading…</span></div>
+      <div class="row-between"><span style="font-weight:600" id="daylabel">Today</span><span class="meta" id="updated">loading…</span></div>
       <div class="headline" id="headline">Loading the desk…</div>
       <div class="meta" id="headmeta"></div>
     </div>
@@ -185,13 +185,15 @@ function render(){
   const d=D, a=d.account||{};
   $("updated").textContent=d.generated_at||"";
   $("headline").textContent=d.headline||"";
+  const lastClose=d.headline_scope==="last_close";   // pre-open / after the close: the day figures are the last session's
+  $("daylabel").textContent=lastClose?"As of last close":"Today";
   $("headmeta").textContent=`Equity ${usd(a.equity)} vs ${usd(a.start_equity,0)} start · ${d.desk_version||""} · ${d.account_type||""}`;
   const st=d.stats||{}, sz=d.sizing||{};
   const wr=st.win_rate_pct==null?"—":st.win_rate_pct.toFixed(0)+"%";
   $("stats").innerHTML=[
     ["Equity",usd(a.equity),"",""],
     ["Cash",usd(a.cash),a.equity?`${(100*a.cash/a.equity).toFixed(0)}% of equity`:"","flat"],
-    ["Day P&L",usd(a.day_pl),sgn(a.day_pl_pct),cls(a.day_pl)],
+    [lastClose?"Day P&L (last close)":"Day P&L",usd(a.day_pl),sgn(a.day_pl_pct),cls(a.day_pl)],
     ["Total P&L",usd(a.total_pl),sgn(a.total_pl_pct),cls(a.total_pl)],
     ["Win rate",wr,st.closed?`${st.wins} of ${st.closed} closed`:`no closed trades yet · ${st.open_in_profit||0}/${st.open||0} open in profit`,"flat"],
     ["Slots used",`${sz.slots_used??"—"} / ${sz.slots??"—"}`,`${usd(sz.slot_usd,0)} per slot`,"flat"],
