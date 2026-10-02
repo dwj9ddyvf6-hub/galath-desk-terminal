@@ -4,20 +4,20 @@
  "desk_version": "paper-desk 1.3.3",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 2, 2026 at 9:25 AM ET",
- "generated_at_iso": "2026-10-02T09:25:02-04:00",
- "headline": "As of the last close (Oct 1), the desk is up 0.38% on the day and behind SPY by 0.46 percentage points since it started.",
- "headline_scope": "last_close",
- "headline_as_of": "2026-10-01",
+ "generated_at": "Oct 2, 2026 at 9:30 AM ET",
+ "generated_at_iso": "2026-10-02T09:30:02-04:00",
+ "headline": "The desk is up 0.45% today and behind SPY by 0.39 percentage points since it started.",
+ "headline_scope": "today",
+ "headline_as_of": null,
  "account": {
-  "equity": 100678.01,
+  "equity": 100747.06,
   "cash": 75516.36,
   "start_equity": 100000.0,
-  "long_market_value": 25161.65,
-  "day_pl": 377.08,
-  "day_pl_pct": 0.376,
-  "total_pl": 678.01,
-  "total_pl_pct": 0.678
+  "long_market_value": 25230.7,
+  "day_pl": 446.13,
+  "day_pl_pct": 0.445,
+  "total_pl": 747.06,
+  "total_pl_pct": 0.747
  },
  "equity_curve": [
   {
@@ -63,9 +63,15 @@
    "spy_pct": 0.285
   },
   {
-   "t": "2026-10-02T09:25",
+   "t": "2026-10-02T09:30",
+   "label": "Oct 2 9:30 AM",
+   "desk_pct": 0.746,
+   "spy_pct": 1.137
+  },
+  {
+   "t": "2026-10-02T09:30",
    "label": "now",
-   "desk_pct": 0.678,
+   "desk_pct": 0.747,
    "spy_pct": 1.137
   }
  ],
@@ -103,10 +109,10 @@
    "qty": 570,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 8.71,
-   "current_price": 8.92,
-   "unrealized_pct": 2.41,
-   "unrealized_usd": 119.7,
-   "day_change_pct": -0.11,
+   "current_price": 9.04,
+   "unrealized_pct": 3.79,
+   "unrealized_usd": 188.1,
+   "day_change_pct": 1.23,
    "stop": 7.4,
    "time_exit": "Oct 13, 2026 at 3:30 PM ET",
    "realized_partial_usd": null
@@ -122,10 +128,10 @@
    "qty": 13,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 363.73,
-   "current_price": 386.25,
-   "unrealized_pct": 6.19,
-   "unrealized_usd": 292.76,
-   "day_change_pct": 1.88,
+   "current_price": 384.52,
+   "unrealized_pct": 5.72,
+   "unrealized_usd": 270.27,
+   "day_change_pct": 1.42,
    "stop": 309.17,
    "time_exit": "Oct 13, 2026 at 2:30 PM ET",
    "realized_partial_usd": null
@@ -141,10 +147,10 @@
    "qty": 24,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 204.4,
-   "current_price": 212.5,
-   "unrealized_pct": 3.96,
-   "unrealized_usd": 194.4,
-   "day_change_pct": 1.11,
+   "current_price": 213.685,
+   "unrealized_pct": 4.54,
+   "unrealized_usd": 222.84,
+   "day_change_pct": 1.67,
    "stop": 173.74,
    "time_exit": "Oct 13, 2026 at 2:30 PM ET",
    "realized_partial_usd": null
@@ -160,10 +166,10 @@
    "qty": 61,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 80.82,
-   "current_price": 81.0,
-   "unrealized_pct": 0.22,
-   "unrealized_usd": 10.98,
-   "day_change_pct": 0.86,
+   "current_price": 80.38,
+   "unrealized_pct": -0.54,
+   "unrealized_usd": -26.84,
+   "day_change_pct": 0.09,
    "stop": 68.7,
    "time_exit": "Oct 13, 2026 at 2:30 PM ET",
    "realized_partial_usd": null
@@ -179,10 +185,10 @@
    "qty": 118,
    "entry_date": "Oct 1, 2026 at 1:34 PM ET",
    "entry_price": 41.99,
-   "current_price": 42.5,
-   "unrealized_pct": 1.21,
-   "unrealized_usd": 60.18,
-   "day_change_pct": 3.99,
+   "current_price": 42.8,
+   "unrealized_pct": 1.93,
+   "unrealized_usd": 95.58,
+   "day_change_pct": 4.72,
    "stop": 35.69,
    "time_exit": "Oct 14, 2026 at 10:30 AM ET",
    "realized_partial_usd": null
@@ -194,7 +200,7 @@
   "wins": 0,
   "win_rate_pct": null,
   "realized_usd": 0.0,
-  "open_in_profit": 5,
+  "open_in_profit": 4,
   "open": 5
  },
  "breakdown": [
@@ -206,8 +212,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 678.02,
-   "avg_return_pct": 2.8,
+   "unrealized_usd": 749.95,
+   "avg_return_pct": 3.09,
    "win_rate_closed_pct": null
   }
  ],
