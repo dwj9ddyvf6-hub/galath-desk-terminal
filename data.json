@@ -4,20 +4,20 @@
  "desk_version": "paper-desk 1.5.0",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 2, 2026 at 11:30 PM ET",
- "generated_at_iso": "2026-10-02T23:30:02-04:00",
- "headline": "As of the last close (Oct 2), the desk is up 0.50% on the day and behind SPY by 0.17 percentage points since it started.",
+ "generated_at": "Oct 3, 2026 at 11:30 PM ET",
+ "generated_at_iso": "2026-10-03T23:30:02-04:00",
+ "headline": "As of the last close (Oct 2), the desk is up 0.00% on the day and behind SPY by 0.17 percentage points since it started.",
  "headline_scope": "last_close",
  "headline_as_of": "2026-10-02",
  "account": {
-  "equity": 100799.51,
-  "cash": 55544.08,
+  "equity": 100799.49,
+  "cash": 55544.06,
   "start_equity": 100000.0,
   "long_market_value": 45255.43,
-  "day_pl": 498.58,
-  "day_pl_pct": 0.497,
-  "total_pl": 799.51,
-  "total_pl_pct": 0.8
+  "day_pl": 0.0,
+  "day_pl_pct": 0.0,
+  "total_pl": 799.49,
+  "total_pl_pct": 0.799
  },
  "equity_curve": [
   {
@@ -105,9 +105,9 @@
    "spy_pct": 0.914
   },
   {
-   "t": "2026-10-02T23:30",
+   "t": "2026-10-03T23:30",
    "label": "now",
-   "desk_pct": 0.8,
+   "desk_pct": 0.799,
    "spy_pct": 0.968
   }
  ],
@@ -560,15 +560,9 @@
   "close_pass_exit": 0,
   "ledger_verify": "OK",
   "ledger_chain_ok": true,
-  "ledger_records": 232,
-  "passes_today": 15
+  "ledger_records": 238,
+  "passes_today": 0
  },
- "skips_today": {
-  "stale": 23,
-  "lane_max_slots": 11,
-  "avoid-ranked (1W close >= 100) and 1w lane budget scarce (2 free <= 2)": 9,
-  "avoid-ranked (1W close >= 100; lc2 SCAN_f_resp_net_ge_q90 (LC2-W_GREEN-SCAN_F_RESP_NET_GE_Q90-W52)) and 1w lane budget scarce (2 free <= 2)": 1,
-  "avoid-ranked (lc2 SCAN_f_resp_net_ge_q90 (LC2-W_GREEN-SCAN_F_RESP_NET_GE_Q90-W52)) and 1w lane budget scarce (2 free <= 2)": 1
- },
+ "skips_today": {},
  "disclaimer": "Paper trading with simulated money. Not investment advice. Past or simulated results do not predict future returns."
 }
