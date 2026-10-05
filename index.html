@@ -217,7 +217,7 @@ function render(){
   // lanes
   const L=d.lanes||[];
   $("lanesub").textContent=`Each lane has a dollar budget for new entries (playbook ${sz.playbook||"—"}): ${usd(sz.committed_usd,0)} committed of ${usd(sz.budget_total_usd,0)} budgeted. Nothing is sold to make room; an over-budget lane takes no new entries until positions close.`;
-  const lrow=l=>{const has=l.budget_usd!=null,pct=has&&l.budget_usd?Math.min(100,100*l.committed_usd/l.budget_usd):(l.cap?Math.min(100,100*l.used/l.cap):0),full=has?l.committed_usd>=l.budget_usd:l.used>=l.cap;
+  const lrow=l=>{const has=l.budget_usd!=null,pct=has?(l.budget_usd?Math.min(100,100*l.committed_usd/l.budget_usd):(l.committed_usd>0?100:0)):(l.cap?Math.min(100,100*l.used/l.cap):0),full=has?l.committed_usd>=l.budget_usd:l.used>=l.cap;
     return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(l.test)} <span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span></span><span>${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used} pos${l.over_budget?" · over budget":full?" · full":""}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
   $("lanelist").innerHTML=L.filter(l=>!l.test).map(lrow).join("")+(L.some(l=>l.test)?`<div class="meta" style="margin:12px 0 6px"><b>TEST lanes</b> · small real budgets; a lane is promoted on its live results</div>`+L.filter(l=>l.test).map(lrow).join(""):"");
   const sk=d.skips_today||{}, skt=Object.entries(sk).map(([k,v])=>`${v} ${k.replace(/_/g," ")}`).join(", ");
