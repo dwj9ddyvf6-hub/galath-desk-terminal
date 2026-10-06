@@ -5,29 +5,21 @@
  "rules_version": "1.4.4-r1",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 6, 2026 at 9:25 AM ET",
- "generated_at_iso": "2026-10-06T09:25:02-04:00",
- "headline": "As of the last close (Oct 5), the desk is up 0.19% on the day and behind SPY by 0.67 percentage points since it started.",
- "headline_scope": "last_close",
- "headline_as_of": "2026-10-05",
- "headline_basis": {
-  "as_of": "2026-10-05",
-  "desk_close_equity": 100986.59,
-  "desk_day_usd": 187.1,
-  "desk_day_pct": 0.186,
-  "desk_total_pct": 0.987,
-  "spy_total_pct": 1.657,
-  "basis": "official session close (desk equity and SPY)"
- },
+ "generated_at": "Oct 6, 2026 at 9:30 AM ET",
+ "generated_at_iso": "2026-10-06T09:30:02-04:00",
+ "headline": "The desk is up 0.66% today and behind SPY by 0.46 percentage points since it started.",
+ "headline_scope": "today",
+ "headline_as_of": null,
+ "headline_basis": null,
  "account": {
-  "equity": 101772.74,
+  "equity": 101640.63,
   "cash": 54772.78,
   "start_equity": 100000.0,
-  "long_market_value": 46999.96,
-  "day_pl": 793.07,
-  "day_pl_pct": 0.785,
-  "total_pl": 1772.74,
-  "total_pl_pct": 1.773
+  "long_market_value": 46867.85,
+  "day_pl": 660.96,
+  "day_pl_pct": 0.655,
+  "total_pl": 1640.63,
+  "total_pl_pct": 1.641
  },
  "equity_curve": [
   {
@@ -157,10 +149,16 @@
    "spy_pct": 1.806
   },
   {
-   "t": "2026-10-06T09:25",
-   "label": "Oct 5 close",
-   "desk_pct": 0.987,
-   "spy_pct": 1.657
+   "t": "2026-10-06T09:30",
+   "label": "Oct 6 9:30 AM",
+   "desk_pct": 1.824,
+   "spy_pct": 2.097
+  },
+  {
+   "t": "2026-10-06T09:30",
+   "label": "now",
+   "desk_pct": 1.641,
+   "spy_pct": 2.097
   }
  ],
  "sizing": {
@@ -508,10 +506,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 8.71,
-   "current_price": 9.24,
-   "unrealized_pct": 6.08,
-   "unrealized_usd": 302.1,
-   "day_change_pct": 1.09,
+   "current_price": 9.21,
+   "unrealized_pct": 5.74,
+   "unrealized_usd": 285.0,
+   "day_change_pct": 0.77,
    "realized_partial_usd": null
   },
   {
@@ -525,10 +523,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 363.73,
-   "current_price": 394.93,
-   "unrealized_pct": 8.58,
-   "unrealized_usd": 405.6,
-   "day_change_pct": 1.34,
+   "current_price": 392.72,
+   "unrealized_pct": 7.97,
+   "unrealized_usd": 376.87,
+   "day_change_pct": 0.78,
    "realized_partial_usd": null
   },
   {
@@ -542,10 +540,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 204.4,
-   "current_price": 214.99,
-   "unrealized_pct": 5.18,
-   "unrealized_usd": 254.16,
-   "day_change_pct": 1.18,
+   "current_price": 213.01,
+   "unrealized_pct": 4.21,
+   "unrealized_usd": 206.64,
+   "day_change_pct": 0.25,
    "realized_partial_usd": null
   },
   {
@@ -559,10 +557,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 80.82,
-   "current_price": 83.91,
-   "unrealized_pct": 3.82,
-   "unrealized_usd": 188.49,
-   "day_change_pct": 1.51,
+   "current_price": 84.88,
+   "unrealized_pct": 5.02,
+   "unrealized_usd": 247.66,
+   "day_change_pct": 2.69,
    "realized_partial_usd": null
   },
   {
@@ -576,10 +574,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 1:34 PM ET",
    "entry_price": 41.99,
-   "current_price": 45.0,
-   "unrealized_pct": 7.17,
-   "unrealized_usd": 355.18,
-   "day_change_pct": 1.99,
+   "current_price": 44.73,
+   "unrealized_pct": 6.53,
+   "unrealized_usd": 323.32,
+   "day_change_pct": 1.38,
    "realized_partial_usd": null
   },
   {
@@ -593,10 +591,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 2.06,
-   "current_price": 2.09,
-   "unrealized_pct": 1.46,
-   "unrealized_usd": 72.99,
-   "day_change_pct": 1.46,
+   "current_price": 2.075,
+   "unrealized_pct": 0.73,
+   "unrealized_usd": 36.5,
+   "day_change_pct": 0.73,
    "realized_partial_usd": null
   },
   {
@@ -610,10 +608,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 44.8,
-   "current_price": 43.5089,
-   "unrealized_pct": -2.88,
-   "unrealized_usd": -143.31,
-   "day_change_pct": 1.25,
+   "current_price": 43.47,
+   "unrealized_pct": -2.97,
+   "unrealized_usd": -147.63,
+   "day_change_pct": 1.16,
    "realized_partial_usd": null
   },
   {
@@ -627,10 +625,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 4.8,
-   "current_price": 4.9405,
-   "unrealized_pct": 2.93,
-   "unrealized_usd": 146.26,
-   "day_change_pct": 1.45,
+   "current_price": 4.94,
+   "unrealized_pct": 2.92,
+   "unrealized_usd": 145.74,
+   "day_change_pct": 1.44,
    "realized_partial_usd": null
   },
   {
@@ -644,10 +642,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 17.45,
-   "current_price": 18.11,
-   "unrealized_pct": 3.78,
-   "unrealized_usd": 188.76,
-   "day_change_pct": 4.32,
+   "current_price": 18.15,
+   "unrealized_pct": 4.01,
+   "unrealized_usd": 200.2,
+   "day_change_pct": 4.55,
    "realized_partial_usd": null
   },
   {
@@ -661,10 +659,10 @@
    "qty_requested": null,
    "entry_date": "Oct 5, 2026 at 3:59 PM ET",
    "entry_price": 36.18,
-   "current_price": 36.39,
-   "unrealized_pct": 0.58,
-   "unrealized_usd": 1.05,
-   "day_change_pct": 0.53,
+   "current_price": 36.25,
+   "unrealized_pct": 0.19,
+   "unrealized_usd": 0.35,
+   "day_change_pct": 0.14,
    "realized_partial_usd": null
   },
   {
@@ -678,10 +676,10 @@
    "qty_requested": null,
    "entry_date": "Oct 5, 2026 at 3:59 PM ET",
    "entry_price": 340.16,
-   "current_price": 338.5828,
-   "unrealized_pct": -0.46,
-   "unrealized_usd": -1.58,
-   "day_change_pct": -0.3,
+   "current_price": 340.865,
+   "unrealized_pct": 0.21,
+   "unrealized_usd": 0.7,
+   "day_change_pct": 0.37,
    "realized_partial_usd": null
   },
   {
@@ -695,10 +693,10 @@
    "qty_requested": null,
    "entry_date": "Oct 5, 2026 at 9:30 AM ET",
    "entry_price": 1.91,
-   "current_price": 1.9335,
-   "unrealized_pct": 1.23,
-   "unrealized_usd": 3.08,
-   "day_change_pct": 2.85,
+   "current_price": 1.87,
+   "unrealized_pct": -2.09,
+   "unrealized_usd": -5.24,
+   "day_change_pct": -0.53,
    "realized_partial_usd": null
   }
  ],
@@ -736,8 +734,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 3.08,
-   "avg_return_pct": 1.23,
+   "unrealized_usd": -5.24,
+   "avg_return_pct": -2.09,
    "win_rate_closed_pct": null
   },
   {
@@ -762,8 +760,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 1770.23,
-   "avg_return_pct": 4.01,
+   "unrealized_usd": 1674.3,
+   "avg_return_pct": 3.8,
    "win_rate_closed_pct": null
   },
   {
@@ -775,8 +773,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": -0.53,
-   "avg_return_pct": 0.06,
+   "unrealized_usd": 1.05,
+   "avg_return_pct": 0.2,
    "win_rate_closed_pct": null
   }
  ],
@@ -867,10 +865,10 @@
   "win_rate_pct": null,
   "avg_hold_days": null,
   "avg_return_pct": null,
-  "total_pl_usd": 986.59,
-  "total_pl_pct": 0.987,
+  "total_pl_usd": 1640.63,
+  "total_pl_pct": 1.641,
   "realized_pl_usd": 0.0,
-  "unrealized_pl_usd": 986.59,
+  "unrealized_pl_usd": 1640.63,
   "max_drawdown": {
    "pct": -0.59,
    "usd": -596.66,
@@ -889,7 +887,7 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": 4.01,
+   "holdings_avg_unrealized_pct": 3.8,
    "small_sample": true,
    "research": {
     "win_rate_pct": 47.5,
@@ -897,7 +895,7 @@
     "trades": 3705
    },
    "research_text": "Research expected about 48% winners and +0.47% per trade (out-of-sample backtest, 3,705 trades).",
-   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +4.01% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +3.80% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
   {
@@ -949,11 +947,11 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": 1.23,
+   "holdings_avg_unrealized_pct": -2.09,
    "small_sample": true,
    "research": null,
    "research_text": "Per-trade backtest figure not on file yet. Research tested the whole book rather than single trades: about 42% a year with a worst drop of 36% in the backtest.",
-   "live_text": "Live so far: no closed trades yet. 1 holding open now, +1.23% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 1 holding open now, -2.09% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   }
  ],
@@ -986,9 +984,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5310.0,
-    "unrealized_usd": 355.18,
-    "unrealized_pct": 7.17
+    "value_usd": 5278.14,
+    "unrealized_usd": 323.32,
+    "unrealized_pct": 6.53
    },
    {
     "symbol": "ASAN",
@@ -996,9 +994,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5266.8,
-    "unrealized_usd": 302.1,
-    "unrealized_pct": 6.08
+    "value_usd": 5249.7,
+    "unrealized_usd": 285.0,
+    "unrealized_pct": 5.74
    },
    {
     "symbol": "PL",
@@ -1006,39 +1004,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5179.46,
-    "unrealized_usd": 188.76,
-    "unrealized_pct": 3.78
-   },
-   {
-    "symbol": "CRDO",
-    "name": "Credo Technology Group Holding Ltd Ordinary Shares",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5159.76,
-    "unrealized_usd": 254.16,
-    "unrealized_pct": 5.18
-   },
-   {
-    "symbol": "KOPN",
-    "name": "Kopin Corporation Common Stock",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5143.06,
-    "unrealized_usd": 146.26,
-    "unrealized_pct": 2.93
-   },
-   {
-    "symbol": "CIEN",
-    "name": "Ciena Corporation",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5134.09,
-    "unrealized_usd": 405.6,
-    "unrealized_pct": 8.58
+    "value_usd": 5190.9,
+    "unrealized_usd": 200.2,
+    "unrealized_pct": 4.01
    },
    {
     "symbol": "MNDY",
@@ -1046,9 +1014,39 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5118.51,
-    "unrealized_usd": 188.49,
-    "unrealized_pct": 3.82
+    "value_usd": 5177.68,
+    "unrealized_usd": 247.66,
+    "unrealized_pct": 5.02
+   },
+   {
+    "symbol": "KOPN",
+    "name": "Kopin Corporation Common Stock",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5142.54,
+    "unrealized_usd": 145.74,
+    "unrealized_pct": 2.92
+   },
+   {
+    "symbol": "CRDO",
+    "name": "Credo Technology Group Holding Ltd Ordinary Shares",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5112.24,
+    "unrealized_usd": 206.64,
+    "unrealized_pct": 4.21
+   },
+   {
+    "symbol": "CIEN",
+    "name": "Ciena Corporation",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5105.36,
+    "unrealized_usd": 376.87,
+    "unrealized_pct": 7.97
    },
    {
     "symbol": "BLDP",
@@ -1056,9 +1054,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5084.97,
-    "unrealized_usd": 72.99,
-    "unrealized_pct": 1.46
+    "value_usd": 5048.48,
+    "unrealized_usd": 36.49,
+    "unrealized_pct": 0.73
    },
    {
     "symbol": "IONQ",
@@ -1066,9 +1064,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4829.49,
-    "unrealized_usd": -143.31,
-    "unrealized_pct": -2.88
+    "value_usd": 4825.17,
+    "unrealized_usd": -147.63,
+    "unrealized_pct": -2.97
    },
    {
     "symbol": "IESC",
@@ -1076,9 +1074,9 @@
     "strategy": "Legacy positions",
     "why": "Legacy positions: an older holding from a retired strategy, being wound down",
     "test": false,
-    "value_usd": 338.58,
-    "unrealized_usd": -1.58,
-    "unrealized_pct": -0.46
+    "value_usd": 340.87,
+    "unrealized_usd": 0.7,
+    "unrealized_pct": 0.21
    },
    {
     "symbol": "VLN",
@@ -1086,9 +1084,9 @@
     "strategy": "Daily Cyan",
     "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models, on a micro-cap name, at reduced size",
     "test": false,
-    "value_usd": 253.29,
-    "unrealized_usd": 3.08,
-    "unrealized_pct": 1.23
+    "value_usd": 244.97,
+    "unrealized_usd": -5.24,
+    "unrealized_pct": -2.09
    },
    {
     "symbol": "BOTZ",
@@ -1096,13 +1094,13 @@
     "strategy": "Legacy positions",
     "why": "Legacy positions: an older holding from a retired strategy, being wound down",
     "test": false,
-    "value_usd": 181.95,
-    "unrealized_usd": 1.05,
-    "unrealized_pct": 0.58
+    "value_usd": 181.25,
+    "unrealized_usd": 0.35,
+    "unrealized_pct": 0.19
    }
   ],
   "count": 12,
-  "total_value_usd": 46999.96,
+  "total_value_usd": 46897.3,
   "source": "broker paper account positions (marks)",
   "unavailable": null
  },
@@ -1129,7 +1127,7 @@
     "label": "Daily Cyan",
     "lane": "daily-cyan",
     "holdings": 1,
-    "value_usd": 253.29
+    "value_usd": 244.97
    },
    {
     "label": "1D Green",
@@ -1139,23 +1137,23 @@
    }
   ],
   "holdings": 1,
-  "value_usd": 253.29,
-  "equity_pct": 0.25,
+  "value_usd": 244.97,
+  "equity_pct": 0.24,
   "beta_iwm": 2.66,
   "beta_coverage_pct": 100.0,
-  "iwm_equivalent_usd": 673.75,
-  "pnl_usd": 3.08,
-  "return_on_cost_pct": 1.23,
+  "iwm_equivalent_usd": 651.62,
+  "pnl_usd": -5.24,
+  "return_on_cost_pct": -2.09,
   "iwm_since_start_pct": 1.95,
   "as_of": "2026-10-05",
   "unavailable": null,
   "history": [
    {
     "date": "2026-10-05",
-    "value_usd": 253.29,
-    "equity_pct": 0.25,
+    "value_usd": 244.97,
+    "equity_pct": 0.24,
     "beta_iwm": 2.66,
-    "return_on_cost_pct": 1.23,
+    "return_on_cost_pct": -2.09,
     "iwm_since_start_pct": 1.95
    }
   ]
@@ -2433,7 +2431,7 @@
     "as_of": null,
     "unavailable": "No filled holdings yet, so there is no beta to show."
    },
-   "generated_at": "Oct 6, 2026 at 9:25 AM ET",
+   "generated_at": "Oct 6, 2026 at 9:30 AM ET",
    "desk_version": "Test desk",
    "account_type": "separate Alpaca paper account (simulated money)",
    "day_label": "Not trading yet",
