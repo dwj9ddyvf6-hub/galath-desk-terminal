@@ -4,20 +4,20 @@
  "desk_version": "paper-desk 1.7.3",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 5, 2026 at 8:20 PM ET",
- "generated_at_iso": "2026-10-05T20:20:04-04:00",
- "headline": "As of the last close (Oct 5), the desk is up 0.42% on the day and behind SPY by 0.40 percentage points since it started.",
+ "generated_at": "Oct 5, 2026 at 8:24 PM ET",
+ "generated_at_iso": "2026-10-05T20:24:59-04:00",
+ "headline": "As of the last close (Oct 5), the desk is up 0.43% on the day and behind SPY by 0.39 percentage points since it started.",
  "headline_scope": "last_close",
  "headline_as_of": "2026-10-05",
  "account": {
-  "equity": 101222.56,
+  "equity": 101234.53,
   "cash": 54772.79,
   "start_equity": 100000.0,
-  "long_market_value": 46449.77,
-  "day_pl": 423.07,
-  "day_pl_pct": 0.42,
-  "total_pl": 1222.56,
-  "total_pl_pct": 1.223
+  "long_market_value": 46461.74,
+  "day_pl": 435.04,
+  "day_pl_pct": 0.432,
+  "total_pl": 1234.53,
+  "total_pl_pct": 1.235
  },
  "equity_curve": [
   {
@@ -147,9 +147,9 @@
    "spy_pct": 1.806
   },
   {
-   "t": "2026-10-05T20:20",
+   "t": "2026-10-05T20:24",
    "label": "now",
-   "desk_pct": 1.223,
+   "desk_pct": 1.235,
    "spy_pct": 1.627
   }
  ],
@@ -157,7 +157,6 @@
   "slots": 206,
   "slot_usd": 1725,
   "slots_used": 22,
-  "playbook": "1.4.2-r2",
   "budget_total_usd": 125855.0,
   "committed_usd": 97229.0
  },
@@ -196,7 +195,7 @@
    "over_budget": true
   },
   {
-   "lane": "1dc",
+   "lane": "daily-cyan",
    "used": 1,
    "cap": 68,
    "label": "Daily Cyan",
@@ -207,10 +206,10 @@
    "over_budget": false
   },
   {
-   "lane": "t_1dg",
+   "lane": "lab-1d-green",
    "used": 0,
    "cap": 4,
-   "label": "Lab 1D Green trees (test)",
+   "label": "Lab 1D Green (test)",
    "kind": "1d",
    "test": true,
    "budget_usd": 920.0,
@@ -218,10 +217,10 @@
    "over_budget": false
   },
   {
-   "lane": "t_1wlab",
+   "lane": "lab-1w-cyan",
    "used": 0,
    "cap": 20,
-   "label": "Lab 1W Cyan books (test)",
+   "label": "Lab 1W Cyan (test)",
    "kind": "1w",
    "test": true,
    "budget_usd": 4600.0,
@@ -229,10 +228,10 @@
    "over_budget": false
   },
   {
-   "lane": "t_1wsw",
+   "lane": "lab-1w-swing",
    "used": 0,
    "cap": 20,
-   "label": "Lab 1W Swing covered (test)",
+   "label": "Lab 1W Swing (test)",
    "kind": "1w",
    "test": true,
    "budget_usd": 4600.0,
@@ -240,10 +239,10 @@
    "over_budget": false
   },
   {
-   "lane": "t_wk",
+   "lane": "weekly-cyan-watch",
    "used": 0,
    "cap": 20,
-   "label": "PROMISING weekly W52 (test)",
+   "label": "Weekly Cyan watch (test)",
    "kind": "1w",
    "test": true,
    "budget_usd": 4600.0,
@@ -251,10 +250,10 @@
    "over_budget": false
   },
   {
-   "lane": "t_1dgp5",
+   "lane": "1d-green-low-priced",
    "used": 0,
    "cap": 7,
-   "label": "1D Green under $5 (test)",
+   "label": "1D Green low-priced (test)",
    "kind": "1d",
    "test": true,
    "budget_usd": 1610.0,
@@ -262,10 +261,10 @@
    "over_budget": false
   },
   {
-   "lane": "t_rules_1d",
+   "lane": "lab-rules-daily",
    "used": 2,
    "cap": 10,
-   "label": "Lab rule 1D (test)",
+   "label": "Lab rules, daily (test)",
    "kind": "1d",
    "test": true,
    "budget_usd": 2300.0,
@@ -273,10 +272,10 @@
    "over_budget": false
   },
   {
-   "lane": "t_rules_1w",
+   "lane": "lab-rules-weekly",
    "used": 0,
    "cap": 20,
-   "label": "Lab rule 1W (test)",
+   "label": "Lab rules, weekly (test)",
    "kind": "1w",
    "test": true,
    "budget_usd": 4600.0,
@@ -284,10 +283,10 @@
    "over_budget": false
   },
   {
-   "lane": "1wa",
+   "lane": "1w-small-caps",
    "used": 0,
    "cap": 17,
-   "label": "1W Cyan tier A small",
+   "label": "1W Cyan small caps",
    "kind": "1w",
    "test": false,
    "budget_usd": 17250.0,
@@ -300,11 +299,8 @@
    "symbol": "ACMR",
    "name": "ACM Research, Inc. Class A Common Stock",
    "lane": "1w",
-   "signal": "cyan",
-   "unit": "1w-E14",
    "strategy": "1W Cyan",
    "test": false,
-   "plan": "no stop / time exit 52 weeks",
    "status": "queued",
    "qty": 0,
    "entry_date": null,
@@ -313,19 +309,14 @@
    "unrealized_pct": null,
    "unrealized_usd": null,
    "day_change_pct": null,
-   "stop": null,
-   "time_exit": "Oct 1, 2027 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "AXTI",
    "name": "AXT Inc Common Stock",
    "lane": "1w",
-   "signal": "cyan",
-   "unit": "1w-E14",
    "strategy": "1W Cyan",
    "test": false,
-   "plan": "no stop / time exit 52 weeks",
    "status": "queued",
    "qty": 0,
    "entry_date": null,
@@ -334,19 +325,14 @@
    "unrealized_pct": null,
    "unrealized_usd": null,
    "day_change_pct": null,
-   "stop": null,
-   "time_exit": "Oct 1, 2027 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "IOT",
    "name": "Samsara Inc.",
    "lane": "1d",
-   "signal": "green",
-   "unit": "1d-basket",
    "strategy": "1D Green",
    "test": false,
-   "plan": "no stop / time exit 40 sessions",
    "status": "queued",
    "qty": 0,
    "entry_date": null,
@@ -355,19 +341,14 @@
    "unrealized_pct": null,
    "unrealized_usd": null,
    "day_change_pct": null,
-   "stop": null,
-   "time_exit": "Nov 30, 2026 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "OCC",
    "name": "Optical Cable Corporation Common Stock",
    "lane": "1w",
-   "signal": "cyan",
-   "unit": "1w-E14",
    "strategy": "1W Cyan",
    "test": false,
-   "plan": "no stop / time exit 52 weeks",
    "status": "queued",
    "qty": 0,
    "entry_date": null,
@@ -376,19 +357,14 @@
    "unrealized_pct": null,
    "unrealized_usd": null,
    "day_change_pct": null,
-   "stop": null,
-   "time_exit": "Oct 1, 2027 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "ONTO",
    "name": "Onto Innovation Inc.",
    "lane": "1w",
-   "signal": "cyan",
-   "unit": "1w-E14",
    "strategy": "1W Cyan",
    "test": false,
-   "plan": "no stop / time exit 52 weeks",
    "status": "queued",
    "qty": 0,
    "entry_date": null,
@@ -397,19 +373,14 @@
    "unrealized_pct": null,
    "unrealized_usd": null,
    "day_change_pct": null,
-   "stop": null,
-   "time_exit": "Oct 1, 2027 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "PDFS",
    "name": "PDF Solutions, Inc. Common Stock",
    "lane": "1w",
-   "signal": "cyan",
-   "unit": "1w-E14",
    "strategy": "1W Cyan",
    "test": false,
-   "plan": "no stop / time exit 52 weeks",
    "status": "queued",
    "qty": 0,
    "entry_date": null,
@@ -418,19 +389,14 @@
    "unrealized_pct": null,
    "unrealized_usd": null,
    "day_change_pct": null,
-   "stop": null,
-   "time_exit": "Oct 1, 2027 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "PENG",
    "name": "Penguin Solutions, Inc. Common Stock",
    "lane": "1w",
-   "signal": "cyan",
-   "unit": "1w-E14",
    "strategy": "1W Cyan",
    "test": false,
-   "plan": "no stop / time exit 52 weeks",
    "status": "queued",
    "qty": 0,
    "entry_date": null,
@@ -439,19 +405,14 @@
    "unrealized_pct": null,
    "unrealized_usd": null,
    "day_change_pct": null,
-   "stop": null,
-   "time_exit": "Oct 1, 2027 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "RCL",
    "name": "Royal Caribbean Group",
    "lane": "1d",
-   "signal": "green",
-   "unit": "1d-basket",
    "strategy": "1D Green",
    "test": false,
-   "plan": "no stop / time exit 40 sessions",
    "status": "queued",
    "qty": 0,
    "entry_date": null,
@@ -460,19 +421,14 @@
    "unrealized_pct": null,
    "unrealized_usd": null,
    "day_change_pct": null,
-   "stop": null,
-   "time_exit": "Nov 30, 2026 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "SOXL",
    "name": "Direxion Daily Semiconductor Bull 3X ETF",
    "lane": "1w",
-   "signal": "cyan",
-   "unit": "1w-E14",
    "strategy": "1W Cyan",
    "test": false,
-   "plan": "no stop / time exit 52 weeks",
    "status": "queued",
    "qty": 0,
    "entry_date": null,
@@ -481,19 +437,14 @@
    "unrealized_pct": null,
    "unrealized_usd": null,
    "day_change_pct": null,
-   "stop": null,
-   "time_exit": "Oct 1, 2027 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "VIAV",
    "name": "Viavi Solutions Inc. Common Stock",
    "lane": "1w",
-   "signal": "cyan",
-   "unit": "1w-E14",
    "strategy": "1W Cyan",
    "test": false,
-   "plan": "no stop / time exit 52 weeks",
    "status": "queued",
    "qty": 0,
    "entry_date": null,
@@ -502,19 +453,14 @@
    "unrealized_pct": null,
    "unrealized_usd": null,
    "day_change_pct": null,
-   "stop": null,
-   "time_exit": "Oct 1, 2027 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "ASAN",
    "name": "Asana, Inc. Class A Common Stock",
    "lane": "1h",
-   "signal": "swing",
-   "unit": "1h-basket",
    "strategy": "1H Swing",
    "test": false,
-   "plan": "disaster stop 15% / time exit 60 bars",
    "status": "open",
    "qty": 570,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
@@ -523,19 +469,14 @@
    "unrealized_pct": 2.94,
    "unrealized_usd": 146.2,
    "day_change_pct": 4.02,
-   "stop": 7.4,
-   "time_exit": "Oct 13, 2026 at 3:30 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "CIEN",
    "name": "Ciena Corporation",
    "lane": "1h",
-   "signal": "swing",
-   "unit": "1h-basket",
    "strategy": "1H Swing",
    "test": false,
-   "plan": "disaster stop 15% / time exit 60 bars",
    "status": "open",
    "qty": 13,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
@@ -544,40 +485,30 @@
    "unrealized_pct": 7.39,
    "unrealized_usd": 349.57,
    "day_change_pct": -0.18,
-   "stop": 309.17,
-   "time_exit": "Oct 13, 2026 at 2:30 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "CRDO",
    "name": "Credo Technology Group Holding Ltd Ordinary Shares",
    "lane": "1h",
-   "signal": "swing",
-   "unit": "1h-basket",
    "strategy": "1H Swing",
    "test": false,
-   "plan": "disaster stop 15% / time exit 60 bars",
    "status": "open",
    "qty": 24,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 204.4,
-   "current_price": 212.96,
-   "unrealized_pct": 4.19,
-   "unrealized_usd": 205.44,
+   "current_price": 212.95,
+   "unrealized_pct": 4.18,
+   "unrealized_usd": 205.2,
    "day_change_pct": -2.6,
-   "stop": 173.74,
-   "time_exit": "Oct 13, 2026 at 2:30 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "MNDY",
    "name": "monday.com Ltd. Ordinary Shares",
    "lane": "1h",
-   "signal": "swing",
-   "unit": "1h-basket",
    "strategy": "1H Swing",
    "test": false,
-   "plan": "disaster stop 15% / time exit 60 bars",
    "status": "open",
    "qty": 61,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
@@ -586,19 +517,14 @@
    "unrealized_pct": 2.1,
    "unrealized_usd": 103.29,
    "day_change_pct": 4.71,
-   "stop": 68.7,
-   "time_exit": "Oct 13, 2026 at 2:30 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "OUST",
    "name": "Ouster, Inc. Common Stock",
    "lane": "1h",
-   "signal": "swing",
-   "unit": "1h-basket",
    "strategy": "1H Swing",
    "test": false,
-   "plan": "disaster stop 15% / time exit 60 bars",
    "status": "open",
    "qty": 118,
    "entry_date": "Oct 1, 2026 at 1:34 PM ET",
@@ -607,19 +533,14 @@
    "unrealized_pct": 5.21,
    "unrealized_usd": 257.96,
    "day_change_pct": -0.48,
-   "stop": 35.69,
-   "time_exit": "Oct 14, 2026 at 10:30 AM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "BLDP",
    "name": "Ballard Power Systems, Inc. Common Shares",
    "lane": "1h",
-   "signal": "swing",
-   "unit": "1h-basket",
    "strategy": "1H Swing",
    "test": false,
-   "plan": "no stop / time exit 60 bars",
    "status": "open",
    "qty": 2433,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
@@ -628,40 +549,30 @@
    "unrealized_pct": 5.83,
    "unrealized_usd": 291.96,
    "day_change_pct": 6.34,
-   "stop": null,
-   "time_exit": "Oct 14, 2026 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "IONQ",
    "name": "IonQ, Inc.",
    "lane": "1h",
-   "signal": "swing",
-   "unit": "1h-basket",
    "strategy": "1H Swing",
    "test": false,
-   "plan": "no stop / time exit 60 bars",
    "status": "open",
    "qty": 111,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 44.8,
-   "current_price": 42.95,
-   "unrealized_pct": -4.13,
-   "unrealized_usd": -205.35,
-   "day_change_pct": -1.87,
-   "stop": null,
-   "time_exit": "Oct 14, 2026 at 4:00 PM ET",
+   "current_price": 43.06,
+   "unrealized_pct": -3.88,
+   "unrealized_usd": -193.14,
+   "day_change_pct": -1.62,
    "realized_partial_usd": null
   },
   {
    "symbol": "KOPN",
    "name": "Kopin Corporation Common Stock",
    "lane": "1h",
-   "signal": "swing",
-   "unit": "1h-basket",
    "strategy": "1H Swing",
    "test": false,
-   "plan": "no stop / time exit 60 bars",
    "status": "open",
    "qty": 1041,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
@@ -670,19 +581,14 @@
    "unrealized_pct": 1.04,
    "unrealized_usd": 52.05,
    "day_change_pct": -1.22,
-   "stop": null,
-   "time_exit": "Oct 14, 2026 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "PL",
    "name": "Planet Labs PBC",
    "lane": "1h",
-   "signal": "swing",
-   "unit": "1h-basket",
    "strategy": "1H Swing",
    "test": false,
-   "plan": "no stop / time exit 60 bars",
    "status": "open",
    "qty": 286,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
@@ -691,19 +597,14 @@
    "unrealized_pct": 0.52,
    "unrealized_usd": 25.74,
    "day_change_pct": 0.23,
-   "stop": null,
-   "time_exit": "Oct 14, 2026 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "BOTZ",
    "name": "Global X Funds Global X Robotics & Artificial Intelligence ETF",
-   "lane": "t_rules_1d",
-   "signal": "x",
-   "unit": "t-rule-H21",
-   "strategy": "Lab rule (test)",
+   "lane": "lab-rules-daily",
+   "strategy": "Lab rules, daily (test)",
    "test": true,
-   "plan": "no stop / time exit 22 sessions",
    "status": "open",
    "qty": 5,
    "entry_date": "Oct 5, 2026 at 3:59 PM ET",
@@ -712,19 +613,14 @@
    "unrealized_pct": 0.11,
    "unrealized_usd": 0.2,
    "day_change_pct": 0.53,
-   "stop": null,
-   "time_exit": "Nov 3, 2026 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "IESC",
    "name": "IES Holdings, Inc. Common Stock",
-   "lane": "t_rules_1d",
-   "signal": "x",
-   "unit": "t-rule-H21",
-   "strategy": "Lab rule (test)",
+   "lane": "lab-rules-daily",
+   "strategy": "Lab rules, daily (test)",
    "test": true,
-   "plan": "no stop / time exit 22 sessions",
    "status": "open",
    "qty": 1,
    "entry_date": "Oct 5, 2026 at 3:59 PM ET",
@@ -733,19 +629,14 @@
    "unrealized_pct": -0.16,
    "unrealized_usd": -0.54,
    "day_change_pct": 0.08,
-   "stop": null,
-   "time_exit": "Nov 3, 2026 at 4:00 PM ET",
    "realized_partial_usd": null
   },
   {
    "symbol": "VLN",
    "name": "Valens Semiconductor Ltd.",
-   "lane": "1dc",
-   "signal": "x",
-   "unit": "1dc-core-micro",
-   "strategy": "Daily Cyan (micro, 0.52x)",
+   "lane": "daily-cyan",
+   "strategy": "Daily Cyan",
    "test": false,
-   "plan": "no stop / time exit 21 sessions",
    "status": "open",
    "qty": 131,
    "entry_date": "Oct 5, 2026 at 9:30 AM ET",
@@ -754,8 +645,6 @@
    "unrealized_pct": -1.57,
    "unrealized_usd": -3.93,
    "day_change_pct": -1.57,
-   "stop": null,
-   "time_exit": "Nov 2, 2026 at 4:00 PM ET",
    "realized_partial_usd": null
   }
  ],
@@ -771,8 +660,6 @@
  "breakdown": [
   {
    "lane": "1w",
-   "signal": "cyan",
-   "unit": "1w-E14",
    "strategy": "1W Cyan",
    "test": false,
    "open": 8,
@@ -785,8 +672,6 @@
   },
   {
    "lane": "1d",
-   "signal": "green",
-   "unit": "1d-basket",
    "strategy": "1D Green",
    "test": false,
    "open": 2,
@@ -799,23 +684,19 @@
   },
   {
    "lane": "1h",
-   "signal": "swing",
-   "unit": "1h-basket",
    "strategy": "1H Swing",
    "test": false,
    "open": 9,
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 1226.86,
-   "avg_return_pct": 2.79,
+   "unrealized_usd": 1238.83,
+   "avg_return_pct": 2.81,
    "win_rate_closed_pct": null
   },
   {
-   "lane": "t_rules_1d",
-   "signal": "x",
-   "unit": "t-rule-H21",
-   "strategy": "Lab rule (test)",
+   "lane": "lab-rules-daily",
+   "strategy": "Lab rules, daily (test)",
    "test": true,
    "open": 2,
    "closed": 0,
@@ -826,10 +707,8 @@
    "win_rate_closed_pct": null
   },
   {
-   "lane": "1dc",
-   "signal": "x",
-   "unit": "1dc-core-micro",
-   "strategy": "Daily Cyan (micro, 0.52x)",
+   "lane": "daily-cyan",
+   "strategy": "Daily Cyan",
    "test": false,
    "open": 1,
    "closed": 0,
@@ -860,16 +739,254 @@
   "ledger_records": 395,
   "passes_today": 12
  },
- "skips_today": {
-  "stale": 48,
-  "log only": 9,
-  "superseded by higher-priority fire FCEL": 2,
-  "superseded by higher-priority fire HYLN": 1,
-  "insufficient_cash": 1,
-  "symbol already held or pending (one position per symbol)": 1,
-  "superseded by higher-priority fire VLN": 1,
-  "superseded by higher-priority fire WS": 1,
-  "lane_budget": 6
+ "skips_today": [
+  {
+   "symbol": "ACMR",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "AXTI",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "BE",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "COHR",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "CRDO",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "CTSH",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "GO",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "HSTM",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "IBRX",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "LWLG",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "NPK",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "NVTS",
+   "reason": "filter"
+  },
+  {
+   "symbol": "OPTX",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "RXRX",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "VIR",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "ZETA",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "ATEN",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "CCL",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "CIEN",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "CLOU",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "CON",
+   "reason": "filter"
+  },
+  {
+   "symbol": "CSCO",
+   "reason": "filter"
+  },
+  {
+   "symbol": "DPRO",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "EXEL",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "EXPO",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "IESC",
+   "reason": "filter"
+  },
+  {
+   "symbol": "INOD",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "IPGP",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "KMT",
+   "reason": "filter"
+  },
+  {
+   "symbol": "KMX",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "MCK",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "NOK",
+   "reason": "filter"
+  },
+  {
+   "symbol": "PLUS",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "POWL",
+   "reason": "filter"
+  },
+  {
+   "symbol": "RKLB",
+   "reason": "filter"
+  },
+  {
+   "symbol": "STM",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "TECK",
+   "reason": "filter"
+  },
+  {
+   "symbol": "TENB",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "URBN",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "CAKE",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "PARR",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "RVMD",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "UMAC",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "FCEL",
+   "reason": "already held"
+  },
+  {
+   "symbol": "HYLN",
+   "reason": "already held"
+  },
+  {
+   "symbol": "IESC",
+   "reason": "no cash"
+  },
+  {
+   "symbol": "OUST",
+   "reason": "already held"
+  },
+  {
+   "symbol": "VLN",
+   "reason": "already held"
+  },
+  {
+   "symbol": "WS",
+   "reason": "already held"
+  },
+  {
+   "symbol": "CRML",
+   "reason": "budget full"
+  },
+  {
+   "symbol": "DNN",
+   "reason": "budget full"
+  },
+  {
+   "symbol": "TMDX",
+   "reason": "budget full"
+  },
+  {
+   "symbol": "TEM",
+   "reason": "budget full"
+  },
+  {
+   "symbol": "CRML",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "TMDX",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "TEM",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "DNN",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "XNCR",
+   "reason": "budget full"
+  },
+  {
+   "symbol": "XNCR",
+   "reason": "timing window"
+  },
+  {
+   "symbol": "FCEL",
+   "reason": "budget full"
+  }
+ ],
+ "skips_today_counts": {
+  "timing window": 48,
+  "filter": 9,
+  "already held": 6,
+  "no cash": 1,
+  "budget full": 6
  },
  "track_record": {
   "period_start": "2026-10-01",
@@ -879,10 +996,10 @@
   "win_rate_pct": null,
   "avg_hold_days": null,
   "avg_return_pct": null,
-  "total_pl_usd": 1222.56,
-  "total_pl_pct": 1.223,
+  "total_pl_usd": 1234.53,
+  "total_pl_pct": 1.235,
   "realized_pl_usd": 0.0,
-  "unrealized_pl_usd": 1222.56,
+  "unrealized_pl_usd": 1234.53,
   "max_drawdown": {
    "pct": -0.59,
    "usd": -596.66,
@@ -901,17 +1018,15 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": 2.79,
+   "holdings_avg_unrealized_pct": 2.81,
    "small_sample": true,
    "research": {
     "win_rate_pct": 47.5,
     "avg_return_pct": 0.47,
-    "trades": 3705,
-    "hold_text": "holds up to 60 hourly bars",
-    "source": "swing_basket/next_pass_report.md (a) 1H rolling walk-forward stitched; (d) 1h basket no-stop/60-bar held-out +0.46%"
+    "trades": 3705
    },
-   "research_text": "Research expected about 48% winners and +0.47% per trade (out-of-sample backtest, 3,705 trades); the strategy holds up to 60 hourly bars.",
-   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +2.79% on average (unrealized).",
+   "research_text": "Research expected about 48% winners and +0.47% per trade (out-of-sample backtest, 3,705 trades).",
+   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +2.81% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
   {
@@ -928,11 +1043,9 @@
    "research": {
     "win_rate_pct": 53.7,
     "avg_return_pct": 3.71,
-    "trades": 849,
-    "hold_text": "holds up to 40 trading days",
-    "source": "swing_basket/next_pass_report.md (a) 1D rolling walk-forward stitched (7.5 years)"
+    "trades": 849
    },
-   "research_text": "Research expected about 54% winners and +3.71% per trade (out-of-sample backtest, 849 trades); the strategy holds up to 40 trading days.",
+   "research_text": "Research expected about 54% winners and +3.71% per trade (out-of-sample backtest, 849 trades).",
    "live_text": "Live so far: no closed trades yet.",
    "caution": "Too early to compare: no closed trades yet."
   },
@@ -950,11 +1063,9 @@
    "research": {
     "win_rate_pct": 57.0,
     "avg_return_pct": 23.2,
-    "trades": 93,
-    "hold_text": "holds about 52 weeks",
-    "source": "swing_basket/next_pass_report.md (a) 1W held-out diagnostics, kind=cyan"
+    "trades": 93
    },
-   "research_text": "Research expected about 57% winners and +23.2% per trade (out-of-sample backtest, 93 trades); the strategy holds about 52 weeks.",
+   "research_text": "Research expected about 57% winners and +23.2% per trade (out-of-sample backtest, 93 trades).",
    "live_text": "Live so far: no closed trades yet.",
    "caution": "Too early to compare: no closed trades yet."
   },
@@ -969,10 +1080,8 @@
    "avg_hold_days": null,
    "holdings_avg_unrealized_pct": -1.57,
    "small_sample": true,
-   "research": {
-    "source": "DESK_INTEGRATION/EDGE_INVENTORY.csv DC-SMALL-SEARCH (Sharpe 1.34, CAGR 42.2%, maxDD -36.3%, 21 sessions)"
-   },
-   "research_text": "Per-trade backtest figure not on file yet. Research tested the whole book rather than single trades: about 42% a year with a worst drop of 36% in the backtest; it holds about 21 trading days.",
+   "research": null,
+   "research_text": "Per-trade backtest figure not on file yet. Research tested the whole book rather than single trades: about 42% a year with a worst drop of 36% in the backtest.",
    "live_text": "Live so far: no closed trades yet. 1 holding open now, -1.57% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
@@ -1039,16 +1148,6 @@
     "unrealized_pct": 5.21
    },
    {
-    "symbol": "CRDO",
-    "name": "Credo Technology Group Holding Ltd Ordinary Shares",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5111.04,
-    "unrealized_usd": 205.44,
-    "unrealized_pct": 4.19
-   },
-   {
     "symbol": "ASAN",
     "name": "Asana, Inc. Class A Common Stock",
     "strategy": "1H Swing",
@@ -1057,6 +1156,16 @@
     "value_usd": 5110.9,
     "unrealized_usd": 146.21,
     "unrealized_pct": 2.94
+   },
+   {
+    "symbol": "CRDO",
+    "name": "Credo Technology Group Holding Ltd Ordinary Shares",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5110.8,
+    "unrealized_usd": 205.2,
+    "unrealized_pct": 4.18
    },
    {
     "symbol": "CIEN",
@@ -1104,9 +1213,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4767.45,
-    "unrealized_usd": -205.35,
-    "unrealized_pct": -4.13
+    "value_usd": 4779.66,
+    "unrealized_usd": -193.14,
+    "unrealized_pct": -3.88
    },
    {
     "symbol": "IESC",
@@ -1140,7 +1249,7 @@
    }
   ],
   "count": 12,
-  "total_value_usd": 46449.77,
+  "total_value_usd": 46461.74,
   "source": "broker paper account positions (marks)",
   "unavailable": null
  },

@@ -218,7 +218,7 @@ td.r,th.r{text-align:right}
   <section id="signals" class="card">
     <p class="kicker">Per strategy</p>
     <h2>Breakdown by strategy</h2>
-    <p class="sub">Grouped by strategy, lane and the unit that was traded. TEST rows are forward-test lanes with small budgets.</p>
+    <p class="sub">Grouped by strategy and lane. TEST rows are forward-test lanes with small budgets.</p>
     <div class="scroll"><table id="bdt"></table></div>
   </section>
 
@@ -241,7 +241,7 @@ const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;"
 const usd=(v,d=2)=>v==null?"—":(v<0?"-$":"$")+Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
 const sgn=(v,d=2,suf="%")=>v==null?"—":(v>0?"+":v<0?"-":"")+Math.abs(v).toFixed(d)+suf;
 const cls=v=>v==null||v===0?"flat":v>0?"pos":"neg";
-const laneName=l=>({"1h":"1H","1d":"1D","1w":"1W","1dc":"Daily Cyan"}[l]||String(l).replace(/^t_/,"Test ").toUpperCase().replace("TEST ","Test "));
+const laneName=l=>({"1h":"1H","1d":"1D","1w":"1W"}[l]||String(l).replace(/-/g," "));
 const laneLabel=l=>{const x=((D&&D.lanes)||[]).find(z=>z.lane===l);return x&&x.label?x.label:laneName(l);};
 const tbadge=t=>t?`<span class="t" style="color:#f2d68a;border-color:#f2d68a">TEST</span>`:"";
 let D=null, chartMode="both", laneFilter="all";
@@ -273,18 +273,20 @@ function render(){
   const F=P.filter(p=>laneFilter==="all"||p.lane===laneFilter);
   $("poslist").innerHTML=F.length?F.map(p=>`<div class="it ${p.unrealized_pct>0?"up":p.unrealized_pct<0?"down":""}">
     <div><div class="tkr">${esc(p.symbol)}</div><div class="nm">${esc(p.name||"")}</div>
-      <div class="tags"><span class="t">${esc(p.strategy||laneName(p.lane))}</span>${tbadge(p.test)}<span class="t" style="color:var(--muted)">${esc(p.unit||"")}</span></div>
-      <div class="det">Entry ${usd(p.entry_price)} · ${esc(p.entry_date||"")}<br>Stop ${p.stop==null?"none":usd(p.stop)} · ${p.qty} sh · time exit ${esc(p.time_exit||"—")}</div></div>
+      <div class="tags"><span class="t">${esc(p.strategy||laneName(p.lane))}</span>${tbadge(p.test)}${p.status&&p.status!=="open"?`<span class="t" style="color:var(--muted)">${esc(p.status.replace(/_/g," "))}</span>`:""}</div>
+      <div class="det">Entry ${usd(p.entry_price)} · ${esc(p.entry_date||"not filled yet")}<br>${p.qty} sh</div></div>
     <div class="right"><div class="px">${usd(p.current_price)}</div><div class="chg ${cls(p.unrealized_pct)}">${sgn(p.unrealized_pct)}</div>
       <div class="small">${usd(p.unrealized_usd)} unrealized</div>${p.day_change_pct!=null?`<div class="small">today ${sgn(p.day_change_pct)}</div>`:""}</div></div>`).join(""):`<div class="empty">No open positions.</div>`;
   // lanes
   const L=d.lanes||[];
-  $("lanesub").textContent=`Each lane has a dollar budget for new entries (playbook ${sz.playbook||"—"}): ${usd(sz.committed_usd,0)} committed of ${usd(sz.budget_total_usd,0)} budgeted. Nothing is sold to make room; an over-budget lane takes no new entries until positions close.`;
+  $("lanesub").textContent=`Each lane has a dollar budget for new entries: ${usd(sz.committed_usd,0)} committed of ${usd(sz.budget_total_usd,0)} budgeted. Nothing is sold to make room; an over-budget lane takes no new entries until positions close.`;
   const lrow=l=>{const has=l.budget_usd!=null,pct=has?(l.budget_usd?Math.min(100,100*l.committed_usd/l.budget_usd):(l.committed_usd>0?100:0)):(l.cap?Math.min(100,100*l.used/l.cap):0),full=has?l.committed_usd>=l.budget_usd:l.used>=l.cap;
     return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(l.test)} <span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span></span><span>${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used} pos${l.over_budget?" · over budget":full?" · full":""}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
   $("lanelist").innerHTML=L.filter(l=>!l.test).map(lrow).join("")+(L.some(l=>l.test)?`<div class="meta" style="margin:12px 0 6px"><b>TEST lanes</b> · small real budgets; a lane is promoted on its live results</div>`+L.filter(l=>l.test).map(lrow).join(""):"");
-  const sk=d.skips_today||{}, skt=Object.entries(sk).map(([k,v])=>`${v} ${k.replace(/_/g," ")}`).join(", ");
-  if(skt) $("lanelist").innerHTML+=`<div class="meta" style="margin-top:10px">Skipped signals today: ${esc(skt)}.</div>`;
+  const sk=Array.isArray(d.skips_today)?d.skips_today:[], byR={};
+  sk.forEach(x=>{(byR[x.reason]=byR[x.reason]||[]).push(x.symbol);});
+  const skt=Object.entries(byR).map(([r,ss])=>`${r} (${(d.skips_today_counts||{})[r]??ss.length}): ${[...new Set(ss)].join(", ")}`).join(" · ");
+  if(skt) $("lanelist").innerHTML+=`<div class="meta" style="margin-top:10px">Skipped signals today — ${esc(skt)}.</div>`;
   // pass
   const lp=d.last_pass;
   if(lp){const ok=lp.completed&&lp.ledger_verify==="OK"&&lp.ledger_chain_ok&&(!lp.scheduler_exit||lp.scheduler_exit.code===0);
@@ -299,13 +301,13 @@ function render(){
   const C=d.closed_trades||[];
   $("tradesub").textContent=C.length?`${C.length} closed · realized ${usd(st.realized_usd)} · win rate ${wr}`:"No trades have closed yet. Win rate starts counting at the first exit.";
   $("closedlist").innerHTML=C.length?C.slice().reverse().map(c=>`<div class="it ${c.realized_pct>0?"up":"down"}"><div><div class="tkr">${esc(c.symbol)}</div>
-    <div class="tags"><span class="t">${esc(c.strategy||laneName(c.lane))}</span>${tbadge(c.test)}<span class="t" style="color:var(--muted)">${esc(c.unit||"")}</span></div>
+    <div class="tags"><span class="t">${esc(c.strategy||laneName(c.lane))}</span>${tbadge(c.test)}</div>
     <div class="det">${usd(c.entry_price)} → ${usd(c.exit_price)} · ${c.qty} sh<br>${esc(c.entry_date||"")} → ${esc(c.closed_date||"")}</div></div>
     <div class="right"><div class="chg ${cls(c.realized_pct)}" style="font-size:20px">${sgn(c.realized_pct)}</div><div class="small">${usd(c.realized_usd)}</div></div></div>`).join(""):"";
   // breakdown
   const B=d.breakdown||[];
-  $("bdt").innerHTML=`<tr><th>Strategy</th><th>Lane</th><th>Unit</th><th class="r">Open</th><th class="r">Closed</th><th class="r">Win rate</th><th class="r">Avg ret</th><th class="r">Realized</th><th class="r">Unrealized</th></tr>`+
-    (B.length?B.slice().sort((a,b)=>(a.test-b.test)||String(a.strategy).localeCompare(String(b.strategy))).map(b=>`<tr><td><b>${esc(b.strategy||"")}</b> ${tbadge(b.test)}</td><td>${esc(laneName(b.lane))}</td><td>${esc(b.unit)}</td><td class="r">${b.open}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="9" class="empty">No trades yet.</td></tr>`);
+  $("bdt").innerHTML=`<tr><th>Strategy</th><th>Lane</th><th class="r">Open</th><th class="r">Closed</th><th class="r">Win rate</th><th class="r">Avg ret</th><th class="r">Realized</th><th class="r">Unrealized</th></tr>`+
+    (B.length?B.slice().sort((a,b)=>(a.test-b.test)||String(a.strategy).localeCompare(String(b.strategy))).map(b=>`<tr><td><b>${esc(b.strategy||"")}</b> ${tbadge(b.test)}</td><td>${esc(laneLabel(b.lane))}</td><td class="r">${b.open}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="8" class="empty">No trades yet.</td></tr>`);
   [renderRecord,renderMood,drawHeat,renderLog,renderCards].forEach(f=>{try{f();}catch(e){console.error(f.name,e);}});   // new public panels never break the rest of the page
   $("disc").innerHTML=`<b>Paper trading, not investment advice.</b> ${esc(d.disclaimer||"")}`;
   $("foot").textContent=`Data updated ${d.generated_at||""} · page refreshes every 60 seconds`;
@@ -356,7 +358,7 @@ function renderRecord(){
 }
 function renderMood(){
   const m=D.market_mood; if(!m){$("moodgrid").innerHTML=`<div class="empty">Market mood not available yet.</div>`;return;}
-  const tone=l=>({calm:"good",normal:"good",elevated:"warn","high fear":"bad",strong:"good",mixed:"warn",weak:"bad"}[l]||"");
+  const tone=l=>({calm:"good",normal:"good",elevated:"warn","high fear":"bad",strong:"good",healthy:"good",soft:"warn",mixed:"warn",weak:"bad"}[l]||"");
   const asOf=s=>{if(!s)return"";const d=new Date(s+"T12:00:00");return isNaN(d)?esc(s):d.toLocaleDateString("en-US",{month:"short",day:"numeric"});};
   const tile=(l,v,badge,s,p,soon)=>`<div class="stat${soon?" soon":""}"><div class="l">${l}</div><div class="v">${v}${badge}</div>${s?`<div class="s flat">${s}</div>`:""}<div class="p">${p}</div></div>`;
   const v=m.vix,b=m.breadth;
@@ -414,7 +416,7 @@ function renderCards(){
     <tr><td>Closed trades</td><td class="r">${k.closed_trades}</td><td class="r">${r.trades!=null?r.trades.toLocaleString("en-US"):"—"}</td></tr>
     <tr><td>Win rate</td><td class="r">${pctTxt(k.win_rate_pct,0)}</td><td class="r">${pctTxt(r.win_rate_pct,0)}</td></tr>
     <tr><td>Avg return / trade</td><td class="r ${cls(k.avg_return_pct)}">${sgn(k.avg_return_pct)}</td><td class="r ${cls(r.avg_return_pct)}">${sgn(r.avg_return_pct)}</td></tr>
-    <tr><td>Avg hold</td><td class="r">${days(k.avg_hold_days)}</td><td class="r">${r.hold_text?esc(r.hold_text.replace(/^holds /,"")):"—"}</td></tr></table>
+    <tr><td>Avg hold</td><td class="r">${days(k.avg_hold_days)}</td><td class="r">—</td></tr></table>
     <p>${esc(k.research_text||"")}</p><p><b>${esc(k.live_text||"")}</b></p>${k.caution?`<div class="caution">${esc(k.caution)}</div>`:""}</div>`;}).join(""):`<div class="empty">No strategies to show yet.</div>`;
 }
 
