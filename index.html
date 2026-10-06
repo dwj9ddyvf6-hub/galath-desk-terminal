@@ -72,7 +72,10 @@ table{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:
 th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:8px 6px;border-bottom:1px solid var(--line)}
 td{padding:9px 6px;border-bottom:1px solid #e6efeb}
 td.r,th.r{text-align:right}
-.scroll{overflow-x:auto}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.swipe{display:none;margin:6px 0 0;font-size:12px}.swipe.on{display:block}
+td.empty{white-space:normal}
+@media(max-width:600px){table{font-size:12.5px}th{padding:7px 4px;letter-spacing:.03em}td{padding:8px 4px}}
 .empty{color:var(--muted);font-size:14px;padding:10px 4px}
 .status{display:inline-flex;align-items:center;gap:8px;font-weight:800;border-radius:999px;padding:5px 12px;font-size:13px}
 .status.ok{background:#e1f3ea;color:var(--green)}.status.bad{background:#f8e3e1;color:var(--red)}.status.warn{background:#fbf0d9;color:#97660e}
@@ -85,7 +88,7 @@ td.r,th.r{text-align:right}
 .nav a{color:#c9d6dd;text-decoration:none;font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 10px;border-radius:14px;min-width:58px}
 .nav a.on{background:#1d5a5a;color:#fff;box-shadow:inset 0 0 0 1px #2f7c74}
 .nav svg{width:20px;height:20px}
-/* 2026-10-05 public panels: track record, market mood, holdings heatmap, strategy scorecards, closed trades log */
+
 .trk{margin-top:16px}
 .mood{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
 @media(min-width:720px){.mood{grid-template-columns:repeat(3,1fr)}}
@@ -130,6 +133,7 @@ td.r,th.r{text-align:right}
 .d2stage.live{background:#e1f3ea;color:var(--green);border-color:#bfe3cf}
 .desk2 .chip{border-color:#efdcb0;cursor:default}
 background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
+details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:var(--muted);padding:6px 0}
 </style>
 </head>
 <body>
@@ -238,7 +242,7 @@ background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;pad
     <p class="kicker">Track record</p>
     <h2>Closed trades log</h2>
     <p class="sub">Every trade appears here only after it is fully closed. Hold is in calendar days.</p>
-    <div class="scroll"><table id="logt"></table></div>
+    <div class="scroll"><table id="logt"></table></div><p class="swipe meta">Swipe sideways to see all columns →</p>
   </section>
 
   <section id="scorecards" class="card">
@@ -251,13 +255,13 @@ background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;pad
   <section id="signals" class="card">
     <p class="kicker">Per strategy</p>
     <h2>Breakdown by strategy</h2>
-    <p class="sub">Grouped by strategy and lane. Open = filled positions; Queued = entries not filled yet.</p>
-    <div class="scroll"><table id="bdt"></table></div>
+    <p class="sub">Grouped by strategy and lane. Open = filled positions; Queued = entries not filled yet. Unrealized uses the latest broker marks (after-hours once the session is over).</p>
+    <div class="scroll"><table id="bdt"></table></div><p class="swipe meta">Swipe sideways to see all columns →</p>
   </section>
-  </div><!-- /tab-main -->
+  </div>
 
   <div id="tab-test" role="tabpanel" aria-labelledby="tabbtn-test" hidden>
-  <!-- 2026-10-05 UI parity: same sections, classes and render functions as the Main tab (ids prefixed t2); data = second_desk.panels -->
+  
   <section id="desk2">
     <p class="kicker">Paper trading · simulated money · <span class="d2badge">TEST</span> <span class="d2stage" id="d2stage"></span></p>
     <h1 id="d2title">Test desk</h1>
@@ -349,7 +353,7 @@ background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;pad
     <p class="kicker">Track record</p>
     <h2>Closed trades log</h2>
     <p class="sub">Every trade appears here only after it is fully closed. Hold is in calendar days.</p>
-    <div class="scroll"><table id="t2logt"></table></div>
+    <div class="scroll"><table id="t2logt"></table></div><p class="swipe meta">Swipe sideways to see all columns →</p>
   </section>
 
   <section id="t2scorecards" class="card">
@@ -363,9 +367,9 @@ background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;pad
     <p class="kicker">Per strategy</p>
     <h2>Breakdown by strategy</h2>
     <p class="sub">Grouped by strategy and lane. Open = filled positions; Queued = entries not filled yet.</p>
-    <div class="scroll"><table id="t2bdt"></table></div>
+    <div class="scroll"><table id="t2bdt"></table></div><p class="swipe meta">Swipe sideways to see all columns →</p>
   </section>
-  </div><!-- /tab-test -->
+  </div>
   <div class="disc" id="disc"><b>Paper trading, not investment advice.</b> Simulated money on a broker paper account. Not a recommendation to buy or sell anything.</div>
   <p class="meta" style="text-align:center;margin-top:14px" id="foot"></p>
 </main>
@@ -389,7 +393,6 @@ const laneName=l=>({"1h":"1H","1d":"1D","1w":"1W","other":"Other"}[l]||String(l)
 const laneLabel=l=>{const x=((D&&D.lanes)||[]).find(z=>z.lane===l);return x&&x.label?x.label:laneName(l);};
 const tbadge=t=>t?`<span class="t" style="color:#f2d68a;border-color:#f2d68a">TEST</span>`:"";
 let D=null;
-// 2026-10-05 UI parity: one set of render functions, parameterized by desk view. VM = Main (data root), VT = Test desk (second_desk.panels).
 const VM={px:"",main:true,get d(){return D||{};},mode:"both",lf:"all",heat:{tiles:[],sel:null}};
 const VT={px:"t2",main:false,get d(){return (D&&D.second_desk&&D.second_desk.panels)||{};},mode:"both",lf:"all",heat:{tiles:[],sel:null}};
 const $v=(V,id)=>$(V.px+id);
@@ -398,41 +401,45 @@ const laneLabelV=(V,l)=>V.main?laneLabel(l):String(l);
 
 function render(){
   const d=D;
-  // 2026-10-05 TRUE MIRROR: Main and Test desk tabs draw the SAME panel set, in the same order, with the same functions (VM / VT)
   [renderOverview,drawChart,renderRecord,renderBeta,renderMood,renderPositions,drawHeat,renderLanes,renderPass,renderClosed,renderLog,renderCards,renderBreakdown]
-    .forEach(f=>{try{f(VM);}catch(e){console.error(f.name,e);}});   // a panel never breaks the rest of the page
+    .forEach(f=>{try{f(VM);}catch(e){console.error(f.name,e);}});
   try{renderDesk2();}catch(e){console.error("renderDesk2",e);}
   $("disc").innerHTML=`<b>Paper trading, not investment advice.</b> ${esc(d.disclaimer||"")}`;
   $("foot").textContent=`Data updated ${d.generated_at||""} · page refreshes every 60 seconds`;
-  freshness();
+  swipeHints(); freshness();
 }
 function renderOverview(V){
   const d=V.d, a=d.account||{};
-  $v(V,"updated").textContent=d.generated_at||"";
   $v(V,"headline").textContent=d.headline||"";
-  const lastClose=d.headline_scope==="last_close";   // pre-open / after the close: the day figures are the last session's
-  $v(V,"daylabel").textContent=d.day_label||(lastClose?"As of last close":"Today");
-  $v(V,"headmeta").textContent=d.headmeta||`Equity ${usd(a.equity)} vs ${usd(a.start_equity,0)} start · ${d.desk_version||""} · ${d.account_type||""}`;
+  const lastClose=d.headline_scope==="last_close";
   const st=d.stats||{}, sz=d.sizing||{}, hb=d.headline_basis||null;
   const closeLbl=hb&&hb.as_of?new Date(hb.as_of+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):"last";
+  const cb=lastClose&&hb&&hb.desk_close_equity!=null, eqB=cb?hb.desk_close_equity:a.equity;
+  const tAs=d.generated_at_iso?new Date(d.generated_at_iso).toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit",timeZone:"America/New_York"})+" ET":"";
+  $v(V,"updated").textContent=(V.main&&tAs)?`Data as of ${tAs} · ${cb?`prices from ${closeLbl} close`:lastClose?"latest marks":"live marks"}`:(d.generated_at||"");
+  $v(V,"daylabel").textContent=d.day_label||(lastClose?(hb&&hb.as_of?`Last close (${closeLbl})`:"Last close"):"Today");
+  $v(V,"headmeta").textContent=d.headmeta||`Equity ${usd(eqB)} vs ${usd(a.start_equity,0)} start · ${d.desk_version||""}${d.rules_version?` · rules ${d.rules_version}`:""} · ${d.account_type||""}`;
   const wr=st.win_rate_pct==null?"—":st.win_rate_pct.toFixed(0)+"%";
   $v(V,"stats").innerHTML=statHTML([
-    ["Equity",usd(a.equity),"",""],
-    ["Cash",usd(a.cash),a.equity?`${(100*a.cash/a.equity).toFixed(0)}% of equity`:"","flat"],
+    cb?[`Equity (${closeLbl} close)`,usd(hb.desk_close_equity),a.equity!=null?`after-hours mark ${usd(a.equity)}, not used`:"","flat"]:["Equity",usd(a.equity),"",""],
+    ["Cash",usd(a.cash),eqB?`${(100*a.cash/eqB).toFixed(0)}% of equity`:"","flat"],
     (lastClose&&hb)?[`Day P&L (${closeLbl} close)`,usd(hb.desk_day_usd),sgn(hb.desk_day_pct),cls(hb.desk_day_usd)]:[lastClose?"Day P&L (latest marks)":"Day P&L",usd(a.day_pl),sgn(a.day_pl_pct),cls(a.day_pl)],
-    ["Total P&L",usd(a.total_pl),sgn(a.total_pl_pct),cls(a.total_pl)],
+    cb?[`Total P&L (${closeLbl} close)`,usd(hb.desk_close_equity-a.start_equity),sgn(hb.desk_total_pct),cls(hb.desk_close_equity-a.start_equity)]:["Total P&L",usd(a.total_pl),sgn(a.total_pl_pct),cls(a.total_pl)],
     ["Win rate",wr,st.closed?`${st.wins} of ${st.closed} closed`:`no closed trades yet · ${st.open_in_profit||0}/${st.open||0} open in profit`,"flat"],
-    sz.capacity_text?["Capacity",sz.capacity_usd!=null?`about ${usd(sz.capacity_usd/1000,0)}k`:"—",`set by buying power · ${sz.capacity_basis==="live"?"as of "+esc(sz.capacity_as_of||""):"staged"}`,"flat"]   // Test desk (CoS 22:28): no slot / budget totals
-      :["Slots used",`${sz.slots_used??"—"} / ${sz.slots??"—"}`,`${usd(sz.slot_usd,0)} per slot`,"flat"],
+    sz.capacity_text?["Capacity",sz.capacity_usd!=null?`about ${usd(sz.capacity_usd/1000,0)}k`:"—",`set by buying power · ${sz.capacity_basis==="live"?"as of "+esc(sz.capacity_as_of||""):"staged"}`,"flat"]
+      :["Holdings",`${sz.holdings??"—"} held · ${sz.queued??"—"} queued`,sz.committed_usd!=null?`${usd(sz.committed_usd,0)} committed${eqB?` · ${(100*sz.committed_usd/eqB).toFixed(0)}% of equity`:""}`:"","flat"],
   ]);
 }
 function renderLanes(V){
   const d=V.d, sz=d.sizing||{}, L=d.lanes||[];
-  $v(V,"lanesub").textContent=sz.capacity_text?`${sz.capacity_text}. Each switched-on lane has its own dollar budget for new entries and its own row; nothing is sold to make room.`:L.length?`Each lane has a dollar budget for new entries: ${usd(sz.committed_usd,0)} committed of ${usd(sz.budget_total_usd,0)} budgeted. Nothing is sold to make room; an over-budget lane takes no new entries until positions close.`:"";
-  const lrow=l=>{const has=l.budget_usd!=null,pct=has?(l.budget_usd?Math.min(100,100*l.committed_usd/l.budget_usd):(l.committed_usd>0?100:0)):(l.cap?Math.min(100,100*l.used/l.cap):0),full=has?l.committed_usd>=l.budget_usd:l.used>=l.cap;
-    return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(l.test)} ${l.kind?`<span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span>`:""}</span><span>${l.state_text?esc(l.state_text):`${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used-(l.queued||0)} open${l.queued?` · ${l.queued} queued`:""}${l.active===false?" · no new entries":l.over_budget?" · over budget":full?" · full":""}`}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
-  $v(V,"lanelist").innerHTML=L.filter(l=>!l.test).map(lrow).join("")||`<div class="empty">No lane budgets on file yet.</div>`;
-  if(sz.lanes_total_budget_usd!=null) $v(V,"lanelist").innerHTML+=`<div class="lane" style="border-top:1px solid var(--line,#2a2f3d);padding-top:8px"><div class="top"><span><b>Total</b> <span class="meta">(equals capacity)</span></span><span>${usd(sz.lanes_total_used_usd,0)} of ${usd(sz.lanes_total_budget_usd,0)}</span></div></div>`;   // Test desk 1.0.4+: lane budgets add up to capacity   // 2026-10-05 lane delete: the main desk has no test lanes
+  $v(V,"lanesub").textContent=sz.capacity_text?`${sz.capacity_text}. Each switched-on lane has its own dollar budget for new entries and its own row; nothing is sold to make room.`:L.length?`Each lane has a dollar budget for new fires. Committed ${usd(sz.committed_usd,0)} (held ${usd(sz.held_usd,0)} at cost + queued ${usd(sz.queued_usd,0)} at requested size) against ${usd(sz.budget_total_usd,0)} budgeted. Queued orders still execute, even in a lane that is now over budget or closed to new fires; an over-budget lane takes no new fires until positions close. Nothing is sold to make room.`:"";
+  const lrow=l=>{if(l.legacy) return `<div class="lane"><div class="top"><span>${esc(l.label)}, being wound down</span><span>${l.used-(l.queued||0)} held · ${usd(l.committed_usd,0)} at cost · no new entries</span></div></div>`;
+    if(l.closed_to_new) return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${l.kind?`<span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span>`:""}</span><span>${usd(l.committed_usd,0)} committed${l.used-(l.queued||0)?` · ${l.used-(l.queued||0)} open`:""} · closed to new fires · ${l.queued||0} queued order${l.queued===1?"":"s"} pending</span></div></div>`;
+    const has=l.budget_usd!=null,pct=has?(l.budget_usd?Math.min(100,100*l.committed_usd/l.budget_usd):(l.committed_usd>0?100:0)):(l.cap?Math.min(100,100*l.used/l.cap):0),full=has?l.committed_usd>=l.budget_usd:l.used>=l.cap;
+    return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(V.main&&l.test)} ${l.kind?`<span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span>`:""}</span><span>${l.superseded!=null?`${l.superseded} to a sibling lane · `:""}${l.state_text?(l.active?`${/budget pending/.test(l.state_text)?"":`${usd(l.committed_usd,0)} used · `}${l.used-(l.queued||0)} open · ${l.feed_note?esc(l.feed_note)+" · ":""}${esc(l.state_text)}`:esc(l.state_text)):`${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used-(l.queued||0)} open${l.queued?` · ${l.queued} queued`:""}${l.active===false?" · no new entries":l.over_budget?" · over budget":full?" · full":""}`}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
+  const LV=V.main?L.filter(l=>!l.test):L, off=V.main?[]:LV.filter(l=>!l.active&&!l.via_cells), on=V.main?LV:LV.filter(l=>l.active||l.via_cells);
+  $v(V,"lanelist").innerHTML=(on.map(lrow).join("")+(off.length?`<details class="lanegroup"><summary>Not switched on (${off.length})</summary>${off.map(lrow).join("")}</details>`:""))||`<div class="empty">No lane budgets on file yet.</div>`;
+  if(sz.lanes_total_budget_usd!=null) $v(V,"lanelist").innerHTML+=`<div class="lane" style="border-top:1px solid var(--line,#2a2f3d);padding-top:8px"><div class="top"><span><b>Total</b> <span class="meta">(equals capacity)</span></span><span>${usd(sz.lanes_total_used_usd,0)} of ${usd(sz.lanes_total_budget_usd,0)}</span></div></div>`;
   const sk=Array.isArray(d.skips_today)?d.skips_today:[], byR={};
   sk.forEach(x=>{(byR[x.reason]=byR[x.reason]||[]).push(x.symbol);});
   const skt=Object.entries(byR).map(([r,ss])=>`${r} (${new Set(ss).size}): ${[...new Set(ss)].join(", ")}`).join(" · ");
@@ -443,14 +450,15 @@ function renderClosed(V){
   const wr=st.win_rate_pct==null?"—":st.win_rate_pct.toFixed(0)+"%";
   $v(V,"tradesub").textContent=C.length?`${C.length} closed · realized ${usd(st.realized_usd)} · win rate ${wr}`:"No trades have closed yet. Win rate starts counting at the first exit.";
   $v(V,"closedlist").innerHTML=C.length?C.slice().reverse().map(c=>`<div class="it ${c.realized_pct>0?"up":"down"}"><div><div class="tkr">${esc(c.symbol)}</div>
-    <div class="tags"><span class="t">${esc(c.strategy||laneName(c.lane))}</span>${tbadge(c.test)}</div>
+    <div class="tags"><span class="t">${esc(c.strategy||laneName(c.lane))}</span>${tbadge(V.main&&c.test)}</div>
     <div class="det">${usd(c.entry_price)} → ${usd(c.exit_price)} · ${c.qty} sh<br>${esc(c.entry_date||"")} → ${esc(c.closed_date||"")}</div></div>
     <div class="right"><div class="chg ${cls(c.realized_pct)}" style="font-size:20px">${sgn(c.realized_pct)}</div><div class="small">${usd(c.realized_usd)}</div></div></div>`).join(""):"";
 }
 function renderBreakdown(V){
   const B=V.d.breakdown||[];
+  if(!B.length){$v(V,"bdt").innerHTML=`<tr><td class="empty" style="white-space:normal">No trades yet.</td></tr>`;return;}
   $v(V,"bdt").innerHTML=`<tr><th>Strategy</th><th>Lane</th><th class="r">Open</th><th class="r">Queued</th><th class="r">Closed</th><th class="r">Win rate</th><th class="r">Avg ret</th><th class="r">Realized</th><th class="r">Unrealized</th></tr>`+
-    (B.length?B.slice().sort((a,b)=>(a.test-b.test)||String(a.strategy).localeCompare(String(b.strategy))).map(b=>`<tr><td><b>${esc(b.strategy||"")}</b> ${tbadge(b.test)}</td><td>${esc(laneLabelV(V,b.lane))}</td><td class="r">${b.open}</td><td class="r">${b.queued??0}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="9" class="empty">No trades yet.</td></tr>`);
+    (B.length?B.slice().sort((a,b)=>(a.test-b.test)||String(a.strategy).localeCompare(String(b.strategy))).map(b=>`<tr><td><b>${esc(b.strategy||"")}</b> ${tbadge(V.main&&b.test)}</td><td>${esc(laneLabelV(V,b.lane))}</td><td class="r">${b.open}</td><td class="r">${b.queued??0}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="9" class="empty">No trades yet.</td></tr>`);
 }
 
 function renderPositions(V){
@@ -459,29 +467,33 @@ function renderPositions(V){
   const lanes=["all",...new Set(P.map(p=>p.lane))];
   $v(V,"lchips").innerHTML=P.length||V.main?lanes.map(l=>`<button class="chip ${l===V.lf?"on":""}" data-l="${esc(l)}">${l==="all"?"All":esc(laneLabelV(V,l))}<span class="n">${l==="all"?P.length:P.filter(p=>p.lane===l).length}</span></button>`).join(""):"";
   const unrl=P.reduce((s,p)=>s+(p.unrealized_usd||0),0);
-  $v(V,"possub").textContent=P.length?`${st.open??P.filter(p=>p.qty>0).length} open · ${st.queued??P.filter(p=>!(p.qty>0)).length} queued (not filled yet) · unrealized ${usd(unrl)} · marks from the broker paper account`:"";
+  $v(V,"possub").textContent=P.length?`${st.open??P.filter(p=>p.qty>0).length} open · ${st.queued??P.filter(p=>!(p.qty>0)).length} queued (not filled yet) · unrealized ${usd(unrl)} · ${(d.headline_scope==="last_close"&&(d.headline_basis||{}).desk_close_equity!=null)?"after-hours broker marks (the headline and P&L cards use the close)":"marks from the broker paper account"}`:"";
   const F=P.filter(p=>V.lf==="all"||p.lane===V.lf);
   $v(V,"poslist").innerHTML=F.length?F.map(p=>`<div class="it ${p.unrealized_pct>0?"up":p.unrealized_pct<0?"down":""}">
     <div><div class="tkr">${esc(p.symbol)}</div><div class="nm">${esc(p.name||"")}</div>
-      <div class="tags"><span class="t">${esc(p.strategy||laneName(p.lane))}</span>${tbadge(p.test)}${p.status&&p.status!=="open"?`<span class="t" style="color:var(--muted)">${esc(p.status.replace(/_/g," "))}</span>`:""}</div>
-      <div class="det">Entry ${usd(p.entry_price)} · ${esc(p.entry_date||"not filled yet")}<br>${p.qty} sh</div></div>
+      <div class="tags"><span class="t">${esc(p.strategy||laneName(p.lane))}</span>${tbadge(V.main&&p.test)}${p.status&&p.status!=="open"?`<span class="t" style="color:var(--muted)">${esc(p.status.replace(/_/g," "))}</span>`:""}</div>
+      <div class="det">Entry ${usd(p.entry_price)} · ${esc(p.entry_date||"not filled yet")}<br>${p.qty>0?p.qty+" sh":p.qty_requested?p.qty_requested+" sh requested":"pending"}</div></div>
     <div class="right"><div class="px">${usd(p.current_price)}</div><div class="chg ${cls(p.unrealized_pct)}">${sgn(p.unrealized_pct)}</div>
       <div class="small">${usd(p.unrealized_usd)} unrealized</div>${p.day_change_pct!=null?`<div class="small">today ${sgn(p.day_change_pct)}</div>`:""}</div></div>`).join(""):`<div class="empty">${V.main?"No open positions.":"No positions yet."}</div>`;
 }
 
 function renderPass(V){
   const lp=V.d.last_pass, box=$v(V,"passbox");
-  if(lp&&lp.at){const ok=lp.completed&&lp.ledger_verify==="OK"&&lp.ledger_chain_ok&&(!lp.scheduler_exit||lp.scheduler_exit.code===0);
-    box.innerHTML=`<span class="status ${ok?"ok":lp.completed?"warn":"bad"}">${ok?"● Healthy":lp.completed?"● Check":"● Incomplete"}</span>
+  if(lp&&lp.at){const h=lp.health||{}, gf=h.gate_ok===false, mi=h.missed||0, pm=`${mi} pass${mi===1?"":"es"} missed today`;
+    const ok=lp.completed&&lp.ledger_verify==="OK"&&lp.ledger_chain_ok&&(!lp.scheduler_exit||lp.scheduler_exit.code===0)&&!(lp.locks>0)&&!gf&&!mi;
+    const stx=gf?`● Gate failed ${esc(h.gate_at||"today")}${mi?" · "+pm:""}`:mi?`● Degraded · ${pm}`:ok?"● Healthy":lp.completed?"● Check":"● Incomplete";
+    box.innerHTML=`<span class="status ${ok?"ok":gf||!lp.completed?"bad":"warn"}">${stx}</span>
     <div class="kv"><div>Pass</div><div>${esc(lp.phase)} (${esc(lp.mode)})</div><div>Ran</div><div>${esc(lp.at)}</div>
     <div>Signals offered</div><div>${lp.fires_offered??"—"}</div><div>Orders sent</div><div>${lp.orders_sent??"—"}</div>
     <div>Passes today</div><div>${lp.passes_today??"—"}</div>
-    <div>Ledger</div><div>${lp.ledger_verify==="OK"&&lp.ledger_chain_ok?"verified":"NOT verified"} · ${lp.ledger_records} records</div>
+    ${lp.health?`<div>Live-trading gate</div><div>${h.gate_ok===false?"failed "+esc(h.gate_at||""):h.gate_ok===true?"passed "+esc(h.gate_at||""):"not run yet today"}</div>`:""}
+    ${h.audited?`<div>Missed today</div><div>${mi}${h.moc_missed?" (incl. the closing-auction window)":""}</div>`:""}${lp.locks!=null?`<div>Locks</div><div>${lp.locks}</div>`:""}
+    <div>Ledger</div><div>${lp.ledger_verify==="OK"&&lp.ledger_chain_ok?"verified":"NOT verified"} · ${lp.ledger_note?esc(lp.ledger_note):lp.ledger_records+" records"}</div>
     <div>Scheduler exit</div><div>${lp.scheduler_exit?`${esc(lp.scheduler_exit.phase)} → ${lp.scheduler_exit.code}`:"—"}</div></div>`;}
-  else if(lp&&!V.main){   // Test desk before its first pass: honest staged state + the ledger check
+  else if(lp&&!V.main){
     box.innerHTML=`<span class="status warn">● ${esc(lp.stage_text||"Not trading yet")}</span>
     <div class="kv"><div>Pass</div><div>${esc(lp.empty_text||"No desk pass recorded yet.")}</div><div>Orders sent</div><div>none</div>
-    <div>Ledger</div><div>${lp.ledger_verify==="OK"&&lp.ledger_chain_ok?"verified":"not verified yet"} · ${lp.ledger_records??0} records</div></div>`;}
+    <div>Ledger</div><div>${lp.ledger_verify==="OK"&&lp.ledger_chain_ok?"verified":"not verified yet"} · ${lp.ledger_note?esc(lp.ledger_note):(lp.ledger_records??0)+" records"}</div></div>`;}
   else box.innerHTML=`<div class="empty">No desk pass recorded yet.</div>`;
 }
 
@@ -511,7 +523,6 @@ function drawChart(V){
   $v(V,"lgspy").style.display=showSpy?"":"none";
 }
 
-// ---- 2026-10-05 public panels (data keys: track_record, market_mood, holdings_heatmap, closed_trades_log, strategy_scorecards)
 const pctTxt=(v,d=1)=>v==null?"—":v.toFixed(d)+"%";
 const days=v=>v==null?"—":(v<1?(v*24).toFixed(0)+" h":v.toFixed(1)+" d");
 function renderRecord(V){
@@ -527,7 +538,6 @@ function renderRecord(V){
     ["Realized P&L",usd(t.realized_pl_usd),t.unrealized_pl_usd!=null?`${usd(t.unrealized_pl_usd)} unrealized`:"",cls(t.realized_pl_usd)],
   ]);
 }
-// ---- 2026-10-05 combined small-cap long-beta line (data key: long_beta; separate from the main desk numbers)
 function renderBeta(V){
   const b=V.d.long_beta, gl=(b&&b.group_label)||null;
   if(!b){$v(V,"betasub").textContent="Not available yet.";$v(V,"betastats").innerHTML="";$v(V,"betalanes").innerHTML="";$v(V,"betawrap").innerHTML="";$v(V,"betanote").textContent="";return;}
@@ -535,8 +545,8 @@ function renderBeta(V){
   $v(V,"betasub").textContent=(b.unavailable?b.unavailable+" ":"")+(b.scope_text||"");
   $v(V,"betastats").innerHTML=[
     [gl?`${esc(gl)} long exposure`:"Small-cap long exposure",usd(b.value_usd,0),b.equity_pct!=null?`${b.equity_pct.toFixed(2)}% of equity · ${b.holdings} holding${b.holdings===1?"":"s"}`:`${b.holdings??0} holding${b.holdings===1?"":"s"}`,"flat"],
-    ["Beta to IWM",b.beta_iwm==null?"—":b.beta_iwm.toFixed(2),b.beta_iwm==null?(b.holdings?"not enough price history":"no filled holdings"):(b.beta_coverage_pct!=null&&b.beta_coverage_pct<100?`covers ${b.beta_coverage_pct.toFixed(0)}% of the value`:"market-value weighted"),"flat"],
-    ["IWM-equivalent",usd(b.iwm_equivalent_usd,0),"exposure that acts like owning IWM","flat"],
+    (b.holdings!=null&&b.holdings>0&&b.holdings<3)?["Beta to IWM","—",`n=${b.holdings}, not meaningful`,"flat"]:["Beta to IWM",b.beta_iwm==null?"—":b.beta_iwm.toFixed(2),b.beta_iwm==null?(b.holdings?"not enough price history":"no filled holdings"):(b.beta_coverage_pct!=null&&b.beta_coverage_pct<100?`covers ${b.beta_coverage_pct.toFixed(0)}% of the value`:"market-value weighted"),"flat"],
+    (b.holdings!=null&&b.holdings>0&&b.holdings<3)?["IWM-equivalent","—","not meaningful with so few holdings","flat"]:["IWM-equivalent",usd(b.iwm_equivalent_usd,0),"exposure that acts like owning IWM","flat"],
     [gl?`${esc(gl)} P&L`:"Small-cap lanes P&L",usd(b.pnl_usd),b.return_on_cost_pct!=null?`${sgn(b.return_on_cost_pct)} on cost`:"",cls(b.pnl_usd)],
     ["IWM since desk start",sgn(b.iwm_since_start_pct),asOf?`close ${asOf}`:"",cls(b.iwm_since_start_pct)],
   ].map(([l,v,s,c])=>`<div class="stat"><div class="l">${l}</div><div class="v">${v}</div><div class="s ${c}">${s}</div></div>`).join("");
@@ -554,8 +564,6 @@ function renderBeta(V){
   wrap.innerHTML=`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="${gl?esc(gl):"Small-cap lanes"} return vs IWM">${g}<line x1="${pl}" x2="${W-pr}" y1="${y(0)}" y2="${y(0)}" stroke="#8a91a6" stroke-dasharray="4 4"/>
     <path d="${line("iwm_since_start_pct")}" fill="none" stroke="#f2d68a" stroke-width="2" stroke-dasharray="5 3"/><path d="${line("return_on_cost_pct")}" fill="none" stroke="#7ee0c3" stroke-width="2.6"/>${lab}</svg>`;
 }
-// ---- 2026-10-05 second desk (data key: second_desk). Its own paper account; nothing here feeds the main desk figures above.
-// UI parity: header + overview here; every other Test desk panel is drawn by the SAME functions as Main with VT (second_desk.panels).
 function renderDesk2(){
   const s=D.second_desk;
   if(!s){$("d2sub").textContent="Starting soon: the test desk has no trades yet.";$("t2headline").textContent="Starting soon: the test desk has no trades yet.";return;}
@@ -565,7 +573,7 @@ function renderDesk2(){
   [renderOverview,drawChart,renderRecord,renderBeta,renderMood,renderPositions,drawHeat,renderLanes,renderPass,renderClosed,renderLog,renderCards,renderBreakdown]
     .forEach(f=>{try{f(VT);}catch(e){console.error(f.name,e);}});
 }
-function attentionTile(a,tile){   // Wikipedia attention gauge: Test desk mood panel only (market-wide, never a ticker)
+function attentionTile(a,tile){
   if(!a) return tile("Wikipedia attention","—","","","Wikipedia attention reading unavailable right now (the latest reading is missing or out of date).");
   const asOf=new Date(a.as_of+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});
   return tile("Wikipedia attention",sgn(a.value_pct,0),`<span class="badge ${a.label==="near usual"?"good":"warn"}">${esc(a.label)}</span>`,
@@ -603,7 +611,7 @@ function drawHeat(V){
   if(!H.length){box.style.height="auto";box.innerHTML=`<div class="empty" style="color:#c9cfdd;padding:28px 14px">${esc(hm.unavailable||"No open holdings right now.")}</div>`;$v(V,"heatsub").textContent="";V.heat.tiles=[];return;}
   box.style.height="";
   const up=H.filter(h=>(h.unrealized_pct||0)>0).length;
-  $v(V,"heatsub").textContent=`${H.length} holdings worth ${usd(hm.total_value_usd,0)} · ${up} in profit · marks from the broker paper account`;
+  $v(V,"heatsub").textContent=`${H.length} holdings worth ${usd(hm.total_value_usd,0)} · ${up} in profit · ${(V.d.headline_scope==="last_close"&&(V.d.headline_basis||{}).desk_close_equity!=null)?"after-hours broker marks":"marks from the broker paper account"}`;
   const W=box.clientWidth||600, Ht=box.clientHeight||300;
   const R=squarify(H.map(h=>Object.assign({},h,{v:h.value_usd})),0,0,W,Ht); V.heat.tiles=R;
   box.innerHTML=R.map(r=>{const [bg,fg]=heatColor(r.unrealized_pct),big=r.w>70&&r.h>46,tiny=r.w<34||r.h<24;
@@ -613,18 +621,19 @@ function drawHeat(V){
 function heatDetail(V,sym){
   const T=V.heat.tiles, r=T.find(z=>z.symbol===sym); if(!r) return;
   V.heat.sel=sym; [...$v(V,"heatmap").children].forEach(t=>t.classList.toggle("sel",T[+t.dataset.i]&&T[+t.dataset.i].symbol===sym));
-  $v(V,"heatdet").innerHTML=`<b>${esc(r.symbol)}</b>${r.name?` · ${esc(r.name)}`:""}<br>${usd(r.value_usd,0)} · <span class="${cls(r.unrealized_pct)}">${sgn(r.unrealized_pct)} (${usd(r.unrealized_usd)})</span> unrealized${r.strategy?` · ${esc(r.strategy)} ${tbadge(r.test)}`:""}<div class="why"><b>Why we took it:</b> ${esc(r.why||"—")}</div>`;
+  $v(V,"heatdet").innerHTML=`<b>${esc(r.symbol)}</b>${r.name?` · ${esc(r.name)}`:""}<br>${usd(r.value_usd,0)} · <span class="${cls(r.unrealized_pct)}">${sgn(r.unrealized_pct)} (${usd(r.unrealized_usd)})</span> unrealized${r.strategy?` · ${esc(r.strategy)} ${tbadge(V.main&&r.test)}`:""}<div class="why"><b>Why we took it:</b> ${esc(r.why||"—")}</div>`;
 }
 function renderLog(V){
   const L=V.d.closed_trades_log||[];
+  if(!L.length){$v(V,"logt").innerHTML=`<tr><td class="empty" style="white-space:normal">${V.main?"No trades have closed yet. A trade is listed here once it is fully closed.":"No trades yet. A trade is listed here once it is fully closed."}</td></tr>`;return;}
   $v(V,"logt").innerHTML=`<tr><th>Symbol</th><th>Strategy</th><th>Entry</th><th>Exit</th><th class="r">Hold</th><th class="r">P&amp;L</th><th class="r">P&amp;L %</th><th>Why we took it</th></tr>`+
-    (L.length?L.map(c=>`<tr><td><b>${esc(c.symbol)}</b></td><td>${esc(c.strategy||"")} ${tbadge(c.test)}</td><td>${esc(c.entry_date||"—")}<br><span class="meta">${usd(c.entry_price)}</span></td><td>${esc(c.exit_date||"—")}<br><span class="meta">${usd(c.exit_price)}</span></td><td class="r">${days(c.hold_days)}</td><td class="r ${cls(c.pnl_usd)}">${usd(c.pnl_usd)}</td><td class="r ${cls(c.pnl_pct)}">${sgn(c.pnl_pct)}</td><td class="why" style="min-width:200px">${esc(c.why||"—")}</td></tr>`).join(""):
+    (L.length?L.map(c=>`<tr><td><b>${esc(c.symbol)}</b></td><td>${esc(c.strategy||"")} ${tbadge(V.main&&c.test)}</td><td>${esc(c.entry_date||"—")}<br><span class="meta">${usd(c.entry_price)}</span></td><td>${esc(c.exit_date||"—")}<br><span class="meta">${usd(c.exit_price)}</span></td><td class="r">${days(c.hold_days)}</td><td class="r ${cls(c.pnl_usd)}">${usd(c.pnl_usd)}</td><td class="r ${cls(c.pnl_pct)}">${sgn(c.pnl_pct)}</td><td class="why" style="min-width:200px">${esc(c.why||"—")}</td></tr>`).join(""):
     `<tr><td colspan="8" class="empty">${V.main?"No trades have closed yet. A trade is listed here once it is fully closed.":"No trades yet. A trade is listed here once it is fully closed."}</td></tr>`);
 }
 function renderCards(V){
   const C=V.d.strategy_scorecards||[];
   $v(V,"scgrid").innerHTML=C.length?C.map(k=>{const r=k.research||{};
-    return `<div class="sc"><div class="top"><span>${esc(k.strategy)} ${tbadge(k.test)}</span><span class="meta">${k.closed_trades} closed${k.holdings?` · ${k.holdings} open`:""}</span></div>
+    return `<div class="sc"><div class="top"><span>${esc(k.strategy)} ${tbadge(V.main&&k.test)}</span><span class="meta">${k.closed_trades} closed${k.holdings?` · ${k.holdings} open`:""}</span></div>
     <table><tr><th></th><th class="r">Live paper</th><th class="r">Research</th></tr>
     <tr><td>Closed trades</td><td class="r">${k.closed_trades}</td><td class="r">${r.trades!=null?r.trades.toLocaleString("en-US"):"—"}</td></tr>
     <tr><td>Win rate</td><td class="r">${pctTxt(k.win_rate_pct,0)}</td><td class="r">${pctTxt(r.win_rate_pct,0)}</td></tr>
@@ -633,6 +642,7 @@ function renderCards(V){
     <p>${esc(k.research_text||"")}</p><p><b>${esc(k.live_text||"")}</b></p>${k.caution?`<div class="caution">${esc(k.caution)}</div>`:""}</div>`;}).join(""):`<div class="empty">${V.main?"No strategies to show yet.":"No trades yet. A strategy gets a scorecard once it has traded."}</div>`;
 }
 
+function swipeHints(){document.querySelectorAll(".scroll").forEach(sc=>{const h=sc.nextElementSibling;if(h&&h.classList.contains("swipe"))h.classList.toggle("on",sc.scrollWidth>sc.clientWidth+1);});}
 function freshness(){
   const dot=$("dot"); if(!D||!D.generated_at_iso) return;
   const age=(Date.now()-Date.parse(D.generated_at_iso))/60000;
@@ -646,12 +656,11 @@ async function load(){
     D=await r.json(); $("err").style.display="none"; render();
   }catch(e){ $("err").style.display="block"; $("err").textContent="Could not load the latest data ("+e.message+"). Showing the last good copy; retrying every 60 seconds."; }
 }
-// ---- 2026-10-05 tabs: #main (default) / #test; any other hash is a main-desk section anchor
 function showTab(t){
   const test=t==="test"; $("tab-main").hidden=test; $("tab-test").hidden=!test;
   [["tabbtn-main",!test],["tabbtn-test",test]].forEach(([id,on])=>{$(id).classList.toggle("on",on);$(id).setAttribute("aria-selected",on?"true":"false");});
   document.querySelector(".nav").style.display=test?"none":"";
-  if(D){const T=test?VT:VM;try{drawChart(T);drawHeat(T);renderBeta(T);}catch(e){console.error(e);}}
+  if(D){const T=test?VT:VM;try{drawChart(T);drawHeat(T);renderBeta(T);}catch(e){console.error(e);}swipeHints();}
 }
 function route(){
   const h=decodeURIComponent(location.hash.slice(1));
@@ -668,7 +677,7 @@ $("refresh").onclick=load;
   $v(V,"heatmap").addEventListener("mouseover",e=>{const t=e.target.closest(".tile");if(t&&V.heat.tiles[+t.dataset.i]&&window.matchMedia("(hover:hover)").matches)heatDetail(V,V.heat.tiles[+t.dataset.i].symbol);});
 });
 document.querySelectorAll(".nav a").forEach(a=>a.addEventListener("click",()=>{document.querySelectorAll(".nav a").forEach(x=>x.classList.toggle("on",x===a));}));
-window.addEventListener("resize",()=>{if(D){const T=!$("tab-test").hidden?VT:VM;drawChart(T);try{drawHeat(T);renderBeta(T);}catch(e){}}});
+window.addEventListener("resize",()=>{if(D){const T=!$("tab-test").hidden?VT:VM;drawChart(T);try{drawHeat(T);renderBeta(T);}catch(e){}swipeHints();}});
 load(); setInterval(load,60000); setInterval(freshness,30000);
 </script>
 </body>
