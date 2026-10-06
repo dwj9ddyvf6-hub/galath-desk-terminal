@@ -4,20 +4,20 @@
  "desk_version": "paper-desk 1.7.3",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 5, 2026 at 8:15 PM ET",
- "generated_at_iso": "2026-10-05T20:15:08-04:00",
- "headline": "As of the last close (Oct 5), the desk is up 0.47% on the day and behind SPY by 0.35 percentage points since it started.",
+ "generated_at": "Oct 5, 2026 at 8:20 PM ET",
+ "generated_at_iso": "2026-10-05T20:20:04-04:00",
+ "headline": "As of the last close (Oct 5), the desk is up 0.42% on the day and behind SPY by 0.40 percentage points since it started.",
  "headline_scope": "last_close",
  "headline_as_of": "2026-10-05",
  "account": {
-  "equity": 101275.85,
+  "equity": 101222.56,
   "cash": 54772.79,
   "start_equity": 100000.0,
-  "long_market_value": 46503.06,
-  "day_pl": 476.36,
-  "day_pl_pct": 0.473,
-  "total_pl": 1275.85,
-  "total_pl_pct": 1.276
+  "long_market_value": 46449.77,
+  "day_pl": 423.07,
+  "day_pl_pct": 0.42,
+  "total_pl": 1222.56,
+  "total_pl_pct": 1.223
  },
  "equity_curve": [
   {
@@ -147,9 +147,9 @@
    "spy_pct": 1.806
   },
   {
-   "t": "2026-10-05T20:15",
+   "t": "2026-10-05T20:20",
    "label": "now",
-   "desk_pct": 1.276,
+   "desk_pct": 1.223,
    "spy_pct": 1.627
   }
  ],
@@ -561,10 +561,10 @@
    "qty": 24,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 204.4,
-   "current_price": 213.7,
-   "unrealized_pct": 4.55,
-   "unrealized_usd": 223.2,
-   "day_change_pct": -2.26,
+   "current_price": 212.96,
+   "unrealized_pct": 4.19,
+   "unrealized_usd": 205.44,
+   "day_change_pct": -2.6,
    "stop": 173.74,
    "time_exit": "Oct 13, 2026 at 2:30 PM ET",
    "realized_partial_usd": null
@@ -645,10 +645,10 @@
    "qty": 111,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 44.8,
-   "current_price": 42.93,
-   "unrealized_pct": -4.17,
-   "unrealized_usd": -207.57,
-   "day_change_pct": -1.92,
+   "current_price": 42.95,
+   "unrealized_pct": -4.13,
+   "unrealized_usd": -205.35,
+   "day_change_pct": -1.87,
    "stop": null,
    "time_exit": "Oct 14, 2026 at 4:00 PM ET",
    "realized_partial_usd": null
@@ -687,10 +687,10 @@
    "qty": 286,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 17.45,
-   "current_price": 17.672,
-   "unrealized_pct": 1.27,
-   "unrealized_usd": 63.49,
-   "day_change_pct": 0.98,
+   "current_price": 17.54,
+   "unrealized_pct": 0.52,
+   "unrealized_usd": 25.74,
+   "day_change_pct": 0.23,
    "stop": null,
    "time_exit": "Oct 14, 2026 at 4:00 PM ET",
    "realized_partial_usd": null
@@ -807,8 +807,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 1280.15,
-   "avg_return_pct": 2.91,
+   "unrealized_usd": 1226.86,
+   "avg_return_pct": 2.79,
    "win_rate_closed_pct": null
   },
   {
@@ -879,10 +879,10 @@
   "win_rate_pct": null,
   "avg_hold_days": null,
   "avg_return_pct": null,
-  "total_pl_usd": 1275.85,
-  "total_pl_pct": 1.276,
+  "total_pl_usd": 1222.56,
+  "total_pl_pct": 1.223,
   "realized_pl_usd": 0.0,
-  "unrealized_pl_usd": 1275.85,
+  "unrealized_pl_usd": 1222.56,
   "max_drawdown": {
    "pct": -0.59,
    "usd": -596.66,
@@ -901,7 +901,7 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": 2.91,
+   "holdings_avg_unrealized_pct": 2.79,
    "small_sample": true,
    "research": {
     "win_rate_pct": 47.5,
@@ -911,7 +911,7 @@
     "source": "swing_basket/next_pass_report.md (a) 1H rolling walk-forward stitched; (d) 1h basket no-stop/60-bar held-out +0.46%"
    },
    "research_text": "Research expected about 48% winners and +0.47% per trade (out-of-sample backtest, 3,705 trades); the strategy holds up to 60 hourly bars.",
-   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +2.91% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +2.79% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
   {
@@ -1022,6 +1022,7 @@
     "symbol": "BLDP",
     "name": "Ballard Power Systems, Inc. Common Shares",
     "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
     "value_usd": 5303.94,
     "unrealized_usd": 291.96,
@@ -1031,6 +1032,7 @@
     "symbol": "OUST",
     "name": "Ouster, Inc. Common Stock",
     "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
     "value_usd": 5212.78,
     "unrealized_usd": 257.96,
@@ -1040,15 +1042,17 @@
     "symbol": "CRDO",
     "name": "Credo Technology Group Holding Ltd Ordinary Shares",
     "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5128.8,
-    "unrealized_usd": 223.2,
-    "unrealized_pct": 4.55
+    "value_usd": 5111.04,
+    "unrealized_usd": 205.44,
+    "unrealized_pct": 4.19
    },
    {
     "symbol": "ASAN",
     "name": "Asana, Inc. Class A Common Stock",
     "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
     "value_usd": 5110.9,
     "unrealized_usd": 146.21,
@@ -1058,24 +1062,17 @@
     "symbol": "CIEN",
     "name": "Ciena Corporation",
     "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
     "value_usd": 5078.06,
     "unrealized_usd": 349.57,
     "unrealized_pct": 7.39
    },
    {
-    "symbol": "PL",
-    "name": "Planet Labs PBC",
-    "strategy": "1H Swing",
-    "test": false,
-    "value_usd": 5054.19,
-    "unrealized_usd": 63.49,
-    "unrealized_pct": 1.27
-   },
-   {
     "symbol": "KOPN",
     "name": "Kopin Corporation Common Stock",
     "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
     "value_usd": 5048.85,
     "unrealized_usd": 52.05,
@@ -1085,24 +1082,37 @@
     "symbol": "MNDY",
     "name": "monday.com Ltd. Ordinary Shares",
     "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
     "value_usd": 5033.31,
     "unrealized_usd": 103.29,
     "unrealized_pct": 2.1
    },
    {
+    "symbol": "PL",
+    "name": "Planet Labs PBC",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5016.44,
+    "unrealized_usd": 25.74,
+    "unrealized_pct": 0.52
+   },
+   {
     "symbol": "IONQ",
     "name": "IonQ, Inc.",
     "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4765.23,
-    "unrealized_usd": -207.57,
-    "unrealized_pct": -4.17
+    "value_usd": 4767.45,
+    "unrealized_usd": -205.35,
+    "unrealized_pct": -4.13
    },
    {
     "symbol": "IESC",
     "name": "IES Holdings, Inc. Common Stock",
     "strategy": "Lab rules, daily (test)",
+    "why": "Lab rules, daily (test): one of the lab's tested daily trading rules, traded small while it is tested",
     "test": true,
     "value_usd": 339.62,
     "unrealized_usd": -0.54,
@@ -1112,6 +1122,7 @@
     "symbol": "VLN",
     "name": "Valens Semiconductor Ltd.",
     "strategy": "Daily Cyan",
+    "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models, on a micro-cap name, at reduced size",
     "test": false,
     "value_usd": 246.28,
     "unrealized_usd": -3.93,
@@ -1121,6 +1132,7 @@
     "symbol": "BOTZ",
     "name": "Global X Funds Global X Robotics & Artificial Intelligence ETF",
     "strategy": "Lab rules, daily (test)",
+    "why": "Lab rules, daily (test): one of the lab's tested daily trading rules, traded small while it is tested",
     "test": true,
     "value_usd": 181.1,
     "unrealized_usd": 0.2,
@@ -1128,7 +1140,7 @@
    }
   ],
   "count": 12,
-  "total_value_usd": 46503.06,
+  "total_value_usd": 46449.77,
   "source": "broker paper account positions (marks)",
   "unavailable": null
  },

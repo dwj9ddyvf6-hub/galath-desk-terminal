@@ -101,6 +101,10 @@ td.r,th.r{text-align:right}
 .heat .tile small{display:block;font-size:11px;opacity:.85}
 .heatleg{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
 .heatleg i{display:inline-block;width:120px;height:10px;border-radius:999px;background:linear-gradient(90deg,hsl(4,65%,38%),hsl(4,65%,80%),#e9eef0,hsl(152,50%,78%),hsl(152,55%,30%))}
+.heat .tile{cursor:pointer}.heat .tile.sel{outline:3px solid #fff;outline-offset:-3px}
+.heatdet{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-top:10px;background:#fbfdfc;font-size:13.5px;line-height:1.5;min-height:44px}
+.heatdet b{color:var(--navy)}.heatdet .why{color:var(--ink);margin-top:4px}
+.why{font-size:12.5px;color:var(--muted);line-height:1.4}
 .scg{display:grid;grid-template-columns:1fr;gap:12px}
 @media(min-width:720px){.scg{grid-template-columns:1fr 1fr}}
 .sc{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfdfc}
@@ -172,6 +176,7 @@ td.r,th.r{text-align:right}
     <h2>Open positions heatmap</h2>
     <p class="sub" id="heatsub"></p>
     <div class="heat" id="heatmap"></div>
+    <div class="heatdet" id="heatdet"><span class="meta">Tap or hover a tile to see the holding and why the desk took it.</span></div>
     <div class="heatleg"><span>Loss</span><i></i><span>Gain</span><span>· tile size = position value · color = unrealized gain or loss since entry</span></div>
   </section>
 
@@ -384,15 +389,22 @@ function drawHeat(){
   const up=H.filter(h=>(h.unrealized_pct||0)>0).length;
   $("heatsub").textContent=`${H.length} holdings worth ${usd(hm.total_value_usd,0)} · ${up} in profit · marks from the broker paper account`;
   const W=box.clientWidth||600, Ht=box.clientHeight||300;
-  const R=squarify(H.map(h=>Object.assign({},h,{v:h.value_usd})),0,0,W,Ht);
+  const R=squarify(H.map(h=>Object.assign({},h,{v:h.value_usd})),0,0,W,Ht); heatTiles=R;
   box.innerHTML=R.map(r=>{const [bg,fg]=heatColor(r.unrealized_pct),big=r.w>70&&r.h>46,tiny=r.w<34||r.h<24;
-    return `<div class="tile" style="left:${r.x}px;top:${r.y}px;width:${r.w}px;height:${r.h}px;background:${bg};color:${fg}" title="${esc(r.symbol)}${r.name?" · "+esc(r.name):""} · ${usd(r.value_usd,0)} · ${sgn(r.unrealized_pct)} (${usd(r.unrealized_usd)})${r.strategy?" · "+esc(r.strategy):""}">${tiny?"":`<b>${esc(r.symbol)}</b><span>${sgn(r.unrealized_pct)}</span>${big?`<small>${usd(r.value_usd,0)}</small>`:""}`}</div>`;}).join("");
+    return `<div class="tile" style="left:${r.x}px;top:${r.y}px;width:${r.w}px;height:${r.h}px;background:${bg};color:${fg}" title="${esc(r.symbol)}${r.name?" · "+esc(r.name):""} · ${usd(r.value_usd,0)} · ${sgn(r.unrealized_pct)} (${usd(r.unrealized_usd)})${r.why?" · Why: "+esc(r.why):r.strategy?" · "+esc(r.strategy):""}" data-i="${R.indexOf(r)}">${tiny?"":`<b>${esc(r.symbol)}</b><span>${sgn(r.unrealized_pct)}</span>${big?`<small>${usd(r.value_usd,0)}</small>`:""}`}</div>`;}).join("");
+  if(heatSel&&heatTiles.some(z=>z.symbol===heatSel)) heatDetail(heatSel);
+}
+let heatTiles=[], heatSel=null;
+function heatDetail(sym){
+  const r=heatTiles.find(z=>z.symbol===sym); if(!r) return;
+  heatSel=sym; [...$("heatmap").children].forEach(t=>t.classList.toggle("sel",heatTiles[+t.dataset.i]&&heatTiles[+t.dataset.i].symbol===sym));
+  $("heatdet").innerHTML=`<b>${esc(r.symbol)}</b>${r.name?` · ${esc(r.name)}`:""}<br>${usd(r.value_usd,0)} · <span class="${cls(r.unrealized_pct)}">${sgn(r.unrealized_pct)} (${usd(r.unrealized_usd)})</span> unrealized${r.strategy?` · ${esc(r.strategy)} ${tbadge(r.test)}`:""}<div class="why"><b>Why we took it:</b> ${esc(r.why||"—")}</div>`;
 }
 function renderLog(){
   const L=D.closed_trades_log||[];
-  $("logt").innerHTML=`<tr><th>Symbol</th><th>Strategy</th><th>Entry</th><th>Exit</th><th class="r">Hold</th><th class="r">P&amp;L</th><th class="r">P&amp;L %</th></tr>`+
-    (L.length?L.map(c=>`<tr><td><b>${esc(c.symbol)}</b></td><td>${esc(c.strategy||"")} ${tbadge(c.test)}</td><td>${esc(c.entry_date||"—")}<br><span class="meta">${usd(c.entry_price)}</span></td><td>${esc(c.exit_date||"—")}<br><span class="meta">${usd(c.exit_price)}</span></td><td class="r">${days(c.hold_days)}</td><td class="r ${cls(c.pnl_usd)}">${usd(c.pnl_usd)}</td><td class="r ${cls(c.pnl_pct)}">${sgn(c.pnl_pct)}</td></tr>`).join(""):
-    `<tr><td colspan="7" class="empty">No trades have closed yet. A trade is listed here once it is fully closed.</td></tr>`);
+  $("logt").innerHTML=`<tr><th>Symbol</th><th>Strategy</th><th>Entry</th><th>Exit</th><th class="r">Hold</th><th class="r">P&amp;L</th><th class="r">P&amp;L %</th><th>Why we took it</th></tr>`+
+    (L.length?L.map(c=>`<tr><td><b>${esc(c.symbol)}</b></td><td>${esc(c.strategy||"")} ${tbadge(c.test)}</td><td>${esc(c.entry_date||"—")}<br><span class="meta">${usd(c.entry_price)}</span></td><td>${esc(c.exit_date||"—")}<br><span class="meta">${usd(c.exit_price)}</span></td><td class="r">${days(c.hold_days)}</td><td class="r ${cls(c.pnl_usd)}">${usd(c.pnl_usd)}</td><td class="r ${cls(c.pnl_pct)}">${sgn(c.pnl_pct)}</td><td class="why" style="min-width:200px">${esc(c.why||"—")}</td></tr>`).join(""):
+    `<tr><td colspan="8" class="empty">No trades have closed yet. A trade is listed here once it is fully closed.</td></tr>`);
 }
 function renderCards(){
   const C=D.strategy_scorecards||[];
@@ -423,6 +435,8 @@ $("refresh").onclick=load;
 $("cchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;chartMode=b.dataset.v;[...$("cchips").children].forEach(c=>c.classList.toggle("on",c===b));drawChart();};
 $("lchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;laneFilter=b.dataset.l;render();};
 document.querySelectorAll(".nav a").forEach(a=>a.addEventListener("click",()=>{document.querySelectorAll(".nav a").forEach(x=>x.classList.toggle("on",x===a));}));
+$("heatmap").addEventListener("click",e=>{const t=e.target.closest(".tile");if(t&&heatTiles[+t.dataset.i])heatDetail(heatTiles[+t.dataset.i].symbol);});
+$("heatmap").addEventListener("mouseover",e=>{const t=e.target.closest(".tile");if(t&&heatTiles[+t.dataset.i]&&window.matchMedia("(hover:hover)").matches)heatDetail(heatTiles[+t.dataset.i].symbol);});
 window.addEventListener("resize",()=>{if(D){drawChart();try{drawHeat();}catch(e){}}});
 load(); setInterval(load,60000); setInterval(freshness,30000);
 </script>
