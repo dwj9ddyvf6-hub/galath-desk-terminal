@@ -113,6 +113,9 @@ td.r,th.r{text-align:right}
 .sc td,.sc th{padding:6px 4px}
 .sc p{font-size:13px;color:var(--ink);line-height:1.5;margin:8px 0 0}
 .sc .caution{font-size:12.5px;color:#97660e;background:#fbf0d9;border-radius:10px;padding:6px 10px;margin-top:8px}
+.betalanes{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
+.betalanes .bl{border:1px solid var(--line);border-radius:12px;padding:6px 10px;font-size:13px;background:#fbfdfc}
+.betalanes .bl b{color:var(--navy)}
 .err{display:none;background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
 </style>
 </head>
@@ -156,6 +159,18 @@ td.r,th.r{text-align:right}
     </div>
   </section>
 
+  <section id="beta" class="card">
+    <p class="kicker">Small-cap exposure</p>
+    <h2>Combined small-cap long beta</h2>
+    <p class="sub" id="betasub"></p>
+    <div class="grid" id="betastats"></div>
+    <div id="betalanes" class="betalanes"></div>
+    <div class="chart" style="margin-top:12px"><div class="top"><span class="tk">Small-cap lanes vs IWM</span><span class="brandtag">return since start · <b>daily</b></span></div>
+      <div id="betawrap"></div>
+      <div class="legend"><span><i style="background:#7ee0c3"></i>Small-cap lanes (return on cost)</span><span><i style="background:#f2d68a"></i>IWM since desk start</span></div>
+    </div>
+    <p class="meta" id="betanote" style="margin-top:10px;line-height:1.5"></p>
+  </section>
   <section id="mood" class="card">
     <p class="kicker">Market backdrop</p>
     <h2>Market mood</h2>
@@ -309,7 +324,7 @@ function render(){
   const B=d.breakdown||[];
   $("bdt").innerHTML=`<tr><th>Strategy</th><th>Lane</th><th class="r">Open</th><th class="r">Queued</th><th class="r">Closed</th><th class="r">Win rate</th><th class="r">Avg ret</th><th class="r">Realized</th><th class="r">Unrealized</th></tr>`+
     (B.length?B.slice().sort((a,b)=>(a.test-b.test)||String(a.strategy).localeCompare(String(b.strategy))).map(b=>`<tr><td><b>${esc(b.strategy||"")}</b> ${tbadge(b.test)}</td><td>${esc(laneLabel(b.lane))}</td><td class="r">${b.open}</td><td class="r">${b.queued??0}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="9" class="empty">No trades yet.</td></tr>`);
-  [renderRecord,renderMood,drawHeat,renderLog,renderCards].forEach(f=>{try{f();}catch(e){console.error(f.name,e);}});   // new public panels never break the rest of the page
+  [renderRecord,renderBeta,renderMood,drawHeat,renderLog,renderCards].forEach(f=>{try{f();}catch(e){console.error(f.name,e);}});   // new public panels never break the rest of the page
   $("disc").innerHTML=`<b>Paper trading, not investment advice.</b> ${esc(d.disclaimer||"")}`;
   $("foot").textContent=`Data updated ${d.generated_at||""} · page refreshes every 60 seconds`;
   freshness();
@@ -356,6 +371,32 @@ function renderRecord(){
     ["Total P&L",usd(t.total_pl_usd),sgn(t.total_pl_pct),cls(t.total_pl_usd)],
     ["Realized P&L",usd(t.realized_pl_usd),t.unrealized_pl_usd!=null?`${usd(t.unrealized_pl_usd)} unrealized`:"",cls(t.realized_pl_usd)],
   ].map(([l,v,s,c])=>`<div class="stat"><div class="l">${l}</div><div class="v">${v}</div><div class="s ${c}">${s}</div></div>`).join("");
+}
+// ---- 2026-10-05 combined small-cap long-beta line (data key: long_beta; separate from the main desk numbers)
+function renderBeta(){
+  const b=D.long_beta; if(!b){$("betasub").textContent="Not available yet.";$("betastats").innerHTML="";$("betalanes").innerHTML="";$("betawrap").innerHTML="";$("betanote").textContent="";return;}
+  const asOf=b.as_of?new Date(b.as_of+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):"";
+  $("betasub").textContent=(b.unavailable?b.unavailable+" ":"")+(b.scope_text||"");
+  $("betastats").innerHTML=[
+    ["Small-cap long exposure",usd(b.value_usd,0),b.equity_pct!=null?`${b.equity_pct.toFixed(2)}% of equity · ${b.holdings} holding${b.holdings===1?"":"s"}`:`${b.holdings??0} holding${b.holdings===1?"":"s"}`,"flat"],
+    ["Beta to IWM",b.beta_iwm==null?"—":b.beta_iwm.toFixed(2),b.beta_iwm==null?(b.holdings?"not enough price history":"no filled holdings"):(b.beta_coverage_pct!=null&&b.beta_coverage_pct<100?`covers ${b.beta_coverage_pct.toFixed(0)}% of the value`:"market-value weighted"),"flat"],
+    ["IWM-equivalent",usd(b.iwm_equivalent_usd,0),"exposure that acts like owning IWM","flat"],
+    ["Small-cap lanes P&L",usd(b.pnl_usd),b.return_on_cost_pct!=null?`${sgn(b.return_on_cost_pct)} on cost`:"",cls(b.pnl_usd)],
+    ["IWM since desk start",sgn(b.iwm_since_start_pct),asOf?`close ${asOf}`:"",cls(b.iwm_since_start_pct)],
+  ].map(([l,v,s,c])=>`<div class="stat"><div class="l">${l}</div><div class="v">${v}</div><div class="s ${c}">${s}</div></div>`).join("");
+  $("betalanes").innerHTML=(b.lanes||[]).map(l=>`<span class="bl"><b>${esc(l.label)}</b> · ${l.holdings} holding${l.holdings===1?"":"s"}${l.value_usd!=null?" · "+usd(l.value_usd,0):""}</span>`).join("");
+  $("betanote").textContent=[b.method_text,b.history_text].filter(Boolean).join(" ");
+  const pts=(b.history||[]).filter(p=>p.return_on_cost_pct!=null||p.iwm_since_start_pct!=null), wrap=$("betawrap");
+  if(pts.length<2){wrap.innerHTML=`<div style="padding:28px 8px;color:#9aa3b8">The daily line starts ${pts.length?esc(new Date(pts[0].date+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"})):"with the next close"}. It appears once there are two market days; earlier history does not exist, so none is drawn.</div>`;return;}
+  const W=Math.max(300,Math.min(1040,wrap.clientWidth||600)),H=200,pl=8,pr=58,pt=12,pb=26;
+  const vals=pts.flatMap(p=>[p.return_on_cost_pct,p.iwm_since_start_pct].filter(v=>v!=null));
+  let lo=Math.min(0,...vals),hi=Math.max(0,...vals);const pad=Math.max(.1,(hi-lo)*.15);lo-=pad;hi+=pad;
+  const x=i=>pl+(W-pl-pr)*i/(pts.length-1), y=v=>pt+(H-pt-pb)*(hi-v)/(hi-lo);
+  const line=k=>pts.map((p,i)=>p[k]==null?null:[x(i),y(p[k])]).filter(Boolean).map((q,i)=>(i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1)).join(" ");
+  let g="";for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4;g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="#454a5e"/><text x="${W-pr+8}" y="${y(v)+4}" fill="#9aa3b8" font-size="11">${(v>0?"+":"")+v.toFixed(2)}%</text>`;}
+  const lab=[...new Set([0,pts.length-1])].map(i=>`<text x="${x(i)}" y="${H-8}" fill="#9aa3b8" font-size="11" text-anchor="${i?"end":"start"}">${esc(new Date(pts[i].date+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}))}</text>`).join("");
+  wrap.innerHTML=`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Small-cap lanes return vs IWM">${g}<line x1="${pl}" x2="${W-pr}" y1="${y(0)}" y2="${y(0)}" stroke="#8a91a6" stroke-dasharray="4 4"/>
+    <path d="${line("iwm_since_start_pct")}" fill="none" stroke="#f2d68a" stroke-width="2" stroke-dasharray="5 3"/><path d="${line("return_on_cost_pct")}" fill="none" stroke="#7ee0c3" stroke-width="2.6"/>${lab}</svg>`;
 }
 function renderMood(){
   const m=D.market_mood; if(!m){$("moodgrid").innerHTML=`<div class="empty">Market mood not available yet.</div>`;return;}
@@ -440,7 +481,7 @@ $("lchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;laneFilte
 document.querySelectorAll(".nav a").forEach(a=>a.addEventListener("click",()=>{document.querySelectorAll(".nav a").forEach(x=>x.classList.toggle("on",x===a));}));
 $("heatmap").addEventListener("click",e=>{const t=e.target.closest(".tile");if(t&&heatTiles[+t.dataset.i])heatDetail(heatTiles[+t.dataset.i].symbol);});
 $("heatmap").addEventListener("mouseover",e=>{const t=e.target.closest(".tile");if(t&&heatTiles[+t.dataset.i]&&window.matchMedia("(hover:hover)").matches)heatDetail(heatTiles[+t.dataset.i].symbol);});
-window.addEventListener("resize",()=>{if(D){drawChart();try{drawHeat();}catch(e){}}});
+window.addEventListener("resize",()=>{if(D){drawChart();try{drawHeat();renderBeta();}catch(e){}}});
 load(); setInterval(load,60000); setInterval(freshness,30000);
 </script>
 </body>

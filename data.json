@@ -4,8 +4,8 @@
  "desk_version": "paper-desk 1.7.3",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 5, 2026 at 8:31 PM ET",
- "generated_at_iso": "2026-10-05T20:31:48-04:00",
+ "generated_at": "Oct 5, 2026 at 8:42 PM ET",
+ "generated_at_iso": "2026-10-05T20:42:15-04:00",
  "headline": "As of the last close (Oct 5), the desk is up 0.19% on the day and behind SPY by 0.67 percentage points since it started.",
  "headline_scope": "last_close",
  "headline_as_of": "2026-10-05",
@@ -19,14 +19,14 @@
   "basis": "official session close (desk equity and SPY)"
  },
  "account": {
-  "equity": 101261.95,
+  "equity": 101285.58,
   "cash": 54772.79,
   "start_equity": 100000.0,
-  "long_market_value": 46489.16,
-  "day_pl": 462.46,
-  "day_pl_pct": 0.459,
-  "total_pl": 1261.95,
-  "total_pl_pct": 1.262
+  "long_market_value": 46512.79,
+  "day_pl": 486.09,
+  "day_pl_pct": 0.482,
+  "total_pl": 1285.58,
+  "total_pl_pct": 1.286
  },
  "equity_curve": [
   {
@@ -156,9 +156,9 @@
    "spy_pct": 1.806
   },
   {
-   "t": "2026-10-05T20:31",
+   "t": "2026-10-05T20:42",
    "label": "now",
-   "desk_pct": 1.262,
+   "desk_pct": 1.286,
    "spy_pct": 1.627
   }
  ],
@@ -518,10 +518,10 @@
    "qty": 24,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 204.4,
-   "current_price": 213.55,
-   "unrealized_pct": 4.48,
-   "unrealized_usd": 219.6,
-   "day_change_pct": -2.33,
+   "current_price": 214.25,
+   "unrealized_pct": 4.82,
+   "unrealized_usd": 236.4,
+   "day_change_pct": -2.01,
    "realized_partial_usd": null
   },
   {
@@ -582,10 +582,10 @@
    "qty": 111,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 44.8,
-   "current_price": 43.1,
-   "unrealized_pct": -3.79,
-   "unrealized_usd": -188.7,
-   "day_change_pct": -1.53,
+   "current_price": 43.11,
+   "unrealized_pct": -3.77,
+   "unrealized_usd": -187.59,
+   "day_change_pct": -1.51,
    "realized_partial_usd": null
   },
   {
@@ -614,10 +614,10 @@
    "qty": 286,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 17.45,
-   "current_price": 17.57,
-   "unrealized_pct": 0.69,
-   "unrealized_usd": 34.32,
-   "day_change_pct": 0.4,
+   "current_price": 17.59,
+   "unrealized_pct": 0.8,
+   "unrealized_usd": 40.04,
+   "day_change_pct": 0.51,
    "realized_partial_usd": null
   },
   {
@@ -716,8 +716,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 1266.25,
-   "avg_return_pct": 2.88,
+   "unrealized_usd": 1289.88,
+   "avg_return_pct": 2.93,
    "win_rate_closed_pct": null
   },
   {
@@ -995,10 +995,10 @@
   "win_rate_pct": null,
   "avg_hold_days": null,
   "avg_return_pct": null,
-  "total_pl_usd": 1261.95,
-  "total_pl_pct": 1.262,
+  "total_pl_usd": 1285.58,
+  "total_pl_pct": 1.286,
   "realized_pl_usd": 0.0,
-  "unrealized_pl_usd": 1261.95,
+  "unrealized_pl_usd": 1285.58,
   "max_drawdown": {
    "pct": -0.59,
    "usd": -596.66,
@@ -1017,7 +1017,7 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": 2.88,
+   "holdings_avg_unrealized_pct": 2.93,
    "small_sample": true,
    "research": {
     "win_rate_pct": 47.5,
@@ -1025,7 +1025,7 @@
     "trades": 3705
    },
    "research_text": "Research expected about 48% winners and +0.47% per trade (out-of-sample backtest, 3,705 trades).",
-   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +2.88% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +2.93% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
   {
@@ -1152,9 +1152,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5125.2,
-    "unrealized_usd": 219.6,
-    "unrealized_pct": 4.48
+    "value_usd": 5142.0,
+    "unrealized_usd": 236.4,
+    "unrealized_pct": 4.82
    },
    {
     "symbol": "ASAN",
@@ -1202,9 +1202,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5025.02,
-    "unrealized_usd": 34.32,
-    "unrealized_pct": 0.69
+    "value_usd": 5030.74,
+    "unrealized_usd": 40.04,
+    "unrealized_pct": 0.8
    },
    {
     "symbol": "IONQ",
@@ -1212,9 +1212,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4784.1,
-    "unrealized_usd": -188.7,
-    "unrealized_pct": -3.79
+    "value_usd": 4785.21,
+    "unrealized_usd": -187.59,
+    "unrealized_pct": -3.77
    },
    {
     "symbol": "IESC",
@@ -1248,9 +1248,63 @@
    }
   ],
   "count": 12,
-  "total_value_usd": 46489.16,
+  "total_value_usd": 46512.79,
   "source": "broker paper account positions (marks)",
   "unavailable": null
+ },
+ "long_beta": {
+  "benchmark": "IWM",
+  "benchmark_label": "IWM (iShares Russell 2000 ETF, US small caps)",
+  "scope_text": "The desk's small-cap long lanes counted together: 1W Cyan & Green, 1W Cyan small caps, Daily Cyan, 1D Green. Filled holdings only, at broker marks. 1H Swing and the test lanes are not part of this group.",
+  "method_text": "Beta shows how strongly these holdings have moved with IWM, from about three months of daily closes per holding, weighted by market value. A beta of 1 means one-for-one with small caps. IWM-equivalent = market value times beta: the part of the exposure that behaves like simply owning IWM.",
+  "history_text": "Recorded once per market day starting Oct 5, 2026. There is no per-lane history before that, so earlier days are not shown.",
+  "lanes": [
+   {
+    "label": "1W Cyan & Green",
+    "lane": "1w",
+    "holdings": 0,
+    "value_usd": 0.0
+   },
+   {
+    "label": "1W Cyan small caps",
+    "lane": "1w-small-caps",
+    "holdings": 0,
+    "value_usd": 0.0
+   },
+   {
+    "label": "Daily Cyan",
+    "lane": "daily-cyan",
+    "holdings": 1,
+    "value_usd": 246.28
+   },
+   {
+    "label": "1D Green",
+    "lane": "1d",
+    "holdings": 0,
+    "value_usd": 0.0
+   }
+  ],
+  "holdings": 1,
+  "value_usd": 246.28,
+  "equity_pct": 0.24,
+  "beta_iwm": 2.66,
+  "beta_coverage_pct": 100.0,
+  "iwm_equivalent_usd": 655.1,
+  "pnl_usd": -3.93,
+  "return_on_cost_pct": -1.57,
+  "iwm_since_start_pct": 1.95,
+  "as_of": "2026-10-05",
+  "unavailable": null,
+  "history": [
+   {
+    "date": "2026-10-05",
+    "value_usd": 246.28,
+    "equity_pct": 0.24,
+    "beta_iwm": 2.66,
+    "return_on_cost_pct": -1.57,
+    "iwm_since_start_pct": 1.95
+   }
+  ]
  },
  "disclaimer": "Paper trading with simulated money. Not investment advice. Past or simulated results do not predict future returns."
 }
