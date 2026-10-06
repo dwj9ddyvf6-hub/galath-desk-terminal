@@ -5,8 +5,8 @@
  "rules_version": "1.4.4-r1",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 5, 2026 at 11:17 PM ET",
- "generated_at_iso": "2026-10-05T23:17:27-04:00",
+ "generated_at": "Oct 5, 2026 at 11:30 PM ET",
+ "generated_at_iso": "2026-10-05T23:30:02-04:00",
  "headline": "As of the last close (Oct 5), the desk is up 0.19% on the day and behind SPY by 0.67 percentage points since it started.",
  "headline_scope": "last_close",
  "headline_as_of": "2026-10-05",
@@ -20,14 +20,14 @@
   "basis": "official session close (desk equity and SPY)"
  },
  "account": {
-  "equity": 101300.5,
+  "equity": 101302.21,
   "cash": 54772.79,
   "start_equity": 100000.0,
-  "long_market_value": 46527.71,
-  "day_pl": 501.01,
-  "day_pl_pct": 0.497,
-  "total_pl": 1300.5,
-  "total_pl_pct": 1.3
+  "long_market_value": 46529.42,
+  "day_pl": 502.72,
+  "day_pl_pct": 0.499,
+  "total_pl": 1302.21,
+  "total_pl_pct": 1.302
  },
  "equity_curve": [
   {
@@ -157,7 +157,7 @@
    "spy_pct": 1.806
   },
   {
-   "t": "2026-10-05T23:17",
+   "t": "2026-10-05T23:30",
    "label": "Oct 5 close",
    "desk_pct": 0.987,
    "spy_pct": 1.657
@@ -508,10 +508,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 1:34 PM ET",
    "entry_price": 41.99,
-   "current_price": 44.1761,
-   "unrealized_pct": 5.21,
-   "unrealized_usd": 257.96,
-   "day_change_pct": 0.13,
+   "current_price": 44.2,
+   "unrealized_pct": 5.26,
+   "unrealized_usd": 260.78,
+   "day_change_pct": 0.18,
    "realized_partial_usd": null
   },
   {
@@ -542,10 +542,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 44.8,
-   "current_price": 42.98,
-   "unrealized_pct": -4.06,
-   "unrealized_usd": -202.02,
-   "day_change_pct": 0.02,
+   "current_price": 42.97,
+   "unrealized_pct": -4.08,
+   "unrealized_usd": -203.13,
+   "day_change_pct": 0.0,
    "realized_partial_usd": null
   },
   {
@@ -681,7 +681,7 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 1302.18,
+   "unrealized_usd": 1303.89,
    "avg_return_pct": 2.95,
    "win_rate_closed_pct": null
   },
@@ -1052,9 +1052,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5212.78,
-    "unrealized_usd": 257.96,
-    "unrealized_pct": 5.21
+    "value_usd": 5215.6,
+    "unrealized_usd": 260.78,
+    "unrealized_pct": 5.26
    },
    {
     "symbol": "KOPN",
@@ -1122,9 +1122,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4770.78,
-    "unrealized_usd": -202.02,
-    "unrealized_pct": -4.06
+    "value_usd": 4769.67,
+    "unrealized_usd": -203.13,
+    "unrealized_pct": -4.08
    },
    {
     "symbol": "IESC",
@@ -1158,7 +1158,7 @@
    }
   ],
   "count": 12,
-  "total_value_usd": 46527.71,
+  "total_value_usd": 46529.42,
   "source": "broker paper account positions (marks)",
   "unavailable": null
  },
@@ -2489,7 +2489,7 @@
     "as_of": null,
     "unavailable": "No filled holdings yet, so there is no beta to show."
    },
-   "generated_at": "Oct 5, 2026 at 11:17 PM ET",
+   "generated_at": "Oct 5, 2026 at 11:30 PM ET",
    "desk_version": "Test desk",
    "account_type": "separate Alpaca paper account (simulated money)",
    "day_label": "Not trading yet",
