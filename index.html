@@ -175,6 +175,18 @@ details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:
 .clheat .tl small{display:block;font-size:10.5px;opacity:.85}
 .cltwo{display:grid;grid-template-columns:1fr;gap:12px}
 @media(min-width:760px){.cltwo{grid-template-columns:1fr 1fr}}
+.clrotnote{font-size:12px;color:#9aa3b8;margin:8px 2px 0;line-height:1.45}
+.clq{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:12px}
+@media(max-width:760px){.clq{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.clq .qbox{border:1px solid var(--line);border-radius:12px;padding:8px 4px;background:#fbfdfc;min-width:0}
+.clq h4{margin:0 0 4px;padding:0 6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.clq h4 i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.clq .hd,.clqr{display:grid;grid-template-columns:minmax(0,1fr) 46px 46px;gap:4px;align-items:center}
+.clq .hd{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;padding:0 6px 2px}
+.clq .hd span+span{text-align:right}
+.clqr{width:100%;border:0;background:transparent;padding:4px 6px;border-radius:8px;text-align:left;cursor:pointer;font:inherit;font-size:12px;color:var(--ink)}
+.clqr span{text-align:right;font-variant-numeric:tabular-nums}
+.clqr:hover{background:#f1f5f4}.clqr.on{background:#e7f1ee;box-shadow:inset 0 0 0 1px #b9d9cf}
 #tab-cl section{scroll-margin-top:130px}
 </style>
 </head>
@@ -478,9 +490,11 @@ details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:
   <section id="clrot" class="card">
     <p class="kicker">Rotation map</p>
     <h2>Relative Robustness Rotation</h2>
-    <p class="sub">His RRG-style map against SPY. Right = stronger than SPY, top = gaining strength. Tails show the last four weeks.</p>
+    <p class="sub">His RRG-style map against SPY. Right = stronger than SPY, top = gaining strength. Tap a dot or a name to see its four-week tail.</p>
     <div class="chips" id="clrotgrp"><button class="chip on" data-g="sector">Sectors</button><button class="chip" data-g="theme">Themes</button></div>
-    <div class="chart"><div class="top"><span class="tk">RS-RATIO vs RS-MOMENTUM</span><span class="brandtag">vs SPY · <b>daily</b></span></div><div id="clrotsvg"></div></div>
+    <div class="chips" id="clrotopt"><button class="chip" data-o="tails">Tails</button><button class="chip" data-o="movers">Top 12 movers</button></div>
+    <div class="chart"><div class="top"><span class="tk">RS-RATIO vs RS-MOMENTUM</span><span class="brandtag">vs SPY · <b>daily</b></span></div><div id="clrotsvg"></div><p class="clrotnote" id="clrotinfo"></p></div>
+    <div class="clq" id="clrotq"></div>
   </section>
   <section id="clscreens" class="card">
     <p class="kicker">Screeners</p>
@@ -763,7 +777,7 @@ function renderCards(V){
     <p>${esc(k.research_text||"")}</p><p><b>${esc(k.live_text||"")}</b></p>${k.caution?`<div class="caution">${esc(k.caution)}</div>`:""}</div>`;}).join(""):`<div class="empty">${V.main?"No strategies to show yet.":"No trades yet. A strategy gets a scorecard once it has traded."}</div>`;
 }
 
-const CL={d:null,busy:false,rk:"top",grp:"theme",per:"m1",rot:"sector",scr:0};
+const CL={d:null,busy:false,rk:"top",grp:"theme",per:"m1",rot:"sector",scr:0,rsel:null,rmov:false,rtails:{sector:true,theme:false}};
 const CLC={GREEN:"#2bb07f",BLUE:"#4a8fe0",YELLOW:"#e2bf3f",AMBER:"#e0913a",PURPLE:"#9467d0",RED:"#d4504a"};
 const clDate=s=>{if(!s)return"";const d=new Date(s+"T12:00:00");return isNaN(d)?esc(s):d.toLocaleDateString("en-US",{month:"short",day:"numeric"});};
 const clBadge=s=>`<span class="clst" style="background:${CLC[s]||"#8a91a6"}">${esc(s)}</span>`;
@@ -888,22 +902,71 @@ function clThemes(d){
   $("clthsub").textContent=`${R.length} ${CL.grp==="theme"?"theme":"sector"} funds from his lists, coloured by ${nm} return, close ${clDate(t.as_of)}.`;
   $("clheat").innerHTML=R.map(r=>{const [bg,fg]=clHeatColor(r[per],sc);return `<div class="tl" style="background:${bg};color:${fg}" title="${esc(r.sym)} · 1D ${sgn(r.d1)} · 1W ${sgn(r.w1)} · 1M ${sgn(r.m1)} · 3M ${sgn(r.m3)} · RS21 ${clNum(r.rs21,0)} · RS63 ${clNum(r.rs63,0)} · RVol ${clNum(r.rvol,0)} · ${esc(r.quadrant||"")}"><b>${esc(r.sym)}</b><span>${sgn(r[per],1)}</span><small>RS ${clNum(r.rs21,0)}/${clNum(r.rs63,0)} · RV ${clNum(r.rvol,0)}</small></div>`;}).join("");
 }
+const clMeasure=(()=>{let c=null;return(s,px)=>{c=c||document.createElement("canvas").getContext("2d");c.font=`700 ${px}px ${getComputedStyle(document.body).fontFamily}`;return c.measureText(s).width;};})();
 function clRotation(d){
-  const t=d.themes,wrap=$("clrotsvg"); if(!t){wrap.innerHTML="";return;}
-  const R=(t.rows||[]).filter(r=>r.group===CL.rot&&r.rrr_ratio!=null&&r.rrr_mom!=null);
-  const W=clW(wrap),H=Math.min(560,Math.max(320,W*.62)),pad=34;
-  const xs=R.flatMap(r=>[r.rrr_ratio].concat((r.tail||[]).map(p=>p[0]).filter(v=>v!=null))),ys=R.flatMap(r=>[r.rrr_mom].concat((r.tail||[]).map(p=>p[1]).filter(v=>v!=null)));
-  const ex=Math.max(1,...xs.map(v=>Math.abs(v-100)))*1.12,ey=Math.max(.5,...ys.map(v=>Math.abs(v-100)))*1.12;
-  const x=v=>pad+(W-2*pad)*(v-(100-ex))/(2*ex),y=v=>pad+(H-2*pad)*((100+ey)-v)/(2*ey);
-  const QC={Leading:"#2bb07f",Weakening:"#e2bf3f",Lagging:"#d4504a",Improving:"#4a8fe0"};
-  let s=`<rect x="${x(100)}" y="${pad}" width="${x(100+ex)-x(100)}" height="${y(100)-pad}" fill="#2bb07f" opacity=".08"/><rect x="${pad}" y="${pad}" width="${x(100)-pad}" height="${y(100)-pad}" fill="#4a8fe0" opacity=".08"/><rect x="${pad}" y="${y(100)}" width="${x(100)-pad}" height="${H-pad-y(100)}" fill="#d4504a" opacity=".08"/><rect x="${x(100)}" y="${y(100)}" width="${x(100+ex)-x(100)}" height="${H-pad-y(100)}" fill="#e2bf3f" opacity=".08"/>`;
-  s+=`<line x1="${pad}" x2="${W-pad}" y1="${y(100)}" y2="${y(100)}" stroke="#8a91a6"/><line y1="${pad}" y2="${H-pad}" x1="${x(100)}" x2="${x(100)}" stroke="#8a91a6"/>`;
-  s+=`<text x="${W-pad}" y="${pad-10}" fill="#2bb07f" font-size="11" text-anchor="end">LEADING</text><text x="${pad}" y="${pad-10}" fill="#4a8fe0" font-size="11">IMPROVING</text><text x="${pad}" y="${H-10}" fill="#d4504a" font-size="11">LAGGING</text><text x="${W-pad}" y="${H-10}" fill="#e2bf3f" font-size="11" text-anchor="end">WEAKENING</text>`;
-  R.forEach(r=>{const c=QC[r.quadrant]||"#9aa3b8",T=(r.tail||[]).filter(p=>p[0]!=null&&p[1]!=null);
-    if(T.length>1) s+=`<polyline points="${T.map(p=>x(p[0]).toFixed(1)+","+y(p[1]).toFixed(1)).join(" ")}" fill="none" stroke="${c}" stroke-width="1.4" opacity=".55"/>`;
-    s+=`<circle cx="${x(r.rrr_ratio).toFixed(1)}" cy="${y(r.rrr_mom).toFixed(1)}" r="4.5" fill="${c}"><title>${esc(r.sym)} · RS-Ratio ${clNum(r.rrr_ratio,2)} · RS-Momentum ${clNum(r.rrr_mom,2)} · ${esc(r.quadrant||"")}</title></circle><text x="${(x(r.rrr_ratio)+6).toFixed(1)}" y="${(y(r.rrr_mom)-5).toFixed(1)}" fill="#dfe3ee" font-size="10.5" font-weight="700">${esc(r.sym)}</text>`;});
-  s+=`<text x="${W-pad}" y="${y(100)-6}" fill="#9aa3b8" font-size="10" text-anchor="end">RS-Ratio →</text><text x="${x(100)+6}" y="${pad+10}" fill="#9aa3b8" font-size="10">↑ RS-Momentum</text>`;
-  wrap.innerHTML=R.length?`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Relative Robustness Rotation map">${s}</svg>`:`<div style="padding:28px 8px;color:#9aa3b8">Not enough history yet.</div>`;
+  const t=d.themes,wrap=$("clrotsvg"),qb=$("clrotq"),info=$("clrotinfo"); if(!t){wrap.innerHTML="";qb.innerHTML="";return;}
+  const g=CL.rot,QC={Leading:"#2bb07f",Weakening:"#e2bf3f",Lagging:"#d4504a",Improving:"#4a8fe0"};
+  const all=(t.rows||[]).filter(r=>r.group===g&&r.rrr_ratio!=null&&r.rrr_mom!=null);
+  const tl=r=>(r.tail||[]).filter(p=>p&&p[0]!=null&&p[1]!=null);
+  const mv=r=>{const T=tl(r);return T.length>1?Math.hypot(T[T.length-1][0]-T[0][0],T[T.length-1][1]-T[0][1]):0;};
+  if(g!=="theme") CL.rmov=false;
+  let R=CL.rmov?all.slice().sort((a,b)=>mv(b)-mv(a)).slice(0,12):all;
+  if(CL.rsel&&!R.some(r=>r.sym===CL.rsel)){if(CL.rmov&&all.some(r=>r.sym===CL.rsel)){CL.rmov=false;R=all;}else CL.rsel=null;}
+  const tails=!!CL.rtails[g],sel=CL.rsel;
+  [...$("clrotopt").children].forEach(b=>{if(b.dataset.o==="tails")b.classList.toggle("on",tails);else{b.style.display=g==="theme"?"":"none";b.classList.toggle("on",!!CL.rmov);}});
+  if(!R.length){wrap.innerHTML=`<div style="padding:28px 8px;color:#9aa3b8">Not enough history yet.</div>`;qb.innerHTML="";info.textContent="";return;}
+  const W=clW(wrap),mob=W<520,H=mob?Math.round(Math.max(340,W)):Math.round(Math.min(560,Math.max(360,W*.6))),X0=30,X1=W-14,Y0=26,Y1=H-26;
+  const sp=(a)=>Math.max(...a.map(v=>Math.abs(v-100)));
+  const dx=sp(R.map(r=>r.rrr_ratio)),dy=sp(R.map(r=>r.rrr_mom)),tx=sp(R.flatMap(r=>tl(r).map(p=>p[0]))),ty=sp(R.flatMap(r=>tl(r).map(p=>p[1])));
+  const ex=Math.max(dx*1.18,Math.min(tx,dx*1.6)*1.05,.5),ey=Math.max(dy*1.18,Math.min(ty,dy*1.6)*1.05,.3);
+  const x=v=>X0+(X1-X0)*(v-(100-ex))/(2*ex),y=v=>Y0+(Y1-Y0)*((100+ey)-v)/(2*ey),xc=x(100),yc=y(100);
+  let s=`<defs><clipPath id="clrotclip"><rect x="${X0}" y="${Y0}" width="${X1-X0}" height="${Y1-Y0}"/></clipPath></defs>`;
+  s+=`<rect data-plot="1" x="${X0}" y="${Y0}" width="${X1-X0}" height="${Y1-Y0}" fill="none" stroke="#3a3f52"/>`;
+  s+=`<rect x="${xc}" y="${Y0}" width="${X1-xc}" height="${yc-Y0}" fill="#2bb07f" opacity=".08"/><rect x="${X0}" y="${Y0}" width="${xc-X0}" height="${yc-Y0}" fill="#4a8fe0" opacity=".08"/><rect x="${X0}" y="${yc}" width="${xc-X0}" height="${Y1-yc}" fill="#d4504a" opacity=".08"/><rect x="${xc}" y="${yc}" width="${X1-xc}" height="${Y1-yc}" fill="#e2bf3f" opacity=".08"/>`;
+  s+=`<line x1="${X0}" x2="${X1}" y1="${yc}" y2="${yc}" stroke="#8a91a6"/><line y1="${Y0}" y2="${Y1}" x1="${xc}" x2="${xc}" stroke="#8a91a6"/>`;
+  s+=`<text x="${X1}" y="${Y0-9}" fill="#2bb07f" font-size="11" text-anchor="end">LEADING</text><text x="${X0}" y="${Y0-9}" fill="#4a8fe0" font-size="11">IMPROVING</text><text x="${X0}" y="${H-8}" fill="#d4504a" font-size="11">LAGGING</text><text x="${X1}" y="${H-8}" fill="#e2bf3f" font-size="11" text-anchor="end">WEAKENING</text>`;
+  s+=`<text x="${X0-4}" y="${yc+4}" fill="#9aa3b8" font-size="9.5" text-anchor="end">100</text><text x="${X1}" y="${H-8-13}" fill="#6f778c" font-size="9.5" text-anchor="end">${(100+ex).toFixed(1)}</text><text x="${X0}" y="${H-8-13}" fill="#6f778c" font-size="9.5">${(100-ex).toFixed(1)}</text>`;
+  const fs=10.5,obst=[],placed=[];
+  const ax1=`RS-Ratio →`,ax2=`↑ RS-Momentum`,w1=clMeasure(ax1,10)*.95,w2=clMeasure(ax2,10)*.95;
+  s+=`<text x="${X1-4}" y="${yc-6}" fill="#9aa3b8" font-size="10" text-anchor="end">${ax1}</text><text x="${xc+6}" y="${Y0+12}" fill="#9aa3b8" font-size="10">${ax2}</text>`;
+  obst.push([X1-4-w1-1,yc-15,X1-3,yc-3],[xc+5,Y0+3,xc+7+w2,Y0+15]);
+  const P=R.map(r=>({r,cx:x(r.rrr_ratio),cy:y(r.rrr_mom)}));
+  P.forEach(p=>obst.push([p.cx-5,p.cy-5,p.cx+5,p.cy+5,p.r.sym]));
+  let tg="";
+  P.forEach(p=>{const T=tl(p.r),me=p.r.sym===sel;if(T.length<2)return;
+    if(me) tg+=`<polyline points="${T.map(q=>x(q[0]).toFixed(1)+","+y(q[1]).toFixed(1)).join(" ")}" fill="none" stroke="#ffffff" stroke-width="2.4"/>`+T.slice(0,-1).map(q=>`<circle cx="${x(q[0]).toFixed(1)}" cy="${y(q[1]).toFixed(1)}" r="2.6" fill="#ffffff"/>`).join("");
+    else if(tails) tg+=`<polyline points="${T.map(q=>x(q[0]).toFixed(1)+","+y(q[1]).toFixed(1)).join(" ")}" fill="none" stroke="${QC[p.r.quadrant]||"#9aa3b8"}" stroke-width="1" opacity="${sel?.12:.32}"/>`;});
+  s+=`<g clip-path="url(#clrotclip)">${tg}</g>`;
+  P.forEach(p=>{const me=p.r.sym===sel;s+=`<circle cx="${p.cx.toFixed(1)}" cy="${p.cy.toFixed(1)}" r="${me?6.5:4.5}" fill="${QC[p.r.quadrant]||"#9aa3b8"}" stroke="${me?"#ffffff":"#1d2131"}" stroke-width="${me?2:1}" opacity="${sel&&!me?.35:1}"/>`;});
+  const hit=(b,L,own)=>L.some(o=>o[4]!==own&&b[0]<o[2]&&b[2]>o[0]&&b[1]<o[3]&&b[3]>o[1]);
+  const C=[[7,-3,0],[7,9,0],[-7,-3,1],[-7,9,1],[0,-8,2],[0,17,2],[15,-13,0],[15,20,0],[-15,-13,1],[-15,20,1],[0,-21,2],[0,30,2],[24,3,0],[-24,3,1]];
+  const box=(p,c,w)=>{const ax=p.cx+c[0],ay=p.cy+c[1],l=c[2]===0?ax:c[2]===1?ax-w:ax-w/2;return [l-1,ay-11,l+w+1,ay+4];};
+  const order=P.slice().sort((a,b)=>((b.r.sym===sel)-(a.r.sym===sel))||(Math.hypot(b.cx-xc,b.cy-yc)-Math.hypot(a.cx-xc,a.cy-yc)));
+  let lg="",hidden=0;
+  order.forEach(p=>{const me=p.r.sym===sel,w=clMeasure(p.r.sym,fs);let pick=null,bx=null;
+    for(const c of C){const b=box(p,c,w);if(b[0]<X0+1||b[2]>X1-1||b[1]<Y0+1||b[3]>Y1-1)continue;if(hit(b,placed,"\u0000")||hit(b,obst,p.r.sym))continue;pick=c;bx=b;break;}
+    if(!pick&&me){pick=C[0];bx=box(p,pick,w);const sx=Math.min(0,X1-1-bx[2])+Math.max(0,X0+1-bx[0]),sy=Math.max(0,Y0+1-bx[1])+Math.min(0,Y1-1-bx[3]);bx=[bx[0]+sx,bx[1]+sy,bx[2]+sx,bx[3]+sy];}
+    if(!pick){hidden++;return;}
+    placed.push(bx);
+    const far=Math.abs(pick[0])>=15||Math.abs(pick[1])>=17;
+    if(far){const lx=Math.max(bx[0],Math.min(p.cx,bx[2])),ly=Math.max(bx[1],Math.min(p.cy,bx[3]));lg+=`<line x1="${p.cx.toFixed(1)}" y1="${p.cy.toFixed(1)}" x2="${lx.toFixed(1)}" y2="${ly.toFixed(1)}" stroke="#8a91a6" stroke-width=".8"/>`;}
+    if(me) lg+=`<rect x="${(bx[0]-2).toFixed(1)}" y="${(bx[1]-1).toFixed(1)}" width="${(bx[2]-bx[0]+4).toFixed(1)}" height="${(bx[3]-bx[1]+2).toFixed(1)}" rx="3" fill="#ffffff"/>`;
+    lg+=`<text data-lbl="${esc(p.r.sym)}" x="${(bx[0]+1).toFixed(1)}" y="${(bx[3]-4).toFixed(1)}" fill="${me?"#1d2131":"#dfe3ee"}" font-size="${fs}" font-weight="700" paint-order="stroke" stroke="${me?"none":"#262b3b"}" stroke-width="3" opacity="${sel&&!me?.45:1}">${esc(p.r.sym)}</text>`;});
+  s+=lg;
+  P.forEach(p=>{s+=`<circle data-s="${esc(p.r.sym)}" cx="${p.cx.toFixed(1)}" cy="${p.cy.toFixed(1)}" r="12" fill="transparent" style="cursor:pointer"><title>${esc(p.r.sym)} · RS-Ratio ${clNum(p.r.rrr_ratio,2)} · RS-Momentum ${clNum(p.r.rrr_mom,2)} · ${esc(p.r.quadrant||"")}</title></circle>`;});
+  wrap.innerHTML=`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Relative Robustness Rotation map" data-hidden="${hidden}">${s}</svg>`;
+  const S=sel&&R.find(r=>r.sym===sel);
+  if(S){const T=tl(S),q0=T.length>1?T[0]:null;info.innerHTML=`<b style="color:${QC[S.quadrant]||"#dfe3ee"}">${esc(S.sym)}</b> · ${esc(S.quadrant||"")} · RS-Ratio ${clNum(S.rrr_ratio,2)} · RS-Momentum ${clNum(S.rrr_mom,2)}${q0?` · 4 weeks ago ${clNum(q0[0],2)} / ${clNum(q0[1],2)}`:""}. Tap it again to clear.`;}
+  else info.textContent=`${R.length} ${g==="theme"?"theme":"sector"} funds${CL.rmov?" (the 12 that moved most in 4 weeks)":""}. ${hidden?`${hidden} ${hidden===1?"label is":"labels are"} hidden so none overlap. `:""}Tap a dot or a name below to highlight it with its 4-week tail.${tails?"":" Tails are off: tap Tails to show them all."}`;
+  const ord=["Leading","Improving","Weakening","Lagging"];
+  qb.innerHTML=ord.map(q=>{const L=all.filter(r=>r.quadrant===q).sort((a,b)=>b.rrr_ratio-a.rrr_ratio);
+    return `<div class="qbox"><h4 style="color:${QC[q]}"><i style="background:${QC[q]}"></i>${q} <span class="meta">${L.length}</span></h4>${L.length?`<div class="hd"><span>Fund</span><span>Ratio</span><span>Mom.</span></div>`+L.map(r=>`<button class="clqr${r.sym===sel?" on":""}" data-s="${esc(r.sym)}"><b>${esc(r.sym)}</b><span>${clNum(r.rrr_ratio,2)}</span><span>${clNum(r.rrr_mom,2)}</span></button>`).join(""):`<div class="meta" style="padding:2px 6px">none</div>`}</div>`;}).join("");
+  const pickS=e=>{const el=e.target.closest("[data-s]");return el?el.dataset.s:null;};
+  CL.rP=P.map(p=>[p.cx,p.cy,p.r.sym]);
+  wrap.onclick=e=>{const sv=wrap.querySelector("svg");if(!sv)return;const m=sv.getScreenCTM();if(!m)return;const pt=sv.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const u=pt.matrixTransform(m.inverse());
+    let k=null,bd=16;CL.rP.forEach(q=>{const dd=Math.hypot(q[0]-u.x,q[1]-u.y);if(dd<bd){bd=dd;k=q[2];}});CL.rsel=k&&CL.rsel!==k?k:null;clRotation(CL.d);};
+  qb.onclick=e=>{const k=pickS(e);if(!k)return;CL.rsel=CL.rsel!==k?k:null;clRotation(CL.d);};
+  $("clrotopt").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;if(b.dataset.o==="tails")CL.rtails[CL.rot]=!CL.rtails[CL.rot];else CL.rmov=!CL.rmov;clRotation(CL.d);};
 }
 function clScreens(d){
   const S=(d.screens||{}).screens||[]; if(!S.length){$("clsct").innerHTML=`<tr><td class="empty">Not available.</td></tr>`;return;}
