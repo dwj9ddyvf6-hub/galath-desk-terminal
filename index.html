@@ -422,15 +422,17 @@ function renderOverview(V){
     (lastClose&&hb)?[`Day P&L (${closeLbl} close)`,usd(hb.desk_day_usd),sgn(hb.desk_day_pct),cls(hb.desk_day_usd)]:[lastClose?"Day P&L (latest marks)":"Day P&L",usd(a.day_pl),sgn(a.day_pl_pct),cls(a.day_pl)],
     ["Total P&L",usd(a.total_pl),sgn(a.total_pl_pct),cls(a.total_pl)],
     ["Win rate",wr,st.closed?`${st.wins} of ${st.closed} closed`:`no closed trades yet · ${st.open_in_profit||0}/${st.open||0} open in profit`,"flat"],
-    ["Slots used",`${sz.slots_used??"—"} / ${sz.slots??"—"}`,`${usd(sz.slot_usd,0)} per slot`,"flat"],
+    sz.capacity_text?["Capacity",sz.capacity_usd!=null?`about ${usd(sz.capacity_usd/1000,0)}k`:"—",`set by buying power · ${sz.capacity_basis==="live"?"as of "+esc(sz.capacity_as_of||""):"staged"}`,"flat"]   // Test desk (CoS 22:28): no slot / budget totals
+      :["Slots used",`${sz.slots_used??"—"} / ${sz.slots??"—"}`,`${usd(sz.slot_usd,0)} per slot`,"flat"],
   ]);
 }
 function renderLanes(V){
   const d=V.d, sz=d.sizing||{}, L=d.lanes||[];
-  $v(V,"lanesub").textContent=L.length?`Each lane has a dollar budget for new entries: ${usd(sz.committed_usd,0)} committed of ${usd(sz.budget_total_usd,0)} budgeted. Nothing is sold to make room; an over-budget lane takes no new entries until positions close.`:"";
+  $v(V,"lanesub").textContent=sz.capacity_text?`${sz.capacity_text}. Each switched-on lane has its own dollar budget for new entries and its own row; nothing is sold to make room.`:L.length?`Each lane has a dollar budget for new entries: ${usd(sz.committed_usd,0)} committed of ${usd(sz.budget_total_usd,0)} budgeted. Nothing is sold to make room; an over-budget lane takes no new entries until positions close.`:"";
   const lrow=l=>{const has=l.budget_usd!=null,pct=has?(l.budget_usd?Math.min(100,100*l.committed_usd/l.budget_usd):(l.committed_usd>0?100:0)):(l.cap?Math.min(100,100*l.used/l.cap):0),full=has?l.committed_usd>=l.budget_usd:l.used>=l.cap;
     return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(l.test)} ${l.kind?`<span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span>`:""}</span><span>${l.state_text?esc(l.state_text):`${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used-(l.queued||0)} open${l.queued?` · ${l.queued} queued`:""}${l.active===false?" · no new entries":l.over_budget?" · over budget":full?" · full":""}`}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
-  $v(V,"lanelist").innerHTML=L.filter(l=>!l.test).map(lrow).join("")||`<div class="empty">No lane budgets on file yet.</div>`;   // 2026-10-05 lane delete: the main desk has no test lanes
+  $v(V,"lanelist").innerHTML=L.filter(l=>!l.test).map(lrow).join("")||`<div class="empty">No lane budgets on file yet.</div>`;
+  if(sz.lanes_total_budget_usd!=null) $v(V,"lanelist").innerHTML+=`<div class="lane" style="border-top:1px solid var(--line,#2a2f3d);padding-top:8px"><div class="top"><span><b>Total</b> <span class="meta">(equals capacity)</span></span><span>${usd(sz.lanes_total_used_usd,0)} of ${usd(sz.lanes_total_budget_usd,0)}</span></div></div>`;   // Test desk 1.0.4+: lane budgets add up to capacity   // 2026-10-05 lane delete: the main desk has no test lanes
   const sk=Array.isArray(d.skips_today)?d.skips_today:[], byR={};
   sk.forEach(x=>{(byR[x.reason]=byR[x.reason]||[]).push(x.symbol);});
   const skt=Object.entries(byR).map(([r,ss])=>`${r} (${new Set(ss).size}): ${[...new Set(ss)].join(", ")}`).join(" · ");
