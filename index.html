@@ -287,6 +287,18 @@ background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;pad
     </div>
   </section>
 
+  <section id="t2beta" class="card">
+    <p class="kicker">Small-cap exposure</p>
+    <h2>Combined long beta vs small caps</h2>
+    <p class="sub" id="t2betasub"></p>
+    <div class="grid" id="t2betastats"></div>
+    <div id="t2betalanes" class="betalanes"></div>
+    <div class="chart" style="margin-top:12px"><div class="top"><span class="tk">Test desk vs IWM</span><span class="brandtag">return since start · <b>daily</b></span></div>
+      <div id="t2betawrap"></div>
+      <div class="legend"><span><i style="background:#7ee0c3"></i>Test desk holdings (return on cost)</span><span><i style="background:#f2d68a"></i>IWM since desk start</span></div>
+    </div>
+    <p class="meta" id="t2betanote" style="margin-top:10px;line-height:1.5"></p>
+  </section>
   <section id="t2mood" class="card">
     <p class="kicker">Market backdrop</p>
     <h2>Market mood</h2>
@@ -311,10 +323,26 @@ background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;pad
     <div class="heatleg"><span>Loss</span><i></i><span>Gain</span><span>· tile size = position value · color = unrealized gain or loss since entry</span></div>
   </section>
 
+  <div class="two">
+  <section id="t2lanes" class="card">
+    <p class="kicker">Budgets</p>
+    <h2>Lane budgets</h2>
+    <p class="sub" id="t2lanesub"></p>
+    <div id="t2lanelist"></div>
+  </section>
   <section id="t2pass" class="card">
     <p class="kicker">Automation</p>
     <h2>Last desk pass</h2>
     <div id="t2passbox"></div>
+  </section>
+
+  </div>
+
+  <section id="t2trades" class="card">
+    <p class="kicker">Track record</p>
+    <h2>Closed trades</h2>
+    <p class="sub" id="t2tradesub"></p>
+    <div class="list" id="t2closedlist"></div>
   </section>
 
   <section id="t2tradelog" class="card">
@@ -331,11 +359,11 @@ background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;pad
     <div class="scg" id="t2scgrid"></div>
   </section>
 
-  <section id="d2plan" class="card">
-    <p class="kicker">Test desk · names only</p>
-    <h2>Planned strategies</h2>
-    <p class="sub">Strategies the test desk is set up to paper-test. None of them is trading until the desk is switched on.</p>
-    <div class="chips" id="d2plans"></div>
+  <section id="t2signals" class="card">
+    <p class="kicker">Per strategy</p>
+    <h2>Breakdown by strategy</h2>
+    <p class="sub">Grouped by strategy and lane. Open = filled positions; Queued = entries not filled yet.</p>
+    <div class="scroll"><table id="t2bdt"></table></div>
   </section>
   </div><!-- /tab-test -->
   <div class="disc" id="disc"><b>Paper trading, not investment advice.</b> Simulated money on a broker paper account. Not a recommendation to buy or sell anything.</div>
@@ -369,16 +397,26 @@ const statHTML=rows=>rows.map(([l,v,s,c])=>`<div class="stat"><div class="l">${l
 const laneLabelV=(V,l)=>V.main?laneLabel(l):String(l);
 
 function render(){
-  const d=D, a=d.account||{};
-  $("updated").textContent=d.generated_at||"";
-  $("headline").textContent=d.headline||"";
+  const d=D;
+  // 2026-10-05 TRUE MIRROR: Main and Test desk tabs draw the SAME panel set, in the same order, with the same functions (VM / VT)
+  [renderOverview,drawChart,renderRecord,renderBeta,renderMood,renderPositions,drawHeat,renderLanes,renderPass,renderClosed,renderLog,renderCards,renderBreakdown]
+    .forEach(f=>{try{f(VM);}catch(e){console.error(f.name,e);}});   // a panel never breaks the rest of the page
+  try{renderDesk2();}catch(e){console.error("renderDesk2",e);}
+  $("disc").innerHTML=`<b>Paper trading, not investment advice.</b> ${esc(d.disclaimer||"")}`;
+  $("foot").textContent=`Data updated ${d.generated_at||""} · page refreshes every 60 seconds`;
+  freshness();
+}
+function renderOverview(V){
+  const d=V.d, a=d.account||{};
+  $v(V,"updated").textContent=d.generated_at||"";
+  $v(V,"headline").textContent=d.headline||"";
   const lastClose=d.headline_scope==="last_close";   // pre-open / after the close: the day figures are the last session's
-  $("daylabel").textContent=lastClose?"As of last close":"Today";
-  $("headmeta").textContent=`Equity ${usd(a.equity)} vs ${usd(a.start_equity,0)} start · ${d.desk_version||""} · ${d.account_type||""}`;
+  $v(V,"daylabel").textContent=d.day_label||(lastClose?"As of last close":"Today");
+  $v(V,"headmeta").textContent=d.headmeta||`Equity ${usd(a.equity)} vs ${usd(a.start_equity,0)} start · ${d.desk_version||""} · ${d.account_type||""}`;
   const st=d.stats||{}, sz=d.sizing||{}, hb=d.headline_basis||null;
   const closeLbl=hb&&hb.as_of?new Date(hb.as_of+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):"last";
   const wr=st.win_rate_pct==null?"—":st.win_rate_pct.toFixed(0)+"%";
-  $("stats").innerHTML=statHTML([
+  $v(V,"stats").innerHTML=statHTML([
     ["Equity",usd(a.equity),"",""],
     ["Cash",usd(a.cash),a.equity?`${(100*a.cash/a.equity).toFixed(0)}% of equity`:"","flat"],
     (lastClose&&hb)?[`Day P&L (${closeLbl} close)`,usd(hb.desk_day_usd),sgn(hb.desk_day_pct),cls(hb.desk_day_usd)]:[lastClose?"Day P&L (latest marks)":"Day P&L",usd(a.day_pl),sgn(a.day_pl_pct),cls(a.day_pl)],
@@ -386,35 +424,31 @@ function render(){
     ["Win rate",wr,st.closed?`${st.wins} of ${st.closed} closed`:`no closed trades yet · ${st.open_in_profit||0}/${st.open||0} open in profit`,"flat"],
     ["Slots used",`${sz.slots_used??"—"} / ${sz.slots??"—"}`,`${usd(sz.slot_usd,0)} per slot`,"flat"],
   ]);
-  drawChart(VM);
-  renderPositions(VM);
-  // lanes
-  const L=d.lanes||[];
-  $("lanesub").textContent=`Each lane has a dollar budget for new entries: ${usd(sz.committed_usd,0)} committed of ${usd(sz.budget_total_usd,0)} budgeted. Nothing is sold to make room; an over-budget lane takes no new entries until positions close.`;
+}
+function renderLanes(V){
+  const d=V.d, sz=d.sizing||{}, L=d.lanes||[];
+  $v(V,"lanesub").textContent=L.length?`Each lane has a dollar budget for new entries: ${usd(sz.committed_usd,0)} committed of ${usd(sz.budget_total_usd,0)} budgeted. Nothing is sold to make room; an over-budget lane takes no new entries until positions close.`:"";
   const lrow=l=>{const has=l.budget_usd!=null,pct=has?(l.budget_usd?Math.min(100,100*l.committed_usd/l.budget_usd):(l.committed_usd>0?100:0)):(l.cap?Math.min(100,100*l.used/l.cap):0),full=has?l.committed_usd>=l.budget_usd:l.used>=l.cap;
-    return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(l.test)} <span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span></span><span>${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used-(l.queued||0)} open${l.queued?` · ${l.queued} queued`:""}${l.active===false?" · no new entries":l.over_budget?" · over budget":full?" · full":""}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
-  $("lanelist").innerHTML=L.filter(l=>!l.test).map(lrow).join("");   // 2026-10-05 lane delete: the main desk has no test lanes (they moved to the Test desk tab)
+    return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(l.test)} ${l.kind?`<span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span>`:""}</span><span>${l.state_text?esc(l.state_text):`${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used-(l.queued||0)} open${l.queued?` · ${l.queued} queued`:""}${l.active===false?" · no new entries":l.over_budget?" · over budget":full?" · full":""}`}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
+  $v(V,"lanelist").innerHTML=L.filter(l=>!l.test).map(lrow).join("")||`<div class="empty">No lane budgets on file yet.</div>`;   // 2026-10-05 lane delete: the main desk has no test lanes
   const sk=Array.isArray(d.skips_today)?d.skips_today:[], byR={};
   sk.forEach(x=>{(byR[x.reason]=byR[x.reason]||[]).push(x.symbol);});
   const skt=Object.entries(byR).map(([r,ss])=>`${r} (${new Set(ss).size}): ${[...new Set(ss)].join(", ")}`).join(" · ");
-  if(skt) $("lanelist").innerHTML+=`<div class="meta" style="margin-top:10px">Skipped signals today — ${esc(skt)}.</div>`;
-  renderPass(VM);
-  // closed
-  const C=d.closed_trades||[];
-  $("tradesub").textContent=C.length?`${C.length} closed · realized ${usd(st.realized_usd)} · win rate ${wr}`:"No trades have closed yet. Win rate starts counting at the first exit.";
-  $("closedlist").innerHTML=C.length?C.slice().reverse().map(c=>`<div class="it ${c.realized_pct>0?"up":"down"}"><div><div class="tkr">${esc(c.symbol)}</div>
+  if(skt) $v(V,"lanelist").innerHTML+=`<div class="meta" style="margin-top:10px">Skipped signals today — ${esc(skt)}.</div>`;
+}
+function renderClosed(V){
+  const d=V.d, st=d.stats||{}, C=d.closed_trades||[];
+  const wr=st.win_rate_pct==null?"—":st.win_rate_pct.toFixed(0)+"%";
+  $v(V,"tradesub").textContent=C.length?`${C.length} closed · realized ${usd(st.realized_usd)} · win rate ${wr}`:"No trades have closed yet. Win rate starts counting at the first exit.";
+  $v(V,"closedlist").innerHTML=C.length?C.slice().reverse().map(c=>`<div class="it ${c.realized_pct>0?"up":"down"}"><div><div class="tkr">${esc(c.symbol)}</div>
     <div class="tags"><span class="t">${esc(c.strategy||laneName(c.lane))}</span>${tbadge(c.test)}</div>
     <div class="det">${usd(c.entry_price)} → ${usd(c.exit_price)} · ${c.qty} sh<br>${esc(c.entry_date||"")} → ${esc(c.closed_date||"")}</div></div>
     <div class="right"><div class="chg ${cls(c.realized_pct)}" style="font-size:20px">${sgn(c.realized_pct)}</div><div class="small">${usd(c.realized_usd)}</div></div></div>`).join(""):"";
-  // breakdown
-  const B=d.breakdown||[];
-  $("bdt").innerHTML=`<tr><th>Strategy</th><th>Lane</th><th class="r">Open</th><th class="r">Queued</th><th class="r">Closed</th><th class="r">Win rate</th><th class="r">Avg ret</th><th class="r">Realized</th><th class="r">Unrealized</th></tr>`+
-    (B.length?B.slice().sort((a,b)=>(a.test-b.test)||String(a.strategy).localeCompare(String(b.strategy))).map(b=>`<tr><td><b>${esc(b.strategy||"")}</b> ${tbadge(b.test)}</td><td>${esc(laneLabel(b.lane))}</td><td class="r">${b.open}</td><td class="r">${b.queued??0}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="9" class="empty">No trades yet.</td></tr>`);
-  [renderRecord,renderMood,drawHeat,renderLog,renderCards].forEach(f=>{try{f(VM);}catch(e){console.error(f.name,e);}});   // new public panels never break the rest of the page
-  [renderBeta,renderDesk2].forEach(f=>{try{f();}catch(e){console.error(f.name,e);}});
-  $("disc").innerHTML=`<b>Paper trading, not investment advice.</b> ${esc(d.disclaimer||"")}`;
-  $("foot").textContent=`Data updated ${d.generated_at||""} · page refreshes every 60 seconds`;
-  freshness();
+}
+function renderBreakdown(V){
+  const B=V.d.breakdown||[];
+  $v(V,"bdt").innerHTML=`<tr><th>Strategy</th><th>Lane</th><th class="r">Open</th><th class="r">Queued</th><th class="r">Closed</th><th class="r">Win rate</th><th class="r">Avg ret</th><th class="r">Realized</th><th class="r">Unrealized</th></tr>`+
+    (B.length?B.slice().sort((a,b)=>(a.test-b.test)||String(a.strategy).localeCompare(String(b.strategy))).map(b=>`<tr><td><b>${esc(b.strategy||"")}</b> ${tbadge(b.test)}</td><td>${esc(laneLabelV(V,b.lane))}</td><td class="r">${b.open}</td><td class="r">${b.queued??0}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="9" class="empty">No trades yet.</td></tr>`);
 }
 
 function renderPositions(V){
@@ -492,20 +526,21 @@ function renderRecord(V){
   ]);
 }
 // ---- 2026-10-05 combined small-cap long-beta line (data key: long_beta; separate from the main desk numbers)
-function renderBeta(){
-  const b=D.long_beta; if(!b){$("betasub").textContent="Not available yet.";$("betastats").innerHTML="";$("betalanes").innerHTML="";$("betawrap").innerHTML="";$("betanote").textContent="";return;}
+function renderBeta(V){
+  const b=V.d.long_beta, gl=(b&&b.group_label)||null;
+  if(!b){$v(V,"betasub").textContent="Not available yet.";$v(V,"betastats").innerHTML="";$v(V,"betalanes").innerHTML="";$v(V,"betawrap").innerHTML="";$v(V,"betanote").textContent="";return;}
   const asOf=b.as_of?new Date(b.as_of+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):"";
-  $("betasub").textContent=(b.unavailable?b.unavailable+" ":"")+(b.scope_text||"");
-  $("betastats").innerHTML=[
-    ["Small-cap long exposure",usd(b.value_usd,0),b.equity_pct!=null?`${b.equity_pct.toFixed(2)}% of equity · ${b.holdings} holding${b.holdings===1?"":"s"}`:`${b.holdings??0} holding${b.holdings===1?"":"s"}`,"flat"],
+  $v(V,"betasub").textContent=(b.unavailable?b.unavailable+" ":"")+(b.scope_text||"");
+  $v(V,"betastats").innerHTML=[
+    [gl?`${esc(gl)} long exposure`:"Small-cap long exposure",usd(b.value_usd,0),b.equity_pct!=null?`${b.equity_pct.toFixed(2)}% of equity · ${b.holdings} holding${b.holdings===1?"":"s"}`:`${b.holdings??0} holding${b.holdings===1?"":"s"}`,"flat"],
     ["Beta to IWM",b.beta_iwm==null?"—":b.beta_iwm.toFixed(2),b.beta_iwm==null?(b.holdings?"not enough price history":"no filled holdings"):(b.beta_coverage_pct!=null&&b.beta_coverage_pct<100?`covers ${b.beta_coverage_pct.toFixed(0)}% of the value`:"market-value weighted"),"flat"],
     ["IWM-equivalent",usd(b.iwm_equivalent_usd,0),"exposure that acts like owning IWM","flat"],
-    ["Small-cap lanes P&L",usd(b.pnl_usd),b.return_on_cost_pct!=null?`${sgn(b.return_on_cost_pct)} on cost`:"",cls(b.pnl_usd)],
+    [gl?`${esc(gl)} P&L`:"Small-cap lanes P&L",usd(b.pnl_usd),b.return_on_cost_pct!=null?`${sgn(b.return_on_cost_pct)} on cost`:"",cls(b.pnl_usd)],
     ["IWM since desk start",sgn(b.iwm_since_start_pct),asOf?`close ${asOf}`:"",cls(b.iwm_since_start_pct)],
   ].map(([l,v,s,c])=>`<div class="stat"><div class="l">${l}</div><div class="v">${v}</div><div class="s ${c}">${s}</div></div>`).join("");
-  $("betalanes").innerHTML=(b.lanes||[]).map(l=>`<span class="bl"><b>${esc(l.label)}</b> · ${l.holdings} holding${l.holdings===1?"":"s"}${l.value_usd!=null?" · "+usd(l.value_usd,0):""}</span>`).join("");
-  $("betanote").textContent=[b.method_text,b.history_text].filter(Boolean).join(" ");
-  const pts=(b.history||[]).filter(p=>p.return_on_cost_pct!=null||p.iwm_since_start_pct!=null), wrap=$("betawrap");
+  $v(V,"betalanes").innerHTML=(b.lanes||[]).map(l=>`<span class="bl"><b>${esc(l.label)}</b> · ${l.holdings} holding${l.holdings===1?"":"s"}${l.value_usd!=null?" · "+usd(l.value_usd,0):""}</span>`).join("");
+  $v(V,"betanote").textContent=[b.method_text,b.history_text].filter(Boolean).join(" ");
+  const pts=(b.history||[]).filter(p=>p.return_on_cost_pct!=null||p.iwm_since_start_pct!=null), wrap=$v(V,"betawrap");
   if(pts.length<2){wrap.innerHTML=`<div style="padding:28px 8px;color:#9aa3b8">The daily line starts ${pts.length?esc(new Date(pts[0].date+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"})):"with the next close"}. It appears once there are two market days; earlier history does not exist, so none is drawn.</div>`;return;}
   const W=Math.max(300,Math.min(1040,wrap.clientWidth||600)),H=200,pl=8,pr=58,pt=12,pb=26;
   const vals=pts.flatMap(p=>[p.return_on_cost_pct,p.iwm_since_start_pct].filter(v=>v!=null));
@@ -514,33 +549,19 @@ function renderBeta(){
   const line=k=>pts.map((p,i)=>p[k]==null?null:[x(i),y(p[k])]).filter(Boolean).map((q,i)=>(i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1)).join(" ");
   let g="";for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4;g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="#454a5e"/><text x="${W-pr+8}" y="${y(v)+4}" fill="#9aa3b8" font-size="11">${(v>0?"+":"")+v.toFixed(2)}%</text>`;}
   const lab=[...new Set([0,pts.length-1])].map(i=>`<text x="${x(i)}" y="${H-8}" fill="#9aa3b8" font-size="11" text-anchor="${i?"end":"start"}">${esc(new Date(pts[i].date+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}))}</text>`).join("");
-  wrap.innerHTML=`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Small-cap lanes return vs IWM">${g}<line x1="${pl}" x2="${W-pr}" y1="${y(0)}" y2="${y(0)}" stroke="#8a91a6" stroke-dasharray="4 4"/>
+  wrap.innerHTML=`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="${gl?esc(gl):"Small-cap lanes"} return vs IWM">${g}<line x1="${pl}" x2="${W-pr}" y1="${y(0)}" y2="${y(0)}" stroke="#8a91a6" stroke-dasharray="4 4"/>
     <path d="${line("iwm_since_start_pct")}" fill="none" stroke="#f2d68a" stroke-width="2" stroke-dasharray="5 3"/><path d="${line("return_on_cost_pct")}" fill="none" stroke="#7ee0c3" stroke-width="2.6"/>${lab}</svg>`;
 }
 // ---- 2026-10-05 second desk (data key: second_desk). Its own paper account; nothing here feeds the main desk figures above.
 // UI parity: header + overview here; every other Test desk panel is drawn by the SAME functions as Main with VT (second_desk.panels).
 function renderDesk2(){
   const s=D.second_desk;
-  if(!s){$("d2sub").textContent="Starting soon: the test desk has no trades yet.";return;}
+  if(!s){$("d2sub").textContent="Starting soon: the test desk has no trades yet.";$("t2headline").textContent="Starting soon: the test desk has no trades yet.";return;}
   const stg=({staged:"STAGED",armed:"ARMED",live:"LIVE (paper)"})[s.stage]||"";
   $("d2stage").textContent=stg; $("d2stage").className="d2stage"+(s.stage==="live"?" live":""); $("d2stage").hidden=!stg;
   $("d2sub").textContent=[s.title?s.title+".":"",s.note].filter(Boolean).join(" ");
-  $("d2plans").innerHTML=(s.strategy_names||[]).length?(s.strategy_names||[]).map(n=>`<span class="chip">${esc(n)}</span>`).join(""):`<div class="empty">No planned strategies listed.</div>`;
-  const pn=s.panels||{}, a=(s.connected&&s.account)||null, st=pn.stats||{};
-  $("t2headline").textContent=pn.headline||s.unavailable||"Staged, not trading yet.";
-  $("t2updated").textContent=s.as_of?`summary ${s.as_of}`:(D.generated_at||"");
-  $("t2daylabel").textContent=a?"Since the start":"Not trading yet";
-  $("t2headmeta").textContent=a?`Equity ${usd(a.equity)} vs ${usd(a.start_equity,0)} start · separate paper account (simulated money)`:"Separate paper account (simulated money) · no positions or trades yet";
-  const wr=st.win_rate_pct==null?"—":st.win_rate_pct.toFixed(0)+"%";
-  $("t2stats").innerHTML=statHTML([
-    ["Equity",a?usd(a.equity):"—",a&&a.start_equity!=null?`vs ${usd(a.start_equity,0)} start`:"not trading yet","flat"],
-    ["Cash",a?usd(a.cash):"—",a&&a.equity?`${(100*a.cash/a.equity).toFixed(0)}% of equity`:"","flat"],
-    ["Day P&L",a?usd(a.day_pl):"—",a?sgn(a.day_pl_pct):"",a?cls(a.day_pl):"flat"],
-    ["Total P&L",a?usd(a.total_pl):"—",a?sgn(a.total_pl_pct):"",a?cls(a.total_pl):"flat"],
-    ["Win rate",wr,st.closed?`${st.wins} of ${st.closed} closed`:"no trades yet","flat"],
-    ["Positions",`${st.open??0} open`,`${st.queued??0} queued (not filled yet)`,"flat"],
-  ]);
-  [drawChart,renderRecord,renderMood,renderPositions,drawHeat,renderPass,renderLog,renderCards].forEach(f=>{try{f(VT);}catch(e){console.error(f.name,e);}});
+  [renderOverview,drawChart,renderRecord,renderBeta,renderMood,renderPositions,drawHeat,renderLanes,renderPass,renderClosed,renderLog,renderCards,renderBreakdown]
+    .forEach(f=>{try{f(VT);}catch(e){console.error(f.name,e);}});
 }
 function attentionTile(a,tile){   // Wikipedia attention gauge: Test desk mood panel only (market-wide, never a ticker)
   if(!a) return tile("Wikipedia attention","—","","","Wikipedia attention reading unavailable right now (the latest reading is missing or out of date).");
@@ -628,7 +649,7 @@ function showTab(t){
   const test=t==="test"; $("tab-main").hidden=test; $("tab-test").hidden=!test;
   [["tabbtn-main",!test],["tabbtn-test",test]].forEach(([id,on])=>{$(id).classList.toggle("on",on);$(id).setAttribute("aria-selected",on?"true":"false");});
   document.querySelector(".nav").style.display=test?"none":"";
-  if(D){try{if(test===true){drawChart(VT);drawHeat(VT);}else{drawChart(VM);drawHeat(VM);renderBeta();}}catch(e){console.error(e);}}
+  if(D){const T=test?VT:VM;try{drawChart(T);drawHeat(T);renderBeta(T);}catch(e){console.error(e);}}
 }
 function route(){
   const h=decodeURIComponent(location.hash.slice(1));
@@ -645,7 +666,7 @@ $("refresh").onclick=load;
   $v(V,"heatmap").addEventListener("mouseover",e=>{const t=e.target.closest(".tile");if(t&&V.heat.tiles[+t.dataset.i]&&window.matchMedia("(hover:hover)").matches)heatDetail(V,V.heat.tiles[+t.dataset.i].symbol);});
 });
 document.querySelectorAll(".nav a").forEach(a=>a.addEventListener("click",()=>{document.querySelectorAll(".nav a").forEach(x=>x.classList.toggle("on",x===a));}));
-window.addEventListener("resize",()=>{if(D){const T=!$("tab-test").hidden?VT:VM;drawChart(T);try{drawHeat(T);if(T===VM)renderBeta();}catch(e){}}});
+window.addEventListener("resize",()=>{if(D){const T=!$("tab-test").hidden?VT:VM;drawChart(T);try{drawHeat(T);renderBeta(T);}catch(e){}}});
 load(); setInterval(load,60000); setInterval(freshness,30000);
 </script>
 </body>
