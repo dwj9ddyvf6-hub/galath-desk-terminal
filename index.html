@@ -251,7 +251,7 @@ background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;pad
   <section id="signals" class="card">
     <p class="kicker">Per strategy</p>
     <h2>Breakdown by strategy</h2>
-    <p class="sub">Grouped by strategy and lane. Open = filled positions; Queued = entries not filled yet. TEST rows are forward-test lanes with small budgets.</p>
+    <p class="sub">Grouped by strategy and lane. Open = filled positions; Queued = entries not filled yet.</p>
     <div class="scroll"><table id="bdt"></table></div>
   </section>
   </div><!-- /tab-main -->
@@ -294,7 +294,7 @@ const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;"
 const usd=(v,d=2)=>v==null?"—":(v<0?"-$":"$")+Math.abs(v).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d});
 const sgn=(v,d=2,suf="%")=>v==null?"—":(v>0?"+":v<0?"-":"")+Math.abs(v).toFixed(d)+suf;
 const cls=v=>v==null||v===0?"flat":v>0?"pos":"neg";
-const laneName=l=>({"1h":"1H","1d":"1D","1w":"1W"}[l]||String(l).replace(/-/g," "));
+const laneName=l=>({"1h":"1H","1d":"1D","1w":"1W","other":"Other"}[l]||String(l).replace(/-/g," "));
 const laneLabel=l=>{const x=((D&&D.lanes)||[]).find(z=>z.lane===l);return x&&x.label?x.label:laneName(l);};
 const tbadge=t=>t?`<span class="t" style="color:#f2d68a;border-color:#f2d68a">TEST</span>`:"";
 let D=null, chartMode="both", laneFilter="all";
@@ -336,7 +336,7 @@ function render(){
   $("lanesub").textContent=`Each lane has a dollar budget for new entries: ${usd(sz.committed_usd,0)} committed of ${usd(sz.budget_total_usd,0)} budgeted. Nothing is sold to make room; an over-budget lane takes no new entries until positions close.`;
   const lrow=l=>{const has=l.budget_usd!=null,pct=has?(l.budget_usd?Math.min(100,100*l.committed_usd/l.budget_usd):(l.committed_usd>0?100:0)):(l.cap?Math.min(100,100*l.used/l.cap):0),full=has?l.committed_usd>=l.budget_usd:l.used>=l.cap;
     return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(l.test)} <span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span></span><span>${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used-(l.queued||0)} open${l.queued?` · ${l.queued} queued`:""}${l.active===false?" · no new entries":l.over_budget?" · over budget":full?" · full":""}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
-  $("lanelist").innerHTML=L.filter(l=>!l.test).map(lrow).join("")+(L.some(l=>l.test)?`<div class="meta" style="margin:12px 0 6px"><b>TEST lanes</b> · small real budgets; a lane is promoted on its live results</div>`+L.filter(l=>l.test).map(lrow).join(""):"");
+  $("lanelist").innerHTML=L.filter(l=>!l.test).map(lrow).join("");   // 2026-10-05 lane delete: the main desk has no test lanes (they moved to the Test desk tab)
   const sk=Array.isArray(d.skips_today)?d.skips_today:[], byR={};
   sk.forEach(x=>{(byR[x.reason]=byR[x.reason]||[]).push(x.symbol);});
   const skt=Object.entries(byR).map(([r,ss])=>`${r} (${new Set(ss).size}): ${[...new Set(ss)].join(", ")}`).join(" · ");

@@ -4,8 +4,8 @@
  "desk_version": "paper-desk 1.7.3",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 5, 2026 at 9:28 PM ET",
- "generated_at_iso": "2026-10-05T21:28:54-04:00",
+ "generated_at": "Oct 5, 2026 at 9:37 PM ET",
+ "generated_at_iso": "2026-10-05T21:37:19-04:00",
  "headline": "As of the last close (Oct 5), the desk is up 0.19% on the day and behind SPY by 0.67 percentage points since it started.",
  "headline_scope": "last_close",
  "headline_as_of": "2026-10-05",
@@ -19,14 +19,14 @@
   "basis": "official session close (desk equity and SPY)"
  },
  "account": {
-  "equity": 101258.44,
+  "equity": 101349.94,
   "cash": 54772.79,
   "start_equity": 100000.0,
-  "long_market_value": 46485.65,
-  "day_pl": 458.95,
-  "day_pl_pct": 0.455,
-  "total_pl": 1258.44,
-  "total_pl_pct": 1.258
+  "long_market_value": 46577.15,
+  "day_pl": 550.45,
+  "day_pl_pct": 0.546,
+  "total_pl": 1349.94,
+  "total_pl_pct": 1.35
  },
  "equity_curve": [
   {
@@ -156,9 +156,9 @@
    "spy_pct": 1.806
   },
   {
-   "t": "2026-10-05T21:28",
+   "t": "2026-10-05T21:37",
    "label": "now",
-   "desk_pct": 1.258,
+   "desk_pct": 1.35,
    "spy_pct": 1.627
   }
  ],
@@ -166,8 +166,8 @@
   "slots": 206,
   "slot_usd": 1725,
   "slots_used": 22,
-  "budget_total_usd": 104925.0,
-  "committed_usd": 97229.0
+  "budget_total_usd": 102625.0,
+  "committed_usd": 96708.0
  },
  "lanes": [
   {
@@ -220,19 +220,6 @@
    "active": true,
    "budget_usd": 25000.0,
    "committed_usd": 250.0,
-   "over_budget": false
-  },
-  {
-   "lane": "lab-rules-daily",
-   "used": 2,
-   "queued": 0,
-   "cap": 10,
-   "label": "Lab rules, daily (test)",
-   "kind": "1d",
-   "test": true,
-   "active": false,
-   "budget_usd": 2300.0,
-   "committed_usd": 521.0,
    "over_budget": false
   },
   {
@@ -452,10 +439,10 @@
    "qty": 24,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 204.4,
-   "current_price": 213.0,
-   "unrealized_pct": 4.21,
-   "unrealized_usd": 206.4,
-   "day_change_pct": -2.58,
+   "current_price": 213.14,
+   "unrealized_pct": 4.28,
+   "unrealized_usd": 209.76,
+   "day_change_pct": -2.52,
    "realized_partial_usd": null
   },
   {
@@ -516,10 +503,10 @@
    "qty": 111,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 44.8,
-   "current_price": 43.11,
-   "unrealized_pct": -3.77,
-   "unrealized_usd": -187.59,
-   "day_change_pct": -1.51,
+   "current_price": 43.06,
+   "unrealized_pct": -3.88,
+   "unrealized_usd": -193.14,
+   "day_change_pct": -1.62,
    "realized_partial_usd": null
   },
   {
@@ -532,10 +519,10 @@
    "qty": 1041,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 4.8,
-   "current_price": 4.85,
-   "unrealized_pct": 1.04,
-   "unrealized_usd": 52.05,
-   "day_change_pct": -1.22,
+   "current_price": 4.94,
+   "unrealized_pct": 2.92,
+   "unrealized_usd": 145.74,
+   "day_change_pct": 0.61,
    "realized_partial_usd": null
   },
   {
@@ -557,9 +544,9 @@
   {
    "symbol": "BOTZ",
    "name": "Global X Funds Global X Robotics & Artificial Intelligence ETF",
-   "lane": "lab-rules-daily",
-   "strategy": "Lab rules, daily (test)",
-   "test": true,
+   "lane": "other",
+   "strategy": "Desk strategy",
+   "test": false,
    "status": "open",
    "qty": 5,
    "entry_date": "Oct 5, 2026 at 3:59 PM ET",
@@ -573,9 +560,9 @@
   {
    "symbol": "IESC",
    "name": "IES Holdings, Inc. Common Stock",
-   "lane": "lab-rules-daily",
-   "strategy": "Lab rules, daily (test)",
-   "test": true,
+   "lane": "other",
+   "strategy": "Desk strategy",
+   "test": false,
    "status": "open",
    "qty": 1,
    "entry_date": "Oct 5, 2026 at 3:59 PM ET",
@@ -650,14 +637,14 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 1262.74,
-   "avg_return_pct": 2.87,
+   "unrealized_usd": 1354.24,
+   "avg_return_pct": 3.07,
    "win_rate_closed_pct": null
   },
   {
-   "lane": "lab-rules-daily",
-   "strategy": "Lab rules, daily (test)",
-   "test": true,
+   "lane": "other",
+   "strategy": "Desk strategy",
+   "test": false,
    "open": 2,
    "queued": 0,
    "closed": 0,
@@ -711,15 +698,7 @@
    "reason": "timing window"
   },
   {
-   "symbol": "AXTI",
-   "reason": "already held"
-  },
-  {
    "symbol": "BE",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "CAKE",
    "reason": "timing window"
   },
   {
@@ -776,7 +755,7 @@
   },
   {
    "symbol": "FCEL",
-   "reason": "already held"
+   "reason": "budget full"
   },
   {
    "symbol": "GO",
@@ -785,10 +764,6 @@
   {
    "symbol": "HSTM",
    "reason": "timing window"
-  },
-  {
-   "symbol": "HYLN",
-   "reason": "already held"
   },
   {
    "symbol": "IBRX",
@@ -839,28 +814,12 @@
    "reason": "timing window"
   },
   {
-   "symbol": "OUST",
-   "reason": "already held"
-  },
-  {
-   "symbol": "PARR",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "PLUS",
-   "reason": "timing window"
-  },
-  {
    "symbol": "POWL",
    "reason": "filter"
   },
   {
    "symbol": "RKLB",
    "reason": "filter"
-  },
-  {
-   "symbol": "RVMD",
-   "reason": "timing window"
   },
   {
    "symbol": "RXRX",
@@ -887,24 +846,12 @@
    "reason": "budget full"
   },
   {
-   "symbol": "UMAC",
-   "reason": "timing window"
-  },
-  {
    "symbol": "URBN",
    "reason": "timing window"
   },
   {
    "symbol": "VIR",
    "reason": "timing window"
-  },
-  {
-   "symbol": "VLN",
-   "reason": "already held"
-  },
-  {
-   "symbol": "WS",
-   "reason": "already held"
   },
   {
    "symbol": "XNCR",
@@ -916,9 +863,9 @@
   }
  ],
  "skips_today_counts": {
-  "already held": 10,
-  "budget full": 5,
-  "timing window": 30,
+  "already held": 4,
+  "budget full": 6,
+  "timing window": 25,
   "filter": 8
  },
  "track_record": {
@@ -929,10 +876,10 @@
   "win_rate_pct": null,
   "avg_hold_days": null,
   "avg_return_pct": null,
-  "total_pl_usd": 1258.44,
-  "total_pl_pct": 1.258,
+  "total_pl_usd": 1349.94,
+  "total_pl_pct": 1.35,
   "realized_pl_usd": 0.0,
-  "unrealized_pl_usd": 1258.44,
+  "unrealized_pl_usd": 1349.94,
   "max_drawdown": {
    "pct": -0.59,
    "usd": -596.66,
@@ -951,7 +898,7 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": 2.87,
+   "holdings_avg_unrealized_pct": 3.07,
    "small_sample": true,
    "research": {
     "win_rate_pct": 47.5,
@@ -959,7 +906,7 @@
     "trades": 3705
    },
    "research_text": "Research expected about 48% winners and +0.47% per trade (out-of-sample backtest, 3,705 trades).",
-   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +2.87% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +3.07% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
   {
@@ -1017,22 +964,6 @@
    "research_text": "Per-trade backtest figure not on file yet. Research tested the whole book rather than single trades: about 42% a year with a worst drop of 36% in the backtest.",
    "live_text": "Live so far: no closed trades yet. 1 holding open now, -1.57% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
-  },
-  {
-   "strategy": "Lab rules, daily (test)",
-   "test": true,
-   "closed_trades": 0,
-   "wins": 0,
-   "holdings": 2,
-   "win_rate_pct": null,
-   "avg_return_pct": null,
-   "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": -0.03,
-   "small_sample": true,
-   "research": null,
-   "research_text": "Backtest figure not on file yet.",
-   "live_text": "Live so far: no closed trades yet. 2 holdings open now, -0.03% on average (unrealized).",
-   "caution": "Too early to compare: no closed trades yet."
   }
  ],
  "closed_trades_log": [],
@@ -1079,14 +1010,24 @@
     "unrealized_pct": 5.21
    },
    {
+    "symbol": "KOPN",
+    "name": "Kopin Corporation Common Stock",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5142.54,
+    "unrealized_usd": 145.74,
+    "unrealized_pct": 2.92
+   },
+   {
     "symbol": "CRDO",
     "name": "Credo Technology Group Holding Ltd Ordinary Shares",
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5112.0,
-    "unrealized_usd": 206.4,
-    "unrealized_pct": 4.21
+    "value_usd": 5115.36,
+    "unrealized_usd": 209.76,
+    "unrealized_pct": 4.28
    },
    {
     "symbol": "ASAN",
@@ -1107,16 +1048,6 @@
     "value_usd": 5078.06,
     "unrealized_usd": 349.57,
     "unrealized_pct": 7.39
-   },
-   {
-    "symbol": "KOPN",
-    "name": "Kopin Corporation Common Stock",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5048.85,
-    "unrealized_usd": 52.05,
-    "unrealized_pct": 1.04
    },
    {
     "symbol": "PL",
@@ -1144,16 +1075,16 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4785.21,
-    "unrealized_usd": -187.59,
-    "unrealized_pct": -3.77
+    "value_usd": 4779.66,
+    "unrealized_usd": -193.14,
+    "unrealized_pct": -3.88
    },
    {
     "symbol": "IESC",
     "name": "IES Holdings, Inc. Common Stock",
-    "strategy": "Lab rules, daily (test)",
-    "why": "Lab rules, daily (test): one of the lab's tested daily trading rules, traded small while it is tested",
-    "test": true,
+    "strategy": null,
+    "why": "Desk strategy: systematic signal",
+    "test": false,
     "value_usd": 339.62,
     "unrealized_usd": -0.54,
     "unrealized_pct": -0.16
@@ -1171,23 +1102,23 @@
    {
     "symbol": "BOTZ",
     "name": "Global X Funds Global X Robotics & Artificial Intelligence ETF",
-    "strategy": "Lab rules, daily (test)",
-    "why": "Lab rules, daily (test): one of the lab's tested daily trading rules, traded small while it is tested",
-    "test": true,
+    "strategy": null,
+    "why": "Desk strategy: systematic signal",
+    "test": false,
     "value_usd": 181.1,
     "unrealized_usd": 0.2,
     "unrealized_pct": 0.11
    }
   ],
   "count": 12,
-  "total_value_usd": 46485.65,
+  "total_value_usd": 46577.15,
   "source": "broker paper account positions (marks)",
   "unavailable": null
  },
  "long_beta": {
   "benchmark": "IWM",
   "benchmark_label": "IWM (iShares Russell 2000 ETF, US small caps)",
-  "scope_text": "The desk's small-cap long lanes counted together: 1W Cyan & Green, 1W Cyan small caps, Daily Cyan, 1D Green. Filled holdings only, at broker marks. 1H Swing and the test lanes are not part of this group.",
+  "scope_text": "The desk's small-cap long lanes counted together: 1W Cyan & Green, 1W Cyan small caps, Daily Cyan, 1D Green. Filled holdings only, at broker marks. 1H Swing and other holdings are not part of this group.",
   "method_text": "Beta shows how strongly these holdings have moved with IWM, from about three months of daily closes per holding, weighted by market value. A beta of 1 means one-for-one with small caps. IWM-equivalent = market value times beta: the part of the exposure that behaves like simply owning IWM.",
   "history_text": "Recorded once per market day starting Oct 5, 2026. There is no per-lane history before that, so earlier days are not shown.",
   "lanes": [
