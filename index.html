@@ -218,7 +218,7 @@ td.r,th.r{text-align:right}
   <section id="signals" class="card">
     <p class="kicker">Per strategy</p>
     <h2>Breakdown by strategy</h2>
-    <p class="sub">Grouped by strategy and lane. TEST rows are forward-test lanes with small budgets.</p>
+    <p class="sub">Grouped by strategy and lane. Open = filled positions; Queued = entries not filled yet. TEST rows are forward-test lanes with small budgets.</p>
     <div class="scroll"><table id="bdt"></table></div>
   </section>
 
@@ -253,12 +253,13 @@ function render(){
   const lastClose=d.headline_scope==="last_close";   // pre-open / after the close: the day figures are the last session's
   $("daylabel").textContent=lastClose?"As of last close":"Today";
   $("headmeta").textContent=`Equity ${usd(a.equity)} vs ${usd(a.start_equity,0)} start · ${d.desk_version||""} · ${d.account_type||""}`;
-  const st=d.stats||{}, sz=d.sizing||{};
+  const st=d.stats||{}, sz=d.sizing||{}, hb=d.headline_basis||null;
+  const closeLbl=hb&&hb.as_of?new Date(hb.as_of+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}):"last";
   const wr=st.win_rate_pct==null?"—":st.win_rate_pct.toFixed(0)+"%";
   $("stats").innerHTML=[
     ["Equity",usd(a.equity),"",""],
     ["Cash",usd(a.cash),a.equity?`${(100*a.cash/a.equity).toFixed(0)}% of equity`:"","flat"],
-    [lastClose?"Day P&L (last close)":"Day P&L",usd(a.day_pl),sgn(a.day_pl_pct),cls(a.day_pl)],
+    (lastClose&&hb)?[`Day P&L (${closeLbl} close)`,usd(hb.desk_day_usd),sgn(hb.desk_day_pct),cls(hb.desk_day_usd)]:[lastClose?"Day P&L (latest marks)":"Day P&L",usd(a.day_pl),sgn(a.day_pl_pct),cls(a.day_pl)],
     ["Total P&L",usd(a.total_pl),sgn(a.total_pl_pct),cls(a.total_pl)],
     ["Win rate",wr,st.closed?`${st.wins} of ${st.closed} closed`:`no closed trades yet · ${st.open_in_profit||0}/${st.open||0} open in profit`,"flat"],
     ["Slots used",`${sz.slots_used??"—"} / ${sz.slots??"—"}`,`${usd(sz.slot_usd,0)} per slot`,"flat"],
@@ -269,7 +270,7 @@ function render(){
   const lanes=["all",...new Set(P.map(p=>p.lane))];
   $("lchips").innerHTML=lanes.map(l=>`<button class="chip ${l===laneFilter?"on":""}" data-l="${esc(l)}">${l==="all"?"All":esc(laneLabel(l))}<span class="n">${l==="all"?P.length:P.filter(p=>p.lane===l).length}</span></button>`).join("");
   const unrl=P.reduce((s,p)=>s+(p.unrealized_usd||0),0);
-  $("possub").textContent=P.length?`${P.length} open · unrealized ${usd(unrl)} · marks from the broker paper account`:"";
+  $("possub").textContent=P.length?`${st.open??P.filter(p=>p.qty>0).length} open · ${st.queued??P.filter(p=>!(p.qty>0)).length} queued (not filled yet) · unrealized ${usd(unrl)} · marks from the broker paper account`:"";
   const F=P.filter(p=>laneFilter==="all"||p.lane===laneFilter);
   $("poslist").innerHTML=F.length?F.map(p=>`<div class="it ${p.unrealized_pct>0?"up":p.unrealized_pct<0?"down":""}">
     <div><div class="tkr">${esc(p.symbol)}</div><div class="nm">${esc(p.name||"")}</div>
@@ -281,11 +282,11 @@ function render(){
   const L=d.lanes||[];
   $("lanesub").textContent=`Each lane has a dollar budget for new entries: ${usd(sz.committed_usd,0)} committed of ${usd(sz.budget_total_usd,0)} budgeted. Nothing is sold to make room; an over-budget lane takes no new entries until positions close.`;
   const lrow=l=>{const has=l.budget_usd!=null,pct=has?(l.budget_usd?Math.min(100,100*l.committed_usd/l.budget_usd):(l.committed_usd>0?100:0)):(l.cap?Math.min(100,100*l.used/l.cap):0),full=has?l.committed_usd>=l.budget_usd:l.used>=l.cap;
-    return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(l.test)} <span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span></span><span>${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used} pos${l.over_budget?" · over budget":full?" · full":""}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
+    return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(l.test)} <span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span></span><span>${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used-(l.queued||0)} open${l.queued?` · ${l.queued} queued`:""}${l.over_budget?" · over budget":full?" · full":""}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
   $("lanelist").innerHTML=L.filter(l=>!l.test).map(lrow).join("")+(L.some(l=>l.test)?`<div class="meta" style="margin:12px 0 6px"><b>TEST lanes</b> · small real budgets; a lane is promoted on its live results</div>`+L.filter(l=>l.test).map(lrow).join(""):"");
   const sk=Array.isArray(d.skips_today)?d.skips_today:[], byR={};
   sk.forEach(x=>{(byR[x.reason]=byR[x.reason]||[]).push(x.symbol);});
-  const skt=Object.entries(byR).map(([r,ss])=>`${r} (${(d.skips_today_counts||{})[r]??ss.length}): ${[...new Set(ss)].join(", ")}`).join(" · ");
+  const skt=Object.entries(byR).map(([r,ss])=>`${r} (${new Set(ss).size}): ${[...new Set(ss)].join(", ")}`).join(" · ");
   if(skt) $("lanelist").innerHTML+=`<div class="meta" style="margin-top:10px">Skipped signals today — ${esc(skt)}.</div>`;
   // pass
   const lp=d.last_pass;
@@ -306,8 +307,8 @@ function render(){
     <div class="right"><div class="chg ${cls(c.realized_pct)}" style="font-size:20px">${sgn(c.realized_pct)}</div><div class="small">${usd(c.realized_usd)}</div></div></div>`).join(""):"";
   // breakdown
   const B=d.breakdown||[];
-  $("bdt").innerHTML=`<tr><th>Strategy</th><th>Lane</th><th class="r">Open</th><th class="r">Closed</th><th class="r">Win rate</th><th class="r">Avg ret</th><th class="r">Realized</th><th class="r">Unrealized</th></tr>`+
-    (B.length?B.slice().sort((a,b)=>(a.test-b.test)||String(a.strategy).localeCompare(String(b.strategy))).map(b=>`<tr><td><b>${esc(b.strategy||"")}</b> ${tbadge(b.test)}</td><td>${esc(laneLabel(b.lane))}</td><td class="r">${b.open}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="8" class="empty">No trades yet.</td></tr>`);
+  $("bdt").innerHTML=`<tr><th>Strategy</th><th>Lane</th><th class="r">Open</th><th class="r">Queued</th><th class="r">Closed</th><th class="r">Win rate</th><th class="r">Avg ret</th><th class="r">Realized</th><th class="r">Unrealized</th></tr>`+
+    (B.length?B.slice().sort((a,b)=>(a.test-b.test)||String(a.strategy).localeCompare(String(b.strategy))).map(b=>`<tr><td><b>${esc(b.strategy||"")}</b> ${tbadge(b.test)}</td><td>${esc(laneLabel(b.lane))}</td><td class="r">${b.open}</td><td class="r">${b.queued??0}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="9" class="empty">No trades yet.</td></tr>`);
   [renderRecord,renderMood,drawHeat,renderLog,renderCards].forEach(f=>{try{f();}catch(e){console.error(f.name,e);}});   // new public panels never break the rest of the page
   $("disc").innerHTML=`<b>Paper trading, not investment advice.</b> ${esc(d.disclaimer||"")}`;
   $("foot").textContent=`Data updated ${d.generated_at||""} · page refreshes every 60 seconds`;
