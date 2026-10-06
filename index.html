@@ -88,7 +88,7 @@ td.r,th.r{text-align:right}
 /* 2026-10-05 public panels: track record, market mood, holdings heatmap, strategy scorecards, closed trades log */
 .trk{margin-top:16px}
 .mood{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-@media(min-width:720px){.mood{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:720px){.mood{grid-template-columns:repeat(3,1fr)}}
 .mood .stat .p{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.45}
 .mood .stat.soon{border-style:dashed;background:#f7fbf9}
 .badge{display:inline-block;border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:800;margin-left:6px;vertical-align:middle;background:var(--teal-soft);color:var(--teal-dark)}
@@ -121,7 +121,15 @@ td.r,th.r{text-align:right}
 .d2badge{display:inline-block;background:#97660e;color:#fff;border-radius:6px;padding:1px 8px;font-size:11px;letter-spacing:.12em}
 .desk2 .stat{background:#fffaf0;border-color:#efdcb0}
 .desk2 .list .it{border-top-color:#efdcb0}
-.err{display:none;background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
+[hidden]{display:none!important}
+.tabs{display:flex;gap:6px;background:#dfece7;border:1px solid var(--line);border-radius:999px;padding:4px;margin:0 0 16px;position:sticky;top:72px;z-index:9}
+.tab{flex:1;text-align:center;text-decoration:none;font-weight:800;font-size:15px;color:var(--teal-dark);border-radius:999px;padding:10px 8px;white-space:nowrap}
+.tab.on{background:var(--navy);color:#fff}
+#tabbtn-test.on{background:#97660e}
+.d2stage{display:inline-block;border-radius:6px;padding:1px 8px;font-size:11px;letter-spacing:.1em;background:#fbf0d9;color:#97660e;border:1px solid #ecd39b}
+.d2stage.live{background:#e1f3ea;color:var(--green);border-color:#bfe3cf}
+.desk2 .chip{border-color:#efdcb0;cursor:default}
+background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
 </style>
 </head>
 <body>
@@ -135,6 +143,11 @@ td.r,th.r{text-align:right}
 </header>
 <main>
   <div class="err" id="err"></div>
+  <div class="tabs" role="tablist" aria-label="Desk">
+    <a href="#main" id="tabbtn-main" class="tab on" role="tab" aria-selected="true" aria-controls="tab-main">Main desk</a>
+    <a href="#test" id="tabbtn-test" class="tab" role="tab" aria-selected="false" aria-controls="tab-test">Test desk <span class="d2badge">TEST</span></a>
+  </div>
+  <div id="tab-main" role="tabpanel" aria-labelledby="tabbtn-main">
   <section id="overview">
     <p class="kicker">Paper trading · simulated money</p>
     <h1>Desk</h1>
@@ -241,13 +254,27 @@ td.r,th.r{text-align:right}
     <p class="sub">Grouped by strategy and lane. Open = filled positions; Queued = entries not filled yet. TEST rows are forward-test lanes with small budgets.</p>
     <div class="scroll"><table id="bdt"></table></div>
   </section>
+  </div><!-- /tab-main -->
 
+  <div id="tab-test" role="tabpanel" aria-labelledby="tabbtn-test" hidden>
   <section id="desk2" class="card desk2">
-    <p class="kicker" style="color:#97660e">Separate paper account · <span class="d2badge">TEST</span></p>
+    <p class="kicker" style="color:#97660e">Separate paper account · <span class="d2badge">TEST</span> <span class="d2stage" id="d2stage"></span></p>
     <h2 id="d2title">Second desk (separate paper account)</h2>
     <p class="sub" id="d2sub"></p>
     <div id="d2body"></div>
   </section>
+  <section id="d2alt" class="card desk2">
+    <p class="kicker" style="color:#97660e">Alt-data · second desk only</p>
+    <h2>Wikipedia attention</h2>
+    <div id="d2attn"></div>
+  </section>
+  <section id="d2plan" class="card desk2">
+    <p class="kicker" style="color:#97660e">Second desk · names only</p>
+    <h2>Planned strategies</h2>
+    <p class="sub">Strategies the second desk is set up to paper-test. None of them is trading until the desk is switched on.</p>
+    <div class="chips" id="d2plans"></div>
+  </section>
+  </div><!-- /tab-test -->
   <div class="disc" id="disc"><b>Paper trading, not investment advice.</b> Simulated money on a broker paper account. Not a recommendation to buy or sell anything.</div>
   <p class="meta" style="text-align:center;margin-top:14px" id="foot"></p>
 </main>
@@ -308,7 +335,7 @@ function render(){
   const L=d.lanes||[];
   $("lanesub").textContent=`Each lane has a dollar budget for new entries: ${usd(sz.committed_usd,0)} committed of ${usd(sz.budget_total_usd,0)} budgeted. Nothing is sold to make room; an over-budget lane takes no new entries until positions close.`;
   const lrow=l=>{const has=l.budget_usd!=null,pct=has?(l.budget_usd?Math.min(100,100*l.committed_usd/l.budget_usd):(l.committed_usd>0?100:0)):(l.cap?Math.min(100,100*l.used/l.cap):0),full=has?l.committed_usd>=l.budget_usd:l.used>=l.cap;
-    return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(l.test)} <span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span></span><span>${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used-(l.queued||0)} open${l.queued?` · ${l.queued} queued`:""}${l.over_budget?" · over budget":full?" · full":""}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
+    return `<div class="lane"><div class="top"><span>${esc(l.label||laneName(l.lane))} ${tbadge(l.test)} <span class="meta">(${({"1h":"hourly","1d":"daily","1w":"weekly"}[l.kind]||"")})</span></span><span>${has?`${usd(l.committed_usd,0)} of ${usd(l.budget_usd,0)}`:`${l.used} of ${l.cap}`} · ${l.used-(l.queued||0)} open${l.queued?` · ${l.queued} queued`:""}${l.active===false?" · no new entries":l.over_budget?" · over budget":full?" · full":""}</span></div><div class="bar"><div class="${full?"full":""}" style="width:${pct}%"></div></div></div>`};
   $("lanelist").innerHTML=L.filter(l=>!l.test).map(lrow).join("")+(L.some(l=>l.test)?`<div class="meta" style="margin:12px 0 6px"><b>TEST lanes</b> · small real budgets; a lane is promoted on its live results</div>`+L.filter(l=>l.test).map(lrow).join(""):"");
   const sk=Array.isArray(d.skips_today)?d.skips_today:[], byR={};
   sk.forEach(x=>{(byR[x.reason]=byR[x.reason]||[]).push(x.symbol);});
@@ -414,6 +441,10 @@ function renderDesk2(){
   const s=D.second_desk, body=$("d2body");
   if(!s){$("d2sub").textContent="Starting soon: the second desk has no trades yet.";body.innerHTML="";return;}
   $("d2title").textContent=s.title||"Second desk (separate paper account)";
+  const stg=({staged:"STAGED",armed:"ARMED",live:"LIVE (paper)"})[s.stage]||"";
+  $("d2stage").textContent=stg; $("d2stage").className="d2stage"+(s.stage==="live"?" live":""); $("d2stage").hidden=!stg;
+  renderAttention(s.attention);
+  $("d2plans").innerHTML=(s.strategy_names||[]).length?(s.strategy_names||[]).map(n=>`<span class="chip">${esc(n)}</span>`).join(""):`<div class="empty">No planned strategies listed.</div>`;
   $("d2sub").textContent=[s.unavailable,s.note].filter(Boolean).join(" ");
   if(!s.connected||!s.account){body.innerHTML=`<div class="empty">No positions or trades yet.</div>`;return;}
   const a=s.account,c=s.counts||{},P=s.positions||[],C=s.closed_trades||[];
@@ -436,6 +467,15 @@ function renderDesk2(){
   const cl=C.length?`<div class="scroll" style="margin-top:10px"><table><tr><th>Symbol</th><th>Strategy</th><th class="r">Entry</th><th class="r">Exit</th><th class="r">P&amp;L</th><th class="r">P&amp;L %</th><th>Closed</th></tr>${C.map(x=>`<tr><td><b>${esc(x.symbol)}</b></td><td>${esc(x.strategy||"")}</td><td class="r">${usd(x.entry_price)}</td><td class="r">${usd(x.exit_price)}</td><td class="r ${cls(x.realized_usd)}">${usd(x.realized_usd)}</td><td class="r ${cls(x.realized_pct)}">${sgn(x.realized_pct)}</td><td>${esc(x.closed_date||"")}</td></tr>`).join("")}</table></div>`:"";
   body.innerHTML=`<div class="grid">${stats}</div>${spark}<div class="list" style="margin-top:10px">${pos}</div>${cl}${s.as_of?`<p class="meta" style="margin-top:8px">Second desk summary as of ${esc(s.as_of)}</p>`:""}`;
 }
+function renderAttention(a){
+  const box=$("d2attn");
+  if(!a){box.innerHTML=`<div class="empty">Wikipedia attention reading unavailable right now (the latest reading is missing or out of date).</div>`;return;}
+  const asOf=new Date(a.as_of+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});
+  const tone=a.label==="near usual"?"good":"warn";
+  box.innerHTML=`<div class="grid"><div class="stat"><div class="l">Attention vs usual</div><div class="v">${sgn(a.value_pct,0)}<span class="badge ${tone}">${esc(a.label)}</span></div><div class="s flat">typical company · ${esc(asOf)}</div></div>
+    <div class="stat"><div class="l">Unusually heavy attention</div><div class="v">${a.unusual}</div><div class="s flat">of ${Number(a.companies).toLocaleString("en-US")} companies (${a.unusual_pct.toFixed(1)}%)</div></div></div>
+    <p class="meta" style="margin-top:10px;line-height:1.5">${esc(a.plain)} Market-wide reading from the research lab's Wikipedia page-view gauge; it is shown with the second desk only.</p>`;
+}
 function renderMood(){
   const m=D.market_mood; if(!m){$("moodgrid").innerHTML=`<div class="empty">Market mood not available yet.</div>`;return;}
   const tone=l=>({calm:"good",normal:"good",elevated:"warn","high fear":"bad",strong:"good",healthy:"good",soft:"warn",mixed:"warn",weak:"bad"}[l]||"");
@@ -445,7 +485,6 @@ function renderMood(){
   $("moodgrid").innerHTML=[
     v?tile("VIX (fear gauge)",v.value.toFixed(2),`<span class="badge ${tone(v.label)}">${esc(v.label)}</span>`,`${v.change==null?"":(v.change>=0?"+":"")+v.change.toFixed(2)+" vs prior close · "}close ${asOf(v.as_of)}`,esc(v.plain)):tile("VIX (fear gauge)","—","","",esc(m.vix_unavailable||"Unavailable.")),
     b?tile("Market breadth",b.value_pct.toFixed(0)+"%",`<span class="badge ${tone(b.label)}">${esc(b.label)}</span>`,`${b.change_pts==null?"":(b.change_pts>=0?"+":"")+b.change_pts.toFixed(1)+" pts vs prior session · "}${asOf(b.as_of)}`,esc(b.plain)):tile("Market breadth","—","","",esc(m.breadth_unavailable||"Unavailable.")),
-    m.wikipedia_attention&&m.wikipedia_attention.value!=null?tile("Wikipedia attention",esc(m.wikipedia_attention.value),m.wikipedia_attention.label?`<span class="badge">${esc(m.wikipedia_attention.label)}</span>`:"",asOf(m.wikipedia_attention.as_of),esc(m.wikipedia_attention.plain||"")):tile("Wikipedia attention","—","","",esc(m.wikipedia_attention_unavailable||"Unavailable.")),
     m.options_protection&&m.options_protection.value!=null?tile("Options protection (IV / skew)",esc(m.options_protection.value),m.options_protection.label?`<span class="badge">${esc(m.options_protection.label)}</span>`:"",asOf(m.options_protection.as_of),esc(m.options_protection.plain||"")):tile(esc(m.options_protection_label||"Options protection (IV / skew): coming soon").replace(/:.*$/,""),"Soon","","","How expensive downside protection is in the options market. Coming soon from the research lab.",true),
   ].join("");
 }
@@ -513,6 +552,20 @@ async function load(){
     D=await r.json(); $("err").style.display="none"; render();
   }catch(e){ $("err").style.display="block"; $("err").textContent="Could not load the latest data ("+e.message+"). Showing the last good copy; retrying every 60 seconds."; }
 }
+// ---- 2026-10-05 tabs: #main (default) / #test; any other hash is a main-desk section anchor
+function showTab(t){
+  const test=t==="test"; $("tab-main").hidden=test; $("tab-test").hidden=!test;
+  [["tabbtn-main",!test],["tabbtn-test",test]].forEach(([id,on])=>{$(id).classList.toggle("on",on);$(id).setAttribute("aria-selected",on?"true":"false");});
+  document.querySelector(".nav").style.display=test?"none":"";
+  if(!test&&D){try{drawChart();drawHeat();renderBeta();}catch(e){console.error(e);}}
+}
+function route(){
+  const h=decodeURIComponent(location.hash.slice(1));
+  if(h==="test"){showTab("test");return;}
+  showTab("main");
+  if(h&&h!=="main"){const el=document.getElementById(h);if(el&&$("tab-main").contains(el))el.scrollIntoView();}
+}
+window.addEventListener("hashchange",route); route();
 $("refresh").onclick=load;
 $("cchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;chartMode=b.dataset.v;[...$("cchips").children].forEach(c=>c.classList.toggle("on",c===b));drawChart();};
 $("lchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;laneFilter=b.dataset.l;render();};
