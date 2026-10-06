@@ -5,8 +5,8 @@
  "rules_version": "1.4.4-r1",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 5, 2026 at 11:30 PM ET",
- "generated_at_iso": "2026-10-05T23:30:02-04:00",
+ "generated_at": "Oct 6, 2026 at 12:01 AM ET",
+ "generated_at_iso": "2026-10-06T00:01:23-04:00",
  "headline": "As of the last close (Oct 5), the desk is up 0.19% on the day and behind SPY by 0.67 percentage points since it started.",
  "headline_scope": "last_close",
  "headline_as_of": "2026-10-05",
@@ -20,14 +20,14 @@
   "basis": "official session close (desk equity and SPY)"
  },
  "account": {
-  "equity": 101302.21,
+  "equity": 101298.37,
   "cash": 54772.79,
   "start_equity": 100000.0,
-  "long_market_value": 46529.42,
-  "day_pl": 502.72,
-  "day_pl_pct": 0.499,
-  "total_pl": 1302.21,
-  "total_pl_pct": 1.302
+  "long_market_value": 46525.58,
+  "day_pl": 498.88,
+  "day_pl_pct": 0.495,
+  "total_pl": 1298.37,
+  "total_pl_pct": 1.298
  },
  "equity_curve": [
   {
@@ -157,7 +157,7 @@
    "spy_pct": 1.806
   },
   {
-   "t": "2026-10-05T23:30",
+   "t": "2026-10-06T00:01",
    "label": "Oct 5 close",
    "desk_pct": 0.987,
    "spy_pct": 1.657
@@ -474,10 +474,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 204.4,
-   "current_price": 212.5,
-   "unrealized_pct": 3.96,
-   "unrealized_usd": 194.4,
-   "day_change_pct": 0.01,
+   "current_price": 212.8,
+   "unrealized_pct": 4.11,
+   "unrealized_usd": 201.6,
+   "day_change_pct": 0.15,
    "realized_partial_usd": null
   },
   {
@@ -542,10 +542,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 44.8,
-   "current_price": 42.97,
-   "unrealized_pct": -4.08,
-   "unrealized_usd": -203.13,
-   "day_change_pct": 0.0,
+   "current_price": 42.95,
+   "unrealized_pct": -4.13,
+   "unrealized_usd": -205.35,
+   "day_change_pct": -0.05,
    "realized_partial_usd": null
   },
   {
@@ -576,10 +576,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 17.45,
-   "current_price": 17.61,
-   "unrealized_pct": 0.92,
-   "unrealized_usd": 45.76,
-   "day_change_pct": 1.44,
+   "current_price": 17.57,
+   "unrealized_pct": 0.69,
+   "unrealized_usd": 34.32,
+   "day_change_pct": 1.21,
    "realized_partial_usd": null
   },
   {
@@ -627,10 +627,10 @@
    "qty_requested": null,
    "entry_date": "Oct 5, 2026 at 9:30 AM ET",
    "entry_price": 1.91,
-   "current_price": 1.9,
-   "unrealized_pct": -0.52,
-   "unrealized_usd": -1.31,
-   "day_change_pct": 1.06,
+   "current_price": 1.92,
+   "unrealized_pct": 0.52,
+   "unrealized_usd": 1.31,
+   "day_change_pct": 2.13,
    "realized_partial_usd": null
   }
  ],
@@ -640,7 +640,7 @@
   "wins": 0,
   "win_rate_pct": null,
   "realized_usd": 0.0,
-  "open_in_profit": 9,
+  "open_in_profit": 10,
   "open": 12,
   "queued": 10,
   "positions_total": 22
@@ -681,8 +681,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 1303.89,
-   "avg_return_pct": 2.95,
+   "unrealized_usd": 1297.43,
+   "avg_return_pct": 2.94,
    "win_rate_closed_pct": null
   },
   {
@@ -707,8 +707,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": -1.31,
-   "avg_return_pct": -0.52,
+   "unrealized_usd": 1.31,
+   "avg_return_pct": 0.52,
    "win_rate_closed_pct": null
   }
  ],
@@ -730,191 +730,18 @@
   "ledger_verify": "OK",
   "ledger_chain_ok": true,
   "ledger_records": 412,
-  "passes_today": 12,
+  "passes_today": 0,
   "locks": 0,
   "health": {
-   "gate_ok": false,
-   "gate_at": "5:28 PM",
-   "missed": 4,
-   "moc_missed": true,
+   "gate_ok": null,
+   "gate_at": null,
+   "missed": 0,
+   "moc_missed": false,
    "audited": true
   }
  },
- "skips_today": [
-  {
-   "symbol": "ACMR",
-   "reason": "already held or queued"
-  },
-  {
-   "symbol": "ATEN",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "BE",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "CCL",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "CIEN",
-   "reason": "already held or queued"
-  },
-  {
-   "symbol": "CLOU",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "COHR",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "CON",
-   "reason": "filter"
-  },
-  {
-   "symbol": "CRDO",
-   "reason": "already held or queued"
-  },
-  {
-   "symbol": "CRML",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "CSCO",
-   "reason": "filter"
-  },
-  {
-   "symbol": "CTSH",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "DNN",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "DPRO",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "EXEL",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "EXPO",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "GO",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "HSTM",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "IBRX",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "IESC",
-   "reason": "already held or queued"
-  },
-  {
-   "symbol": "INOD",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "IPGP",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "KMT",
-   "reason": "filter"
-  },
-  {
-   "symbol": "KMX",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "LWLG",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "MCK",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "NOK",
-   "reason": "filter"
-  },
-  {
-   "symbol": "NPK",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "NVTS",
-   "reason": "filter"
-  },
-  {
-   "symbol": "OPTX",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "POWL",
-   "reason": "filter"
-  },
-  {
-   "symbol": "RKLB",
-   "reason": "filter"
-  },
-  {
-   "symbol": "RXRX",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "STM",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "TECK",
-   "reason": "filter"
-  },
-  {
-   "symbol": "TEM",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "TENB",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "TMDX",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "URBN",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "VIR",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "XNCR",
-   "reason": "timing window"
-  },
-  {
-   "symbol": "ZETA",
-   "reason": "timing window"
-  }
- ],
- "skips_today_counts": {
-  "already held or queued": 4,
-  "timing window": 30,
-  "filter": 8
- },
+ "skips_today": [],
+ "skips_today_counts": {},
  "track_record": {
   "period_start": "2026-10-01",
   "period_text": "Since Oct 1, 2026 (desk start)",
@@ -945,7 +772,7 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": 2.95,
+   "holdings_avg_unrealized_pct": 2.94,
    "small_sample": true,
    "research": {
     "win_rate_pct": 47.5,
@@ -953,7 +780,7 @@
     "trades": 3705
    },
    "research_text": "Research expected about 48% winners and +0.47% per trade (out-of-sample backtest, 3,705 trades).",
-   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +2.95% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +2.94% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
   {
@@ -1005,11 +832,11 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": -0.52,
+   "holdings_avg_unrealized_pct": 0.52,
    "small_sample": true,
    "research": null,
    "research_text": "Per-trade backtest figure not on file yet. Research tested the whole book rather than single trades: about 42% a year with a worst drop of 36% in the backtest.",
-   "live_text": "Live so far: no closed trades yet. 1 holding open now, -0.52% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 1 holding open now, +0.52% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   }
  ],
@@ -1082,9 +909,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5100.0,
-    "unrealized_usd": 194.4,
-    "unrealized_pct": 3.96
+    "value_usd": 5107.2,
+    "unrealized_usd": 201.6,
+    "unrealized_pct": 4.11
    },
    {
     "symbol": "CIEN",
@@ -1097,16 +924,6 @@
     "unrealized_pct": 6.74
    },
    {
-    "symbol": "PL",
-    "name": "Planet Labs PBC",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5036.46,
-    "unrealized_usd": 45.76,
-    "unrealized_pct": 0.92
-   },
-   {
     "symbol": "MNDY",
     "name": "monday.com Ltd. Ordinary Shares",
     "strategy": "1H Swing",
@@ -1117,14 +934,24 @@
     "unrealized_pct": 2.1
    },
    {
+    "symbol": "PL",
+    "name": "Planet Labs PBC",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5025.02,
+    "unrealized_usd": 34.32,
+    "unrealized_pct": 0.69
+   },
+   {
     "symbol": "IONQ",
     "name": "IonQ, Inc.",
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4769.67,
-    "unrealized_usd": -203.13,
-    "unrealized_pct": -4.08
+    "value_usd": 4767.45,
+    "unrealized_usd": -205.35,
+    "unrealized_pct": -4.13
    },
    {
     "symbol": "IESC",
@@ -1142,9 +969,9 @@
     "strategy": "Daily Cyan",
     "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models, on a micro-cap name, at reduced size",
     "test": false,
-    "value_usd": 248.9,
-    "unrealized_usd": -1.31,
-    "unrealized_pct": -0.52
+    "value_usd": 251.52,
+    "unrealized_usd": 1.31,
+    "unrealized_pct": 0.52
    },
    {
     "symbol": "BOTZ",
@@ -1158,7 +985,7 @@
    }
   ],
   "count": 12,
-  "total_value_usd": 46529.42,
+  "total_value_usd": 46525.58,
   "source": "broker paper account positions (marks)",
   "unavailable": null
  },
@@ -1185,7 +1012,7 @@
     "label": "Daily Cyan",
     "lane": "daily-cyan",
     "holdings": 1,
-    "value_usd": 248.9
+    "value_usd": 251.52
    },
    {
     "label": "1D Green",
@@ -1195,23 +1022,23 @@
    }
   ],
   "holdings": 1,
-  "value_usd": 248.9,
+  "value_usd": 251.52,
   "equity_pct": 0.25,
   "beta_iwm": 2.66,
   "beta_coverage_pct": 100.0,
-  "iwm_equivalent_usd": 662.07,
-  "pnl_usd": -1.31,
-  "return_on_cost_pct": -0.52,
+  "iwm_equivalent_usd": 669.04,
+  "pnl_usd": 1.31,
+  "return_on_cost_pct": 0.52,
   "iwm_since_start_pct": 1.95,
   "as_of": "2026-10-05",
   "unavailable": null,
   "history": [
    {
     "date": "2026-10-05",
-    "value_usd": 248.9,
+    "value_usd": 251.52,
     "equity_pct": 0.25,
     "beta_iwm": 2.66,
-    "return_on_cost_pct": -0.52,
+    "return_on_cost_pct": 0.52,
     "iwm_since_start_pct": 1.95
    }
   ]
@@ -1237,21 +1064,21 @@
    "Insider + wiki Green mid/large caps",
    "Insider + wiki Green small caps",
    "Insider + wiki Swing mid/large caps",
-   "Insider Cyan small caps 1",
-   "Insider Cyan small caps 2",
-   "Insider Cyan small caps 3",
+   "Insider Cyan small caps low-price + momentum",
+   "Insider Cyan small caps momentum + stress",
+   "Insider Cyan small caps pullback + stress",
    "Insider Green micro caps",
-   "Insider Green small caps 1",
-   "Insider Green small caps 2",
-   "Insider Green small caps 3",
+   "Insider Green small caps low-price",
+   "Insider Green small caps pullback",
+   "Insider Green small caps pullback + stress",
    "Insider Swing micro caps",
-   "Insider Swing mid/large caps 1",
-   "Insider Swing mid/large caps 2",
-   "Insider Swing mid/large caps 3",
-   "Insider Swing small caps 1",
-   "Insider Swing small caps 2",
-   "Insider Swing small caps 3",
-   "Insider Swing small caps 4",
+   "Insider Swing mid/large caps momentum + stress",
+   "Insider Swing mid/large caps pullback + stress",
+   "Insider Swing mid/large caps pullback + stress, second set",
+   "Insider Swing small caps low-price + pullback",
+   "Insider Swing small caps low-price + stress",
+   "Insider Swing small caps low-price + stress, second set",
+   "Insider Swing small caps pullback",
    "Insider confluence",
    "Intraweek entry",
    "Lab 1D Green",
@@ -1269,25 +1096,25 @@
    "Wiki Cyan mid/large quiet attention, second set",
    "Wiki Cyan mid/large steady coverage",
    "Wiki Cyan mid/large steady coverage, second set",
-   "Wiki Cyan small caps 1",
-   "Wiki Cyan small caps 2",
-   "Wiki Cyan small caps 3",
-   "Wiki Cyan small caps 4",
-   "Wiki Cyan small caps 5",
-   "Wiki Green mid/large caps 1",
-   "Wiki Green mid/large caps 2",
-   "Wiki Green small caps 1",
-   "Wiki Green small caps 2",
-   "Wiki Green small caps 3",
-   "Wiki Green small caps 4",
-   "Wiki Swing mid/large caps 1",
-   "Wiki Swing mid/large caps 2",
-   "Wiki Swing mid/large caps 3",
-   "Wiki Swing mid/large caps 4",
-   "Wiki Swing small caps 1",
-   "Wiki Swing small caps 2",
-   "Wiki Swing small caps 3",
-   "Wiki Swing small caps 4",
+   "Wiki Cyan small steady coverage",
+   "Wiki Cyan small steady coverage + low-price",
+   "Wiki Cyan small steady coverage + pullback",
+   "Wiki Cyan small steady coverage + pullback, second set",
+   "Wiki Cyan small steady coverage, second set",
+   "Wiki Green mid/large steady coverage",
+   "Wiki Green mid/large steady coverage, second set",
+   "Wiki Green small steady coverage",
+   "Wiki Green small steady coverage + pullback",
+   "Wiki Green small steady coverage + pullback, second set",
+   "Wiki Green small steady coverage, second set",
+   "Wiki Swing mid/large quiet attention + pullback",
+   "Wiki Swing mid/large quiet attention + pullback + momentum",
+   "Wiki Swing mid/large quiet attention + pullback + stress",
+   "Wiki Swing mid/large steady coverage + pullback",
+   "Wiki Swing small steady coverage + low-price",
+   "Wiki Swing small steady coverage + low-price, second set",
+   "Wiki Swing small steady coverage + pullback",
+   "Wiki Swing small steady coverage + pullback, second set",
    "Wiki confluence"
   ],
   "attention": {
@@ -1445,11 +1272,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Cyan small caps 1",
+     "lane": "Insider Cyan small caps low-price + momentum",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Cyan small caps 1",
+     "label": "Insider Cyan small caps low-price + momentum",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1462,11 +1289,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Cyan small caps 2",
+     "lane": "Insider Cyan small caps momentum + stress",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Cyan small caps 2",
+     "label": "Insider Cyan small caps momentum + stress",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1479,11 +1306,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Cyan small caps 3",
+     "lane": "Insider Cyan small caps pullback + stress",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Cyan small caps 3",
+     "label": "Insider Cyan small caps pullback + stress",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1513,11 +1340,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Green small caps 1",
+     "lane": "Insider Green small caps low-price",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Green small caps 1",
+     "label": "Insider Green small caps low-price",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1530,11 +1357,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Green small caps 2",
+     "lane": "Insider Green small caps pullback",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Green small caps 2",
+     "label": "Insider Green small caps pullback",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1547,11 +1374,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Green small caps 3",
+     "lane": "Insider Green small caps pullback + stress",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Green small caps 3",
+     "label": "Insider Green small caps pullback + stress",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1785,11 +1612,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Cyan small caps 1",
+     "lane": "Wiki Cyan small steady coverage",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Cyan small caps 1",
+     "label": "Wiki Cyan small steady coverage",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1802,11 +1629,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Cyan small caps 2",
+     "lane": "Wiki Cyan small steady coverage + low-price",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Cyan small caps 2",
+     "label": "Wiki Cyan small steady coverage + low-price",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1819,11 +1646,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Cyan small caps 3",
+     "lane": "Wiki Cyan small steady coverage + pullback",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Cyan small caps 3",
+     "label": "Wiki Cyan small steady coverage + pullback",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1836,11 +1663,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Cyan small caps 4",
+     "lane": "Wiki Cyan small steady coverage + pullback, second set",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Cyan small caps 4",
+     "label": "Wiki Cyan small steady coverage + pullback, second set",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1853,11 +1680,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Cyan small caps 5",
+     "lane": "Wiki Cyan small steady coverage, second set",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Cyan small caps 5",
+     "label": "Wiki Cyan small steady coverage, second set",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1870,11 +1697,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Green mid/large caps 1",
+     "lane": "Wiki Green mid/large steady coverage",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Green mid/large caps 1",
+     "label": "Wiki Green mid/large steady coverage",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1887,11 +1714,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Green mid/large caps 2",
+     "lane": "Wiki Green mid/large steady coverage, second set",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Green mid/large caps 2",
+     "label": "Wiki Green mid/large steady coverage, second set",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1904,11 +1731,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Green small caps 1",
+     "lane": "Wiki Green small steady coverage",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Green small caps 1",
+     "label": "Wiki Green small steady coverage",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1921,11 +1748,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Green small caps 2",
+     "lane": "Wiki Green small steady coverage + pullback",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Green small caps 2",
+     "label": "Wiki Green small steady coverage + pullback",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1938,11 +1765,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Green small caps 3",
+     "lane": "Wiki Green small steady coverage + pullback, second set",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Green small caps 3",
+     "label": "Wiki Green small steady coverage + pullback, second set",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -1955,11 +1782,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Green small caps 4",
+     "lane": "Wiki Green small steady coverage, second set",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Green small caps 4",
+     "label": "Wiki Green small steady coverage, second set",
      "kind": "1w",
      "test": true,
      "active": true,
@@ -2159,11 +1986,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Swing mid/large caps 1",
+     "lane": "Insider Swing mid/large caps momentum + stress",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Swing mid/large caps 1",
+     "label": "Insider Swing mid/large caps momentum + stress",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2176,11 +2003,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Swing mid/large caps 2",
+     "lane": "Insider Swing mid/large caps pullback + stress",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Swing mid/large caps 2",
+     "label": "Insider Swing mid/large caps pullback + stress",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2193,11 +2020,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Swing mid/large caps 3",
+     "lane": "Insider Swing mid/large caps pullback + stress, second set",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Swing mid/large caps 3",
+     "label": "Insider Swing mid/large caps pullback + stress, second set",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2210,11 +2037,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Swing small caps 1",
+     "lane": "Insider Swing small caps low-price + pullback",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Swing small caps 1",
+     "label": "Insider Swing small caps low-price + pullback",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2227,11 +2054,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Swing small caps 2",
+     "lane": "Insider Swing small caps low-price + stress",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Swing small caps 2",
+     "label": "Insider Swing small caps low-price + stress",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2244,11 +2071,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Swing small caps 3",
+     "lane": "Insider Swing small caps low-price + stress, second set",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Swing small caps 3",
+     "label": "Insider Swing small caps low-price + stress, second set",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2261,11 +2088,11 @@
      "superseded": null
     },
     {
-     "lane": "Insider Swing small caps 4",
+     "lane": "Insider Swing small caps pullback",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Insider Swing small caps 4",
+     "label": "Insider Swing small caps pullback",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2329,11 +2156,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Swing mid/large caps 1",
+     "lane": "Wiki Swing mid/large quiet attention + pullback",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Swing mid/large caps 1",
+     "label": "Wiki Swing mid/large quiet attention + pullback",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2346,11 +2173,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Swing mid/large caps 2",
+     "lane": "Wiki Swing mid/large quiet attention + pullback + momentum",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Swing mid/large caps 2",
+     "label": "Wiki Swing mid/large quiet attention + pullback + momentum",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2363,11 +2190,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Swing mid/large caps 3",
+     "lane": "Wiki Swing mid/large quiet attention + pullback + stress",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Swing mid/large caps 3",
+     "label": "Wiki Swing mid/large quiet attention + pullback + stress",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2380,11 +2207,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Swing mid/large caps 4",
+     "lane": "Wiki Swing mid/large steady coverage + pullback",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Swing mid/large caps 4",
+     "label": "Wiki Swing mid/large steady coverage + pullback",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2397,11 +2224,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Swing small caps 1",
+     "lane": "Wiki Swing small steady coverage + low-price",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Swing small caps 1",
+     "label": "Wiki Swing small steady coverage + low-price",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2414,11 +2241,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Swing small caps 2",
+     "lane": "Wiki Swing small steady coverage + low-price, second set",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Swing small caps 2",
+     "label": "Wiki Swing small steady coverage + low-price, second set",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2431,11 +2258,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Swing small caps 3",
+     "lane": "Wiki Swing small steady coverage + pullback",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Swing small caps 3",
+     "label": "Wiki Swing small steady coverage + pullback",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2448,11 +2275,11 @@
      "superseded": null
     },
     {
-     "lane": "Wiki Swing small caps 4",
+     "lane": "Wiki Swing small steady coverage + pullback, second set",
      "used": 0,
      "queued": 0,
      "cap": null,
-     "label": "Wiki Swing small caps 4",
+     "label": "Wiki Swing small steady coverage + pullback, second set",
      "kind": "1w",
      "test": true,
      "active": false,
@@ -2489,7 +2316,7 @@
     "as_of": null,
     "unavailable": "No filled holdings yet, so there is no beta to show."
    },
-   "generated_at": "Oct 5, 2026 at 11:30 PM ET",
+   "generated_at": "Oct 6, 2026 at 12:01 AM ET",
    "desk_version": "Test desk",
    "account_type": "separate Alpaca paper account (simulated money)",
    "day_label": "Not trading yet",
