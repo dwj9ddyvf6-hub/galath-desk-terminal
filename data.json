@@ -5,21 +5,21 @@
  "rules_version": "1.4.4-r1",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 6, 2026 at 9:35 AM ET",
- "generated_at_iso": "2026-10-06T09:35:02-04:00",
- "headline": "The desk is up 1.03% today and behind SPY by 0.05 percentage points since it started.",
+ "generated_at": "Oct 6, 2026 at 9:40 AM ET",
+ "generated_at_iso": "2026-10-06T09:40:02-04:00",
+ "headline": "The desk is up 1.31% today and ahead of SPY by 0.20 percentage points since it started.",
  "headline_scope": "today",
  "headline_as_of": null,
  "headline_basis": null,
  "account": {
-  "equity": 102022.16,
-  "cash": 54772.78,
+  "equity": 102306.09,
+  "cash": 54546.42,
   "start_equity": 100000.0,
-  "long_market_value": 47249.38,
-  "day_pl": 1042.49,
-  "day_pl_pct": 1.032,
-  "total_pl": 2022.16,
-  "total_pl_pct": 2.022
+  "long_market_value": 47759.67,
+  "day_pl": 1326.42,
+  "day_pl_pct": 1.314,
+  "total_pl": 2306.09,
+  "total_pl_pct": 2.306
  },
  "equity_curve": [
   {
@@ -151,22 +151,22 @@
   {
    "t": "2026-10-06T09:30",
    "label": "Oct 6 9:30 AM",
-   "desk_pct": 1.871,
+   "desk_pct": 1.886,
    "spy_pct": 2.097
   },
   {
-   "t": "2026-10-06T09:35",
+   "t": "2026-10-06T09:40",
    "label": "now",
-   "desk_pct": 2.022,
-   "spy_pct": 2.07
+   "desk_pct": 2.306,
+   "spy_pct": 2.109
   }
  ],
  "sizing": {
-  "holdings": 12,
-  "queued": 14,
-  "held_usd": 45227.0,
-  "queued_usd": 20147.0,
-  "committed_usd": 65374.0,
+  "holdings": 13,
+  "queued": 13,
+  "held_usd": 45454.0,
+  "queued_usd": 19923.0,
+  "committed_usd": 65377.0,
   "budget_total_usd": 90125.0
  },
  "lanes": [
@@ -215,14 +215,14 @@
   {
    "lane": "daily-cyan",
    "used": 4,
-   "queued": 3,
+   "queued": 2,
    "cap": 68,
    "label": "Daily Cyan",
    "kind": "1d",
    "test": false,
    "active": true,
    "budget_usd": 12500.0,
-   "committed_usd": 1384.0,
+   "committed_usd": 1387.0,
    "over_budget": false,
    "closed_to_new": false
   },
@@ -266,23 +266,6 @@
    "status": "queued",
    "qty": 0,
    "qty_requested": 20,
-   "entry_date": null,
-   "entry_price": null,
-   "current_price": null,
-   "unrealized_pct": null,
-   "unrealized_usd": null,
-   "day_change_pct": null,
-   "realized_partial_usd": null
-  },
-  {
-   "symbol": "AFRM",
-   "name": "Affirm Holdings, Inc. Class A Common Stock",
-   "lane": "daily-cyan",
-   "strategy": "Daily Cyan",
-   "test": false,
-   "status": "entry_pending",
-   "qty": 0,
-   "qty_requested": 3,
    "entry_date": null,
    "entry_price": null,
    "current_price": null,
@@ -506,10 +489,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 8.71,
-   "current_price": 9.316,
-   "unrealized_pct": 6.96,
-   "unrealized_usd": 345.42,
-   "day_change_pct": 1.93,
+   "current_price": 9.32,
+   "unrealized_pct": 7.0,
+   "unrealized_usd": 347.7,
+   "day_change_pct": 1.97,
    "realized_partial_usd": null
   },
   {
@@ -523,10 +506,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 363.73,
-   "current_price": 396.91,
-   "unrealized_pct": 9.12,
-   "unrealized_usd": 431.34,
-   "day_change_pct": 1.85,
+   "current_price": 400.97,
+   "unrealized_pct": 10.24,
+   "unrealized_usd": 484.12,
+   "day_change_pct": 2.9,
    "realized_partial_usd": null
   },
   {
@@ -540,10 +523,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 204.4,
-   "current_price": 214.0,
-   "unrealized_pct": 4.7,
-   "unrealized_usd": 230.4,
-   "day_change_pct": 0.71,
+   "current_price": 220.83,
+   "unrealized_pct": 8.04,
+   "unrealized_usd": 394.32,
+   "day_change_pct": 3.93,
    "realized_partial_usd": null
   },
   {
@@ -557,10 +540,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 80.82,
-   "current_price": 84.5,
-   "unrealized_pct": 4.55,
-   "unrealized_usd": 224.48,
-   "day_change_pct": 2.23,
+   "current_price": 84.435,
+   "unrealized_pct": 4.47,
+   "unrealized_usd": 220.52,
+   "day_change_pct": 2.15,
    "realized_partial_usd": null
   },
   {
@@ -574,10 +557,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 1:34 PM ET",
    "entry_price": 41.99,
-   "current_price": 45.075,
-   "unrealized_pct": 7.35,
-   "unrealized_usd": 364.03,
-   "day_change_pct": 2.17,
+   "current_price": 45.235,
+   "unrealized_pct": 7.73,
+   "unrealized_usd": 382.91,
+   "day_change_pct": 2.53,
    "realized_partial_usd": null
   },
   {
@@ -591,10 +574,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 2.06,
-   "current_price": 2.08,
-   "unrealized_pct": 0.97,
-   "unrealized_usd": 48.66,
-   "day_change_pct": 0.97,
+   "current_price": 2.0801,
+   "unrealized_pct": 0.98,
+   "unrealized_usd": 48.9,
+   "day_change_pct": 0.98,
    "realized_partial_usd": null
   },
   {
@@ -608,10 +591,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 44.8,
-   "current_price": 44.79,
-   "unrealized_pct": -0.02,
-   "unrealized_usd": -1.11,
-   "day_change_pct": 4.24,
+   "current_price": 44.91,
+   "unrealized_pct": 0.25,
+   "unrealized_usd": 12.21,
+   "day_change_pct": 4.52,
    "realized_partial_usd": null
   },
   {
@@ -625,10 +608,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 4.8,
-   "current_price": 4.945,
-   "unrealized_pct": 3.02,
-   "unrealized_usd": 150.95,
-   "day_change_pct": 1.54,
+   "current_price": 4.955,
+   "unrealized_pct": 3.23,
+   "unrealized_usd": 161.36,
+   "day_change_pct": 1.75,
    "realized_partial_usd": null
   },
   {
@@ -642,10 +625,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 17.45,
-   "current_price": 18.25,
-   "unrealized_pct": 4.58,
-   "unrealized_usd": 228.8,
-   "day_change_pct": 5.13,
+   "current_price": 18.32,
+   "unrealized_pct": 4.99,
+   "unrealized_usd": 248.82,
+   "day_change_pct": 5.53,
    "realized_partial_usd": null
   },
   {
@@ -659,10 +642,10 @@
    "qty_requested": null,
    "entry_date": "Oct 5, 2026 at 3:59 PM ET",
    "entry_price": 36.18,
-   "current_price": 36.305,
-   "unrealized_pct": 0.35,
-   "unrealized_usd": 0.62,
-   "day_change_pct": 0.29,
+   "current_price": 36.28,
+   "unrealized_pct": 0.28,
+   "unrealized_usd": 0.5,
+   "day_change_pct": 0.22,
    "realized_partial_usd": null
   },
   {
@@ -676,10 +659,10 @@
    "qty_requested": null,
    "entry_date": "Oct 5, 2026 at 3:59 PM ET",
    "entry_price": 340.16,
-   "current_price": 346.175,
-   "unrealized_pct": 1.77,
-   "unrealized_usd": 6.01,
-   "day_change_pct": 1.93,
+   "current_price": 346.325,
+   "unrealized_pct": 1.81,
+   "unrealized_usd": 6.16,
+   "day_change_pct": 1.97,
    "realized_partial_usd": null
   },
   {
@@ -693,10 +676,27 @@
    "qty_requested": null,
    "entry_date": "Oct 5, 2026 at 9:30 AM ET",
    "entry_price": 1.91,
-   "current_price": 1.88,
-   "unrealized_pct": -1.57,
-   "unrealized_usd": -3.93,
-   "day_change_pct": 0.0,
+   "current_price": 1.89,
+   "unrealized_pct": -1.05,
+   "unrealized_usd": -2.62,
+   "day_change_pct": 0.53,
+   "realized_partial_usd": null
+  },
+  {
+   "symbol": "AFRM",
+   "name": "Affirm Holdings, Inc. Class A Common Stock",
+   "lane": "daily-cyan",
+   "strategy": "Daily Cyan",
+   "test": false,
+   "status": "open",
+   "qty": 3,
+   "qty_requested": null,
+   "entry_date": "Oct 6, 2026 at 9:35 AM ET",
+   "entry_price": 75.4533,
+   "current_price": 75.31,
+   "unrealized_pct": -0.19,
+   "unrealized_usd": -0.43,
+   "day_change_pct": 0.75,
    "realized_partial_usd": null
   }
  ],
@@ -706,9 +706,9 @@
   "wins": 0,
   "win_rate_pct": null,
   "realized_usd": 0.0,
-  "open_in_profit": 10,
-  "open": 12,
-  "queued": 14,
+  "open_in_profit": 11,
+  "open": 13,
+  "queued": 13,
   "positions_total": 26
  },
  "breakdown": [
@@ -729,13 +729,13 @@
    "lane": "daily-cyan",
    "strategy": "Daily Cyan",
    "test": false,
-   "open": 1,
-   "queued": 3,
+   "open": 2,
+   "queued": 2,
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": -3.93,
-   "avg_return_pct": -1.57,
+   "unrealized_usd": -3.05,
+   "avg_return_pct": -0.62,
    "win_rate_closed_pct": null
   },
   {
@@ -760,8 +760,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 2022.97,
-   "avg_return_pct": 4.58,
+   "unrealized_usd": 2300.86,
+   "avg_return_pct": 5.21,
    "win_rate_closed_pct": null
   },
   {
@@ -773,30 +773,30 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 6.63,
-   "avg_return_pct": 1.06,
+   "unrealized_usd": 6.66,
+   "avg_return_pct": 1.04,
    "win_rate_closed_pct": null
   }
  ],
  "last_pass": {
-  "phase": "preopen",
+  "phase": "open",
   "mode": "live-paper",
-  "at": "Oct 6, 2026 at 9:20 AM ET",
+  "at": "Oct 6, 2026 at 9:35 AM ET",
   "completed": true,
   "status": "ok",
   "fires_offered": 107,
   "orders_sent": 3,
-  "positions_open": 12,
+  "positions_open": 13,
   "queued": 11,
   "scheduler_exit": {
-   "phase": "preopen",
+   "phase": "open",
    "code": 0
   },
   "close_pass_exit": 0,
   "ledger_verify": "OK",
   "ledger_chain_ok": true,
-  "ledger_records": 434,
-  "passes_today": 1,
+  "ledger_records": 450,
+  "passes_today": 2,
   "locks": 0,
   "health": {
    "gate_ok": true,
@@ -865,10 +865,10 @@
   "win_rate_pct": null,
   "avg_hold_days": null,
   "avg_return_pct": null,
-  "total_pl_usd": 2022.16,
-  "total_pl_pct": 2.022,
+  "total_pl_usd": 2306.09,
+  "total_pl_pct": 2.306,
   "realized_pl_usd": 0.0,
-  "unrealized_pl_usd": 2022.16,
+  "unrealized_pl_usd": 2306.09,
   "max_drawdown": {
    "pct": -0.59,
    "usd": -596.66,
@@ -887,7 +887,7 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": 4.58,
+   "holdings_avg_unrealized_pct": 5.21,
    "small_sample": true,
    "research": {
     "win_rate_pct": 47.5,
@@ -895,7 +895,7 @@
     "trades": 3705
    },
    "research_text": "Research expected about 48% winners and +0.47% per trade (out-of-sample backtest, 3,705 trades).",
-   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +4.58% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +5.21% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
   {
@@ -943,15 +943,15 @@
    "test": false,
    "closed_trades": 0,
    "wins": 0,
-   "holdings": 1,
+   "holdings": 2,
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": -1.57,
+   "holdings_avg_unrealized_pct": -0.62,
    "small_sample": true,
    "research": null,
    "research_text": "Per-trade backtest figure not on file yet. Research tested the whole book rather than single trades: about 42% a year with a worst drop of 36% in the backtest.",
-   "live_text": "Live so far: no closed trades yet. 1 holding open now, -1.57% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 2 holdings open now, -0.62% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   }
  ],
@@ -984,9 +984,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5318.85,
-    "unrealized_usd": 364.03,
-    "unrealized_pct": 7.35
+    "value_usd": 5337.73,
+    "unrealized_usd": 382.91,
+    "unrealized_pct": 7.73
    },
    {
     "symbol": "ASAN",
@@ -994,49 +994,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5310.12,
-    "unrealized_usd": 345.42,
-    "unrealized_pct": 6.96
-   },
-   {
-    "symbol": "PL",
-    "name": "Planet Labs PBC",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5219.5,
-    "unrealized_usd": 228.8,
-    "unrealized_pct": 4.58
-   },
-   {
-    "symbol": "CIEN",
-    "name": "Ciena Corporation",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5159.83,
-    "unrealized_usd": 431.34,
-    "unrealized_pct": 9.12
-   },
-   {
-    "symbol": "MNDY",
-    "name": "monday.com Ltd. Ordinary Shares",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5154.5,
-    "unrealized_usd": 224.48,
-    "unrealized_pct": 4.55
-   },
-   {
-    "symbol": "KOPN",
-    "name": "Kopin Corporation Common Stock",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5147.74,
-    "unrealized_usd": 150.94,
-    "unrealized_pct": 3.02
+    "value_usd": 5312.4,
+    "unrealized_usd": 347.7,
+    "unrealized_pct": 7.0
    },
    {
     "symbol": "CRDO",
@@ -1044,9 +1004,49 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5136.0,
-    "unrealized_usd": 230.4,
-    "unrealized_pct": 4.7
+    "value_usd": 5299.92,
+    "unrealized_usd": 394.32,
+    "unrealized_pct": 8.04
+   },
+   {
+    "symbol": "PL",
+    "name": "Planet Labs PBC",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5239.52,
+    "unrealized_usd": 248.82,
+    "unrealized_pct": 4.99
+   },
+   {
+    "symbol": "CIEN",
+    "name": "Ciena Corporation",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5212.61,
+    "unrealized_usd": 484.12,
+    "unrealized_pct": 10.24
+   },
+   {
+    "symbol": "KOPN",
+    "name": "Kopin Corporation Common Stock",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5158.15,
+    "unrealized_usd": 161.35,
+    "unrealized_pct": 3.23
+   },
+   {
+    "symbol": "MNDY",
+    "name": "monday.com Ltd. Ordinary Shares",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5150.53,
+    "unrealized_usd": 220.51,
+    "unrealized_pct": 4.47
    },
    {
     "symbol": "BLDP",
@@ -1054,9 +1054,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5060.64,
-    "unrealized_usd": 48.66,
-    "unrealized_pct": 0.97
+    "value_usd": 5060.88,
+    "unrealized_usd": 48.9,
+    "unrealized_pct": 0.98
    },
    {
     "symbol": "IONQ",
@@ -1064,9 +1064,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4971.69,
-    "unrealized_usd": -1.11,
-    "unrealized_pct": -0.02
+    "value_usd": 4985.01,
+    "unrealized_usd": 12.21,
+    "unrealized_pct": 0.25
    },
    {
     "symbol": "IESC",
@@ -1074,9 +1074,9 @@
     "strategy": "Legacy positions",
     "why": "Legacy positions: an older holding from a retired strategy, being wound down",
     "test": false,
-    "value_usd": 346.18,
-    "unrealized_usd": 6.01,
-    "unrealized_pct": 1.77
+    "value_usd": 346.32,
+    "unrealized_usd": 6.17,
+    "unrealized_pct": 1.81
    },
    {
     "symbol": "VLN",
@@ -1084,9 +1084,19 @@
     "strategy": "Daily Cyan",
     "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models, on a micro-cap name, at reduced size",
     "test": false,
-    "value_usd": 246.28,
-    "unrealized_usd": -3.93,
-    "unrealized_pct": -1.57
+    "value_usd": 247.59,
+    "unrealized_usd": -2.62,
+    "unrealized_pct": -1.05
+   },
+   {
+    "symbol": "AFRM",
+    "name": "Affirm Holdings, Inc. Class A Common Stock",
+    "strategy": "Daily Cyan",
+    "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models",
+    "test": false,
+    "value_usd": 225.93,
+    "unrealized_usd": -0.43,
+    "unrealized_pct": -0.19
    },
    {
     "symbol": "BOTZ",
@@ -1094,13 +1104,13 @@
     "strategy": "Legacy positions",
     "why": "Legacy positions: an older holding from a retired strategy, being wound down",
     "test": false,
-    "value_usd": 181.53,
-    "unrealized_usd": 0.62,
-    "unrealized_pct": 0.34
+    "value_usd": 181.4,
+    "unrealized_usd": 0.5,
+    "unrealized_pct": 0.28
    }
   ],
-  "count": 12,
-  "total_value_usd": 47252.86,
+  "count": 13,
+  "total_value_usd": 47757.99,
   "source": "broker paper account positions (marks)",
   "unavailable": null
  },
@@ -1126,8 +1136,8 @@
    {
     "label": "Daily Cyan",
     "lane": "daily-cyan",
-    "holdings": 1,
-    "value_usd": 246.28
+    "holdings": 2,
+    "value_usd": 473.52
    },
    {
     "label": "1D Green",
@@ -1136,15 +1146,15 @@
     "value_usd": 0.0
    }
   ],
-  "holdings": 1,
-  "value_usd": 246.28,
-  "equity_pct": 0.24,
-  "beta_iwm": 2.66,
+  "holdings": 2,
+  "value_usd": 473.52,
+  "equity_pct": 0.46,
+  "beta_iwm": 2.48,
   "beta_coverage_pct": 100.0,
-  "iwm_equivalent_usd": 655.1,
-  "pnl_usd": -3.93,
-  "return_on_cost_pct": -1.57,
-  "iwm_since_start_pct": 2.31,
+  "iwm_equivalent_usd": 1174.33,
+  "pnl_usd": -3.05,
+  "return_on_cost_pct": -0.64,
+  "iwm_since_start_pct": 2.155,
   "as_of": "2026-10-06",
   "unavailable": null,
   "history": [
@@ -1158,11 +1168,11 @@
    },
    {
     "date": "2026-10-06",
-    "value_usd": 246.28,
-    "equity_pct": 0.24,
-    "beta_iwm": 2.66,
-    "return_on_cost_pct": -1.57,
-    "iwm_since_start_pct": 2.31
+    "value_usd": 473.52,
+    "equity_pct": 0.46,
+    "beta_iwm": 2.48,
+    "return_on_cost_pct": -0.64,
+    "iwm_since_start_pct": 2.155
    }
   ]
  },
@@ -2439,7 +2449,7 @@
     "as_of": null,
     "unavailable": "No filled holdings yet, so there is no beta to show."
    },
-   "generated_at": "Oct 6, 2026 at 9:35 AM ET",
+   "generated_at": "Oct 6, 2026 at 9:40 AM ET",
    "desk_version": "Test desk",
    "account_type": "separate Alpaca paper account (simulated money)",
    "day_label": "Not trading yet",
