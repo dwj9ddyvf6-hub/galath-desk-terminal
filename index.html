@@ -132,8 +132,68 @@ td.empty{white-space:normal}
 .d2stage{display:inline-block;border-radius:6px;padding:1px 8px;font-size:11px;letter-spacing:.1em;background:#fbf0d9;color:#97660e;border:1px solid #ecd39b}
 .d2stage.live{background:#e1f3ea;color:var(--green);border-color:#bfe3cf}
 .desk2 .chip{border-color:#efdcb0;cursor:default}
-background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
 details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:var(--muted);padding:6px 0}
+.err{display:none;background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
+#tabbtn-cl.on{background:#3d3a8c}
+@media(max-width:520px){.tab{font-size:13px;padding:9px 4px}.tabs{gap:3px}.d2badge{padding:1px 5px;letter-spacing:.06em}}
+.clhead .meta{margin-top:4px}
+.clst{display:inline-block;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:800;color:#fff;letter-spacing:.04em;vertical-align:middle}
+.clwrap{display:grid;grid-template-columns:1fr;gap:14px}
+@media(min-width:760px){.clwrap.g2{grid-template-columns:minmax(260px,320px) 1fr;align-items:start}}
+.clgauge{background:var(--slate);border-radius:16px;padding:12px 10px 8px;color:#dfe3ee;text-align:center}
+.clgauge .big{font-size:40px;font-weight:800;color:#fff;line-height:1;margin-top:-6px;font-variant-numeric:tabular-nums}
+.clgauge .lbl{font-size:12px;color:#9aa3b8;margin-top:6px}
+.clparts{display:grid;gap:8px;margin-top:2px}
+.clpart .top{display:flex;justify-content:space-between;font-size:13px;font-weight:700;color:var(--navy)}
+.clpart .top span:last-child{font-variant-numeric:tabular-nums;color:var(--muted);font-weight:600}
+.clpart .bar{height:9px;margin-top:4px}
+.clstrip{display:flex;height:22px;border-radius:6px;overflow:hidden;margin:4px 0 2px}
+.clstrip i{flex:1;min-width:1px}
+.clrowlbl{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);margin-top:10px}
+.clrowlbl b{color:var(--navy)}
+.clpills{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0}
+.clpill{border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:12.5px;font-weight:700;background:#fbfdfc;color:var(--ink)}
+.clpill.yes{background:#e1f3ea;border-color:#bfe3cf;color:var(--green)}.clpill.no{background:#f8e3e1;border-color:#efc4bf;color:var(--red)}.clpill.mid{background:#fbf0d9;border-color:#ecd39b;color:#97660e}
+.clra{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+@media(min-width:720px){.clra{grid-template-columns:repeat(3,1fr)}}
+.clra .stat .v{font-size:17px}
+.rkrow{display:grid;grid-template-columns:28px 64px 1fr 44px 50px;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #e6efeb;font-variant-numeric:tabular-nums;font-size:13.5px}
+.rkrow .n{color:var(--muted);font-size:12px;text-align:right}
+.rkrow b{color:var(--navy)}
+.rkbar{position:relative;height:16px;border-radius:6px;background:var(--teal-soft);overflow:hidden}
+.rkbar>div{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,#1f8a78,#3d3a8c)}
+.rkmini{display:flex;gap:3px;margin-top:3px}
+.rkmini i{display:block;height:4px;border-radius:2px}
+.rkrow .v{text-align:right;font-weight:800;color:var(--navy)}
+.rkrow .dl{text-align:right;font-size:12.5px;font-weight:700}
+.rkleg{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:8px 0 0}
+.rkleg i{display:inline-block;width:12px;height:6px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.clheat{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:6px}
+.clheat .tl{border-radius:10px;padding:8px 6px;text-align:center;font-variant-numeric:tabular-nums;line-height:1.25;cursor:default}
+.clheat .tl b{display:block;font-size:13.5px;font-weight:800}
+.clheat .tl span{display:block;font-size:12.5px;font-weight:700}
+.clheat .tl small{display:block;font-size:10.5px;opacity:.85}
+.clfp{display:block}
+.clcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfdfc}
+.clcard .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:800;color:var(--navy);font-size:15.5px}
+.clcard p{font-size:13px;line-height:1.5;margin:6px 0 0;color:var(--ink)}
+.clcard .m{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.45}
+.clcard table{margin-top:8px;font-size:12.5px}
+.clcard td,.clcard th{padding:5px 4px}
+.clcard .caution{font-size:12px;color:#97660e;background:#fbf0d9;border-radius:10px;padding:6px 10px;margin-top:8px}
+.vd{display:inline-block;border-radius:999px;padding:1px 8px;font-size:11px;font-weight:800;white-space:nowrap}
+.vd.candidate{background:#e1f3ea;color:var(--green)}.vd.unproven{background:#fbf0d9;color:#97660e}.vd.noedge{background:#f1f3f4;color:var(--muted)}.vd.biased{background:#f8e3e1;color:var(--red)}
+.stb{display:inline-block;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#ecebf8;color:#3d3a8c;border:1px solid #d5d3f0}
+.stb.off{background:#f1f3f4;color:var(--muted);border-color:#e0e4e6}
+.clsys{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.clsys a{text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:5px 9px;font-size:12.5px;font-weight:700;color:var(--navy);background:#fff}
+.clsys a i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.cltwo{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:760px){.cltwo{grid-template-columns:1fr 1fr}}
+.scg>*{min-width:0}
+.clcard .scroll{margin:0 -4px}
+@media(max-width:600px){.clcard{padding:12px}.clfp{width:96px}}
+.clcard,#tab-cl section{scroll-margin-top:130px}
 </style>
 </head>
 <body>
@@ -150,6 +210,7 @@ details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:
   <div class="tabs" role="tablist" aria-label="Desk">
     <a href="#main" id="tabbtn-main" class="tab on" role="tab" aria-selected="true" aria-controls="tab-main">Main desk</a>
     <a href="#test" id="tabbtn-test" class="tab" role="tab" aria-selected="false" aria-controls="tab-test">Test desk <span class="d2badge">TEST</span></a>
+    <a href="#chartslector" id="tabbtn-cl" class="tab" role="tab" aria-selected="false" aria-controls="tab-cl">ChartsLector</a>
   </div>
   <div id="tab-main" role="tabpanel" aria-labelledby="tabbtn-main">
   <section id="overview">
@@ -368,6 +429,90 @@ details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:
     <h2>Breakdown by strategy</h2>
     <p class="sub">Grouped by strategy and lane. Open = filled positions; Queued = entries not filled yet.</p>
     <div class="scroll"><table id="t2bdt"></table></div><p class="swipe meta">Swipe sideways to see all columns →</p>
+  </section>
+  </div>
+  <div id="tab-cl" role="tabpanel" aria-labelledby="tabbtn-cl" hidden>
+  <section id="clhead" class="clhead">
+    <p class="kicker">Research · rebuilt systems</p>
+    <h1>ChartsLector</h1>
+    <p class="sub">The public systems of @ChartsLector, rebuilt from his open-source TradingView scripts (github.com/ChartsLector/TV-Indicators) and his posts, run on daily data, and tested. This is a research view: none of these systems trades on either desk yet.</p>
+    <div class="err" id="clerr" hidden></div>
+    <div class="card"><div class="row-between"><span style="font-weight:600">Market read</span><span class="meta" id="clasof">loading…</span></div>
+      <div class="headline" id="clheadline">Loading the rebuilt systems…</div><div class="grid" id="clstats"></div><div class="clsys" id="clsys"></div></div>
+  </section>
+  <section id="clmood" class="card">
+    <p class="kicker">System 9 · volatility mood</p>
+    <h2>VIX Mood Ring</h2>
+    <p class="sub">His 0-100 volatility mood score: VIX level (35%), VIX vs 3-month VIX (25%), SKEW (25%) and VVIX (15%). Higher is calmer. Bands are from his script.</p>
+    <div class="clwrap g2"><div class="clgauge"><div id="clgauge"></div><div class="big" id="clvmr">—</div><div class="lbl" id="clvmrlbl"></div></div>
+      <div><div class="clparts" id="clparts"></div><div class="clpills" id="cldiv"></div></div></div>
+    <div class="chart" style="margin-top:14px"><div class="top"><span class="tk">MOOD RING</span><span class="brandtag">daily · <b>last 12 months</b></span></div><div id="clvmrline"></div>
+      <div class="legend"><span><i style="background:#7ee0c3"></i>Mood Ring score (0-100)</span><span>shaded: his GREEN → RED bands</span></div></div>
+  </section>
+  <section id="clpulse" class="card">
+    <p class="kicker">System 9 · market state</p>
+    <h2>Market Action Pulse and Risk Model</h2>
+    <p class="sub">His market state from GREEN (everything confirms) to RED (nothing does), read on the equal-weight Nasdaq-100 (QQQE) and S&amp;P 500 (RSP), with his 0-100 risk score. Breadth comes from our Nasdaq names, not his exchange-wide feed.</p>
+    <div class="grid" id="clpstats"></div>
+    <div id="clstrips"></div>
+    <div class="clpills" id="clchecks"></div>
+    <div class="chart" style="margin-top:14px"><div class="top"><span class="tk">RISK MODEL</span><span class="brandtag">0 low · 100 extreme · <b>daily</b></span></div><div id="clramline"></div>
+      <div class="legend"><span><i style="background:#7ee0c3"></i>QQQE</span><span><i style="background:#f2d68a"></i>RSP</span></div></div>
+  </section>
+  <section id="clbreadth" class="card">
+    <p class="kicker">Systems 3 and 8 · breadth</p>
+    <h2>Market breadth</h2>
+    <p class="sub" id="clbsub"></p>
+    <div class="grid" id="clbstats"></div>
+    <div class="chart" style="margin-top:14px"><div class="top"><span class="tk">% ABOVE AVERAGES</span><span class="brandtag">20 / 50 / 200 day · <b>daily</b></span></div><div id="clbline"></div>
+      <div class="legend"><span><i style="background:#7ee0c3"></i>20-day</span><span><i style="background:#f2d68a"></i>50-day</span><span><i style="background:#b9a7f0"></i>200-day</span></div></div>
+    <div class="chart" style="margin-top:12px"><div class="top"><span class="tk">BIG MOVERS</span><span class="brandtag">stocks up 4%+ vs down 4%+ · <b>daily</b></span></div><div id="clbbars"></div>
+      <div class="legend"><span><i style="background:#7ee0c3"></i>up 4% or more</span><span><i style="background:#e3807a"></i>down 4% or more</span></div></div>
+  </section>
+  <section id="clrisk" class="card">
+    <p class="kicker">System 7 · risk appetite</p>
+    <h2>Risk appetite ratios</h2>
+    <p class="sub" id="clrsub"></p>
+    <div class="clra" id="clratios"></div>
+    <div class="chart" style="margin-top:14px"><div class="top"><span class="tk">RISK-ON COUNT</span><span class="brandtag">ratios reading risk-on · <b>of 6</b></span></div><div id="clrline"></div></div>
+  </section>
+  <section id="clranker" class="card">
+    <p class="kicker">System 1 · Opportunity Ranker</p>
+    <h2>Opportunity Ranker</h2>
+    <p class="sub" id="clrksub"></p>
+    <div class="chips" id="clrkchips"><button class="chip on" data-k="top">Top 20</button><button class="chip" data-k="all">All names</button></div>
+    <div id="clrklist"></div>
+    <div class="rkleg"><span><i style="background:linear-gradient(90deg,#1f8a78,#3d3a8c)"></i>Opp (0-100)</span><span><i style="background:#1f8a78"></i>Breakout</span><span><i style="background:#d9a441"></i>Expansion</span><span><i style="background:#4a8fe0"></i>Risk (higher = cleaner)</span><span>Δ = change vs the prior session</span></div>
+  </section>
+  <section id="clthemes" class="card">
+    <p class="kicker">Systems 4 and 5 · leadership</p>
+    <h2>Theme and sector heatmap</h2>
+    <p class="sub" id="clthsub"></p>
+    <div class="chips" id="clthgrp"><button class="chip on" data-g="theme">Themes</button><button class="chip" data-g="sector">Sectors</button></div>
+    <div class="chips" id="clthper"><button class="chip" data-p="d1">1D</button><button class="chip" data-p="w1">1W</button><button class="chip on" data-p="m1">1M</button><button class="chip" data-p="m3">3M</button></div>
+    <div class="clheat" id="clheat"></div>
+    <p class="meta" style="margin-top:10px">Tiles are sorted by the chosen period. RS = percent rank of the fund's price vs SPY over 21 / 63 days (his script); RVol = today's volume vs its 50-day average.</p>
+  </section>
+  <section id="clrot" class="card">
+    <p class="kicker">System 6 · rotation map</p>
+    <h2>Relative Robustness Rotation</h2>
+    <p class="sub">His RRG-style map against SPY. Right = stronger than SPY, top = gaining strength. Tails show the last four weeks.</p>
+    <div class="chips" id="clrotgrp"><button class="chip on" data-g="sector">Sectors</button><button class="chip" data-g="theme">Themes</button></div>
+    <div class="chart"><div class="top"><span class="tk">RS-RATIO vs RS-MOMENTUM</span><span class="brandtag">vs SPY · <b>daily</b></span></div><div id="clrotsvg"></div></div>
+  </section>
+  <section id="clscreens" class="card">
+    <p class="kicker">System 2 · screeners</p>
+    <h2>Screener hits</h2>
+    <p class="sub" id="clscsub"></p>
+    <div class="chips" id="clscchips"></div>
+    <div class="chart"><div class="top"><span class="tk" id="clsctk">MATCHES</span><span class="brandtag">names passing · <b>daily</b></span></div><div id="clscline"></div></div>
+    <div class="scroll" style="margin-top:12px"><table id="clsct"></table></div><p class="swipe meta">Swipe sideways to see all columns →</p>
+  </section>
+  <section id="clcards" class="card">
+    <p class="kicker">All 15 systems · evidence</p>
+    <h2>System scorecards</h2>
+    <p class="sub">Each test picks its best variant on 2016-mid 2022 data only, then is judged on the later out-of-sample years (mid 2022-2026). Edge = average excess return per trade vs a same-day control of similar volatility, in %, with its 95% range. Candidate = the out-of-sample range sits above zero. The bars show that range against zero.</p>
+    <div class="scg" id="clscg"></div>
   </section>
   </div>
   <div class="disc" id="disc"><b>Paper trading, not investment advice.</b> Simulated money on a broker paper account. Not a recommendation to buy or sell anything.</div>
@@ -642,6 +787,185 @@ function renderCards(V){
     <p>${esc(k.research_text||"")}</p><p><b>${esc(k.live_text||"")}</b></p>${k.caution?`<div class="caution">${esc(k.caution)}</div>`:""}</div>`;}).join(""):`<div class="empty">${V.main?"No strategies to show yet.":"No trades yet. A strategy gets a scorecard once it has traded."}</div>`;
 }
 
+const CL={d:null,busy:false,rk:"top",grp:"theme",per:"m1",rot:"sector",scr:0};
+const CLC={GREEN:"#2bb07f",BLUE:"#4a8fe0",YELLOW:"#e2bf3f",AMBER:"#e0913a",PURPLE:"#9467d0",RED:"#d4504a"};
+const clDate=s=>{if(!s)return"";const d=new Date(s+"T12:00:00");return isNaN(d)?esc(s):d.toLocaleDateString("en-US",{month:"short",day:"numeric"});};
+const clBadge=s=>`<span class="clst" style="background:${CLC[s]||"#8a91a6"}">${esc(s)}</span>`;
+const clNum=(v,d=1)=>v==null?"—":Number(v).toFixed(d);
+const clW=el=>Math.max(300,Math.min(1040,(el&&el.clientWidth)||600));
+async function clLoad(){
+  if(CL.busy) return; CL.busy=true;
+  try{const r=await fetch("chartslector.json?t="+Date.now(),{cache:"no-store"});if(!r.ok) throw new Error("HTTP "+r.status);
+    CL.d=await r.json();clRender();}
+  catch(e){const b=$("clerr");b.hidden=false;b.style.display="block";b.textContent="Could not load the ChartsLector data ("+e.message+"). It retries with the next page refresh.";}
+  finally{CL.busy=false;}
+}
+function clRender(){
+  const d=CL.d; if(!d) return; $("clerr").hidden=true;
+  const age=Math.floor((Date.now()-Date.parse(d.as_of+"T16:00:00-04:00"))/864e5);
+  $("clasof").textContent=`Data as of the ${clDate(d.as_of)} close · built ${d.generated_at||""}`;
+  if(age>4){const b=$("clerr");b.hidden=false;b.style.display="block";b.textContent=`These readings are ${age} days old (last close ${clDate(d.as_of)}); the nightly refresh has not run since. Scorecards are unaffected.`;}
+  [clSummary,clMood,clPulse,clBreadth,clRisk,clRanker,clThemes,clRotation,clScreens,clCards].forEach(f=>{try{f(d);}catch(e){console.error(f.name,e);}});
+  swipeHints();
+}
+function clDraw(){if(CL.d){[clMood,clPulse,clBreadth,clRisk,clRotation,clScreens].forEach(f=>{try{f(CL.d);}catch(e){console.error(f.name,e);}});swipeHints();}}
+function clLine(wrap,dates,series,o){
+  o=o||{};const W=clW(wrap),H=o.H||200,pl=8,pr=44,pt=10,pb=24,n=dates.length;
+  if(n<2){wrap.innerHTML=`<div style="padding:28px 8px;color:#9aa3b8">Not enough history yet.</div>`;return;}
+  const vals=series.flatMap(s=>s.v.filter(v=>v!=null));
+  let lo=o.lo!=null?o.lo:Math.min(...vals),hi=o.hi!=null?o.hi:Math.max(...vals);if(!(hi>lo)){hi=lo+1;}
+  const x=i=>pl+(W-pl-pr)*i/(n-1),y=v=>pt+(H-pt-pb)*(hi-v)/(hi-lo),f=o.fmt||(z=>z.toFixed(0));
+  let g="";(o.bands||[]).forEach(([a,b,c])=>{const ya=y(Math.max(a,lo)),yb=y(Math.min(b,hi));if(ya>yb) g+=`<rect x="${pl}" width="${W-pl-pr}" y="${yb.toFixed(1)}" height="${(ya-yb).toFixed(1)}" fill="${c}" opacity=".2"/>`;});
+  for(let k=0;k<=(o.ticks||4);k++){const v=lo+(hi-lo)*k/(o.ticks||4);g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="#454a5e"/><text x="${W-pr+6}" y="${(y(v)+4).toFixed(1)}" fill="#9aa3b8" font-size="11">${f(v)}</text>`;}
+  const path=v=>{let s="",pen=false;v.forEach((z,i)=>{if(z==null){pen=false;return;}s+=(pen?"L":"M")+x(i).toFixed(1)+" "+y(z).toFixed(1);pen=true;});return s;};
+  const lab=[...new Set([0,Math.floor((n-1)/2),n-1])].map(i=>`<text x="${x(i).toFixed(1)}" y="${H-6}" fill="#9aa3b8" font-size="11" text-anchor="${i===0?"start":i===n-1?"end":"middle"}">${clDate(dates[i])}</text>`).join("");
+  const last=series.map(s=>{const v=s.v[n-1];return v==null?"":`<circle cx="${x(n-1).toFixed(1)}" cy="${y(v).toFixed(1)}" r="3.2" fill="${s.c}"/>`;}).join("");
+  wrap.innerHTML=`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.label||"chart")}">${g}${series.map(s=>`<path d="${path(s.v)}" fill="none" stroke="${s.c}" stroke-width="${s.w||2.2}"${s.dash?` stroke-dasharray="${s.dash}"`:""}/>`).join("")}${last}${lab}</svg>`;
+}
+function clGauge(v,bands){
+  const W=300,H=168,cx=150,cy=154,R=130,r0=96,a=p=>Math.PI*(1-p/100),P=(p,r)=>[(cx+r*Math.cos(a(p))).toFixed(1),(cy-r*Math.sin(a(p))).toFixed(1)];
+  const B=bands.slice().sort((p,q)=>p[1]-q[1]);let s="";
+  B.forEach((b,i)=>{const lo=b[1],hi=i+1<B.length?B[i+1][1]:100,[x1,y1]=P(lo,R),[x2,y2]=P(hi,R),[x3,y3]=P(hi,r0),[x4,y4]=P(lo,r0);
+    s+=`<path d="M${x1} ${y1} A${R} ${R} 0 0 1 ${x2} ${y2} L${x3} ${y3} A${r0} ${r0} 0 0 0 ${x4} ${y4} Z" fill="${CLC[b[0]]}" opacity="${v!=null&&v>=lo&&v<hi?1:.55}"/>`;
+    const [tx,ty]=P(lo,R+10); if(lo>0) s+=`<text x="${tx}" y="${ty}" fill="#9aa3b8" font-size="10" text-anchor="middle">${lo}</text>`;});
+  if(v!=null){const [nx,ny]=P(Math.max(0,Math.min(100,v)),R-4);s+=`<line x1="${cx}" y1="${cy}" x2="${nx}" y2="${ny}" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="7" fill="#fff"/>`;}
+  return `<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Mood Ring gauge">${s}</svg>`;
+}
+function clSummary(d){
+  const m=d.mood_ring||{},q=(d.pulse||{}).QQQE||{},b=(d.breadth||{}).current||{},ra=d.risk_appetite||{},C=d.scorecards||[];
+  const cand=C.filter(c=>(c.tests||[]).some(t=>t.verdict==="candidate")||(c.rotation&&c.rotation.verdict==="candidate"));
+  const rebuilt=C.filter(c=>c.status!=="not rebuilt"&&c.status!=="not testable").length;
+  $("clheadline").textContent=`His Market Pulse reads ${q.state||"—"} on the equal-weight Nasdaq-100 and the Mood Ring is ${m.composite!=null?m.composite.toFixed(0):"—"}/100 (${m.state||"—"}); ${ra.risk_on??"—"} of ${ra.of??6} risk-appetite ratios lean risk-on.`;
+  $("clstats").innerHTML=statHTML([
+    ["Market Pulse (QQQE)",q.state?clBadge(q.state):"—",`score ${q.score??"—"} of 5 · risk ${clNum(q.ram,0)} (${esc((q.ram_level||"").toLowerCase())})`,"flat"],
+    ["Mood Ring",clNum(m.composite,0),`${esc(m.state||"")} · ${esc(m.divergence||"")}`,"flat"],
+    ["Breadth score",b.score!=null?`${b.score}/12`:"—",`${clNum(b.pct50,0)}% above 50-day`,"flat"],
+    ["Risk appetite",`${ra.risk_on??"—"}/${ra.of??6}`,"ratios reading risk-on","flat"],
+    ["Systems rebuilt",`${rebuilt} of ${C.length}`,"two cannot be rebuilt or tested","flat"],
+    ["Candidates",String(cand.length),"systems with a test whose out-of-sample range is above zero","flat"],
+  ]);
+  const col=c=>{const v=(c.tests||[]).map(t=>t.verdict).concat(c.rotation?[c.rotation.verdict]:[]);return v.includes("candidate")?"#1f8a5b":v.includes("unproven")||v.includes("hindsight-biased")?"#d9a441":c.status==="research"?"#8a91a6":"#c9d2d6";};
+  $("clsys").innerHTML=C.map(c=>`<a href="#clcard-${esc(c.id)}"><i style="background:${col(c)}"></i>${esc(c.id)} ${esc(c.name)}</a>`).join("");
+}
+function clMood(d){
+  const m=d.mood_ring; if(!m){$("clgauge").innerHTML=`<div class="empty">Not available.</div>`;return;}
+  $("clgauge").innerHTML=clGauge(m.composite,m.bands||[]);
+  $("clvmr").textContent=clNum(m.composite,0);
+  $("clvmrlbl").innerHTML=`${clBadge(m.state)} <span style="margin-left:6px">close ${clDate(m.as_of)}</span>`;
+  const I=m.inputs||{},Pp=m.parts||{},Wt=m.weights||{};
+  const row=(k,name,raw)=>`<div class="clpart"><div class="top"><span>${name} <span class="meta">· weight ${Wt[k]??"—"}%</span></span><span>${raw} → ${clNum(Pp[k],0)}/100</span></div><div class="bar"><div style="width:${Math.max(0,Math.min(100,Pp[k]||0))}%"></div></div></div>`;
+  $("clparts").innerHTML=row("vix","VIX level",clNum(I.vix,2))+row("term","VIX vs 3-month VIX",clNum(I.term_ratio,3))+row("skew","SKEW (tail-risk demand)",clNum(I.skew,1))+row("vvix","VVIX (volatility of VIX)",clNum(I.vvix,1));
+  const dv=m.divergence||"";
+  $("cldiv").innerHTML=`<span class="clpill ${/No Major|All Clear/.test(dv)?"yes":/Easing/.test(dv)?"mid":"no"}">Divergence: ${esc(dv)}</span>`;
+  const H=m.history||[],B=(m.bands||[]).slice().sort((p,q)=>p[1]-q[1]);
+  clLine($("clvmrline"),H.map(h=>h.d),[{v:H.map(h=>h.v),c:"#7ee0c3",w:2.2}],{lo:0,hi:100,bands:B.map((b,i)=>[b[1],i+1<B.length?B[i+1][1]:100,CLC[b[0]]]),label:"Mood Ring history"});
+}
+function clPulse(d){
+  const P=d.pulse||{},q=P.QQQE,r=P.RSP; if(!q){$("clpstats").innerHTML=`<div class="empty">Not available.</div>`;return;}
+  const tile=(n,x)=>[`Pulse · ${n}`,x?clBadge(x.state):"—",x?`score ${x.score} of 5`:"","flat"];
+  const rt=(n,x)=>[`Risk model · ${n}`,x?clNum(x.ram,0):"—",x?esc((x.ram_level||"").toLowerCase()):"","flat"];
+  $("clpstats").innerHTML=statHTML([tile("QQQE",q),tile("RSP",r),rt("QQQE",q),rt("RSP",r)]);
+  const strip=(n,x)=>x?`<div class="clrowlbl"><span><b>${n}</b> · last ${x.history.length} sessions</span><span>${clDate(x.history[0].d)} → ${clDate(x.history[x.history.length-1].d)}</span></div><div class="clstrip" role="img" aria-label="${n} pulse history">${x.history.map(h=>`<i style="background:${CLC[h.s]||"#ccc"}" title="${esc(h.d)}: ${esc(h.s)}"></i>`).join("")}</div>`:"";
+  $("clstrips").innerHTML=strip("QQQE",q)+strip("RSP",r)+`<div class="clpills">${Object.keys(CLC).map(k=>`<span class="clpill"><i style="display:inline-block;width:9px;height:9px;border-radius:2px;background:${CLC[k]};margin-right:5px"></i>${k}</span>`).join("")}</div>`;
+  const c=q.checks||{},yn=(l,v,m)=>`<span class="clpill ${v?"yes":m?"mid":"no"}">${l}: ${v?"yes":m?"attempt":"no"}</span>`;
+  $("clchecks").innerHTML=`<span class="meta" style="align-self:center">QQQE checks</span>`+yn("Above a rising 5-day EMA",c.above_rising_5ema)+yn("Daily buy",c.daily_buy)+yn("Weekly buy",c.weekly_buy)+yn("Breadth uptrend",c.breadth_uptrend,!c.breadth_uptrend&&c.breadth_attempt);
+  clLine($("clramline"),q.history.map(h=>h.d),[{v:q.history.map(h=>h.ram),c:"#7ee0c3"},{v:(r?r.history:[]).map(h=>h.ram),c:"#f2d68a",dash:"5 3"}],{lo:0,hi:100,bands:[[0,20,"#2bb07f"],[60,80,"#e0913a"],[80,100,"#d4504a"]],label:"Risk model history"});
+}
+function clBars(wrap,dates,up,dn){
+  const W=clW(wrap),H=170,pl=8,pr=44,pt=10,pb=24,n=dates.length; if(n<2){wrap.innerHTML="";return;}
+  const mx=Math.max(1,...up,...dn),mid=pt+(H-pt-pb)/2,hh=(H-pt-pb)/2,bw=(W-pl-pr)/n;let s="";
+  for(let i=0;i<n;i++){const x=(pl+i*bw).toFixed(1),w=Math.max(1,bw-1).toFixed(1),hu=hh*up[i]/mx,hd=hh*dn[i]/mx;
+    s+=`<rect x="${x}" y="${(mid-hu).toFixed(1)}" width="${w}" height="${hu.toFixed(1)}" fill="#7ee0c3"><title>${esc(dates[i])}: ${up[i]} up</title></rect><rect x="${x}" y="${mid.toFixed(1)}" width="${w}" height="${hd.toFixed(1)}" fill="#e3807a"><title>${esc(dates[i])}: ${dn[i]} down</title></rect>`;}
+  s+=`<line x1="${pl}" x2="${W-pr}" y1="${mid}" y2="${mid}" stroke="#8a91a6"/><text x="${W-pr+6}" y="${pt+10}" fill="#9aa3b8" font-size="11">${mx}</text><text x="${W-pr+6}" y="${mid+4}" fill="#9aa3b8" font-size="11">0</text><text x="${W-pr+6}" y="${H-pb}" fill="#9aa3b8" font-size="11">${mx}</text>`;
+  s+=[0,n-1].map(i=>`<text x="${(pl+i*bw+(i?bw:0)).toFixed(1)}" y="${H-6}" fill="#9aa3b8" font-size="11" text-anchor="${i?"end":"start"}">${clDate(dates[i])}</text>`).join("");
+  wrap.innerHTML=`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Stocks up 4% vs down 4% per day">${s}</svg>`;
+}
+function clBreadth(d){
+  const b=d.breadth; if(!b){$("clbstats").innerHTML=`<div class="empty">Not available.</div>`;return;}
+  const c=b.current||{};
+  $("clbsub").textContent=`His Pradeep / Zorrilla-style breadth tables, on ${Number(b.universe).toLocaleString("en-US")} liquid US stocks from our daily store (his feed has about 4,500), close ${clDate(b.as_of)}.`;
+  $("clbstats").innerHTML=statHTML([
+    ["Breadth score",`${c.score}/12`,"up/down counts vs their 5/10/21-day averages","flat"],
+    ["Up 4%+ / down 4%+",`${c.up4} / ${c.dn4}`,"today","flat"],
+    ["Up 13%+ / down 13%+",`${c.up13_34} / ${c.dn13_34}`,"over 34 days","flat"],
+    ["Up 25%+ / down 25%+",`${c.up25_63} / ${c.dn25_63}`,c.up25_gt_ma20?"over 63 days · above its 20-day average":"over 63 days · below its 20-day average","flat"],
+    ["Above 20 / 50 / 200-day",`${clNum(c.pct20,0)} / ${clNum(c.pct50,0)} / ${clNum(c.pct200,0)}%`,"share of stocks","flat"],
+    ["Advancers / decliners",`${c.adv} / ${c.dec}`,"today","flat"],
+  ]);
+  const H=b.history||[];
+  clLine($("clbline"),H.map(h=>h.d),[{v:H.map(h=>h.p20),c:"#7ee0c3"},{v:H.map(h=>h.p50),c:"#f2d68a"},{v:H.map(h=>h.p200),c:"#b9a7f0"}],{lo:0,hi:100,fmt:z=>z.toFixed(0)+"%",label:"Percent of stocks above moving averages"});
+  clBars($("clbbars"),H.map(h=>h.d),H.map(h=>h.u4),H.map(h=>h.d4));
+}
+function clRisk(d){
+  const r=d.risk_appetite; if(!r){$("clratios").innerHTML=`<div class="empty">Not available.</div>`;return;}
+  $("clrsub").textContent=`${r.risk_on} of ${r.of} ratios lean risk-on (close ${clDate(r.as_of)}). Each ratio is compared with its 20-day average; for IEF/LQD a rising ratio means risk-off.`;
+  $("clratios").innerHTML=(r.ratios||[]).map(x=>`<div class="stat"><div class="l">${esc(x.pair)}</div><div class="v"><span class="clpill ${x.risk_on?"yes":"no"}">${x.risk_on?"risk-on":"risk-off"}</span></div><div class="s ${cls(x.chg_1m)}">${sgn(x.chg_1m)} over 1 month</div><div class="meta" style="margin-top:4px">${esc(x.note)} · ${x.above_ma20?"above":"below"} its 20-day average</div></div>`).join("");
+  const H=r.history||[];
+  clLine($("clrline"),H.map(h=>h.d),[{v:H.map(h=>h.n),c:"#7ee0c3"}],{lo:0,hi:r.of||6,ticks:r.of||6,H:150,label:"Risk-on count"});
+}
+function clRanker(d){
+  const k=d.ranker; if(!k){$("clrklist").innerHTML=`<div class="empty">Not available.</div>`;return;}
+  $("clrksub").textContent=`His Opportunity Ranker run on his own ${k.list_total}-name watchlist (${k.list_size} with enough data), close ${clDate(k.as_of)}. Opp averages four horizon scores (10/20/42/63 days) built from Breakout, Expansion and Risk with his exact weights.`;
+  const R=CL.rk==="top"?(k.rows||[]).slice(0,20):(k.rows||[]);
+  const mb=(v,c)=>`<i style="width:${Math.max(2,(v||0)*.33)}%;background:${c}" title="${clNum(v,0)}"></i>`;
+  $("clrklist").innerHTML=R.map(r=>{const dl=r.opp_prev==null?null:r.opp-r.opp_prev;return `<div class="rkrow" title="${esc(r.sym)} · Opp ${clNum(r.opp)} · Breakout ${clNum(r.breakout,0)} · Expansion ${clNum(r.expansion,0)} · Risk ${clNum(r.risk,0)} · ${clNum(r.ext_atr,1)} ATR above its 50-day average · 1M RS ${clNum(r.rs1m,0)}"><span class="n">${r.rank}</span><b>${esc(r.sym)}</b><div><div class="rkbar"><div style="width:${Math.max(0,Math.min(100,r.opp))}%"></div></div><div class="rkmini">${mb(r.breakout,"#1f8a78")}${mb(r.expansion,"#d9a441")}${mb(r.risk,"#4a8fe0")}</div></div><span class="v">${clNum(r.opp)}</span><span class="dl ${cls(dl)}">${dl==null?"—":(dl>0?"+":"")+dl.toFixed(1)}</span></div>`;}).join("")||`<div class="empty">No ranked names.</div>`;
+}
+function clHeatColor(p,sc){if(p==null) return ["#e9eef0","#1c2b39"];const k=Math.min(1,Math.abs(p)/sc),L=88-k*56;return [p>=0?`hsl(152,${45+k*15}%,${L}%)`:`hsl(4,${55+k*12}%,${L}%)`,L<58?"#fff":"#10283a"];}
+function clThemes(d){
+  const t=d.themes; if(!t){$("clheat").innerHTML=`<div class="empty">Not available.</div>`;return;}
+  const per=CL.per,sc={d1:3,w1:6,m1:12,m3:25}[per],nm={d1:"1-day",w1:"1-week",m1:"1-month",m3:"3-month"}[per];
+  const R=(t.rows||[]).filter(r=>r.group===CL.grp).sort((a,b)=>(b[per]??-1e9)-(a[per]??-1e9));
+  $("clthsub").textContent=`${R.length} ${CL.grp==="theme"?"theme":"sector"} funds from his lists, coloured by ${nm} return, close ${clDate(t.as_of)}.`;
+  $("clheat").innerHTML=R.map(r=>{const [bg,fg]=clHeatColor(r[per],sc);return `<div class="tl" style="background:${bg};color:${fg}" title="${esc(r.sym)} · 1D ${sgn(r.d1)} · 1W ${sgn(r.w1)} · 1M ${sgn(r.m1)} · 3M ${sgn(r.m3)} · RS21 ${clNum(r.rs21,0)} · RS63 ${clNum(r.rs63,0)} · RVol ${clNum(r.rvol,0)} · ${esc(r.quadrant||"")}"><b>${esc(r.sym)}</b><span>${sgn(r[per],1)}</span><small>RS ${clNum(r.rs21,0)}/${clNum(r.rs63,0)} · RV ${clNum(r.rvol,0)}</small></div>`;}).join("");
+}
+function clRotation(d){
+  const t=d.themes,wrap=$("clrotsvg"); if(!t){wrap.innerHTML="";return;}
+  const R=(t.rows||[]).filter(r=>r.group===CL.rot&&r.rrr_ratio!=null&&r.rrr_mom!=null);
+  const W=clW(wrap),H=Math.min(560,Math.max(320,W*.62)),pad=34;
+  const xs=R.flatMap(r=>[r.rrr_ratio].concat((r.tail||[]).map(p=>p[0]).filter(v=>v!=null))),ys=R.flatMap(r=>[r.rrr_mom].concat((r.tail||[]).map(p=>p[1]).filter(v=>v!=null)));
+  const ex=Math.max(1,...xs.map(v=>Math.abs(v-100)))*1.12,ey=Math.max(.5,...ys.map(v=>Math.abs(v-100)))*1.12;
+  const x=v=>pad+(W-2*pad)*(v-(100-ex))/(2*ex),y=v=>pad+(H-2*pad)*((100+ey)-v)/(2*ey);
+  const QC={Leading:"#2bb07f",Weakening:"#e2bf3f",Lagging:"#d4504a",Improving:"#4a8fe0"};
+  let s=`<rect x="${x(100)}" y="${pad}" width="${x(100+ex)-x(100)}" height="${y(100)-pad}" fill="#2bb07f" opacity=".08"/><rect x="${pad}" y="${pad}" width="${x(100)-pad}" height="${y(100)-pad}" fill="#4a8fe0" opacity=".08"/><rect x="${pad}" y="${y(100)}" width="${x(100)-pad}" height="${H-pad-y(100)}" fill="#d4504a" opacity=".08"/><rect x="${x(100)}" y="${y(100)}" width="${x(100+ex)-x(100)}" height="${H-pad-y(100)}" fill="#e2bf3f" opacity=".08"/>`;
+  s+=`<line x1="${pad}" x2="${W-pad}" y1="${y(100)}" y2="${y(100)}" stroke="#8a91a6"/><line y1="${pad}" y2="${H-pad}" x1="${x(100)}" x2="${x(100)}" stroke="#8a91a6"/>`;
+  s+=`<text x="${W-pad}" y="${pad-10}" fill="#2bb07f" font-size="11" text-anchor="end">LEADING</text><text x="${pad}" y="${pad-10}" fill="#4a8fe0" font-size="11">IMPROVING</text><text x="${pad}" y="${H-10}" fill="#d4504a" font-size="11">LAGGING</text><text x="${W-pad}" y="${H-10}" fill="#e2bf3f" font-size="11" text-anchor="end">WEAKENING</text>`;
+  R.forEach(r=>{const c=QC[r.quadrant]||"#9aa3b8",T=(r.tail||[]).filter(p=>p[0]!=null&&p[1]!=null);
+    if(T.length>1) s+=`<polyline points="${T.map(p=>x(p[0]).toFixed(1)+","+y(p[1]).toFixed(1)).join(" ")}" fill="none" stroke="${c}" stroke-width="1.4" opacity=".55"/>`;
+    s+=`<circle cx="${x(r.rrr_ratio).toFixed(1)}" cy="${y(r.rrr_mom).toFixed(1)}" r="4.5" fill="${c}"><title>${esc(r.sym)} · RS-Ratio ${clNum(r.rrr_ratio,2)} · RS-Momentum ${clNum(r.rrr_mom,2)} · ${esc(r.quadrant||"")}</title></circle><text x="${(x(r.rrr_ratio)+6).toFixed(1)}" y="${(y(r.rrr_mom)-5).toFixed(1)}" fill="#dfe3ee" font-size="10.5" font-weight="700">${esc(r.sym)}</text>`;});
+  s+=`<text x="${W-pad}" y="${y(100)-6}" fill="#9aa3b8" font-size="10" text-anchor="end">RS-Ratio →</text><text x="${x(100)+6}" y="${pad+10}" fill="#9aa3b8" font-size="10">↑ RS-Momentum</text>`;
+  wrap.innerHTML=R.length?`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Relative Robustness Rotation map">${s}</svg>`:`<div style="padding:28px 8px;color:#9aa3b8">Not enough history yet.</div>`;
+}
+function clScreens(d){
+  const S=(d.screens||{}).screens||[]; if(!S.length){$("clsct").innerHTML=`<tr><td class="empty">Not available.</td></tr>`;return;}
+  if(CL.scr>=S.length) CL.scr=0; const s=S[CL.scr];
+  $("clscsub").textContent=`His posted TradingView screens rebuilt with the exact filters (float uses a shares-outstanding stand-in), on our daily store, close ${clDate(d.screens.as_of)}. New = passing today but not yesterday.`;
+  $("clscchips").innerHTML=S.map((x,i)=>`<button class="chip ${i===CL.scr?"on":""}" data-i="${i}">${esc(x.label)}<span class="n">${x.count}</span></button>`).join("");
+  $("clsctk").textContent=s.label.toUpperCase();
+  clLine($("clscline"),s.history.map(h=>h.d),[{v:s.history.map(h=>h.n),c:"#7ee0c3"}],{lo:0,H:150,label:s.label+" count"});
+  const Hs=s.hits||[];
+  $("clsct").innerHTML=Hs.length?`<tr><th>Symbol</th><th>Size</th><th class="r">Close</th><th class="r">1D</th><th class="r">Above 50-day</th><th class="r">Rel. volume</th><th class="r">$ volume (20d)</th></tr>`+Hs.map(h=>`<tr><td><b>${esc(h.sym)}</b>${h.new?` <span class="badge good">new</span>`:""}</td><td>${esc(h.band||"—")}</td><td class="r">${usd(h.close)}</td><td class="r ${cls(h.d1)}">${sgn(h.d1)}</td><td class="r">${h.ext_atr==null?"—":clNum(h.ext_atr,1)+" ATR"}</td><td class="r">${h.rvol==null?"—":clNum(h.rvol,1)+"×"}</td><td class="r">${h.dv20m==null?"—":h.dv20m>=1000?"$"+clNum(h.dv20m/1000,1)+"B":"$"+clNum(h.dv20m,1)+"M"}</td></tr>`).join("")+(s.hits_total>Hs.length?`<tr><td colspan="7" class="meta">Showing ${Hs.length} of ${s.hits_total} (new names first, then the most traded).</td></tr>`:"")
+    :`<tr><td class="empty">${s.count} names pass this screen today. It is used as a breadth count, so names are not listed.</td></tr>`;
+}
+function clFP(lo,hi,mean,R){
+  const W=130,H=16,x=v=>4+(W-8)*(Math.max(-R,Math.min(R,v))+R)/(2*R),c=lo>0?"#1f8a5b":hi<0?"#c2413b":"#97660e";
+  return `<svg class="clfp" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="range ${lo} to ${hi}"><line x1="${x(0)}" x2="${x(0)}" y1="1" y2="${H-1}" stroke="#8a91a6" stroke-dasharray="2 2"/><line x1="${x(lo).toFixed(1)}" x2="${x(hi).toFixed(1)}" y1="${H/2}" y2="${H/2}" stroke="${c}" stroke-width="3" stroke-linecap="round"/><circle cx="${x(mean).toFixed(1)}" cy="${H/2}" r="3.6" fill="${c}"/></svg>`;
+}
+const clVd=v=>`<span class="vd ${v==="candidate"?"candidate":v==="unproven"?"unproven":v==="hindsight-biased"?"biased":"noedge"}">${esc(v)}</span>`;
+function clCards(d){
+  const C=d.scorecards||[];
+  $("clscg").innerHTML=C.map(c=>{let body="";
+    if(c.tests&&c.tests.length){const R=Math.max(1,...c.tests.flatMap(t=>[Math.abs(t.oos_lo||0),Math.abs(t.oos_hi||0)]));
+      body+=`<div class="scroll"><table><tr><th>Tested on</th><th class="r">Edge</th><th>Out-of-sample range</th><th class="r">Trades</th><th></th></tr>${c.tests.map(t=>`<tr><td>${esc(t.universe)}${t.side==="short"?" (short)":""}</td><td class="r ${cls(t.oos_mean)}">${sgn(t.oos_mean)}</td><td>${clFP(t.oos_lo,t.oos_hi,t.oos_mean,R)}<span class="meta">${sgn(t.oos_lo,1)} to ${sgn(t.oos_hi,1)}</span></td><td class="r">${Number(t.oos_n).toLocaleString("en-US")}</td><td>${clVd(t.verdict)}</td></tr>`).join("")}</table></div><p class="swipe meta">Swipe sideways to see all columns →</p>`;}
+    if(c.rotation){const r=c.rotation,R=Math.max(5,Math.abs(r.oos_lo||0),Math.abs(r.oos_hi||0));
+      body+=`<div class="scroll"><table><tr><th>Best of ${r.variants} rotation variants</th><th class="r">Per year vs equal-weight</th></tr><tr><td>Training years</td><td class="r ${cls(r.train_ann)}">${sgn(r.train_ann,1)}</td></tr><tr><td>Out of sample</td><td class="r ${cls(r.oos_ann)}">${sgn(r.oos_ann,1)}</td></tr><tr><td>Out-of-sample range</td><td class="r">${clFP(r.oos_lo,r.oos_hi,r.oos_ann,R)}<span class="meta">${sgn(r.oos_lo,0)} to ${sgn(r.oos_hi,0)}</span></td></tr><tr><td>Sharpe (vs equal-weight)</td><td class="r">${clNum(r.sharpe,2)} vs ${clNum(r.sharpe_base,2)}</td></tr></table></div><div class="m">Verdict ${clVd(r.verdict)}</div>`;}
+    if(c.pockets){const p=c.pockets;body+=`<div class="m">${Number(p.cells).toLocaleString("en-US")} market-timing cells tested; <b>${p.passing}</b> clear t &gt; 2 in both the training and out-of-sample years ${clVd(p.passing?"candidate":"no edge")}</div>`;}
+    if(c.faith&&c.faith.QQQE){const f=c.faith;body+=`<div class="m">Matches his own daily dashboards: divergence label ${clNum(f.QQQE.divergence_match,0)}% (QQQE) / ${clNum((f.RSP||{}).divergence_match,0)}% (RSP); Mood Ring within ${clNum(f.QQQE.vmr_mae,1)} / ${clNum((f.RSP||{}).vmr_mae,1)} points; Pulse state ${clNum(f.QQQE.pulse_match,0)}% / ${clNum((f.RSP||{}).pulse_match,0)}% (the gap is his exchange-wide breadth feed).</div>`;}
+    else if(c.faith&&c.faith.text){body+=`<div class="m">${esc(c.faith.text)}${c.faith.rs1m_corr!=null?` 1-month RS column correlation ${clNum(c.faith.rs1m_corr,3)}.`:""}</div>`;}
+    if(c.contrarian){const k=c.contrarian;body+=`<div class="m">Contrarian read (very low Mood Ring, SPY over the next week): ${sgn(k.pre_mean)} vs normal before 2022 (${k.pre_n} events, t ${clNum(k.pre_t,1)}), ${sgn(k.oos_mean)} since (${k.oos_n} events, t ${clNum(k.oos_t,1)}).</div>`;}
+    if(c.auc){body+=`<div class="m">Warns of 8%+ Nasdaq drops within a month at AUC ${clNum(c.auc.train,2)} in training and ${clNum(c.auc.oos,2)} out of sample (0.5 = coin flip) ${clVd("no edge")}</div>`;}
+    const st=c.status==="research"?"research":esc(c.status);
+    return `<div class="clcard" id="clcard-${esc(c.id)}"><div class="top"><span>${esc(c.id)} · ${esc(c.name)}</span><span class="stb ${c.status==="research"?"":"off"}">${st}</span></div><p>${esc(c.what)}</p><div class="m"><b>Rebuild:</b> ${esc(c.build)}</div>${body}${c.caveat?`<div class="caution">${esc(c.caveat)}</div>`:""}</div>`;}).join("")||`<div class="empty">No scorecards yet.</div>`;
+}
 function swipeHints(){document.querySelectorAll(".scroll").forEach(sc=>{const h=sc.nextElementSibling;if(h&&h.classList.contains("swipe"))h.classList.toggle("on",sc.scrollWidth>sc.clientWidth+1);});}
 function freshness(){
   const dot=$("dot"); if(!D||!D.generated_at_iso) return;
@@ -657,19 +981,28 @@ async function load(){
   }catch(e){ $("err").style.display="block"; $("err").textContent="Could not load the latest data ("+e.message+"). Showing the last good copy; retrying every 60 seconds."; }
 }
 function showTab(t){
-  const test=t==="test"; $("tab-main").hidden=test; $("tab-test").hidden=!test;
-  [["tabbtn-main",!test],["tabbtn-test",test]].forEach(([id,on])=>{$(id).classList.toggle("on",on);$(id).setAttribute("aria-selected",on?"true":"false");});
-  document.querySelector(".nav").style.display=test?"none":"";
-  if(D){const T=test?VT:VM;try{drawChart(T);drawHeat(T);renderBeta(T);}catch(e){console.error(e);}swipeHints();}
+  const tabs=["main","test","cl"]; if(!tabs.includes(t)) t="main";
+  tabs.forEach(k=>{$("tab-"+k).hidden=k!==t;const b=$("tabbtn-"+k);b.classList.toggle("on",k===t);b.setAttribute("aria-selected",k===t?"true":"false");});
+  document.querySelector(".nav").style.display=t==="main"?"":"none";
+  if(t==="cl"){if(CL.d) clDraw(); else clLoad(); return;}
+  if(D){const T=t==="test"?VT:VM;try{drawChart(T);drawHeat(T);renderBeta(T);}catch(e){console.error(e);}swipeHints();}
 }
 function route(){
   const h=decodeURIComponent(location.hash.slice(1));
   if(h==="test"){showTab("test");return;}
+  if(h==="chartslector"){showTab("cl");return;}
+  const el=h?document.getElementById(h):null;
+  if(el&&$("tab-cl").contains(el)){showTab("cl");el.scrollIntoView();return;}
   showTab("main");
-  if(h&&h!=="main"){const el=document.getElementById(h);if(el&&$("tab-main").contains(el))el.scrollIntoView();}
+  if(h&&h!=="main"&&el&&$("tab-main").contains(el))el.scrollIntoView();
 }
 window.addEventListener("hashchange",route); route();
-$("refresh").onclick=load;
+$("refresh").onclick=()=>{load();if(!$("tab-cl").hidden)clLoad();};
+$("clrkchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;CL.rk=b.dataset.k;[...$("clrkchips").children].forEach(c=>c.classList.toggle("on",c===b));if(CL.d)clRanker(CL.d);};
+$("clthgrp").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;CL.grp=b.dataset.g;[...$("clthgrp").children].forEach(c=>c.classList.toggle("on",c===b));if(CL.d)clThemes(CL.d);};
+$("clthper").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;CL.per=b.dataset.p;[...$("clthper").children].forEach(c=>c.classList.toggle("on",c===b));if(CL.d)clThemes(CL.d);};
+$("clrotgrp").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;CL.rot=b.dataset.g;[...$("clrotgrp").children].forEach(c=>c.classList.toggle("on",c===b));if(CL.d)clRotation(CL.d);};
+$("clscchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;CL.scr=+b.dataset.i;if(CL.d){clScreens(CL.d);swipeHints();}};
 [VM,VT].forEach(V=>{
   $v(V,"cchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;V.mode=b.dataset.v;[...$v(V,"cchips").children].forEach(c=>c.classList.toggle("on",c===b));drawChart(V);};
   $v(V,"lchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;V.lf=b.dataset.l;renderPositions(V);};
@@ -677,8 +1010,8 @@ $("refresh").onclick=load;
   $v(V,"heatmap").addEventListener("mouseover",e=>{const t=e.target.closest(".tile");if(t&&V.heat.tiles[+t.dataset.i]&&window.matchMedia("(hover:hover)").matches)heatDetail(V,V.heat.tiles[+t.dataset.i].symbol);});
 });
 document.querySelectorAll(".nav a").forEach(a=>a.addEventListener("click",()=>{document.querySelectorAll(".nav a").forEach(x=>x.classList.toggle("on",x===a));}));
-window.addEventListener("resize",()=>{if(D){const T=!$("tab-test").hidden?VT:VM;drawChart(T);try{drawHeat(T);renderBeta(T);}catch(e){}swipeHints();}});
-load(); setInterval(load,60000); setInterval(freshness,30000);
+window.addEventListener("resize",()=>{if(!$("tab-cl").hidden){clDraw();return;}if(D){const T=!$("tab-test").hidden?VT:VM;drawChart(T);try{drawHeat(T);renderBeta(T);}catch(e){}swipeHints();}});
+load(); setInterval(load,60000); setInterval(freshness,30000); setInterval(()=>{if(!$("tab-cl").hidden)clLoad();},600000);
 </script>
 </body>
 </html>
