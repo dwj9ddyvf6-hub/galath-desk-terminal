@@ -4,8 +4,8 @@
  "desk_version": "paper-desk 1.7.3",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 5, 2026 at 9:37 PM ET",
- "generated_at_iso": "2026-10-05T21:37:19-04:00",
+ "generated_at": "Oct 5, 2026 at 9:46 PM ET",
+ "generated_at_iso": "2026-10-05T21:46:39-04:00",
  "headline": "As of the last close (Oct 5), the desk is up 0.19% on the day and behind SPY by 0.67 percentage points since it started.",
  "headline_scope": "last_close",
  "headline_as_of": "2026-10-05",
@@ -19,14 +19,14 @@
   "basis": "official session close (desk equity and SPY)"
  },
  "account": {
-  "equity": 101349.94,
+  "equity": 101321.75,
   "cash": 54772.79,
   "start_equity": 100000.0,
-  "long_market_value": 46577.15,
-  "day_pl": 550.45,
-  "day_pl_pct": 0.546,
-  "total_pl": 1349.94,
-  "total_pl_pct": 1.35
+  "long_market_value": 46548.96,
+  "day_pl": 522.26,
+  "day_pl_pct": 0.518,
+  "total_pl": 1321.75,
+  "total_pl_pct": 1.322
  },
  "equity_curve": [
   {
@@ -156,9 +156,9 @@
    "spy_pct": 1.806
   },
   {
-   "t": "2026-10-05T21:37",
+   "t": "2026-10-05T21:46",
    "label": "now",
-   "desk_pct": 1.35,
+   "desk_pct": 1.322,
    "spy_pct": 1.627
   }
  ],
@@ -423,10 +423,10 @@
    "qty": 13,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 363.73,
-   "current_price": 390.62,
-   "unrealized_pct": 7.39,
-   "unrealized_usd": 349.57,
-   "day_change_pct": -0.18,
+   "current_price": 389.03,
+   "unrealized_pct": 6.96,
+   "unrealized_usd": 328.9,
+   "day_change_pct": -0.59,
    "realized_partial_usd": null
   },
   {
@@ -439,10 +439,10 @@
    "qty": 24,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 204.4,
-   "current_price": 213.14,
-   "unrealized_pct": 4.28,
-   "unrealized_usd": 209.76,
-   "day_change_pct": -2.52,
+   "current_price": 212.8,
+   "unrealized_pct": 4.11,
+   "unrealized_usd": 201.6,
+   "day_change_pct": -2.67,
    "realized_partial_usd": null
   },
   {
@@ -503,10 +503,10 @@
    "qty": 111,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 44.8,
-   "current_price": 43.06,
-   "unrealized_pct": -3.88,
-   "unrealized_usd": -193.14,
-   "day_change_pct": -1.62,
+   "current_price": 43.04,
+   "unrealized_pct": -3.93,
+   "unrealized_usd": -195.36,
+   "day_change_pct": -1.67,
    "realized_partial_usd": null
   },
   {
@@ -535,10 +535,10 @@
    "qty": 286,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 17.45,
-   "current_price": 17.6,
-   "unrealized_pct": 0.86,
-   "unrealized_usd": 42.9,
-   "day_change_pct": 0.57,
+   "current_price": 17.61,
+   "unrealized_pct": 0.92,
+   "unrealized_usd": 45.76,
+   "day_change_pct": 0.63,
    "realized_partial_usd": null
   },
   {
@@ -637,8 +637,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 1354.24,
-   "avg_return_pct": 3.07,
+   "unrealized_usd": 1326.05,
+   "avg_return_pct": 3.01,
    "win_rate_closed_pct": null
   },
   {
@@ -876,10 +876,10 @@
   "win_rate_pct": null,
   "avg_hold_days": null,
   "avg_return_pct": null,
-  "total_pl_usd": 1349.94,
-  "total_pl_pct": 1.35,
+  "total_pl_usd": 1321.75,
+  "total_pl_pct": 1.322,
   "realized_pl_usd": 0.0,
-  "unrealized_pl_usd": 1349.94,
+  "unrealized_pl_usd": 1321.75,
   "max_drawdown": {
    "pct": -0.59,
    "usd": -596.66,
@@ -898,7 +898,7 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": 3.07,
+   "holdings_avg_unrealized_pct": 3.01,
    "small_sample": true,
    "research": {
     "win_rate_pct": 47.5,
@@ -906,7 +906,7 @@
     "trades": 3705
    },
    "research_text": "Research expected about 48% winners and +0.47% per trade (out-of-sample backtest, 3,705 trades).",
-   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +3.07% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 9 holdings open now, +3.01% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
   {
@@ -1020,16 +1020,6 @@
     "unrealized_pct": 2.92
    },
    {
-    "symbol": "CRDO",
-    "name": "Credo Technology Group Holding Ltd Ordinary Shares",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5115.36,
-    "unrealized_usd": 209.76,
-    "unrealized_pct": 4.28
-   },
-   {
     "symbol": "ASAN",
     "name": "Asana, Inc. Class A Common Stock",
     "strategy": "1H Swing",
@@ -1040,14 +1030,24 @@
     "unrealized_pct": 2.94
    },
    {
+    "symbol": "CRDO",
+    "name": "Credo Technology Group Holding Ltd Ordinary Shares",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5107.2,
+    "unrealized_usd": 201.6,
+    "unrealized_pct": 4.11
+   },
+   {
     "symbol": "CIEN",
     "name": "Ciena Corporation",
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5078.06,
-    "unrealized_usd": 349.57,
-    "unrealized_pct": 7.39
+    "value_usd": 5057.39,
+    "unrealized_usd": 328.9,
+    "unrealized_pct": 6.96
    },
    {
     "symbol": "PL",
@@ -1055,9 +1055,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5033.6,
-    "unrealized_usd": 42.9,
-    "unrealized_pct": 0.86
+    "value_usd": 5036.46,
+    "unrealized_usd": 45.76,
+    "unrealized_pct": 0.92
    },
    {
     "symbol": "MNDY",
@@ -1075,9 +1075,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4779.66,
-    "unrealized_usd": -193.14,
-    "unrealized_pct": -3.88
+    "value_usd": 4777.44,
+    "unrealized_usd": -195.36,
+    "unrealized_pct": -3.93
    },
    {
     "symbol": "IESC",
@@ -1111,7 +1111,7 @@
    }
   ],
   "count": 12,
-  "total_value_usd": 46577.15,
+  "total_value_usd": 46548.96,
   "source": "broker paper account positions (marks)",
   "unavailable": null
  },
@@ -1220,7 +1220,92 @@
   "as_of": null,
   "stale": false,
   "note": "Runs on its own paper account with simulated money. Its numbers are kept completely apart from the main desk.",
-  "unavailable": "Staged, not trading yet: the second desk is built but not switched on, so it has no positions or trades."
+  "unavailable": "Staged, not trading yet: the second desk is built but not switched on, so it has no positions or trades.",
+  "panels": {
+   "headline": "Staged, not trading yet: the second desk is built but not switched on, so it has no positions or trades.",
+   "stats": {
+    "closed": 0,
+    "wins": 0,
+    "win_rate_pct": null,
+    "realized_usd": null,
+    "open_in_profit": 0,
+    "open": 0,
+    "queued": 0,
+    "positions_total": 0
+   },
+   "positions": [],
+   "equity_curve": [],
+   "curve_note": "Curve starts on the first trading day.",
+   "track_record": {
+    "period_start": null,
+    "period_text": "Starts on the second desk's first trading day",
+    "closed_trades": 0,
+    "wins": 0,
+    "win_rate_pct": null,
+    "avg_hold_days": null,
+    "avg_return_pct": null,
+    "total_pl_usd": null,
+    "total_pl_pct": null,
+    "realized_pl_usd": null,
+    "unrealized_pl_usd": null,
+    "max_drawdown": null
+   },
+   "strategy_scorecards": [],
+   "closed_trades_log": [],
+   "market_mood": {
+    "vix": {
+     "value": 15.52,
+     "change": 0.21,
+     "as_of": "2026-10-05",
+     "label": "normal",
+     "plain": "Expected volatility is around its usual range."
+    },
+    "vix_unavailable": null,
+    "breadth": {
+     "value_pct": 29.1,
+     "change_pts": 2.1,
+     "as_of": "2026-10-05",
+     "label": "weak",
+     "plain": "About 29% of the stocks the desk tracks closed above their 50-day average — most stocks are in short-term downtrends."
+    },
+    "breadth_unavailable": null,
+    "options_protection": null,
+    "options_protection_label": "Options protection (IV / skew): coming soon",
+    "attention": {
+     "value_pct": -8.3,
+     "label": "below usual",
+     "companies": 1225,
+     "unusual": 14,
+     "unusual_pct": 1.1,
+     "as_of": "2026-10-05",
+     "plain": "Wikipedia page views for the 1,225 US companies tracked are running 8% below their usual level (typical company, past week compared with the prior three months). 14 of them are seeing unusually heavy attention."
+    }
+   },
+   "holdings_heatmap": {
+    "holdings": [],
+    "count": 0,
+    "total_value_usd": 0.0,
+    "source": null,
+    "unavailable": "Staged, not trading yet. No trades yet."
+   },
+   "last_pass": {
+    "stage": "staged",
+    "stage_text": "Staged, not trading yet",
+    "phase": null,
+    "mode": null,
+    "at": null,
+    "completed": null,
+    "status": null,
+    "fires_offered": null,
+    "orders_sent": null,
+    "passes_today": 0,
+    "ledger_verify": "OK",
+    "ledger_chain_ok": true,
+    "ledger_records": 3,
+    "scheduler_exit": null,
+    "empty_text": "Staged, not trading yet: no desk pass has run yet."
+   }
+  }
  },
  "disclaimer": "Paper trading with simulated money. Not investment advice. Past or simulated results do not predict future returns."
 }
