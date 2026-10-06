@@ -85,6 +85,30 @@ td.r,th.r{text-align:right}
 .nav a{color:#c9d6dd;text-decoration:none;font-size:12px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 10px;border-radius:14px;min-width:58px}
 .nav a.on{background:#1d5a5a;color:#fff;box-shadow:inset 0 0 0 1px #2f7c74}
 .nav svg{width:20px;height:20px}
+/* 2026-10-05 public panels: track record, market mood, holdings heatmap, strategy scorecards, closed trades log */
+.trk{margin-top:16px}
+.mood{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:720px){.mood{grid-template-columns:repeat(4,1fr)}}
+.mood .stat .p{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.45}
+.mood .stat.soon{border-style:dashed;background:#f7fbf9}
+.badge{display:inline-block;border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:800;margin-left:6px;vertical-align:middle;background:var(--teal-soft);color:var(--teal-dark)}
+.badge.warn{background:#fbf0d9;color:#97660e}.badge.bad{background:#f8e3e1;color:var(--red)}.badge.good{background:#e1f3ea;color:var(--green)}
+.heat{position:relative;width:100%;height:300px;border-radius:14px;overflow:hidden;background:var(--slate)}
+@media(min-width:720px){.heat{height:380px}}
+.heat .tile{position:absolute;box-sizing:border-box;border:2px solid var(--slate);border-radius:8px;padding:6px 7px;overflow:hidden;font-variant-numeric:tabular-nums;line-height:1.2}
+.heat .tile b{display:block;font-size:14px;font-weight:800;letter-spacing:.01em}
+.heat .tile span{display:block;font-size:12px;font-weight:700}
+.heat .tile small{display:block;font-size:11px;opacity:.85}
+.heatleg{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+.heatleg i{display:inline-block;width:120px;height:10px;border-radius:999px;background:linear-gradient(90deg,hsl(4,65%,38%),hsl(4,65%,80%),#e9eef0,hsl(152,50%,78%),hsl(152,55%,30%))}
+.scg{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:720px){.scg{grid-template-columns:1fr 1fr}}
+.sc{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfdfc}
+.sc .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:800;color:var(--navy);font-size:16px}
+.sc table{margin-top:8px;font-size:13px}
+.sc td,.sc th{padding:6px 4px}
+.sc p{font-size:13px;color:var(--ink);line-height:1.5;margin:8px 0 0}
+.sc .caution{font-size:12.5px;color:#97660e;background:#fbf0d9;border-radius:10px;padding:6px 10px;margin-top:8px}
 .err{display:none;background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
 </style>
 </head>
@@ -121,6 +145,18 @@ td.r,th.r{text-align:right}
       <div id="svgwrap"></div>
       <div class="legend"><span><i style="background:#7ee0c3"></i>Desk</span><span id="lgspy"><i style="background:#f2d68a"></i>SPY</span></div>
     </div>
+    <div class="trk" id="record">
+      <p class="kicker">Track record</p>
+      <p class="sub" id="trksub"></p>
+      <div class="grid" id="trkstats"></div>
+    </div>
+  </section>
+
+  <section id="mood" class="card">
+    <p class="kicker">Market backdrop</p>
+    <h2>Market mood</h2>
+    <p class="sub">Where the wider market stands right now, in plain words. Context only; it is not a forecast.</p>
+    <div class="mood" id="moodgrid"></div>
   </section>
 
   <section id="positions" class="card">
@@ -129,6 +165,14 @@ td.r,th.r{text-align:right}
     <p class="sub" id="possub"></p>
     <div class="chips" id="lchips"></div>
     <div class="list" id="poslist"></div>
+  </section>
+
+  <section id="heat" class="card">
+    <p class="kicker">Holdings</p>
+    <h2>Open positions heatmap</h2>
+    <p class="sub" id="heatsub"></p>
+    <div class="heat" id="heatmap"></div>
+    <div class="heatleg"><span>Loss</span><i></i><span>Gain</span><span>· tile size = position value · color = unrealized gain or loss since entry</span></div>
   </section>
 
   <div class="two">
@@ -150,6 +194,20 @@ td.r,th.r{text-align:right}
     <h2>Closed trades</h2>
     <p class="sub" id="tradesub"></p>
     <div class="list" id="closedlist"></div>
+  </section>
+
+  <section id="tradelog" class="card">
+    <p class="kicker">Track record</p>
+    <h2>Closed trades log</h2>
+    <p class="sub">Every trade appears here only after it is fully closed. Hold is in calendar days.</p>
+    <div class="scroll"><table id="logt"></table></div>
+  </section>
+
+  <section id="scorecards" class="card">
+    <p class="kicker">Per strategy</p>
+    <h2>Strategy scorecards</h2>
+    <p class="sub">Each strategy's live paper results next to what its research backtest expected. Backtests are simulations; live results with few trades are mostly noise.</p>
+    <div class="scg" id="scgrid"></div>
   </section>
 
   <section id="signals" class="card">
@@ -243,6 +301,7 @@ function render(){
   const B=d.breakdown||[];
   $("bdt").innerHTML=`<tr><th>Strategy</th><th>Lane</th><th>Unit</th><th class="r">Open</th><th class="r">Closed</th><th class="r">Win rate</th><th class="r">Avg ret</th><th class="r">Realized</th><th class="r">Unrealized</th></tr>`+
     (B.length?B.slice().sort((a,b)=>(a.test-b.test)||String(a.strategy).localeCompare(String(b.strategy))).map(b=>`<tr><td><b>${esc(b.strategy||"")}</b> ${tbadge(b.test)}</td><td>${esc(laneName(b.lane))}</td><td>${esc(b.unit)}</td><td class="r">${b.open}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="9" class="empty">No trades yet.</td></tr>`);
+  [renderRecord,renderMood,drawHeat,renderLog,renderCards].forEach(f=>{try{f();}catch(e){console.error(f.name,e);}});   // new public panels never break the rest of the page
   $("disc").innerHTML=`<b>Paper trading, not investment advice.</b> ${esc(d.disclaimer||"")}`;
   $("foot").textContent=`Data updated ${d.generated_at||""} · page refreshes every 60 seconds`;
   freshness();
@@ -274,6 +333,79 @@ function drawChart(){
   $("lgspy").style.display=showSpy?"":"none";
 }
 
+// ---- 2026-10-05 public panels (data keys: track_record, market_mood, holdings_heatmap, closed_trades_log, strategy_scorecards)
+const pctTxt=(v,d=1)=>v==null?"—":v.toFixed(d)+"%";
+const days=v=>v==null?"—":(v<1?(v*24).toFixed(0)+" h":v.toFixed(1)+" d");
+function renderRecord(){
+  const t=D.track_record; if(!t){$("trksub").textContent="Track record not available yet.";$("trkstats").innerHTML="";return;}
+  const dd=t.max_drawdown||null;
+  $("trksub").textContent=`${t.period_text||""}. Win rate, average hold and average return count fully closed trades only; total P&L includes open positions at their current marks.`;
+  $("trkstats").innerHTML=[
+    ["Win rate",t.win_rate_pct==null?"—":t.win_rate_pct.toFixed(0)+"%",t.closed_trades?`${t.wins} of ${t.closed_trades} closed`:"no closed trades yet","flat"],
+    ["Max drawdown",dd&&dd.pct!=null?sgn(dd.pct):"—",dd&&dd.pct!=null?(dd.pct<0?`${usd(dd.usd,0)} · ${esc(dd.peak_date||"")}${dd.trough_date&&dd.trough_date!==dd.peak_date?" → "+esc(dd.trough_date):""}`:"no drawdown so far"):"not available yet",dd&&dd.pct<0?"neg":"flat"],
+    ["Avg hold",days(t.avg_hold_days),t.closed_trades?"closed trades":"after the first exit","flat"],
+    ["Avg return",sgn(t.avg_return_pct),t.closed_trades?"per closed trade":"after the first exit",cls(t.avg_return_pct)],
+    ["Total P&L",usd(t.total_pl_usd),sgn(t.total_pl_pct),cls(t.total_pl_usd)],
+    ["Realized P&L",usd(t.realized_pl_usd),t.unrealized_pl_usd!=null?`${usd(t.unrealized_pl_usd)} unrealized`:"",cls(t.realized_pl_usd)],
+  ].map(([l,v,s,c])=>`<div class="stat"><div class="l">${l}</div><div class="v">${v}</div><div class="s ${c}">${s}</div></div>`).join("");
+}
+function renderMood(){
+  const m=D.market_mood; if(!m){$("moodgrid").innerHTML=`<div class="empty">Market mood not available yet.</div>`;return;}
+  const tone=l=>({calm:"good",normal:"good",elevated:"warn","high fear":"bad",strong:"good",mixed:"warn",weak:"bad"}[l]||"");
+  const asOf=s=>{if(!s)return"";const d=new Date(s+"T12:00:00");return isNaN(d)?esc(s):d.toLocaleDateString("en-US",{month:"short",day:"numeric"});};
+  const tile=(l,v,badge,s,p,soon)=>`<div class="stat${soon?" soon":""}"><div class="l">${l}</div><div class="v">${v}${badge}</div>${s?`<div class="s flat">${s}</div>`:""}<div class="p">${p}</div></div>`;
+  const v=m.vix,b=m.breadth;
+  $("moodgrid").innerHTML=[
+    v?tile("VIX (fear gauge)",v.value.toFixed(2),`<span class="badge ${tone(v.label)}">${esc(v.label)}</span>`,`${v.change==null?"":(v.change>=0?"+":"")+v.change.toFixed(2)+" vs prior close · "}close ${asOf(v.as_of)}`,esc(v.plain)):tile("VIX (fear gauge)","—","","",esc(m.vix_unavailable||"Unavailable.")),
+    b?tile("Market breadth",b.value_pct.toFixed(0)+"%",`<span class="badge ${tone(b.label)}">${esc(b.label)}</span>`,`${b.change_pts==null?"":(b.change_pts>=0?"+":"")+b.change_pts.toFixed(1)+" pts vs prior session · "}${asOf(b.as_of)}`,esc(b.plain)):tile("Market breadth","—","","",esc(m.breadth_unavailable||"Unavailable.")),
+    m.wikipedia_attention&&m.wikipedia_attention.value!=null?tile("Wikipedia attention",esc(m.wikipedia_attention.value),m.wikipedia_attention.label?`<span class="badge">${esc(m.wikipedia_attention.label)}</span>`:"",asOf(m.wikipedia_attention.as_of),esc(m.wikipedia_attention.plain||"")):tile("Wikipedia attention","—","","",esc(m.wikipedia_attention_unavailable||"Unavailable.")),
+    m.options_protection&&m.options_protection.value!=null?tile("Options protection (IV / skew)",esc(m.options_protection.value),m.options_protection.label?`<span class="badge">${esc(m.options_protection.label)}</span>`:"",asOf(m.options_protection.as_of),esc(m.options_protection.plain||"")):tile(esc(m.options_protection_label||"Options protection (IV / skew): coming soon").replace(/:.*$/,""),"Soon","","","How expensive downside protection is in the options market. Coming soon from the research lab.",true),
+  ].join("");
+}
+function squarify(items,x,y,w,h){
+  const out=[],total=items.reduce((s,v)=>s+v.v,0); if(!total||w<=0||h<=0) return out;
+  const sc=w*h/total; let q=items.map(v=>Object.assign({},v,{a:v.v*sc})),row=[];
+  const worst=(r,len)=>{const s=r.reduce((a,b)=>a+b.a,0),mx=Math.max(...r.map(z=>z.a)),mn=Math.min(...r.map(z=>z.a));return Math.max(len*len*mx/(s*s),(s*s)/(len*len*mn));};
+  const lay=r=>{const s=r.reduce((a,b)=>a+b.a,0);
+    if(w>=h){const cw=s/h;let cy=y;r.forEach(z=>{const rh=z.a/cw;out.push(Object.assign(z,{x,y:cy,w:cw,h:rh}));cy+=rh;});x+=cw;w-=cw;}
+    else{const rh=s/w;let cx=x;r.forEach(z=>{const rw=z.a/rh;out.push(Object.assign(z,{x:cx,y,w:rw,h:rh}));cx+=rw;});y+=rh;h-=rh;}};
+  while(q.length){const len=Math.min(w,h),c=q[0];if(!row.length||worst(row.concat([c]),len)<=worst(row,len)){row.push(c);q.shift();}else{lay(row);row=[];}}
+  if(row.length) lay(row); return out;
+}
+function heatColor(p){
+  if(p==null) return ["#e9eef0","#1c2b39"];
+  const k=Math.min(1,Math.abs(p)/8), L=88-k*56;
+  return [p>=0?`hsl(152,${45+k*15}%,${L}%)`:`hsl(4,${55+k*12}%,${L}%)`, L<58?"#fff":"#10283a"];
+}
+function drawHeat(){
+  const hm=D.holdings_heatmap||{}, H=(hm.holdings||[]).filter(h=>h.value_usd>0), box=$("heatmap");
+  if(!H.length){box.style.height="auto";box.innerHTML=`<div class="empty" style="color:#c9cfdd;padding:28px 14px">${esc(hm.unavailable||"No open holdings right now.")}</div>`;$("heatsub").textContent="";return;}
+  box.style.height="";
+  const up=H.filter(h=>(h.unrealized_pct||0)>0).length;
+  $("heatsub").textContent=`${H.length} holdings worth ${usd(hm.total_value_usd,0)} · ${up} in profit · marks from the broker paper account`;
+  const W=box.clientWidth||600, Ht=box.clientHeight||300;
+  const R=squarify(H.map(h=>Object.assign({},h,{v:h.value_usd})),0,0,W,Ht);
+  box.innerHTML=R.map(r=>{const [bg,fg]=heatColor(r.unrealized_pct),big=r.w>70&&r.h>46,tiny=r.w<34||r.h<24;
+    return `<div class="tile" style="left:${r.x}px;top:${r.y}px;width:${r.w}px;height:${r.h}px;background:${bg};color:${fg}" title="${esc(r.symbol)}${r.name?" · "+esc(r.name):""} · ${usd(r.value_usd,0)} · ${sgn(r.unrealized_pct)} (${usd(r.unrealized_usd)})${r.strategy?" · "+esc(r.strategy):""}">${tiny?"":`<b>${esc(r.symbol)}</b><span>${sgn(r.unrealized_pct)}</span>${big?`<small>${usd(r.value_usd,0)}</small>`:""}`}</div>`;}).join("");
+}
+function renderLog(){
+  const L=D.closed_trades_log||[];
+  $("logt").innerHTML=`<tr><th>Symbol</th><th>Strategy</th><th>Entry</th><th>Exit</th><th class="r">Hold</th><th class="r">P&amp;L</th><th class="r">P&amp;L %</th></tr>`+
+    (L.length?L.map(c=>`<tr><td><b>${esc(c.symbol)}</b></td><td>${esc(c.strategy||"")} ${tbadge(c.test)}</td><td>${esc(c.entry_date||"—")}<br><span class="meta">${usd(c.entry_price)}</span></td><td>${esc(c.exit_date||"—")}<br><span class="meta">${usd(c.exit_price)}</span></td><td class="r">${days(c.hold_days)}</td><td class="r ${cls(c.pnl_usd)}">${usd(c.pnl_usd)}</td><td class="r ${cls(c.pnl_pct)}">${sgn(c.pnl_pct)}</td></tr>`).join(""):
+    `<tr><td colspan="7" class="empty">No trades have closed yet. A trade is listed here once it is fully closed.</td></tr>`);
+}
+function renderCards(){
+  const C=D.strategy_scorecards||[];
+  $("scgrid").innerHTML=C.length?C.map(k=>{const r=k.research||{};
+    return `<div class="sc"><div class="top"><span>${esc(k.strategy)} ${tbadge(k.test)}</span><span class="meta">${k.closed_trades} closed${k.holdings?` · ${k.holdings} open`:""}</span></div>
+    <table><tr><th></th><th class="r">Live paper</th><th class="r">Research</th></tr>
+    <tr><td>Closed trades</td><td class="r">${k.closed_trades}</td><td class="r">${r.trades!=null?r.trades.toLocaleString("en-US"):"—"}</td></tr>
+    <tr><td>Win rate</td><td class="r">${pctTxt(k.win_rate_pct,0)}</td><td class="r">${pctTxt(r.win_rate_pct,0)}</td></tr>
+    <tr><td>Avg return / trade</td><td class="r ${cls(k.avg_return_pct)}">${sgn(k.avg_return_pct)}</td><td class="r ${cls(r.avg_return_pct)}">${sgn(r.avg_return_pct)}</td></tr>
+    <tr><td>Avg hold</td><td class="r">${days(k.avg_hold_days)}</td><td class="r">${r.hold_text?esc(r.hold_text.replace(/^holds /,"")):"—"}</td></tr></table>
+    <p>${esc(k.research_text||"")}</p><p><b>${esc(k.live_text||"")}</b></p>${k.caution?`<div class="caution">${esc(k.caution)}</div>`:""}</div>`;}).join(""):`<div class="empty">No strategies to show yet.</div>`;
+}
+
 function freshness(){
   const dot=$("dot"); if(!D||!D.generated_at_iso) return;
   const age=(Date.now()-Date.parse(D.generated_at_iso))/60000;
@@ -291,7 +423,7 @@ $("refresh").onclick=load;
 $("cchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;chartMode=b.dataset.v;[...$("cchips").children].forEach(c=>c.classList.toggle("on",c===b));drawChart();};
 $("lchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;laneFilter=b.dataset.l;render();};
 document.querySelectorAll(".nav a").forEach(a=>a.addEventListener("click",()=>{document.querySelectorAll(".nav a").forEach(x=>x.classList.toggle("on",x===a));}));
-window.addEventListener("resize",()=>{if(D)drawChart();});
+window.addEventListener("resize",()=>{if(D){drawChart();try{drawHeat();}catch(e){}}});
 load(); setInterval(load,60000); setInterval(freshness,30000);
 </script>
 </body>
