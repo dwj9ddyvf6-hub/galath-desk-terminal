@@ -116,6 +116,11 @@ td.r,th.r{text-align:right}
 .betalanes{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0}
 .betalanes .bl{border:1px solid var(--line);border-radius:12px;padding:6px 10px;font-size:13px;background:#fbfdfc}
 .betalanes .bl b{color:var(--navy)}
+.desk2{border:2px dashed #d9a441;background:#fffdf7}
+.desk2 h2{color:#5a3d06}
+.d2badge{display:inline-block;background:#97660e;color:#fff;border-radius:6px;padding:1px 8px;font-size:11px;letter-spacing:.12em}
+.desk2 .stat{background:#fffaf0;border-color:#efdcb0}
+.desk2 .list .it{border-top-color:#efdcb0}
 .err{display:none;background:#fbf0d9;border:1px solid #ecd39b;color:#7b5408;border-radius:12px;padding:10px 14px;font-size:13.5px;margin-bottom:14px}
 </style>
 </head>
@@ -237,6 +242,12 @@ td.r,th.r{text-align:right}
     <div class="scroll"><table id="bdt"></table></div>
   </section>
 
+  <section id="desk2" class="card desk2">
+    <p class="kicker" style="color:#97660e">Separate paper account · <span class="d2badge">TEST</span></p>
+    <h2 id="d2title">Second desk (separate paper account)</h2>
+    <p class="sub" id="d2sub"></p>
+    <div id="d2body"></div>
+  </section>
   <div class="disc" id="disc"><b>Paper trading, not investment advice.</b> Simulated money on a broker paper account. Not a recommendation to buy or sell anything.</div>
   <p class="meta" style="text-align:center;margin-top:14px" id="foot"></p>
 </main>
@@ -324,7 +335,7 @@ function render(){
   const B=d.breakdown||[];
   $("bdt").innerHTML=`<tr><th>Strategy</th><th>Lane</th><th class="r">Open</th><th class="r">Queued</th><th class="r">Closed</th><th class="r">Win rate</th><th class="r">Avg ret</th><th class="r">Realized</th><th class="r">Unrealized</th></tr>`+
     (B.length?B.slice().sort((a,b)=>(a.test-b.test)||String(a.strategy).localeCompare(String(b.strategy))).map(b=>`<tr><td><b>${esc(b.strategy||"")}</b> ${tbadge(b.test)}</td><td>${esc(laneLabel(b.lane))}</td><td class="r">${b.open}</td><td class="r">${b.queued??0}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td></tr>`).join(""):`<tr><td colspan="9" class="empty">No trades yet.</td></tr>`);
-  [renderRecord,renderBeta,renderMood,drawHeat,renderLog,renderCards].forEach(f=>{try{f();}catch(e){console.error(f.name,e);}});   // new public panels never break the rest of the page
+  [renderRecord,renderBeta,renderMood,drawHeat,renderLog,renderCards,renderDesk2].forEach(f=>{try{f();}catch(e){console.error(f.name,e);}});   // new public panels never break the rest of the page
   $("disc").innerHTML=`<b>Paper trading, not investment advice.</b> ${esc(d.disclaimer||"")}`;
   $("foot").textContent=`Data updated ${d.generated_at||""} · page refreshes every 60 seconds`;
   freshness();
@@ -397,6 +408,33 @@ function renderBeta(){
   const lab=[...new Set([0,pts.length-1])].map(i=>`<text x="${x(i)}" y="${H-8}" fill="#9aa3b8" font-size="11" text-anchor="${i?"end":"start"}">${esc(new Date(pts[i].date+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}))}</text>`).join("");
   wrap.innerHTML=`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Small-cap lanes return vs IWM">${g}<line x1="${pl}" x2="${W-pr}" y1="${y(0)}" y2="${y(0)}" stroke="#8a91a6" stroke-dasharray="4 4"/>
     <path d="${line("iwm_since_start_pct")}" fill="none" stroke="#f2d68a" stroke-width="2" stroke-dasharray="5 3"/><path d="${line("return_on_cost_pct")}" fill="none" stroke="#7ee0c3" stroke-width="2.6"/>${lab}</svg>`;
+}
+// ---- 2026-10-05 second desk (data key: second_desk). Its own paper account; nothing here feeds the main desk figures above.
+function renderDesk2(){
+  const s=D.second_desk, body=$("d2body");
+  if(!s){$("d2sub").textContent="Starting soon: the second desk has no trades yet.";body.innerHTML="";return;}
+  $("d2title").textContent=s.title||"Second desk (separate paper account)";
+  $("d2sub").textContent=[s.unavailable,s.note].filter(Boolean).join(" ");
+  if(!s.connected||!s.account){body.innerHTML=`<div class="empty">No positions or trades yet.</div>`;return;}
+  const a=s.account,c=s.counts||{},P=s.positions||[],C=s.closed_trades||[];
+  const stats=[
+    ["Equity",usd(a.equity),a.start_equity!=null?`vs ${usd(a.start_equity,0)} start`:"","flat"],
+    ["Cash",usd(a.cash),a.equity?`${(100*a.cash/a.equity).toFixed(0)}% of equity`:"","flat"],
+    ["Total P&L",usd(a.total_pl),sgn(a.total_pl_pct),cls(a.total_pl)],
+    ["Day P&L",usd(a.day_pl),sgn(a.day_pl_pct),cls(a.day_pl)],
+    ["Positions",`${c.open??0} open`,`${c.queued??0} queued (not filled yet)`,"flat"],
+    ["Closed trades",String(c.closed??0),`realized ${usd(s.realized_usd)} · unrealized ${usd(s.unrealized_usd)}`,cls(s.realized_usd)],
+  ].map(([l,v,t,k])=>`<div class="stat"><div class="l">${l}</div><div class="v">${v}</div><div class="s ${k}">${t}</div></div>`).join("");
+  const ec=(s.equity_curve||[]).filter(p=>p.equity!=null);let spark="";
+  if(ec.length>=2){const W=600,H=90,lo=Math.min(...ec.map(p=>p.equity)),hi=Math.max(...ec.map(p=>p.equity)),r=(hi-lo)||1;
+    const d=ec.map((p,i)=>(i?"L":"M")+(6+(W-12)*i/(ec.length-1)).toFixed(1)+" "+(6+(H-12)*(hi-p.equity)/r).toFixed(1)).join(" ");
+    spark=`<div class="meta" style="margin-top:12px">Second desk equity, ${esc(ec[0].date)} to ${esc(ec[ec.length-1].date)}</div><svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Second desk equity"><path d="${d}" fill="none" stroke="#97660e" stroke-width="2.4"/></svg>`;}
+  const pos=P.length?P.map(p=>`<div class="it ${p.unrealized_pct>0?"up":p.unrealized_pct<0?"down":""}"><div><div class="tkr">${esc(p.symbol)}</div>
+      <div class="tags"><span class="t">${esc(p.strategy||"")}</span><span class="d2badge">TEST</span>${p.queued?`<span class="t" style="color:var(--muted)">queued</span>`:""}</div>
+      <div class="det">${p.queued?"not filled yet":`Entry ${usd(p.entry_price)}${p.entry_date?" · "+esc(p.entry_date):""}<br>${p.qty} sh`}</div></div>
+    <div class="right"><div class="px">${usd(p.current_price)}</div>${p.queued?"":`<div class="chg ${cls(p.unrealized_pct)}">${sgn(p.unrealized_pct)}</div><div class="small">${usd(p.unrealized_usd)} unrealized</div>`}</div></div>`).join(""):`<div class="empty">No open positions.</div>`;
+  const cl=C.length?`<div class="scroll" style="margin-top:10px"><table><tr><th>Symbol</th><th>Strategy</th><th class="r">Entry</th><th class="r">Exit</th><th class="r">P&amp;L</th><th class="r">P&amp;L %</th><th>Closed</th></tr>${C.map(x=>`<tr><td><b>${esc(x.symbol)}</b></td><td>${esc(x.strategy||"")}</td><td class="r">${usd(x.entry_price)}</td><td class="r">${usd(x.exit_price)}</td><td class="r ${cls(x.realized_usd)}">${usd(x.realized_usd)}</td><td class="r ${cls(x.realized_pct)}">${sgn(x.realized_pct)}</td><td>${esc(x.closed_date||"")}</td></tr>`).join("")}</table></div>`:"";
+  body.innerHTML=`<div class="grid">${stats}</div>${spark}<div class="list" style="margin-top:10px">${pos}</div>${cl}${s.as_of?`<p class="meta" style="margin-top:8px">Second desk summary as of ${esc(s.as_of)}</p>`:""}`;
 }
 function renderMood(){
   const m=D.market_mood; if(!m){$("moodgrid").innerHTML=`<div class="empty">Market mood not available yet.</div>`;return;}

@@ -4,8 +4,8 @@
  "desk_version": "paper-desk 1.7.3",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 5, 2026 at 8:42 PM ET",
- "generated_at_iso": "2026-10-05T20:42:15-04:00",
+ "generated_at": "Oct 5, 2026 at 8:47 PM ET",
+ "generated_at_iso": "2026-10-05T20:47:34-04:00",
  "headline": "As of the last close (Oct 5), the desk is up 0.19% on the day and behind SPY by 0.67 percentage points since it started.",
  "headline_scope": "last_close",
  "headline_as_of": "2026-10-05",
@@ -19,14 +19,14 @@
   "basis": "official session close (desk equity and SPY)"
  },
  "account": {
-  "equity": 101285.58,
+  "equity": 101284.47,
   "cash": 54772.79,
   "start_equity": 100000.0,
-  "long_market_value": 46512.79,
-  "day_pl": 486.09,
-  "day_pl_pct": 0.482,
-  "total_pl": 1285.58,
-  "total_pl_pct": 1.286
+  "long_market_value": 46511.68,
+  "day_pl": 484.98,
+  "day_pl_pct": 0.481,
+  "total_pl": 1284.47,
+  "total_pl_pct": 1.284
  },
  "equity_curve": [
   {
@@ -156,9 +156,9 @@
    "spy_pct": 1.806
   },
   {
-   "t": "2026-10-05T20:42",
+   "t": "2026-10-05T20:47",
    "label": "now",
-   "desk_pct": 1.286,
+   "desk_pct": 1.284,
    "spy_pct": 1.627
   }
  ],
@@ -582,10 +582,10 @@
    "qty": 111,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 44.8,
-   "current_price": 43.11,
-   "unrealized_pct": -3.77,
-   "unrealized_usd": -187.59,
-   "day_change_pct": -1.51,
+   "current_price": 43.1,
+   "unrealized_pct": -3.79,
+   "unrealized_usd": -188.7,
+   "day_change_pct": -1.53,
    "realized_partial_usd": null
   },
   {
@@ -716,7 +716,7 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 1289.88,
+   "unrealized_usd": 1288.77,
    "avg_return_pct": 2.93,
    "win_rate_closed_pct": null
   },
@@ -995,10 +995,10 @@
   "win_rate_pct": null,
   "avg_hold_days": null,
   "avg_return_pct": null,
-  "total_pl_usd": 1285.58,
-  "total_pl_pct": 1.286,
+  "total_pl_usd": 1284.47,
+  "total_pl_pct": 1.284,
   "realized_pl_usd": 0.0,
-  "unrealized_pl_usd": 1285.58,
+  "unrealized_pl_usd": 1284.47,
   "max_drawdown": {
    "pct": -0.59,
    "usd": -596.66,
@@ -1212,9 +1212,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4785.21,
-    "unrealized_usd": -187.59,
-    "unrealized_pct": -3.77
+    "value_usd": 4784.1,
+    "unrealized_usd": -188.7,
+    "unrealized_pct": -3.79
    },
    {
     "symbol": "IESC",
@@ -1248,7 +1248,7 @@
    }
   ],
   "count": 12,
-  "total_value_usd": 46512.79,
+  "total_value_usd": 46511.68,
   "source": "broker paper account positions (marks)",
   "unavailable": null
  },
@@ -1305,6 +1305,27 @@
     "iwm_since_start_pct": 1.95
    }
   ]
+ },
+ "second_desk": {
+  "title": "Second desk (separate paper account)",
+  "test": true,
+  "connected": false,
+  "account": null,
+  "counts": {
+   "open": 0,
+   "queued": 0,
+   "closed": 0
+  },
+  "positions": [],
+  "closed_trades": [],
+  "equity_curve": [],
+  "realized_usd": null,
+  "unrealized_usd": null,
+  "start_date": null,
+  "as_of": null,
+  "stale": false,
+  "note": "Runs on its own paper account with simulated money. Its numbers are kept apart from the main desk above.",
+  "unavailable": "Starting soon: the second desk has no trades yet."
  },
  "disclaimer": "Paper trading with simulated money. Not investment advice. Past or simulated results do not predict future returns."
 }
