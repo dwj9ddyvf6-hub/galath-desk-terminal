@@ -173,27 +173,9 @@ details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:
 .clheat .tl b{display:block;font-size:13.5px;font-weight:800}
 .clheat .tl span{display:block;font-size:12.5px;font-weight:700}
 .clheat .tl small{display:block;font-size:10.5px;opacity:.85}
-.clfp{display:block}
-.clcard{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fbfdfc}
-.clcard .top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-weight:800;color:var(--navy);font-size:15.5px}
-.clcard p{font-size:13px;line-height:1.5;margin:6px 0 0;color:var(--ink)}
-.clcard .m{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.45}
-.clcard table{margin-top:8px;font-size:12.5px}
-.clcard td,.clcard th{padding:5px 4px}
-.clcard .caution{font-size:12px;color:#97660e;background:#fbf0d9;border-radius:10px;padding:6px 10px;margin-top:8px}
-.vd{display:inline-block;border-radius:999px;padding:1px 8px;font-size:11px;font-weight:800;white-space:nowrap}
-.vd.candidate{background:#e1f3ea;color:var(--green)}.vd.unproven{background:#fbf0d9;color:#97660e}.vd.noedge{background:#f1f3f4;color:var(--muted)}.vd.biased{background:#f8e3e1;color:var(--red)}
-.stb{display:inline-block;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:#ecebf8;color:#3d3a8c;border:1px solid #d5d3f0}
-.stb.off{background:#f1f3f4;color:var(--muted);border-color:#e0e4e6}
-.clsys{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.clsys a{text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:5px 9px;font-size:12.5px;font-weight:700;color:var(--navy);background:#fff}
-.clsys a i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle}
 .cltwo{display:grid;grid-template-columns:1fr;gap:12px}
 @media(min-width:760px){.cltwo{grid-template-columns:1fr 1fr}}
-.scg>*{min-width:0}
-.clcard .scroll{margin:0 -4px}
-@media(max-width:600px){.clcard{padding:12px}.clfp{width:96px}}
-.clcard,#tab-cl section{scroll-margin-top:130px}
+#tab-cl section{scroll-margin-top:130px}
 </style>
 </head>
 <body>
@@ -433,15 +415,15 @@ details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:
   </div>
   <div id="tab-cl" role="tabpanel" aria-labelledby="tabbtn-cl" hidden>
   <section id="clhead" class="clhead">
-    <p class="kicker">Research · rebuilt systems</p>
+    <p class="kicker">Market dashboards · public indicators</p>
     <h1>ChartsLector</h1>
-    <p class="sub">The public systems of @ChartsLector, rebuilt from his open-source TradingView scripts (github.com/ChartsLector/TV-Indicators) and his posts, run on daily data, and tested. This is a research view: none of these systems trades on either desk yet.</p>
+    <p class="sub">The public market indicators and stock screens of @ChartsLector, rebuilt from his open-source TradingView scripts (github.com/ChartsLector/TV-Indicators) and his posts, and run on end-of-day data. For information only: nothing on this tab is a trading signal for either desk.</p>
     <div class="err" id="clerr" hidden></div>
     <div class="card"><div class="row-between"><span style="font-weight:600">Market read</span><span class="meta" id="clasof">loading…</span></div>
-      <div class="headline" id="clheadline">Loading the rebuilt systems…</div><div class="grid" id="clstats"></div><div class="clsys" id="clsys"></div></div>
+      <div class="headline" id="clheadline">Loading the market read…</div><div class="grid" id="clstats"></div></div>
   </section>
   <section id="clmood" class="card">
-    <p class="kicker">System 9 · volatility mood</p>
+    <p class="kicker">Volatility mood</p>
     <h2>VIX Mood Ring</h2>
     <p class="sub">His 0-100 volatility mood score: VIX level (35%), VIX vs 3-month VIX (25%), SKEW (25%) and VVIX (15%). Higher is calmer. Bands are from his script.</p>
     <div class="clwrap g2"><div class="clgauge"><div id="clgauge"></div><div class="big" id="clvmr">—</div><div class="lbl" id="clvmrlbl"></div></div>
@@ -450,7 +432,7 @@ details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:
       <div class="legend"><span><i style="background:#7ee0c3"></i>Mood Ring score (0-100)</span><span>shaded: his GREEN → RED bands</span></div></div>
   </section>
   <section id="clpulse" class="card">
-    <p class="kicker">System 9 · market state</p>
+    <p class="kicker">Market state</p>
     <h2>Market Action Pulse and Risk Model</h2>
     <p class="sub">His market state from GREEN (everything confirms) to RED (nothing does), read on the equal-weight Nasdaq-100 (QQQE) and S&amp;P 500 (RSP), with his 0-100 risk score. Breadth comes from our Nasdaq names, not his exchange-wide feed.</p>
     <div class="grid" id="clpstats"></div>
@@ -460,7 +442,7 @@ details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:
       <div class="legend"><span><i style="background:#7ee0c3"></i>QQQE</span><span><i style="background:#f2d68a"></i>RSP</span></div></div>
   </section>
   <section id="clbreadth" class="card">
-    <p class="kicker">Systems 3 and 8 · breadth</p>
+    <p class="kicker">Breadth</p>
     <h2>Market breadth</h2>
     <p class="sub" id="clbsub"></p>
     <div class="grid" id="clbstats"></div>
@@ -470,14 +452,14 @@ details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:
       <div class="legend"><span><i style="background:#7ee0c3"></i>up 4% or more</span><span><i style="background:#e3807a"></i>down 4% or more</span></div></div>
   </section>
   <section id="clrisk" class="card">
-    <p class="kicker">System 7 · risk appetite</p>
+    <p class="kicker">Risk appetite</p>
     <h2>Risk appetite ratios</h2>
     <p class="sub" id="clrsub"></p>
     <div class="clra" id="clratios"></div>
     <div class="chart" style="margin-top:14px"><div class="top"><span class="tk">RISK-ON COUNT</span><span class="brandtag">ratios reading risk-on · <b>of 6</b></span></div><div id="clrline"></div></div>
   </section>
   <section id="clranker" class="card">
-    <p class="kicker">System 1 · Opportunity Ranker</p>
+    <p class="kicker">Ranking</p>
     <h2>Opportunity Ranker</h2>
     <p class="sub" id="clrksub"></p>
     <div class="chips" id="clrkchips"><button class="chip on" data-k="top">Top 20</button><button class="chip" data-k="all">All names</button></div>
@@ -485,7 +467,7 @@ details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:
     <div class="rkleg"><span><i style="background:linear-gradient(90deg,#1f8a78,#3d3a8c)"></i>Opp (0-100)</span><span><i style="background:#1f8a78"></i>Breakout</span><span><i style="background:#d9a441"></i>Expansion</span><span><i style="background:#4a8fe0"></i>Risk (higher = cleaner)</span><span>Δ = change vs the prior session</span></div>
   </section>
   <section id="clthemes" class="card">
-    <p class="kicker">Systems 4 and 5 · leadership</p>
+    <p class="kicker">Leadership</p>
     <h2>Theme and sector heatmap</h2>
     <p class="sub" id="clthsub"></p>
     <div class="chips" id="clthgrp"><button class="chip on" data-g="theme">Themes</button><button class="chip" data-g="sector">Sectors</button></div>
@@ -494,25 +476,19 @@ details.lanegroup{margin-top:8px}details.lanegroup summary{cursor:pointer;color:
     <p class="meta" style="margin-top:10px">Tiles are sorted by the chosen period. RS = percent rank of the fund's price vs SPY over 21 / 63 days (his script); RVol = today's volume vs its 50-day average.</p>
   </section>
   <section id="clrot" class="card">
-    <p class="kicker">System 6 · rotation map</p>
+    <p class="kicker">Rotation map</p>
     <h2>Relative Robustness Rotation</h2>
     <p class="sub">His RRG-style map against SPY. Right = stronger than SPY, top = gaining strength. Tails show the last four weeks.</p>
     <div class="chips" id="clrotgrp"><button class="chip on" data-g="sector">Sectors</button><button class="chip" data-g="theme">Themes</button></div>
     <div class="chart"><div class="top"><span class="tk">RS-RATIO vs RS-MOMENTUM</span><span class="brandtag">vs SPY · <b>daily</b></span></div><div id="clrotsvg"></div></div>
   </section>
   <section id="clscreens" class="card">
-    <p class="kicker">System 2 · screeners</p>
+    <p class="kicker">Screeners</p>
     <h2>Screener hits</h2>
     <p class="sub" id="clscsub"></p>
     <div class="chips" id="clscchips"></div>
     <div class="chart"><div class="top"><span class="tk" id="clsctk">MATCHES</span><span class="brandtag">names passing · <b>daily</b></span></div><div id="clscline"></div></div>
-    <div class="scroll" style="margin-top:12px"><table id="clsct"></table></div><p class="swipe meta">Swipe sideways to see all columns →</p>
-  </section>
-  <section id="clcards" class="card">
-    <p class="kicker">All 15 systems · evidence</p>
-    <h2>System scorecards</h2>
-    <p class="sub">Each test picks its best variant on 2016-mid 2022 data only, then is judged on the later out-of-sample years (mid 2022-2026). Edge = average excess return per trade vs a same-day control of similar volatility, in %, with its 95% range. Candidate = the out-of-sample range sits above zero. The bars show that range against zero.</p>
-    <div class="scg" id="clscg"></div>
+    <div style="margin-top:12px"><div class="scroll"><table id="clsct"></table></div><p class="swipe meta">Swipe sideways to see all columns →</p></div>
   </section>
   </div>
   <div class="disc" id="disc"><b>Paper trading, not investment advice.</b> Simulated money on a broker paper account. Not a recommendation to buy or sell anything.</div>
@@ -804,8 +780,8 @@ function clRender(){
   const d=CL.d; if(!d) return; $("clerr").hidden=true;
   const age=Math.floor((Date.now()-Date.parse(d.as_of+"T16:00:00-04:00"))/864e5);
   $("clasof").textContent=`Data as of the ${clDate(d.as_of)} close · built ${d.generated_at||""}`;
-  if(age>4){const b=$("clerr");b.hidden=false;b.style.display="block";b.textContent=`These readings are ${age} days old (last close ${clDate(d.as_of)}); the nightly refresh has not run since. Scorecards are unaffected.`;}
-  [clSummary,clMood,clPulse,clBreadth,clRisk,clRanker,clThemes,clRotation,clScreens,clCards].forEach(f=>{try{f(d);}catch(e){console.error(f.name,e);}});
+  if(age>4){const b=$("clerr");b.hidden=false;b.style.display="block";b.textContent=`These readings are ${age} days old (last close ${clDate(d.as_of)}); the nightly refresh has not run since.`;}
+  [clSummary,clMood,clPulse,clBreadth,clRisk,clRanker,clThemes,clRotation,clScreens].forEach(f=>{try{f(d);}catch(e){console.error(f.name,e);}});
   swipeHints();
 }
 function clDraw(){if(CL.d){[clMood,clPulse,clBreadth,clRisk,clRotation,clScreens].forEach(f=>{try{f(CL.d);}catch(e){console.error(f.name,e);}});swipeHints();}}
@@ -832,20 +808,14 @@ function clGauge(v,bands){
   return `<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Mood Ring gauge">${s}</svg>`;
 }
 function clSummary(d){
-  const m=d.mood_ring||{},q=(d.pulse||{}).QQQE||{},b=(d.breadth||{}).current||{},ra=d.risk_appetite||{},C=d.scorecards||[];
-  const cand=C.filter(c=>(c.tests||[]).some(t=>t.verdict==="candidate")||(c.rotation&&c.rotation.verdict==="candidate"));
-  const rebuilt=C.filter(c=>c.status!=="not rebuilt"&&c.status!=="not testable").length;
+  const m=d.mood_ring||{},q=(d.pulse||{}).QQQE||{},b=(d.breadth||{}).current||{},ra=d.risk_appetite||{};
   $("clheadline").textContent=`His Market Pulse reads ${q.state||"—"} on the equal-weight Nasdaq-100 and the Mood Ring is ${m.composite!=null?m.composite.toFixed(0):"—"}/100 (${m.state||"—"}); ${ra.risk_on??"—"} of ${ra.of??6} risk-appetite ratios lean risk-on.`;
   $("clstats").innerHTML=statHTML([
     ["Market Pulse (QQQE)",q.state?clBadge(q.state):"—",`score ${q.score??"—"} of 5 · risk ${clNum(q.ram,0)} (${esc((q.ram_level||"").toLowerCase())})`,"flat"],
     ["Mood Ring",clNum(m.composite,0),`${esc(m.state||"")} · ${esc(m.divergence||"")}`,"flat"],
     ["Breadth score",b.score!=null?`${b.score}/12`:"—",`${clNum(b.pct50,0)}% above 50-day`,"flat"],
-    ["Risk appetite",`${ra.risk_on??"—"}/${ra.of??6}`,"ratios reading risk-on","flat"],
-    ["Systems rebuilt",`${rebuilt} of ${C.length}`,"two cannot be rebuilt or tested","flat"],
-    ["Candidates",String(cand.length),"systems with a test whose out-of-sample range is above zero","flat"],
+    ["Risk appetite",`${ra.risk_on??"—"}/${ra.of??6}`,"ratios reading risk-on","flat"]
   ]);
-  const col=c=>{const v=(c.tests||[]).map(t=>t.verdict).concat(c.rotation?[c.rotation.verdict]:[]);return v.includes("candidate")?"#1f8a5b":v.includes("unproven")||v.includes("hindsight-biased")?"#d9a441":c.status==="research"?"#8a91a6":"#c9d2d6";};
-  $("clsys").innerHTML=C.map(c=>`<a href="#clcard-${esc(c.id)}"><i style="background:${col(c)}"></i>${esc(c.id)} ${esc(c.name)}</a>`).join("");
 }
 function clMood(d){
   const m=d.mood_ring; if(!m){$("clgauge").innerHTML=`<div class="empty">Not available.</div>`;return;}
@@ -945,26 +915,6 @@ function clScreens(d){
   const Hs=s.hits||[];
   $("clsct").innerHTML=Hs.length?`<tr><th>Symbol</th><th>Size</th><th class="r">Close</th><th class="r">1D</th><th class="r">Above 50-day</th><th class="r">Rel. volume</th><th class="r">$ volume (20d)</th></tr>`+Hs.map(h=>`<tr><td><b>${esc(h.sym)}</b>${h.new?` <span class="badge good">new</span>`:""}</td><td>${esc(h.band||"—")}</td><td class="r">${usd(h.close)}</td><td class="r ${cls(h.d1)}">${sgn(h.d1)}</td><td class="r">${h.ext_atr==null?"—":clNum(h.ext_atr,1)+" ATR"}</td><td class="r">${h.rvol==null?"—":clNum(h.rvol,1)+"×"}</td><td class="r">${h.dv20m==null?"—":h.dv20m>=1000?"$"+clNum(h.dv20m/1000,1)+"B":"$"+clNum(h.dv20m,1)+"M"}</td></tr>`).join("")+(s.hits_total>Hs.length?`<tr><td colspan="7" class="meta">Showing ${Hs.length} of ${s.hits_total} (new names first, then the most traded).</td></tr>`:"")
     :`<tr><td class="empty">${s.count} names pass this screen today. It is used as a breadth count, so names are not listed.</td></tr>`;
-}
-function clFP(lo,hi,mean,R){
-  const W=130,H=16,x=v=>4+(W-8)*(Math.max(-R,Math.min(R,v))+R)/(2*R),c=lo>0?"#1f8a5b":hi<0?"#c2413b":"#97660e";
-  return `<svg class="clfp" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="range ${lo} to ${hi}"><line x1="${x(0)}" x2="${x(0)}" y1="1" y2="${H-1}" stroke="#8a91a6" stroke-dasharray="2 2"/><line x1="${x(lo).toFixed(1)}" x2="${x(hi).toFixed(1)}" y1="${H/2}" y2="${H/2}" stroke="${c}" stroke-width="3" stroke-linecap="round"/><circle cx="${x(mean).toFixed(1)}" cy="${H/2}" r="3.6" fill="${c}"/></svg>`;
-}
-const clVd=v=>`<span class="vd ${v==="candidate"?"candidate":v==="unproven"?"unproven":v==="hindsight-biased"?"biased":"noedge"}">${esc(v)}</span>`;
-function clCards(d){
-  const C=d.scorecards||[];
-  $("clscg").innerHTML=C.map(c=>{let body="";
-    if(c.tests&&c.tests.length){const R=Math.max(1,...c.tests.flatMap(t=>[Math.abs(t.oos_lo||0),Math.abs(t.oos_hi||0)]));
-      body+=`<div class="scroll"><table><tr><th>Tested on</th><th class="r">Edge</th><th>Out-of-sample range</th><th class="r">Trades</th><th></th></tr>${c.tests.map(t=>`<tr><td>${esc(t.universe)}${t.side==="short"?" (short)":""}</td><td class="r ${cls(t.oos_mean)}">${sgn(t.oos_mean)}</td><td>${clFP(t.oos_lo,t.oos_hi,t.oos_mean,R)}<span class="meta">${sgn(t.oos_lo,1)} to ${sgn(t.oos_hi,1)}</span></td><td class="r">${Number(t.oos_n).toLocaleString("en-US")}</td><td>${clVd(t.verdict)}</td></tr>`).join("")}</table></div><p class="swipe meta">Swipe sideways to see all columns →</p>`;}
-    if(c.rotation){const r=c.rotation,R=Math.max(5,Math.abs(r.oos_lo||0),Math.abs(r.oos_hi||0));
-      body+=`<div class="scroll"><table><tr><th>Best of ${r.variants} rotation variants</th><th class="r">Per year vs equal-weight</th></tr><tr><td>Training years</td><td class="r ${cls(r.train_ann)}">${sgn(r.train_ann,1)}</td></tr><tr><td>Out of sample</td><td class="r ${cls(r.oos_ann)}">${sgn(r.oos_ann,1)}</td></tr><tr><td>Out-of-sample range</td><td class="r">${clFP(r.oos_lo,r.oos_hi,r.oos_ann,R)}<span class="meta">${sgn(r.oos_lo,0)} to ${sgn(r.oos_hi,0)}</span></td></tr><tr><td>Sharpe (vs equal-weight)</td><td class="r">${clNum(r.sharpe,2)} vs ${clNum(r.sharpe_base,2)}</td></tr></table></div><div class="m">Verdict ${clVd(r.verdict)}</div>`;}
-    if(c.pockets){const p=c.pockets;body+=`<div class="m">${Number(p.cells).toLocaleString("en-US")} market-timing cells tested; <b>${p.passing}</b> clear t &gt; 2 in both the training and out-of-sample years ${clVd(p.passing?"candidate":"no edge")}</div>`;}
-    if(c.faith&&c.faith.QQQE){const f=c.faith;body+=`<div class="m">Matches his own daily dashboards: divergence label ${clNum(f.QQQE.divergence_match,0)}% (QQQE) / ${clNum((f.RSP||{}).divergence_match,0)}% (RSP); Mood Ring within ${clNum(f.QQQE.vmr_mae,1)} / ${clNum((f.RSP||{}).vmr_mae,1)} points; Pulse state ${clNum(f.QQQE.pulse_match,0)}% / ${clNum((f.RSP||{}).pulse_match,0)}% (the gap is his exchange-wide breadth feed).</div>`;}
-    else if(c.faith&&c.faith.text){body+=`<div class="m">${esc(c.faith.text)}${c.faith.rs1m_corr!=null?` 1-month RS column correlation ${clNum(c.faith.rs1m_corr,3)}.`:""}</div>`;}
-    if(c.contrarian){const k=c.contrarian;body+=`<div class="m">Contrarian read (very low Mood Ring, SPY over the next week): ${sgn(k.pre_mean)} vs normal before 2022 (${k.pre_n} events, t ${clNum(k.pre_t,1)}), ${sgn(k.oos_mean)} since (${k.oos_n} events, t ${clNum(k.oos_t,1)}).</div>`;}
-    if(c.auc){body+=`<div class="m">Warns of 8%+ Nasdaq drops within a month at AUC ${clNum(c.auc.train,2)} in training and ${clNum(c.auc.oos,2)} out of sample (0.5 = coin flip) ${clVd("no edge")}</div>`;}
-    const st=c.status==="research"?"research":esc(c.status);
-    return `<div class="clcard" id="clcard-${esc(c.id)}"><div class="top"><span>${esc(c.id)} · ${esc(c.name)}</span><span class="stb ${c.status==="research"?"":"off"}">${st}</span></div><p>${esc(c.what)}</p><div class="m"><b>Rebuild:</b> ${esc(c.build)}</div>${body}${c.caveat?`<div class="caution">${esc(c.caveat)}</div>`:""}</div>`;}).join("")||`<div class="empty">No scorecards yet.</div>`;
 }
 function swipeHints(){document.querySelectorAll(".scroll").forEach(sc=>{const h=sc.nextElementSibling;if(h&&h.classList.contains("swipe"))h.classList.toggle("on",sc.scrollWidth>sc.clientWidth+1);});}
 function freshness(){
