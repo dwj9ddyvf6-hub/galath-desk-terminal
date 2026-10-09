@@ -5,29 +5,21 @@
  "rules_version": "1.4.5",
  "account_type": "Alpaca paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Oct 9, 2026 at 9:25 AM ET",
- "generated_at_iso": "2026-10-09T09:25:02-04:00",
- "headline": "As of the last close (Oct 8), the desk is down 1.50% on the day and behind SPY by 2.01 percentage points since it started.",
- "headline_scope": "last_close",
- "headline_as_of": "2026-10-08",
- "headline_basis": {
-  "as_of": "2026-10-08",
-  "desk_close_equity": 99504.4,
-  "desk_day_usd": -1520.41,
-  "desk_day_pct": -1.505,
-  "desk_total_pct": -0.496,
-  "spy_total_pct": 1.514,
-  "basis": "official session close (desk equity and SPY)"
- },
+ "generated_at": "Oct 9, 2026 at 9:30 AM ET",
+ "generated_at_iso": "2026-10-09T09:30:02-04:00",
+ "headline": "The desk is up 1.22% today and behind SPY by 1.12 percentage points since it started.",
+ "headline_scope": "today",
+ "headline_as_of": null,
+ "headline_basis": null,
  "account": {
-  "equity": 100779.34,
+  "equity": 100740.52,
   "cash": 39325.76,
   "start_equity": 100000.0,
-  "long_market_value": 61453.58,
-  "day_pl": 1254.27,
-  "day_pl_pct": 1.26,
-  "total_pl": 779.34,
-  "total_pl_pct": 0.779
+  "long_market_value": 61414.76,
+  "day_pl": 1215.45,
+  "day_pl_pct": 1.221,
+  "total_pl": 740.52,
+  "total_pl_pct": 0.741
  },
  "equity_curve": [
   {
@@ -283,10 +275,16 @@
    "spy_pct": 1.448
   },
   {
-   "t": "2026-10-09T09:25",
-   "label": "Oct 8 close",
-   "desk_pct": -0.496,
-   "spy_pct": 1.514
+   "t": "2026-10-09T09:30",
+   "label": "Oct 9 9:30 AM",
+   "desk_pct": 0.65,
+   "spy_pct": 1.863
+  },
+  {
+   "t": "2026-10-09T09:30",
+   "label": "now",
+   "desk_pct": 0.741,
+   "spy_pct": 1.863
   }
  ],
  "sizing": {
@@ -515,10 +513,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 8.71,
-   "current_price": 9.9,
-   "unrealized_pct": 13.66,
-   "unrealized_usd": 678.3,
-   "day_change_pct": 0.3,
+   "current_price": 9.945,
+   "unrealized_pct": 14.18,
+   "unrealized_usd": 703.95,
+   "day_change_pct": 0.76,
    "realized_partial_usd": null
   },
   {
@@ -532,10 +530,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 363.73,
-   "current_price": 439.0,
-   "unrealized_pct": 20.69,
-   "unrealized_usd": 978.51,
-   "day_change_pct": 3.07,
+   "current_price": 435.74,
+   "unrealized_pct": 19.8,
+   "unrealized_usd": 936.13,
+   "day_change_pct": 2.3,
    "realized_partial_usd": null
   },
   {
@@ -549,9 +547,9 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 204.4,
-   "current_price": 219.45,
+   "current_price": 219.44,
    "unrealized_pct": 7.36,
-   "unrealized_usd": 361.2,
+   "unrealized_usd": 360.96,
    "day_change_pct": 3.58,
    "realized_partial_usd": null
   },
@@ -566,10 +564,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 10:34 AM ET",
    "entry_price": 80.82,
-   "current_price": 89.0,
-   "unrealized_pct": 10.12,
-   "unrealized_usd": 498.98,
-   "day_change_pct": 0.1,
+   "current_price": 89.205,
+   "unrealized_pct": 10.37,
+   "unrealized_usd": 511.49,
+   "day_change_pct": 0.33,
    "realized_partial_usd": null
   },
   {
@@ -583,10 +581,10 @@
    "qty_requested": null,
    "entry_date": "Oct 1, 2026 at 1:34 PM ET",
    "entry_price": 41.99,
-   "current_price": 40.26,
-   "unrealized_pct": -4.12,
-   "unrealized_usd": -204.14,
-   "day_change_pct": 1.85,
+   "current_price": 40.269,
+   "unrealized_pct": -4.1,
+   "unrealized_usd": -203.08,
+   "day_change_pct": 1.87,
    "realized_partial_usd": null
   },
   {
@@ -600,10 +598,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 2.06,
-   "current_price": 1.9703,
-   "unrealized_pct": -4.35,
-   "unrealized_usd": -218.24,
-   "day_change_pct": 1.56,
+   "current_price": 1.96,
+   "unrealized_pct": -4.85,
+   "unrealized_usd": -243.3,
+   "day_change_pct": 1.03,
    "realized_partial_usd": null
   },
   {
@@ -617,10 +615,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 44.8,
-   "current_price": 40.09,
-   "unrealized_pct": -10.51,
-   "unrealized_usd": -522.81,
-   "day_change_pct": 1.62,
+   "current_price": 40.105,
+   "unrealized_pct": -10.48,
+   "unrealized_usd": -521.14,
+   "day_change_pct": 1.66,
    "realized_partial_usd": null
   },
   {
@@ -634,10 +632,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 4.8,
-   "current_price": 4.53,
-   "unrealized_pct": -5.62,
-   "unrealized_usd": -281.07,
-   "day_change_pct": 7.86,
+   "current_price": 4.6,
+   "unrealized_pct": -4.17,
+   "unrealized_usd": -208.2,
+   "day_change_pct": 9.52,
    "realized_partial_usd": null
   },
   {
@@ -651,10 +649,10 @@
    "qty_requested": null,
    "entry_date": "Oct 2, 2026 at 12:34 PM ET",
    "entry_price": 17.45,
-   "current_price": 17.25,
-   "unrealized_pct": -1.15,
-   "unrealized_usd": -57.2,
-   "day_change_pct": 0.35,
+   "current_price": 17.12,
+   "unrealized_pct": -1.89,
+   "unrealized_usd": -94.38,
+   "day_change_pct": -0.41,
    "realized_partial_usd": null
   },
   {
@@ -668,10 +666,10 @@
    "qty_requested": null,
    "entry_date": "Oct 5, 2026 at 3:59 PM ET",
    "entry_price": 36.18,
-   "current_price": 34.82,
-   "unrealized_pct": -3.76,
-   "unrealized_usd": -6.8,
-   "day_change_pct": -0.03,
+   "current_price": 35.29,
+   "unrealized_pct": -2.46,
+   "unrealized_usd": -4.45,
+   "day_change_pct": 1.32,
    "realized_partial_usd": null
   },
   {
@@ -685,10 +683,10 @@
    "qty_requested": null,
    "entry_date": "Oct 5, 2026 at 3:59 PM ET",
    "entry_price": 340.16,
-   "current_price": 305.5,
-   "unrealized_pct": -10.19,
-   "unrealized_usd": -34.66,
-   "day_change_pct": 1.69,
+   "current_price": 305.0,
+   "unrealized_pct": -10.34,
+   "unrealized_usd": -35.16,
+   "day_change_pct": 1.52,
    "realized_partial_usd": null
   },
   {
@@ -702,10 +700,10 @@
    "qty_requested": null,
    "entry_date": "Oct 5, 2026 at 9:30 AM ET",
    "entry_price": 1.91,
-   "current_price": 1.81,
-   "unrealized_pct": -5.24,
-   "unrealized_usd": -13.1,
-   "day_change_pct": 2.84,
+   "current_price": 1.79,
+   "unrealized_pct": -6.28,
+   "unrealized_usd": -15.72,
+   "day_change_pct": 1.7,
    "realized_partial_usd": null
   },
   {
@@ -736,10 +734,10 @@
    "qty_requested": null,
    "entry_date": "Oct 6, 2026 at 11:34 AM ET",
    "entry_price": 38.79,
-   "current_price": 35.17,
-   "unrealized_pct": -9.33,
-   "unrealized_usd": -159.28,
-   "day_change_pct": 1.74,
+   "current_price": 35.0,
+   "unrealized_pct": -9.77,
+   "unrealized_usd": -166.76,
+   "day_change_pct": 1.24,
    "realized_partial_usd": null
   },
   {
@@ -753,10 +751,10 @@
    "qty_requested": null,
    "entry_date": "Oct 6, 2026 at 11:34 AM ET",
    "entry_price": 13.93,
-   "current_price": 12.85,
-   "unrealized_pct": -7.75,
-   "unrealized_usd": -132.84,
-   "day_change_pct": 1.74,
+   "current_price": 12.7,
+   "unrealized_pct": -8.83,
+   "unrealized_usd": -151.29,
+   "day_change_pct": 0.55,
    "realized_partial_usd": null
   },
   {
@@ -770,10 +768,10 @@
    "qty_requested": null,
    "entry_date": "Oct 6, 2026 at 12:34 PM ET",
    "entry_price": 22.18,
-   "current_price": 21.6843,
-   "unrealized_pct": -2.23,
-   "unrealized_usd": -38.17,
-   "day_change_pct": 1.38,
+   "current_price": 21.6,
+   "unrealized_pct": -2.61,
+   "unrealized_usd": -44.66,
+   "day_change_pct": 0.98,
    "realized_partial_usd": null
   },
   {
@@ -787,10 +785,10 @@
    "qty_requested": null,
    "entry_date": "Oct 6, 2026 at 9:35 AM ET",
    "entry_price": 75.4533,
-   "current_price": 78.18,
-   "unrealized_pct": 3.61,
-   "unrealized_usd": 8.18,
-   "day_change_pct": 1.33,
+   "current_price": 78.15,
+   "unrealized_pct": 3.57,
+   "unrealized_usd": 8.09,
+   "day_change_pct": 1.3,
    "realized_partial_usd": null
   },
   {
@@ -804,10 +802,10 @@
    "qty_requested": null,
    "entry_date": "Oct 6, 2026 at 9:40 AM ET",
    "entry_price": 28.8692,
-   "current_price": 29.34,
-   "unrealized_pct": 1.63,
-   "unrealized_usd": 11.3,
-   "day_change_pct": 0.0,
+   "current_price": 29.32,
+   "unrealized_pct": 1.56,
+   "unrealized_usd": 10.82,
+   "day_change_pct": -0.07,
    "realized_partial_usd": null
   },
   {
@@ -821,10 +819,10 @@
    "qty_requested": null,
    "entry_date": "Oct 7, 2026 at 1:35 PM ET",
    "entry_price": 1085.43,
-   "current_price": 1056.0,
-   "unrealized_pct": -2.71,
-   "unrealized_usd": -29.43,
-   "day_change_pct": 1.95,
+   "current_price": 1050.545,
+   "unrealized_pct": -3.21,
+   "unrealized_usd": -34.88,
+   "day_change_pct": 1.42,
    "realized_partial_usd": null
   },
   {
@@ -838,10 +836,10 @@
    "qty_requested": null,
    "entry_date": "Oct 7, 2026 at 3:59 PM ET",
    "entry_price": 79.82,
-   "current_price": 73.91,
-   "unrealized_pct": -7.4,
-   "unrealized_usd": -23.64,
-   "day_change_pct": 3.14,
+   "current_price": 73.46,
+   "unrealized_pct": -7.97,
+   "unrealized_usd": -25.44,
+   "day_change_pct": 2.51,
    "realized_partial_usd": null
   },
   {
@@ -855,10 +853,10 @@
    "qty_requested": null,
    "entry_date": "Oct 7, 2026 at 3:59 PM ET",
    "entry_price": 18.37,
-   "current_price": 18.09,
-   "unrealized_pct": -1.52,
-   "unrealized_usd": -24.92,
-   "day_change_pct": 4.9,
+   "current_price": 17.91,
+   "unrealized_pct": -2.5,
+   "unrealized_usd": -40.94,
+   "day_change_pct": 3.86,
    "realized_partial_usd": null
   },
   {
@@ -872,10 +870,10 @@
    "qty_requested": null,
    "entry_date": "Oct 7, 2026 at 3:59 PM ET",
    "entry_price": 53.21,
-   "current_price": 53.2,
-   "unrealized_pct": -0.02,
-   "unrealized_usd": -0.31,
-   "day_change_pct": 1.96,
+   "current_price": 53.73,
+   "unrealized_pct": 0.98,
+   "unrealized_usd": 16.12,
+   "day_change_pct": 2.97,
    "realized_partial_usd": null
   },
   {
@@ -889,10 +887,10 @@
    "qty_requested": null,
    "entry_date": "Oct 7, 2026 at 9:45 AM ET",
    "entry_price": 30.54,
-   "current_price": 31.5,
-   "unrealized_pct": 3.14,
-   "unrealized_usd": 20.16,
-   "day_change_pct": 1.78,
+   "current_price": 31.25,
+   "unrealized_pct": 2.32,
+   "unrealized_usd": 14.91,
+   "day_change_pct": 0.97,
    "realized_partial_usd": null
   },
   {
@@ -906,10 +904,10 @@
    "qty_requested": null,
    "entry_date": "Oct 7, 2026 at 9:45 AM ET",
    "entry_price": 145.795,
-   "current_price": 147.5,
-   "unrealized_pct": 1.17,
-   "unrealized_usd": 6.82,
-   "day_change_pct": 3.81,
+   "current_price": 145.5,
+   "unrealized_pct": -0.2,
+   "unrealized_usd": -1.18,
+   "day_change_pct": 2.4,
    "realized_partial_usd": null
   },
   {
@@ -923,10 +921,10 @@
    "qty_requested": null,
    "entry_date": "Oct 7, 2026 at 9:45 AM ET",
    "entry_price": 6.4955,
-   "current_price": 6.1,
-   "unrealized_pct": -6.09,
-   "unrealized_usd": -20.96,
-   "day_change_pct": 1.5,
+   "current_price": 6.15,
+   "unrealized_pct": -5.32,
+   "unrealized_usd": -18.31,
+   "day_change_pct": 2.33,
    "realized_partial_usd": null
   },
   {
@@ -940,10 +938,10 @@
    "qty_requested": null,
    "entry_date": "Oct 7, 2026 at 9:45 AM ET",
    "entry_price": 14.2898,
-   "current_price": 13.92,
-   "unrealized_pct": -2.59,
-   "unrealized_usd": -17.01,
-   "day_change_pct": 1.61,
+   "current_price": 13.9,
+   "unrealized_pct": -2.73,
+   "unrealized_usd": -17.93,
+   "day_change_pct": 1.46,
    "realized_partial_usd": null
   },
   {
@@ -957,10 +955,10 @@
    "qty_requested": null,
    "entry_date": "Oct 7, 2026 at 9:57 AM ET",
    "entry_price": 44.47,
-   "current_price": 44.84,
-   "unrealized_pct": 0.83,
-   "unrealized_usd": 5.55,
-   "day_change_pct": 0.0,
+   "current_price": 44.61,
+   "unrealized_pct": 0.31,
+   "unrealized_usd": 2.1,
+   "day_change_pct": -0.51,
    "realized_partial_usd": null
   },
   {
@@ -974,10 +972,10 @@
    "qty_requested": null,
    "entry_date": "Oct 8, 2026 at 3:59 PM ET",
    "entry_price": 15.7,
-   "current_price": 16.02,
-   "unrealized_pct": 2.04,
-   "unrealized_usd": 3.84,
-   "day_change_pct": 1.97,
+   "current_price": 15.87,
+   "unrealized_pct": 1.08,
+   "unrealized_usd": 2.04,
+   "day_change_pct": 1.02,
    "realized_partial_usd": null
   },
   {
@@ -991,10 +989,10 @@
    "qty_requested": null,
    "entry_date": "Oct 8, 2026 at 3:59 PM ET",
    "entry_price": 281.53,
-   "current_price": 283.3,
-   "unrealized_pct": 0.63,
-   "unrealized_usd": 8.85,
-   "day_change_pct": 0.67,
+   "current_price": 281.98,
+   "unrealized_pct": 0.16,
+   "unrealized_usd": 2.25,
+   "day_change_pct": 0.2,
    "realized_partial_usd": null
   }
  ],
@@ -1019,8 +1017,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": -20.11,
-   "avg_return_pct": -1.79,
+   "unrealized_usd": -7.28,
+   "avg_return_pct": -1.97,
    "win_rate_closed_pct": null
   },
   {
@@ -1032,8 +1030,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": -16.07,
-   "avg_return_pct": -0.45,
+   "unrealized_usd": -38.69,
+   "avg_return_pct": -1.17,
    "win_rate_closed_pct": null
   },
   {
@@ -1045,8 +1043,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": -16.76,
-   "avg_return_pct": -1.28,
+   "unrealized_usd": -34.92,
+   "avg_return_pct": -1.64,
    "win_rate_closed_pct": null
   },
   {
@@ -1058,8 +1056,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": 873.81,
-   "avg_return_pct": 0.31,
+   "unrealized_usd": 844.84,
+   "avg_return_pct": 0.14,
    "win_rate_closed_pct": null
   },
   {
@@ -1071,8 +1069,8 @@
    "closed": 0,
    "wins": 0,
    "realized_usd": 0.0,
-   "unrealized_usd": -41.46,
-   "avg_return_pct": -6.97,
+   "unrealized_usd": -39.61,
+   "avg_return_pct": -6.4,
    "win_rate_closed_pct": null
   }
  ],
@@ -1210,10 +1208,10 @@
   "win_rate_pct": null,
   "avg_hold_days": null,
   "avg_return_pct": null,
-  "total_pl_usd": -495.6,
-  "total_pl_pct": -0.496,
+  "total_pl_usd": 740.52,
+  "total_pl_pct": 0.741,
   "realized_pl_usd": 0.0,
-  "unrealized_pl_usd": -495.6,
+  "unrealized_pl_usd": 740.52,
   "max_drawdown": {
    "pct": -3.9,
    "usd": -3997.64,
@@ -1232,7 +1230,7 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": 0.31,
+   "holdings_avg_unrealized_pct": 0.14,
    "small_sample": true,
    "research": {
     "win_rate_pct": 47.5,
@@ -1240,7 +1238,7 @@
     "trades": 3705
    },
    "research_text": "Research expected about 48% winners and +0.47% per trade (out-of-sample backtest, 3,705 trades).",
-   "live_text": "Live so far: no closed trades yet. 13 holdings open now, +0.31% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 13 holdings open now, +0.14% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
   {
@@ -1252,7 +1250,7 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": -1.79,
+   "holdings_avg_unrealized_pct": -1.97,
    "small_sample": true,
    "research": {
     "win_rate_pct": 62.0,
@@ -1260,7 +1258,7 @@
     "trades": 184
    },
    "research_text": "Research expected about 62% winners and +36.08% per trade (out-of-sample backtest, 184 trades).",
-   "live_text": "Live so far: no closed trades yet. 3 holdings open now, -1.79% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 3 holdings open now, -1.97% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
   {
@@ -1272,7 +1270,7 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": -0.45,
+   "holdings_avg_unrealized_pct": -1.17,
    "small_sample": true,
    "research": {
     "win_rate_pct": 53.7,
@@ -1280,7 +1278,7 @@
     "trades": 849
    },
    "research_text": "Research expected about 54% winners and +3.71% per trade (out-of-sample backtest, 849 trades).",
-   "live_text": "Live so far: no closed trades yet. 2 holdings open now, -0.45% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 2 holdings open now, -1.17% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   },
   {
@@ -1292,11 +1290,11 @@
    "win_rate_pct": null,
    "avg_return_pct": null,
    "avg_hold_days": null,
-   "holdings_avg_unrealized_pct": -1.28,
+   "holdings_avg_unrealized_pct": -1.64,
    "small_sample": true,
    "research": null,
    "research_text": "Per-trade backtest figure not on file yet. Research tested the whole book rather than single trades: about 42% a year with a worst drop of 36% in the backtest.",
-   "live_text": "Live so far: no closed trades yet. 9 holdings open now, -1.28% on average (unrealized).",
+   "live_text": "Live so far: no closed trades yet. 9 holdings open now, -1.64% on average (unrealized).",
    "caution": "Too early to compare: no closed trades yet."
   }
  ],
@@ -1324,24 +1322,24 @@
  "holdings_heatmap": {
   "holdings": [
    {
-    "symbol": "CIEN",
-    "name": "Ciena Corporation",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 5707.0,
-    "unrealized_usd": 978.51,
-    "unrealized_pct": 20.69
-   },
-   {
     "symbol": "ASAN",
     "name": "Asana, Inc. Class A Common Stock",
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5643.0,
-    "unrealized_usd": 678.3,
-    "unrealized_pct": 13.66
+    "value_usd": 5668.65,
+    "unrealized_usd": 703.95,
+    "unrealized_pct": 14.18
+   },
+   {
+    "symbol": "CIEN",
+    "name": "Ciena Corporation",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 5664.62,
+    "unrealized_usd": 936.13,
+    "unrealized_pct": 19.8
    },
    {
     "symbol": "MNDY",
@@ -1349,9 +1347,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5429.0,
-    "unrealized_usd": 498.98,
-    "unrealized_pct": 10.12
+    "value_usd": 5441.51,
+    "unrealized_usd": 511.49,
+    "unrealized_pct": 10.38
    },
    {
     "symbol": "CRDO",
@@ -1359,8 +1357,8 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 5266.8,
-    "unrealized_usd": 361.2,
+    "value_usd": 5266.56,
+    "unrealized_usd": 360.96,
     "unrealized_pct": 7.36
    },
    {
@@ -1369,29 +1367,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4933.5,
-    "unrealized_usd": -57.2,
-    "unrealized_pct": -1.15
-   },
-   {
-    "symbol": "BLDP",
-    "name": "Ballard Power Systems, Inc. Common Shares",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 4793.74,
-    "unrealized_usd": -218.24,
-    "unrealized_pct": -4.35
-   },
-   {
-    "symbol": "OUST",
-    "name": "Ouster, Inc. Common Stock",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 4750.68,
-    "unrealized_usd": -204.14,
-    "unrealized_pct": -4.12
+    "value_usd": 4896.32,
+    "unrealized_usd": -94.38,
+    "unrealized_pct": -1.89
    },
    {
     "symbol": "KOPN",
@@ -1399,9 +1377,29 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4715.73,
-    "unrealized_usd": -281.07,
-    "unrealized_pct": -5.62
+    "value_usd": 4788.6,
+    "unrealized_usd": -208.2,
+    "unrealized_pct": -4.17
+   },
+   {
+    "symbol": "BLDP",
+    "name": "Ballard Power Systems, Inc. Common Shares",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 4768.68,
+    "unrealized_usd": -243.3,
+    "unrealized_pct": -4.85
+   },
+   {
+    "symbol": "OUST",
+    "name": "Ouster, Inc. Common Stock",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 4751.74,
+    "unrealized_usd": -203.08,
+    "unrealized_pct": -4.1
    },
    {
     "symbol": "IONQ",
@@ -1409,19 +1407,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 4449.99,
-    "unrealized_usd": -522.81,
-    "unrealized_pct": -10.51
-   },
-   {
-    "symbol": "UMAC",
-    "name": "Unusual Machines, Inc.",
-    "strategy": "1H Swing",
-    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
-    "test": false,
-    "value_usd": 1669.69,
-    "unrealized_usd": -38.17,
-    "unrealized_pct": -2.23
+    "value_usd": 4451.65,
+    "unrealized_usd": -521.14,
+    "unrealized_pct": -10.48
    },
    {
     "symbol": "PDFS",
@@ -1429,9 +1417,19 @@
     "strategy": "1W Cyan & Green",
     "why": "1W Cyan & Green: weekly Cyan or Green buy signal matching a researched entry pattern, held for the long run",
     "test": false,
-    "value_usd": 1649.2,
-    "unrealized_usd": -0.31,
-    "unrealized_pct": -0.02
+    "value_usd": 1665.63,
+    "unrealized_usd": 16.12,
+    "unrealized_pct": 0.98
+   },
+   {
+    "symbol": "UMAC",
+    "name": "Unusual Machines, Inc.",
+    "strategy": "1H Swing",
+    "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
+    "test": false,
+    "value_usd": 1663.2,
+    "unrealized_usd": -44.66,
+    "unrealized_pct": -2.61
    },
    {
     "symbol": "FCEL",
@@ -1439,9 +1437,9 @@
     "strategy": "1D Green",
     "why": "1D Green: daily Green buy signal matching a researched entry pattern",
     "test": false,
-    "value_usd": 1610.01,
-    "unrealized_usd": -24.92,
-    "unrealized_pct": -1.52
+    "value_usd": 1593.99,
+    "unrealized_usd": -40.94,
+    "unrealized_pct": -2.5
    },
    {
     "symbol": "USAR",
@@ -1449,9 +1447,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 1580.55,
-    "unrealized_usd": -132.84,
-    "unrealized_pct": -7.75
+    "value_usd": 1562.1,
+    "unrealized_usd": -151.29,
+    "unrealized_pct": -8.83
    },
    {
     "symbol": "OKLO",
@@ -1459,9 +1457,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 1547.48,
-    "unrealized_usd": -159.28,
-    "unrealized_pct": -9.33
+    "value_usd": 1540.0,
+    "unrealized_usd": -166.76,
+    "unrealized_pct": -9.77
    },
    {
     "symbol": "RCL",
@@ -1469,9 +1467,9 @@
     "strategy": "1D Green",
     "why": "1D Green: daily Green buy signal on a name from the desk's daily watch list",
     "test": false,
-    "value_usd": 1416.5,
-    "unrealized_usd": 8.85,
-    "unrealized_pct": 0.63
+    "value_usd": 1409.9,
+    "unrealized_usd": 2.25,
+    "unrealized_pct": 0.16
    },
    {
     "symbol": "MU",
@@ -1479,9 +1477,9 @@
     "strategy": "1H Swing",
     "why": "1H Swing: hourly buy signal where the desk's trend indicators agree, on a name from its swing watch list",
     "test": false,
-    "value_usd": 1056.0,
-    "unrealized_usd": -29.43,
-    "unrealized_pct": -2.71
+    "value_usd": 1050.55,
+    "unrealized_usd": -34.88,
+    "unrealized_pct": -3.21
    },
    {
     "symbol": "EVTC",
@@ -1489,9 +1487,9 @@
     "strategy": "Daily Cyan",
     "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models, on a small-cap name",
     "test": false,
-    "value_usd": 704.16,
-    "unrealized_usd": 11.3,
-    "unrealized_pct": 1.63
+    "value_usd": 703.68,
+    "unrealized_usd": 10.82,
+    "unrealized_pct": 1.56
    },
    {
     "symbol": "REX",
@@ -1499,9 +1497,9 @@
     "strategy": "Daily Cyan",
     "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models, on a small-cap name",
     "test": false,
-    "value_usd": 672.6,
-    "unrealized_usd": 5.55,
-    "unrealized_pct": 0.83
+    "value_usd": 669.15,
+    "unrealized_usd": 2.1,
+    "unrealized_pct": 0.32
    },
    {
     "symbol": "AMSC",
@@ -1509,9 +1507,9 @@
     "strategy": "Daily Cyan",
     "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models, on a small-cap name",
     "test": false,
-    "value_usd": 661.5,
-    "unrealized_usd": 20.16,
-    "unrealized_pct": 3.14
+    "value_usd": 656.25,
+    "unrealized_usd": 14.91,
+    "unrealized_pct": 2.33
    },
    {
     "symbol": "LUNR",
@@ -1519,9 +1517,9 @@
     "strategy": "Daily Cyan",
     "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models, on a small-cap name",
     "test": false,
-    "value_usd": 640.32,
-    "unrealized_usd": -17.01,
-    "unrealized_pct": -2.59
+    "value_usd": 639.4,
+    "unrealized_usd": -17.93,
+    "unrealized_pct": -2.73
    },
    {
     "symbol": "LEU",
@@ -1529,9 +1527,9 @@
     "strategy": "Daily Cyan",
     "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models, on a small-cap name",
     "test": false,
-    "value_usd": 590.0,
-    "unrealized_usd": 6.82,
-    "unrealized_pct": 1.17
+    "value_usd": 582.0,
+    "unrealized_usd": -1.18,
+    "unrealized_pct": -0.2
    },
    {
     "symbol": "LTBR",
@@ -1539,9 +1537,9 @@
     "strategy": "Daily Cyan",
     "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models, on a micro-cap name, at reduced size",
     "test": false,
-    "value_usd": 323.3,
-    "unrealized_usd": -20.96,
-    "unrealized_pct": -6.09
+    "value_usd": 325.95,
+    "unrealized_usd": -18.31,
+    "unrealized_pct": -5.32
    },
    {
     "symbol": "IESC",
@@ -1549,9 +1547,9 @@
     "strategy": "Legacy positions",
     "why": "Legacy positions: an older holding from a retired strategy, being wound down",
     "test": false,
-    "value_usd": 305.5,
-    "unrealized_usd": -34.66,
-    "unrealized_pct": -10.19
+    "value_usd": 305.0,
+    "unrealized_usd": -35.16,
+    "unrealized_pct": -10.34
    },
    {
     "symbol": "AXTI",
@@ -1559,9 +1557,9 @@
     "strategy": "1W Cyan & Green",
     "why": "1W Cyan & Green: weekly Cyan or Green buy signal matching a researched entry pattern, held for the long run",
     "test": false,
-    "value_usd": 295.64,
-    "unrealized_usd": -23.64,
-    "unrealized_pct": -7.4
+    "value_usd": 293.84,
+    "unrealized_usd": -25.44,
+    "unrealized_pct": -7.97
    },
    {
     "symbol": "VLN",
@@ -1569,9 +1567,9 @@
     "strategy": "Daily Cyan",
     "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models, on a micro-cap name, at reduced size",
     "test": false,
-    "value_usd": 237.11,
-    "unrealized_usd": -13.1,
-    "unrealized_pct": -5.24
+    "value_usd": 234.49,
+    "unrealized_usd": -15.72,
+    "unrealized_pct": -6.28
    },
    {
     "symbol": "AFRM",
@@ -1579,9 +1577,9 @@
     "strategy": "Daily Cyan",
     "why": "Daily Cyan: daily Cyan buy signal picked by the lab's research models",
     "test": false,
-    "value_usd": 234.54,
-    "unrealized_usd": 8.18,
-    "unrealized_pct": 3.61
+    "value_usd": 234.45,
+    "unrealized_usd": 8.09,
+    "unrealized_pct": 3.57
    },
    {
     "symbol": "FTRE",
@@ -1599,9 +1597,9 @@
     "strategy": "1W Cyan & Green",
     "why": "1W Cyan & Green: weekly Cyan or Green buy signal matching a researched entry pattern, held for the long run",
     "test": false,
-    "value_usd": 192.24,
-    "unrealized_usd": 3.84,
-    "unrealized_pct": 2.04
+    "value_usd": 190.44,
+    "unrealized_usd": 2.04,
+    "unrealized_pct": 1.08
    },
    {
     "symbol": "BOTZ",
@@ -1609,13 +1607,13 @@
     "strategy": "Legacy positions",
     "why": "Legacy positions: an older holding from a retired strategy, being wound down",
     "test": false,
-    "value_usd": 174.1,
-    "unrealized_usd": -6.8,
-    "unrealized_pct": -3.76
+    "value_usd": 176.45,
+    "unrealized_usd": -4.45,
+    "unrealized_pct": -2.46
    }
   ],
   "count": 29,
-  "total_value_usd": 61453.58,
+  "total_value_usd": 61398.5,
   "source": "broker paper account positions (marks)",
   "unavailable": null
  },
@@ -1630,7 +1628,7 @@
     "label": "1W Cyan & Green",
     "lane": "1w",
     "holdings": 3,
-    "value_usd": 2137.08
+    "value_usd": 2149.91
    },
    {
     "label": "1W Cyan small caps",
@@ -1642,23 +1640,23 @@
     "label": "Daily Cyan",
     "lane": "daily-cyan",
     "holdings": 9,
-    "value_usd": 4267.23
+    "value_usd": 4249.07
    },
    {
     "label": "1D Green",
     "lane": "1d",
     "holdings": 2,
-    "value_usd": 3026.51
+    "value_usd": 3003.89
    }
   ],
   "holdings": 14,
-  "value_usd": 9430.82,
-  "equity_pct": 9.36,
+  "value_usd": 9402.87,
+  "equity_pct": 9.33,
   "beta_iwm": 2.5,
   "beta_coverage_pct": 100.0,
-  "iwm_equivalent_usd": 23577.05,
-  "pnl_usd": -52.94,
-  "return_on_cost_pct": -0.56,
+  "iwm_equivalent_usd": 23507.18,
+  "pnl_usd": -80.89,
+  "return_on_cost_pct": -0.85,
   "iwm_since_start_pct": -0.164,
   "as_of": "2026-10-08",
   "unavailable": null,
@@ -1689,10 +1687,10 @@
    },
    {
     "date": "2026-10-08",
-    "value_usd": 9430.82,
-    "equity_pct": 9.36,
+    "value_usd": 9402.87,
+    "equity_pct": 9.33,
     "beta_iwm": 2.5,
-    "return_on_cost_pct": -0.56,
+    "return_on_cost_pct": -0.85,
     "iwm_since_start_pct": -0.164
    }
   ]
@@ -2970,7 +2968,7 @@
     "as_of": null,
     "unavailable": "No filled holdings yet, so there is no beta to show."
    },
-   "generated_at": "Oct 9, 2026 at 9:25 AM ET",
+   "generated_at": "Oct 9, 2026 at 9:30 AM ET",
    "desk_version": "Test desk",
    "account_type": "separate Alpaca paper account (simulated money)",
    "day_label": "Not trading yet",
