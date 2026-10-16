@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="d56978f5f346">
+<meta name="gb-build" content="57553e7ca17f">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -2187,7 +2187,7 @@ function plMore(p){if(!p)return "";
   return `<details class="card bsplan pl-more" id="bsplan2"><summary>Hold, what the desk does, and the fine print</summary><div class="pl-dl"><p><b>Expected hold:</b> ${esc(p.hold||"")}</p><p><b>What the desk does:</b> ${esc(p.desk||"")}</p>${p.read_note?`<p><b>Desk read vs this call:</b> ${esc(p.read_note)}</p>`:""}
    ${p.tier_cap_exempt?`<p><b>Why a BUY IF on a low-score name:</b> ${esc(p.tier_cap_exempt)}.</p>`:""}</div>
    <p class="meta">Built only from the measured numbers on this page; it never adds points, and the chart read is context, not edge. Paper trading, not advice.</p></details>`;}
-function plPlace(p){try{if(!p||$("bsplan"))return;const a=$("bscr")||$("bsdr");if(!a)return;a.insertAdjacentHTML("beforebegin",plBox(p));a.insertAdjacentHTML("afterend",plMore(p));}catch(e){console.error("plan",e);}}
+function plPlace(p){try{if(!p||$("bsplan"))return;const c=$("bscr"),a=c||$("bsdr");if(!a)return;if(c){c.insertAdjacentHTML("afterend",plMore(p));c.insertAdjacentHTML("afterend",plBox(p));}else{a.insertAdjacentHTML("beforebegin",plBox(p));a.insertAdjacentHTML("afterend",plMore(p));}   /* Galath 10:58: chart at the very top, plan box right under it (BS-98) */}catch(e){console.error("plan",e);}}
 {const _c=bsCard;bsCard=function(c){const h=_c(c);if(!c.plan)return h;const t=h.indexOf('<div class="bs-top">'),te=h.indexOf("</div>",t)+6,i=h.indexOf("<ul>"),k=h.indexOf('<a class="bs-open"');if(t<0||i<te)return h;
   /* Galath 10:29: the call leads; status chips sit quietly under the plan; reasons fold away */
   return h.slice(0,te)+plMini(c.plan)+`<div class="bs-chips">${h.slice(te,i)}</div>`+(k>i?`<details class="bs-more"><summary>Reasons, sleeves and score notes</summary>${h.slice(i,k)}</details>`+h.slice(k):h.slice(i));};}
