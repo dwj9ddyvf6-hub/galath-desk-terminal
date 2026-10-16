@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="062f7bbee96e">
+<meta name="gb-build" content="f93967760af3">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -548,7 +548,7 @@ section.card{animation:rise .5s ease both}
 .pl-mini .pl-next.mini{font-weight:400;font-size:.82rem;padding:5px 8px;margin:.3em 0 0}.pl-why,.pl-more{margin-top:.5em}.pl-why summary,.pl-more summary,.bs-more summary{cursor:pointer;font-size:.85rem;color:#1f6f8b;font-weight:600}
 details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:.35em;opacity:.85;font-size:.85em}.bs-card .pl-mini{margin:.5em 0 .2em}.bs-card .pl-mini .pl-call{font-size:.95rem;padding:4px 11px}.bs-more ul{margin:.4em 0}
 .bsplan.pl-in{margin:12px 0 14px;background:#fff;color:#16202a;box-shadow:none}.bsplan.pl-in summary,.bsplan.pl-in .meta{color:#3d5a73}
-.pl-mat{margin:.35em 0;font-size:.9rem;line-height:1.35}.pl-sec{font-size:.85rem;margin:.2em 0 .4em}.pl-sec summary{cursor:pointer;color:#5b6770}.pl-sec ul{margin:.3em 0;padding-left:1.1em}.pl-sec li{margin:.12em 0}
+.pl-mat{margin:.35em 0;font-size:.9rem;line-height:1.35}.pl-pic{margin:.35em 0 .1em;font-size:.8rem;opacity:.8}.pl-why{margin:.35em 0;font-size:.92rem;line-height:1.35}.pl-sec{font-size:.85rem;margin:.2em 0 .4em}.pl-sec summary{cursor:pointer;color:#5b6770}.pl-sec ul{margin:.3em 0;padding-left:1.1em}.pl-sec li{margin:.12em 0}
 .pl-odds{border-left:4px solid #6b7a84;background:#f6f8fa;border-radius:8px;padding:7px 10px;margin:.45em 0;font-size:.88rem;line-height:1.35}.pl-odds p{margin:.15em 0}.pl-odds b{font-weight:700}
 .pl-odds ul{margin:.3em 0 .1em;padding-left:1.1em}.pl-odds li{margin:.1em 0}.pl-oc{display:inline-block;font-size:.72rem;font-weight:700;border-radius:6px;padding:1px 6px;background:#e9edf1;color:#3d4b55;margin-left:4px}
 .pl-mini .pl-orng{margin:.25em 0 0;font-size:.8rem;font-weight:400;color:#33434d}
@@ -1166,9 +1166,10 @@ function gateShort(g,lbl){g=String(g||""); if(!g) return "";
 document.addEventListener("click",e=>{const b=e.target.closest("[data-more]"); if(!b) return; const V=b.dataset.more==="t"?VT:VM; V.pall=!V.pall; keepOpen(()=>renderPositions(V));});
 let BS=null, BSSH="week", BSALL=false, BSPEND=null;
 async function bsLoad(){
-  try{const r=await fetch("best_setups.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error("HTTP "+r.status); BS=await r.json(); await loadEx(); try{renderBest();}catch(e){console.error("renderBest",e);} bsJump();}
+  try{const r=await fetch("best_setups.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error("HTTP "+r.status); BS=bsMain(await r.json()); await loadEx(); try{renderBest();}catch(e){console.error("renderBest",e);} bsJump();}
   catch(e){ if(!BS) $("bscards").innerHTML=`<div class="card"><p class="empty">Best setups are not reachable right now (${esc(e.message)}). Retrying every 2 minutes.</p></div>`; }
 }
+function bsMain(D){try{const L=D&&D.rules_lib;if(L)for(const sh of D.shelves||[])for(const c of sh.items||[]){const b=c.breakdown;if(b&&Array.isArray(b.rules))b.rules=b.rules.map(i=>typeof i==="number"?L[i]:i);}}catch(e){console.error("bsMain",e);}return D;}
 function bsStCls(s){return /Bought|Buying/.test(s)?"buy":/fear day|deciding/.test(s)?"wait":/Idea/.test(s)?"idea":"";}
 function bsCard(c){
   const e0=c.sleeves&&c.sleeves[0];
@@ -2191,9 +2192,9 @@ function plOdds(p){const o=p&&p.odds;if(!o||!o.range)return "";const sp=(o.signp
   const wr=o.wrong&&!(p.stop&&p.stop.src==="sleeve_hist.wrong_z")?`<p><b>Probably wrong below ${esc(bsFmt(o.wrong))}:</b> after a close there, fewer than 15% of past trades still finished up.</p>`:"";
   return `<div class="pl-odds"><p><b>What past trades say</b><span class="pl-oc">Odds confidence: ${esc(o.conf_text||(o.conf==="None"||!o.conf?"None — no tested history":o.conf+(/not replayed/.test(plScope(o))?" (borrowed from its signal family)":"")+" — "+Number(o.n||0).toLocaleString("en-US")+" past trades")+(o.live?" · "+plLive(o.live):""))}</span></p><p>${esc(p.odds_line||"")}</p>${wr}${sp.length?`<p><b>Chart levels and their odds</b></p><ul>${sp.map(x=>`<li>${esc(x.text||plSp(x))}</li>`).join("")}</ul>`:""}</div>`;}
 function plMini(p){p=plN(p);const o=p&&p.odds;const ol=o&&o.range?`<p class="pl-orng">${o.horizon?"Likely "+esc(o.horizon.split(" (")[0]):"Likely by the exit"} ${esc(bsFmt(o.range[0]))}–${esc(bsFmt(o.range[1]))}${o.wrong?` · probably wrong below ${esc(bsFmt(o.wrong))}`:""} · odds confidence ${esc(o.conf||"None")}${o.live?" · "+esc(plLive(o.live)):""}</p>`:"";return p?`<div class="pl-mini"><div class="pl-hd">${plCall(p)}${plAct(p)}</div><p class="pl-g">${esc(p.gist)}</p>${plFacts(p,1)}${ol}</div>`:"";}
-function plMatters(p){const M=(p&&p.matters)||[];if(!M.length)return "";const S=p.considered||[];const DW={"1":"for it","-1":"against it","0":"pointing nowhere"};
+function plMatters(p){const M=(p&&p.matters)||[];const PIC=p&&p.picture?`<p class="pl-pic">${esc(p.picture)}</p>`:"",WHY=p&&p.reason?`<p class="pl-why"><b>${esc(p.reason)}</b></p>`:"";if(!M.length)return PIC+WHY;const S=p.considered||[];const DW={"1":"for it","-1":"against it","0":"pointing nowhere"};
   const J=a=>a.length<2?a.join(""):a.slice(0,-1).join(", ")+" and "+a[a.length-1];const mt=p.matters_text||("What matters most here: "+J(M.map(x=>`${x.short} (${DW[String(x.dir)]})`))+".");   
-  return `<p class="pl-mat">${esc(mt)}${p.matters_note?` <b>${esc(p.matters_note)}</b>`:""}</p>${(p.matters||[]).length?`<details class="pl-sec"><summary>Why these ${p.matters.length} lead${S.length?`, and what else was weighed (${S.length})`:""}</summary><ul>${p.matters.map(x=>`<li><b>${esc(x.short)}</b>: ${esc(x.why||"")}</li>`).join("")}</ul>${S.length?`<p>Also weighed, but secondary: ${S.map(x=>`${esc(x[0])} <i>(${x[1]===2||x[1]===-2?"against the call":x[1]>0?"for it":x[1]<0?"against it":"neutral"})</i>`).join(", ")}. Each is in the Desk read below.</p>`:""}</details>`:""}`;}
+  return `${PIC}<p class="pl-mat">${esc(mt)}${p.matters_note?` <b>${esc(p.matters_note)}</b>`:""}</p>${WHY}${(p.matters||[]).length?`<details class="pl-sec"><summary>Why these ${p.matters.length} lead${S.length?`, and what else was weighed (${S.length})`:""}</summary><ul>${p.matters.map(x=>`<li><b>${esc(x.short)}</b>: ${esc(x.why||"")}</li>`).join("")}</ul>${S.length?`<p>Also weighed, but secondary: ${S.map(x=>`${esc(x[0])} <i>(${x[1]===2||x[1]===-2?"against the call":x[1]>0?"for it":x[1]<0?"against it":"neutral"})</i>`).join(", ")}. Each is in the Desk read below.</p>`:""}</details>`:""}`;}
 function plBox(p){p=plN(p);if(!p)return "";const C=p.confidence||{};
   return `<div class="card bsplan" id="bsplan"><div class="pl-hd">${plCall(p,1)}${plAct(p)}${p.entry?`<span class="pl-conf">Confidence: ${esc(C.level||"None")}</span>`:""}</div>
    <p class="pl-gist">${esc(p.gist)}</p>${plMatters(p)}${plFacts(p)}${plOdds(p)}
@@ -2230,7 +2231,7 @@ BSST["Desk already holds it"]="The desk already owns this stock from an earlier 
   $("bscards").innerHTML=h||`<div class="card"><p class="empty">No setups on this shelf right now.</p></div>`;}catch(e){console.error("plan groups",e);}};}
 {const _b=lcBadge;lcBadge=function(c){const h=_b(c),L=c&&c.life;if(!L||L.s!=="converging")return h;const r=((BS&&BS.lifecycle&&BS.lifecycle.converging)||[]).find(x=>x.sym===c.symbol);if(!r||r.reach!==false)return h;return h.replace(`Converging ${L.met}/${L.M}`,`${L.met}/${L.M} met · edge short`).replace('title="Lifecycle state"','title="The missing condition is its measured edge; price or market moves cannot close that gap, so it is not close to Tier B."');};}
 {const _x=lcxConv;lcxConv=function(r){let h=_x(r);if(!r.plan)return h;let k=h.indexOf('<span class="tr ');h=k<0?h:h.slice(0,k)+plCall(r.plan)+h.slice(k);k=h.indexOf('<div class="bd">');return k<0?h:h.slice(0,k+16)+`<p><b>${esc(r.plan.gist)}</b></p>`+(r.reach===false&&r.score!=null&&r.met<r.M?`<p class="meta">${r.met} of ${r.M} conditions are met, but the missing one is its measured edge: price or market moves cannot close that gap, so this is not close to Tier B.</p>`:"")+h.slice(k+16);};}
-function bsInflate(R){try{const L=R&&R.desk_fl,T=R&&R.desk_ft;if(!L||!T)return R;for(const k in (R.desk||{})){const d=R.desk[k];d.f=(d.f||[]).map(r=>Array.isArray(r)&&r.length===7?[r[0],...(L[r[1]]||["","",""]),r[2],r[3],r[4],T[r[5]],r[6]]:r);}}catch(e){console.error("bsInflate",e);}return R;}
+function bsInflate(R){try{const L=R&&R.desk_fl,T=R&&R.desk_ft;if(!L||!T)return R;for(const k in (R.desk||{})){const d=R.desk[k];const S=R.desk_st||[];d.f=(d.f||[]).map(r=>Array.isArray(r)&&r.length===7?[r[0],...(L[r[1]]||["","",""]),r[2],r[3],r[4],T[r[5]],r[6]]:Array.isArray(r)&&r.length===6?[...(L[r[0]]||["","","",""]),r[1],r[2],r[3],T[r[4]],S[r[5]]]:Array.isArray(r)&&r.length===5?(()=>{const l=L[r[0]]||["","","",""];return [...l,r[1],r[2],S[r[4]]==="in"?Math.round(r[2]*({E:1,S:.75,H:.5,J:.25}[l[3]]||0)*100)/100:0,T[r[3]],S[r[4]]];})():r);}}catch(e){console.error("bsInflate",e);}return R;}
 bsLoad(); setInterval(bsLoad,120000);
 if("serviceWorker" in navigator&&(window.navigator.standalone||matchMedia("(display-mode: standalone)").matches)) navigator.serviceWorker.register("sw.js",{scope:"./"}).catch(()=>{});
 $("clrkchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;CL.rk=b.dataset.k;[...$("clrkchips").children].forEach(c=>c.classList.toggle("on",c===b));if(CL.d)clRanker(CL.d);};
