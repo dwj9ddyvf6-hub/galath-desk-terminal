@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="efe070dad4c1">
+<meta name="gb-build" content="440b84ce2e7c">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -1277,7 +1277,7 @@ function bsCRChart(ch,cr){
     if(E){g+=`<rect class="plband" x="${x0}" y="${Y(E.hi)}" width="${W-R-x0}" height="${Math.max(3,Y(E.lo)-Y(E.hi))}" fill="#26a69a" opacity=".28" stroke="#26a69a" stroke-width="1.4"/>`;ZQ.unshift(()=>pill(x0+3,Math.max(T+12,Y(E.hi)-4),lb.entry,"#26a69a","",2,[0,-70,-140,-210,-280,70,140]));leg.unshift(["#26a69a",lb.entry+" (the plan)"]);tag(Y((E.lo+E.hi)/2),"entry","#1d7f75");}
     if(PLN.stop){const y=Y(PLN.stop.v);g+=`<line class="plstop" x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#ef5350" stroke-width="1.8" stroke-dasharray="7 4"/>`;ZQ.unshift(()=>pill(W-R-6,y+13,lb.stop,"#ef5350","end",2,[0,-70,-140,-210,-280,-350,-420,-490,-560]));leg.unshift(["#ef5350",lb.stop+(PLN.call==="AVOID"?": where the fall could pause":": where the idea is wrong (the desk itself uses no stop)")]);tag(y,bsFmt(PLN.stop.v).replace("$",""),"#b0342e");}
     if(PLN.target){const y=Y(PLN.target.v);g+=`<line class="pltgt" x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#2962ff" stroke-width="1.8" stroke-dasharray="7 4"/>`;ZQ.unshift(()=>pill(W-R-6,y-3,lb.target,"#5c8dff","end",2,[0,-70,-140,-210,-280,-350,-420,-490,-560]));leg.unshift(["#2962ff",lb.target+(PLN.call==="AVOID"?": a close back above it would start to repair the chart":"")]);tag(y,bsFmt(PLN.target.v).replace("$",""),"#2948b8");}
-    if(!E&&PLN.repair&&lb.repair){const y=Y(PLN.repair);g+=`<line class="plrep" x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#b0342e" stroke-width="1.6" stroke-dasharray="3 3"/>`;ZQ.unshift(()=>pill(W-R-6,y-3,lb.repair,"#b0342e","end",2,[0,-70,-140,-210,-280,-350,-420,-490,-560]));leg.unshift(["#b0342e",lb.repair+": a close back above it would start to repair the chart (no buy level until then)"]);}}
+    if(!E&&PLN.repair&&lb.repair){const y=Y(PLN.repair);g+=`<line class="plrep" x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#b0342e" stroke-width="1.6" stroke-dasharray="3 3"/>`;ZQ.unshift(()=>pill(W-R-6,y-3,lb.repair,"#b0342e","end",2,[0,-70,-140,-210,-280,-350,-420,-490,-560]));leg.unshift(["#b0342e",lb.repair+(String(lb.repair).startsWith("Better under")?": at or under it the upside to the target at least equals the risk; above it, not a buy":": a close back above it would start to repair the chart (no buy level until then)")]);}}
   if((ov.zones||[]).length) leg.push(["#4c8c7f","Support / resistance zones: ×n swing touches, VOL heavy-volume shelf, RND round number (facts, not strength)"]);
   if(hasV){} 
   ch.b.forEach((x,i)=>{const c=x[3]>=x[0]?UP:DN;g+=`<line x1="${X(i)}" x2="${X(i)}" y1="${Y(x[1])}" y2="${Y(x[2])}" stroke="${c}"/><rect x="${X(i)-bw/2}" y="${Y(Math.max(x[0],x[3]))}" width="${bw}" height="${Math.max(1,Math.abs(Y(x[0])-Y(x[3])))}" fill="${c}"/>`;});
