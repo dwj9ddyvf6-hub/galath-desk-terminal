@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="f93967760af3">
+<meta name="gb-build" content="e64a2db53c3b">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -1169,7 +1169,7 @@ async function bsLoad(){
   try{const r=await fetch("best_setups.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) throw new Error("HTTP "+r.status); BS=bsMain(await r.json()); await loadEx(); try{renderBest();}catch(e){console.error("renderBest",e);} bsJump();}
   catch(e){ if(!BS) $("bscards").innerHTML=`<div class="card"><p class="empty">Best setups are not reachable right now (${esc(e.message)}). Retrying every 2 minutes.</p></div>`; }
 }
-function bsMain(D){try{const L=D&&D.rules_lib;if(L)for(const sh of D.shelves||[])for(const c of sh.items||[]){const b=c.breakdown;if(b&&Array.isArray(b.rules))b.rules=b.rules.map(i=>typeof i==="number"?L[i]:i);}}catch(e){console.error("bsMain",e);}return D;}
+function bsMain(D){try{const L=(D&&D.rules_lib)||[];for(const sh of (D&&D.shelves)||[])for(const c of sh.items||[]){const b=c.breakdown;if(b&&Array.isArray(b.rules))b.rules=b.rules.map(i=>typeof i==="number"?L[i]:i);const h=c.chart;if(h&&h.d&&h.d.d0){let t=Date.parse(h.d.d0+"T00:00:00Z");const o=[h.d.d0];for(const g of h.d.g||[]){t+=g*86400000;o.push(new Date(t).toISOString().slice(0,10));}h.d=o;}}}catch(e){console.error("bsMain",e);}return D;}
 function bsStCls(s){return /Bought|Buying/.test(s)?"buy":/fear day|deciding/.test(s)?"wait":/Idea/.test(s)?"idea":"";}
 function bsCard(c){
   const e0=c.sleeves&&c.sleeves[0];
@@ -2231,7 +2231,7 @@ BSST["Desk already holds it"]="The desk already owns this stock from an earlier 
   $("bscards").innerHTML=h||`<div class="card"><p class="empty">No setups on this shelf right now.</p></div>`;}catch(e){console.error("plan groups",e);}};}
 {const _b=lcBadge;lcBadge=function(c){const h=_b(c),L=c&&c.life;if(!L||L.s!=="converging")return h;const r=((BS&&BS.lifecycle&&BS.lifecycle.converging)||[]).find(x=>x.sym===c.symbol);if(!r||r.reach!==false)return h;return h.replace(`Converging ${L.met}/${L.M}`,`${L.met}/${L.M} met · edge short`).replace('title="Lifecycle state"','title="The missing condition is its measured edge; price or market moves cannot close that gap, so it is not close to Tier B."');};}
 {const _x=lcxConv;lcxConv=function(r){let h=_x(r);if(!r.plan)return h;let k=h.indexOf('<span class="tr ');h=k<0?h:h.slice(0,k)+plCall(r.plan)+h.slice(k);k=h.indexOf('<div class="bd">');return k<0?h:h.slice(0,k+16)+`<p><b>${esc(r.plan.gist)}</b></p>`+(r.reach===false&&r.score!=null&&r.met<r.M?`<p class="meta">${r.met} of ${r.M} conditions are met, but the missing one is its measured edge: price or market moves cannot close that gap, so this is not close to Tier B.</p>`:"")+h.slice(k+16);};}
-function bsInflate(R){try{const L=R&&R.desk_fl,T=R&&R.desk_ft;if(!L||!T)return R;for(const k in (R.desk||{})){const d=R.desk[k];const S=R.desk_st||[];d.f=(d.f||[]).map(r=>Array.isArray(r)&&r.length===7?[r[0],...(L[r[1]]||["","",""]),r[2],r[3],r[4],T[r[5]],r[6]]:Array.isArray(r)&&r.length===6?[...(L[r[0]]||["","","",""]),r[1],r[2],r[3],T[r[4]],S[r[5]]]:Array.isArray(r)&&r.length===5?(()=>{const l=L[r[0]]||["","","",""];return [...l,r[1],r[2],S[r[4]]==="in"?Math.round(r[2]*({E:1,S:.75,H:.5,J:.25}[l[3]]||0)*100)/100:0,T[r[3]],S[r[4]]];})():r);}}catch(e){console.error("bsInflate",e);}return R;}
+function bsInflate(R){try{const U=o=>{if(!o||!Array.isArray(o.z))return o;let l=null;return o.z.map(q=>q==null?null:(l=l==null?q:l+q,l/o.s));};for(const k in ((R&&R.reads)||{})){const r=R.reads[k];if(!r)continue;const s=r.series;if(s&&s.sma200)s.sma200=U(s.sma200);const m=r.macd;if(m)for(const j in m)m[j]=U(m[j]);if(Array.isArray(r.divscan)){const o=[];for(const q of r.divscan){if(Array.isArray(q)&&q.length===3&&o.length&&Array.isArray(o[o.length-1])&&o[o.length-1].length===15){const z=o[o.length-1].slice();z[1]=q[0];z[13]=q[1];z[14]=q[2];o.push(z);}else o.push(q);}r.divscan=o;}}const L=R&&R.desk_fl,T=R&&R.desk_ft;if(!L||!T)return R;for(const k in (R.desk||{})){const d=R.desk[k];const S=R.desk_st||[];d.f=(d.f||[]).map(r=>Array.isArray(r)&&r.length===7?[r[0],...(L[r[1]]||["","",""]),r[2],r[3],r[4],T[r[5]],r[6]]:Array.isArray(r)&&r.length===6?[...(L[r[0]]||["","","",""]),r[1],r[2],r[3],T[r[4]],S[r[5]]]:Array.isArray(r)&&r.length===5?(()=>{const l=L[r[0]]||["","","",""];return [...l,r[1],r[2],S[r[4]]==="in"?Math.round(r[2]*({E:1,S:.75,H:.5,J:.25}[l[3]]||0)*100)/100:0,T[r[3]],S[r[4]]];})():r);}}catch(e){console.error("bsInflate",e);}return R;}
 bsLoad(); setInterval(bsLoad,120000);
 if("serviceWorker" in navigator&&(window.navigator.standalone||matchMedia("(display-mode: standalone)").matches)) navigator.serviceWorker.register("sw.js",{scope:"./"}).catch(()=>{});
 $("clrkchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;CL.rk=b.dataset.k;[...$("clrkchips").children].forEach(c=>c.classList.toggle("on",c===b));if(CL.d)clRanker(CL.d);};
