@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="57553e7ca17f">
+<meta name="gb-build" content="28a3491f357b">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -547,6 +547,7 @@ section.card{animation:rise .5s ease both}
 .pl-g{margin:.4em 0 .25em;font-weight:600;font-size:.95rem;line-height:1.35}.pl-mini .pl-line{margin:.2em 0 0;font-size:.82rem;font-weight:400;color:#33434d;display:flex;flex-wrap:wrap;gap:4px 12px}.pl-line i{font-style:normal;color:#6b7a84}
 .pl-mini .pl-next.mini{font-weight:400;font-size:.82rem;padding:5px 8px;margin:.3em 0 0}.pl-why,.pl-more{margin-top:.5em}.pl-why summary,.pl-more summary,.bs-more summary{cursor:pointer;font-size:.85rem;color:#1f6f8b;font-weight:600}
 details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:.35em;opacity:.85;font-size:.85em}.bs-card .pl-mini{margin:.5em 0 .2em}.bs-card .pl-mini .pl-call{font-size:.95rem;padding:4px 11px}.bs-more ul{margin:.4em 0}
+.bsplan.pl-in{margin:12px 0 14px;background:#fff;color:#16202a;box-shadow:none}.bsplan.pl-in summary,.bsplan.pl-in .meta{color:#3d5a73}
 @media (max-width:600px){.pl-lv{grid-template-columns:repeat(3,1fr);gap:4px}.pl-lv>div{padding:5px 6px}.pl-lv b{font-size:.92rem}.pl-gist{font-size:1.02rem}.pl-call.pl-big{font-size:1.15rem}.bsplan .meta{font-size:.78rem}}
 </style>
 </head>
@@ -2187,7 +2188,10 @@ function plMore(p){if(!p)return "";
   return `<details class="card bsplan pl-more" id="bsplan2"><summary>Hold, what the desk does, and the fine print</summary><div class="pl-dl"><p><b>Expected hold:</b> ${esc(p.hold||"")}</p><p><b>What the desk does:</b> ${esc(p.desk||"")}</p>${p.read_note?`<p><b>Desk read vs this call:</b> ${esc(p.read_note)}</p>`:""}
    ${p.tier_cap_exempt?`<p><b>Why a BUY IF on a low-score name:</b> ${esc(p.tier_cap_exempt)}.</p>`:""}</div>
    <p class="meta">Built only from the measured numbers on this page; it never adds points, and the chart read is context, not edge. Paper trading, not advice.</p></details>`;}
-function plPlace(p){try{if(!p||$("bsplan"))return;const c=$("bscr"),a=c||$("bsdr");if(!a)return;if(c){c.insertAdjacentHTML("afterend",plMore(p));c.insertAdjacentHTML("afterend",plBox(p));}else{a.insertAdjacentHTML("beforebegin",plBox(p));a.insertAdjacentHTML("afterend",plMore(p));}   /* Galath 10:58: chart at the very top, plan box right under it (BS-98) */}catch(e){console.error("plan",e);}}
+let PLLAST=null;
+function plMove(){try{const cr=$("bscr");if(!cr)return;const sv=cr.querySelector(":scope > svg.crc");if(!sv)return;let b=$("bsplan");if(!b&&PLLAST){sv.insertAdjacentHTML("afterend",plBox(PLLAST));b=$("bsplan");}else if(b&&sv.nextElementSibling!==b)sv.after(b);if(b)b.classList.add("pl-in");}catch(e){console.error("plMove",e);}}
+function plPlace(p){try{PLLAST=p||null;if(!p||$("bsplan"))return plMove();const c=$("bscr"),a=c||$("bsdr");if(!a)return;if(c){c.insertAdjacentHTML("afterend",plMore(p));c.insertAdjacentHTML("afterend",plBox(p));}else{a.insertAdjacentHTML("beforebegin",plBox(p));a.insertAdjacentHTML("afterend",plMore(p));}plMove();}catch(e){console.error("plan",e);}}   /* BS-98 (Galath 10:58): header, then the chart with its RSI/MACD panes, then the plan box, then everything else */
+{const _l=bsCRLoad;bsCRLoad=async function(c){await _l(c);plMove();};}
 {const _c=bsCard;bsCard=function(c){const h=_c(c);if(!c.plan)return h;const t=h.indexOf('<div class="bs-top">'),te=h.indexOf("</div>",t)+6,i=h.indexOf("<ul>"),k=h.indexOf('<a class="bs-open"');if(t<0||i<te)return h;
   /* Galath 10:29: the call leads; status chips sit quietly under the plan; reasons fold away */
   return h.slice(0,te)+plMini(c.plan)+`<div class="bs-chips">${h.slice(te,i)}</div>`+(k>i?`<details class="bs-more"><summary>Reasons, sleeves and score notes</summary>${h.slice(i,k)}</details>`+h.slice(k):h.slice(i));};}
