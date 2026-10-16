@@ -1,0 +1,2035 @@
+{
+ "what": "Plain-English explainer for every Lazarus sleeve, keyed by lane id. Read by the GrokBot Desk terminal.",
+ "generated_from": {
+  "config": "Lazarus config/sleeves.json",
+  "sha256": "af043b96e949c917",
+  "sleeves": 100
+ },
+ "glossary": {
+  "Fear day": "A day when QQQ (the Nasdaq-100 fund) trades below its prior close. Most sleeves only buy on fear days, and only if the stock is down too.",
+  "Cyan signal": "The UT-Bot trend indicator flips to buy while the engine's trend votes agree.",
+  "Green signal": "The 8-period average crosses above the 21-period average while the engine's trend votes agree.",
+  "Swing signal": "Most of the engine's 7 trend and momentum votes turn bullish at once.",
+  "Tensor": "The desk's signal engine (version 698). It computes 7 trend and momentum votes per stock and the Cyan, Green and Swing signals.",
+  "Sleeve": "One strategy with its own rules and budget. Each desk runs many sleeves side by side.",
+  "Tier A": "A signal that passes every research veto and has at least two independent supporting signals.",
+  "Time exit": "The position is sold after a fixed number of trading days, weeks or bars, whatever the price."
+ },
+ "types": [
+  "Signal families (Cyan, Green, Swing)",
+  "Models and lab rules",
+  "Trend and breakout",
+  "Momentum",
+  "Dip-buying and mean reversion",
+  "Alt-data stacks (Wikipedia, insiders, dark pool)",
+  "Hedges",
+  "Options and watch-only",
+  "Not trading yet",
+  "Legacy"
+ ],
+ "sleeves": {
+  "1h": {
+   "name": "1H Swing",
+   "desk": "Main desk",
+   "state": "On",
+   "timeframe": "hourly",
+   "summary": "Hourly swing trades on a fixed watch list, bought only while QQQ and the stock are both down on the day.",
+   "looks_for": "On a closed hourly bar, a Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) from the Tensor signal engine (v698). The stock must be on the desk's frozen hourly swing watch list or match an active researched hourly setup.",
+   "entry": "Within 30 minutes after the signal bar, it buys only while QQQ and the stock are both below their prior daily close (otherwise it keeps checking until the 30 minutes run out). It sends one limit order, good for that day only: the current price plus 1%, never above 3% over the signal-day close.",
+   "exit": "Follows the signal's research-calibrated exit plan. For watch-list names that plan is no stop loss and a time exit after 60 hourly bars (about 9 trading days). The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,725 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 30 positions at once, within a $51,750 sleeve budget.",
+   "why": "In research, these hourly signals averaged +0.47% per trade with 48% winners over 3,705 out-of-sample trades. The watch list was picked with hindsight, so live results are the real test.",
+   "source": "the Tensor signal engine (v698) via the desk's signal tracker",
+   "budget_usd": 51750,
+   "max_positions": 30,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "1h",
+    "1H Swing"
+   ]
+  },
+  "1d": {
+   "name": "1D Green",
+   "desk": "Main desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Daily Green trend signals, bought on the next fear day and held up to 40 trading days.",
+   "looks_for": "At the daily close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) from the Tensor signal engine (v698), on a name from the daily watch list or matching a researched daily setup.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Some researched setups also take profit early: all out at +20%, or sell a third at +30% and trail the rest 2 ATR below the high, still within 40 days. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,725 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 5 positions at once, within a $8,625 sleeve budget.",
+   "why": "In research these signals won 54% of the time and averaged +3.71% per trade over 849 trades. Buying only on red days for both the market and the stock avoids chasing a stock that has already jumped.",
+   "source": "the Tensor signal engine (v698) via the desk's signal tracker",
+   "budget_usd": 8625,
+   "max_positions": 5,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "1d",
+    "1D Green"
+   ]
+  },
+  "1w": {
+   "name": "1W Cyan & Green",
+   "desk": "Main desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan or Green trend signals, bought on the next fear day and held for a year.",
+   "looks_for": "At the weekly close, either a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) or a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) from the Tensor signal engine (v698), on a name from the weekly watch list or matching a researched weekly setup.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,410 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 14 positions at once, within a $17,877 sleeve budget.",
+   "why": "Weekly signals were the strongest in research: 62% winners and +36% per trade on average over 184 trades held a year. Few trades, so the range is wide.",
+   "source": "the Tensor signal engine (v698) via the desk's signal tracker",
+   "budget_usd": 17877,
+   "max_positions": 14,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "1w",
+    "1W Cyan & Green"
+   ]
+  },
+  "1dc": {
+   "name": "Daily Cyan",
+   "desk": "Main desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Daily Cyan signals that the research lab's models pick, mostly small caps, held 21 trading days.",
+   "looks_for": "A daily Cyan buy signal (UT-Bot trend flip with the engine's trend votes agreeing) that the lab's daily Cyan books pick: a searched trading rule or a boosted-tree model trained on past signals. Small caps trade at full size, micro caps at about half, and mid/large caps are only logged, not traded.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 21 trading days (the lab books' holding period). The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $700 (small caps) / $364 (micro caps) / $230 (test size) per stock, in whole shares, and never more than 5% of the stock's average daily dollar volume. Up to 68 positions at once, within a $12,500 sleeve budget. If one share costs more than a slot but under $1,000, it buys a single share.",
+   "why": "As a whole book the research backtest made about 42% a year, with a worst drop of 36%. It runs next to Midna's 'Daily cyan trees' sleeve as a separate experiment.",
+   "source": "the lab's daily books and the tracker's research tags",
+   "budget_usd": 12500,
+   "max_positions": 68,
+   "type": "Models and lab rules",
+   "aliases": [
+    "1dc",
+    "daily-cyan",
+    "Daily Cyan"
+   ]
+  },
+  "1wa": {
+   "name": "1W Cyan small caps",
+   "desk": "Main desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Top-tier weekly Cyan signals on small companies ($300M to $2B), held for a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company ($300M to $2B, trading at least $100k a day) that the research rates top-tier (tier A: it passes every research veto and has at least two independent supporting signals).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 (standard) per stock, in whole shares, and never more than 5% of the stock's average daily dollar volume. Up to 17 positions at once, within a $17,250 sleeve budget.",
+   "why": "Out of sample these beat comparable picks by about 45 percentage points over a year (95% range 21 to 75), and still about 29 points when matched for volatility.",
+   "source": "the lab's daily books and the tracker's research tags",
+   "budget_usd": 17250,
+   "max_positions": 17,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "1wa",
+    "1w-small-caps",
+    "1W Cyan small caps"
+   ]
+  },
+  "legacy_exit": {
+   "name": "Legacy positions",
+   "desk": "Main desk",
+   "state": "Winding down",
+   "timeframe": "daily",
+   "summary": "Two holdings (BOTZ and IESC) left from a retired rules sleeve. No new buys; each is sold at its planned exit date.",
+   "looks_for": "Nothing. This sleeve never buys.",
+   "entry": "None. It only sells.",
+   "exit": "Each holding is sold at its stored planned exit date.",
+   "sizing": "No money assigned.",
+   "why": "It exists only so the two leftover holdings are sold on schedule.",
+   "source": "none",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Legacy",
+   "aliases": [
+    "legacy",
+    "legacy_exit",
+    "Legacy positions"
+   ]
+  },
+  "s_1dg": {
+   "name": "Lab 1D Green trees",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Daily Green signals that the lab's boosted-tree model rates highly, held 21 trading days.",
+   "looks_for": "A daily Green signal on the full research universe that the lab's frozen boosted-tree model (1D Green) flags as a buy.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 21 trading days. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 20 positions at once, within a $20,000 sleeve budget.",
+   "why": "In the lab's test this book had a Sharpe ratio of 0.89 and +8.2% a year above the market (chance-test p = 0.048).",
+   "source": "the research lab's live books",
+   "budget_usd": 20000,
+   "max_positions": 20,
+   "type": "Models and lab rules",
+   "aliases": [
+    "Lab 1D Green",
+    "s_1dg"
+   ]
+  },
+  "s_1wlab": {
+   "name": "Lab 1W Cyan books",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals picked by any of four lab books, held about six months.",
+   "looks_for": "A weekly Cyan signal picked by any of the lab's four weekly Cyan books (rule search or boosted trees, on the full or the 'covered' universe). The four books share one budget.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 126 trading days. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 10 positions at once, within a $10,000 sleeve budget.",
+   "why": "Each book passed the lab's sleeve tests; they are traded small while they prove themselves live.",
+   "source": "the research lab's live books",
+   "budget_usd": 10000,
+   "max_positions": 10,
+   "type": "Models and lab rules",
+   "aliases": [
+    "Lab 1W Cyan",
+    "s_1wlab"
+   ]
+  },
+  "s_1wsw": {
+   "name": "Lab 1W Swing",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals picked by the lab's rule-search book, held about six months.",
+   "looks_for": "A weekly Swing signal on the 'covered' research universe that the lab's searched rules pick.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 126 trading days. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "In the lab's test: Sharpe 0.81 and +3.7% a year above the market (chance-test p = 0.048).",
+   "source": "the research lab's live books",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Models and lab rules",
+   "aliases": [
+    "Lab 1W Swing",
+    "s_1wsw"
+   ]
+  },
+  "s_1wc_micro": {
+   "name": "1W Cyan micro caps",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Top-tier weekly Cyan signals on micro-cap stocks, held a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company that the research rates top-tier (tier A).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,892 sleeve budget).",
+   "why": "Research found a large but thin edge in micro caps, so it is traded at $1,000 a position as a test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1892,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "1W Cyan micro",
+    "s_1wc_micro"
+   ]
+  },
+  "s_1wc_ml": {
+   "name": "1W Cyan mid/large caps",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Top-tier weekly Cyan signals on mid and large companies, held a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company that the research rates top-tier (tier A).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 7 positions at once, within a $7,974 sleeve budget.",
+   "why": "Out of sample these beat comparable picks by about 28 percentage points over a year (95% range 19 to 41).",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 7974,
+   "max_positions": 7,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "1W Cyan mid/large",
+    "s_1wc_ml"
+   ]
+  },
+  "s_1dgp5": {
+   "name": "1D Green under $5",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Daily Green signals on stocks priced under $5, held 40 trading days.",
+   "looks_for": "At the daily close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a stock priced under $5.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 40 trading days. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,789 sleeve budget.",
+   "why": "Out of sample these beat comparable picks by about 21 points (95% range 10 to 32). Still on the research watch list, so it trades small.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 2789,
+   "max_positions": 2,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "1D Green low-price",
+    "s_1dgp5"
+   ]
+  },
+  "s_rules_1d": {
+   "name": "Lab rules daily",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Daily signals from 43 frozen trading rules found by the outside research lab.",
+   "looks_for": "A stock that matches any of the lab's 43 frozen daily rules (rules that passed the lab's clean-support checks). Each rule has its own holding period.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after the rule's own holding period plus 1 trading day. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 73 positions at once, within a $73,616 sleeve budget.",
+   "why": "Each rule held up on data it was not fitted on. This is the biggest Test sleeve, so its live record will be the most informative.",
+   "source": "the research lab's live books",
+   "budget_usd": 73616,
+   "max_positions": 73,
+   "type": "Models and lab rules",
+   "aliases": [
+    "Lab rules daily",
+    "s_rules_1d"
+   ]
+  },
+  "s_rules_1w": {
+   "name": "Lab rules weekly",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly signals from the lab's frozen weekly trading rules.",
+   "looks_for": "A stock that matches one of the lab's frozen weekly rules. Each rule has its own holding period.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after the rule's own holding period plus 1 trading day. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 10 positions at once, within a $10,000 sleeve budget.",
+   "why": "Same idea as the daily rules, on weekly bars; traded with one $1,000 position.",
+   "source": "the research lab's live books",
+   "budget_usd": 10000,
+   "max_positions": 10,
+   "type": "Models and lab rules",
+   "aliases": [
+    "Lab rules weekly",
+    "s_rules_1w"
+   ]
+  },
+  "s_1wg_small": {
+   "name": "1W Green small caps",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Top-tier weekly Green signals on small companies, held a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company that the research rates top-tier (tier A).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,696 sleeve budget.",
+   "why": "Research found about +61 points over a year (95% range 22 to 101), but it failed one holdout test, so it is paper-only at small size.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 2696,
+   "max_positions": 2,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "1W Green small",
+    "s_1wg_small"
+   ]
+  },
+  "s_moonshot": {
+   "name": "Moonshot",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Cheap stocks that fell hard and just flashed a weekly Cyan signal: rare, high-upside bets at small size.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a stock priced at or under $14.94 whose 60-day range is deep (its 60-day low is at least 70% below its 60-day high).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,581 sleeve budget.",
+   "why": "In research about 43% of these paid off over a year, with deep drawdowns along the way (worst about −49%). Each bet is small on purpose. Runs next to Midna's Moonshot as a separate experiment.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 2581,
+   "max_positions": 2,
+   "type": "Dip-buying and mean reversion",
+   "aliases": [
+    "Moonshot",
+    "s_moonshot"
+   ]
+  },
+  "s_1wsw_stress": {
+   "name": "1W Swing stress (placeholder)",
+   "desk": "Test desk",
+   "state": "Not trading",
+   "timeframe": "weekly",
+   "summary": "Not trading: no live signal source exists yet.",
+   "looks_for": "Weekly Swing signals on stocks under $5 that fell hard, while VIX is 20 or higher.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned.",
+   "why": "Research looked strong (+76 points, 1,529 trades) but the price effect is unproven; it waits for a live feed.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Not trading yet",
+   "aliases": [
+    "1W Swing stress",
+    "s_1wsw_stress"
+   ]
+  },
+  "s_q07_ins2": {
+   "name": "Insider confluence (index)",
+   "desk": "Test desk",
+   "state": "Not trading",
+   "timeframe": "weekly",
+   "summary": "Not a trading sleeve: an index. Its cells trade as their own 'insider buying' sleeves listed separately.",
+   "looks_for": "See the individual insider-buying sleeves.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned.",
+   "why": "Kept so the research grouping stays visible.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Not trading yet",
+   "aliases": [
+    "Insider confluence",
+    "s_q07_ins2"
+   ]
+  },
+  "s_q07_wiki": {
+   "name": "Wikipedia confluence (index)",
+   "desk": "Test desk",
+   "state": "Not trading",
+   "timeframe": "weekly",
+   "summary": "Not a trading sleeve: an index. Its cells trade as their own Wikipedia sleeves listed separately.",
+   "looks_for": "See the individual Wikipedia sleeves.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned.",
+   "why": "Kept so the research grouping stays visible.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Not trading yet",
+   "aliases": [
+    "Wiki confluence",
+    "s_q07_wiki"
+   ]
+  },
+  "s_wait_q14": {
+   "name": "Cheap-stock book (waiting)",
+   "desk": "Test desk",
+   "state": "Not trading",
+   "timeframe": "weekly",
+   "summary": "Not trading yet: waiting on a desk model before it can go live.",
+   "looks_for": "A book of low-priced stocks from research question Q14.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned.",
+   "why": "Out of sample it scored 1.41 vs 1.20 for the baseline, but it needs a desk model first.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Not trading yet",
+   "aliases": [
+    "Cheap-stock book",
+    "s_wait_q14"
+   ]
+  },
+  "s_wait_intraweek": {
+   "name": "Intraweek entry (waiting)",
+   "desk": "Test desk",
+   "state": "Not trading",
+   "timeframe": "weekly",
+   "summary": "Not trading yet: weekly signals bought during the week instead of at the weekly close.",
+   "looks_for": "The weekly signals, entered early in the week.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned.",
+   "why": "Research showed about +3.6 points; it needs an execution test first.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Not trading yet",
+   "aliases": [
+    "Intraweek entry",
+    "s_wait_intraweek"
+   ]
+  },
+  "s_wait_chase": {
+   "name": "Chase (waiting)",
+   "desk": "Test desk",
+   "state": "Not trading",
+   "timeframe": "weekly",
+   "summary": "Not trading: buying after a stock has already started moving.",
+   "looks_for": "Signals entered after the move began.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned.",
+   "why": "On hold because it conflicts with the desk's live rule to avoid names near 52-week highs.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Not trading yet",
+   "aliases": [
+    "Chase",
+    "s_wait_chase"
+   ]
+  },
+  "s_wait_olx_books": {
+   "name": "Lab books for other lanes (waiting)",
+   "desk": "Test desk",
+   "state": "Not trading",
+   "timeframe": "weekly",
+   "summary": "Not trading yet: the outside lab's books for the remaining signal lanes are still queued in research.",
+   "looks_for": "Lab picks on the other signal lanes.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned.",
+   "why": "Waiting for research to finish.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Not trading yet",
+   "aliases": [
+    "Lab books other lanes",
+    "s_wait_olx_books"
+   ]
+  },
+  "s_wait_r2_dcyan": {
+   "name": "Daily Cyan extended (waiting)",
+   "desk": "Test desk",
+   "state": "Not trading",
+   "timeframe": "weekly",
+   "summary": "Not trading yet: a wider-universe version of Daily Cyan that is still running in research.",
+   "looks_for": "Daily Cyan picks from a wider set of stocks.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned.",
+   "why": "Waiting for research to finish.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Not trading yet",
+   "aliases": [
+    "Daily Cyan extended",
+    "s_wait_r2_dcyan"
+   ]
+  },
+  "s_wait_flow": {
+   "name": "Flow signals (waiting)",
+   "desk": "Test desk",
+   "state": "Not trading",
+   "timeframe": "weekly",
+   "summary": "Not trading yet: short-volume, failed-delivery and dark-pool flow signals.",
+   "looks_for": "Unusual trading-flow activity in a stock.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned.",
+   "why": "The research is still too underpowered to trade.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Not trading yet",
+   "aliases": [
+    "Flow",
+    "s_wait_flow"
+   ]
+  },
+  "s_q07w_c52_sm_cheap5_wcov": {
+   "name": "Cyan small · under $5 + wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show under $5, on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (30 past signals on 19 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 325 percentage points over the hold (95% range 141 to 527). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan small steady coverage + low-price",
+    "s_q07w_c52_sm_cheap5_wcov"
+   ]
+  },
+  "s_q07w_c52_sm_deep70_wcov": {
+   "name": "Cyan small · deep dip + wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show deep pullback, on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (111 past signals on 62 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 133 percentage points over the hold (95% range 90 to 182). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan small steady coverage + pullback",
+    "s_q07w_c52_sm_deep70_wcov"
+   ]
+  },
+  "s_q07w_c52_sm_tierA_wcov": {
+   "name": "Cyan small · top-tier + wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show top-tier, on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (106 past signals on 51 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 148 percentage points over the hold (95% range 91 to 212). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan small steady coverage",
+    "s_q07w_c52_sm_tierA_wcov"
+   ]
+  },
+  "s_q07w_c78_sm_deep70_wcov": {
+   "name": "Cyan small · deep dip + wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show deep pullback, on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,387 sleeve budget).",
+   "why": "Research (102 past signals on 60 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 121 percentage points over the hold (95% range 92 to 154). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1387,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan small steady coverage + pullback, second set",
+    "s_q07w_c78_sm_deep70_wcov"
+   ]
+  },
+  "s_q07w_c78_sm_tierA_wcov": {
+   "name": "Cyan small · top-tier + wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show top-tier, on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (100 past signals on 50 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 127 percentage points over the hold (95% range 85 to 180). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan small steady coverage, second set",
+    "s_q07w_c78_sm_tierA_wcov"
+   ]
+  },
+  "s_q07w_c52_ml_tierA_wcov": {
+   "name": "Cyan mid/large · top-tier + wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on mid/large caps that also show top-tier, on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (226 past signals on 137 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 29 percentage points over the hold (95% range 17 to 44). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan mid/large steady coverage",
+    "s_q07w_c52_ml_tierA_wcov"
+   ]
+  },
+  "s_q07w_c52_ml_tierA_wlow": {
+   "name": "Cyan mid/large · top-tier + quiet wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on mid/large caps that also show top-tier, quiet on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); low Wikipedia page views over the past 28 days (bottom third of what the research saw before 2020).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (66 past signals on 41 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 35 percentage points over the hold (95% range 18 to 54). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan mid/large quiet attention",
+    "s_q07w_c52_ml_tierA_wlow"
+   ]
+  },
+  "s_q07w_c52_ml_mom6_tierA_wlow": {
+   "name": "Cyan mid/large · momentum + top-tier + quiet wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on mid/large caps that also show strong 6-month run, top-tier, quiet on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); low Wikipedia page views over the past 28 days (bottom third of what the research saw before 2020).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (56 past signals on 36 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 38 percentage points over the hold (95% range 17 to 60). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan mid/large quiet attention + momentum",
+    "s_q07w_c52_ml_mom6_tierA_wlow"
+   ]
+  },
+  "s_q07w_c52_ml_mom6_wspike2": {
+   "name": "Cyan mid/large · momentum + wiki spike · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on mid/large caps that also show strong 6-month run, Wikipedia spike, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: a 6-month return in the top third (above the pre-2020 67th percentile); Wikipedia page views over the past 7 days at least double the prior 90-day average.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,337 sleeve budget).",
+   "why": "Research (41 past signals on 35 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 56 percentage points over the hold (95% range 13 to 104). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1337,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan mid/large attention spike + momentum",
+    "s_q07w_c52_ml_mom6_wspike2"
+   ]
+  },
+  "s_q07w_c78_ml_tierA_wcov": {
+   "name": "Cyan mid/large · top-tier + wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on mid/large caps that also show top-tier, on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (211 past signals on 130 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 42 percentage points over the hold (95% range 21 to 65). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan mid/large steady coverage, second set",
+    "s_q07w_c78_ml_tierA_wcov"
+   ]
+  },
+  "s_q07w_c78_ml_tierA_wlow": {
+   "name": "Cyan mid/large · top-tier + quiet wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on mid/large caps that also show top-tier, quiet on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); low Wikipedia page views over the past 28 days (bottom third of what the research saw before 2020).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (62 past signals on 40 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 60 percentage points over the hold (95% range 31 to 95). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan mid/large quiet attention, second set",
+    "s_q07w_c78_ml_tierA_wlow"
+   ]
+  },
+  "s_q07w_c78_ml_mom6_tierA_wlow": {
+   "name": "Cyan mid/large · momentum + top-tier + quiet wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on mid/large caps that also show strong 6-month run, top-tier, quiet on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); low Wikipedia page views over the past 28 days (bottom third of what the research saw before 2020).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (52 past signals on 35 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 62 percentage points over the hold (95% range 32 to 95). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan mid/large quiet attention + momentum, second set",
+    "s_q07w_c78_ml_mom6_tierA_wlow"
+   ]
+  },
+  "s_q07w_c78_ml_deep70_tierA_wlow": {
+   "name": "Cyan mid/large · deep dip + top-tier + quiet wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on mid/large caps that also show deep pullback, top-tier, quiet on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); low Wikipedia page views over the past 28 days (bottom third of what the research saw before 2020).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (47 past signals on 31 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 50 percentage points over the hold (95% range 19 to 83). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Cyan mid/large quiet attention + pullback",
+    "s_q07w_c78_ml_deep70_tierA_wlow"
+   ]
+  },
+  "s_q07w_g52_sm_tierA_wcov": {
+   "name": "Green small · top-tier + wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show top-tier, on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (68 past signals on 48 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 112 percentage points over the hold (95% range 54 to 175). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Green small steady coverage",
+    "s_q07w_g52_sm_tierA_wcov"
+   ]
+  },
+  "s_q07w_g52_sm_deep70_wcov": {
+   "name": "Green small · deep dip + wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show deep pullback, on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (65 past signals on 54 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 119 percentage points over the hold (95% range 52 to 214). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Green small steady coverage + pullback",
+    "s_q07w_g52_sm_deep70_wcov"
+   ]
+  },
+  "s_q07w_g78_sm_tierA_wcov": {
+   "name": "Green small · top-tier + wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show top-tier, on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (62 past signals on 47 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 184 percentage points over the hold (95% range 91 to 303). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Green small steady coverage, second set",
+    "s_q07w_g78_sm_tierA_wcov"
+   ]
+  },
+  "s_q07w_g78_sm_deep70_wcov": {
+   "name": "Green small · deep dip + wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show deep pullback, on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (58 past signals on 49 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 181 percentage points over the hold (95% range 83 to 324). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Green small steady coverage + pullback, second set",
+    "s_q07w_g78_sm_deep70_wcov"
+   ]
+  },
+  "s_q07w_g52_ml_tierA_wcov": {
+   "name": "Green mid/large · top-tier + wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on mid/large caps that also show top-tier, on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (94 past signals on 69 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 41 percentage points over the hold (95% range 24 to 59). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Green mid/large steady coverage",
+    "s_q07w_g52_ml_tierA_wcov"
+   ]
+  },
+  "s_q07w_g78_ml_tierA_wcov": {
+   "name": "Green mid/large · top-tier + wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on mid/large caps that also show top-tier, on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,544 sleeve budget.",
+   "why": "Research (79 past signals on 60 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 51 percentage points over the hold (95% range 27 to 74). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 2544,
+   "max_positions": 2,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Green mid/large steady coverage, second set",
+    "s_q07w_g78_ml_tierA_wcov"
+   ]
+  },
+  "s_q07w_g52_ml_ats_z1_mom6_wlow": {
+   "name": "Green mid/large · dark pool + momentum + quiet wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on mid/large caps that also show dark-pool heavy, strong 6-month run, quiet on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: dark-pool (ATS) share of the stock's volume at least 1 standard deviation above its 26-week norm (FINRA data); a 6-month return in the top third (above the pre-2020 67th percentile); low Wikipedia page views over the past 28 days (bottom third of what the research saw before 2020).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,196 sleeve budget).",
+   "why": "Research (42 past signals on 40 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 28 percentage points over the hold (95% range 12 to 50). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1196,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Dark-pool + wiki Green mid/large caps",
+    "s_q07w_g52_ml_ats_z1_mom6_wlow"
+   ]
+  },
+  "s_q07w_s52_sm_cheap5_wcov": {
+   "name": "Swing small · under $5 + wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show under $5, on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: priced under $5 at the signal; the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (152 past signals on 26 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 175 percentage points over the hold (95% range 92 to 286). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Swing small steady coverage + low-price",
+    "s_q07w_s52_sm_cheap5_wcov"
+   ]
+  },
+  "s_q07w_s52_sm_deep70_wcov": {
+   "name": "Swing small · deep dip + wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show deep pullback, on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (407 past signals on 89 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 85 percentage points over the hold (95% range 58 to 125). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Swing small steady coverage + pullback",
+    "s_q07w_s52_sm_deep70_wcov"
+   ]
+  },
+  "s_q07w_s78_sm_cheap5_wcov": {
+   "name": "Swing small · under $5 + wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show under $5, on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: priced under $5 at the signal; the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,194 sleeve budget).",
+   "why": "Research (135 past signals on 24 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 285 percentage points over the hold (95% range 180 to 417). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1194,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Swing small steady coverage + low-price, second set",
+    "s_q07w_s78_sm_cheap5_wcov"
+   ]
+  },
+  "s_q07w_s78_sm_deep70_wcov": {
+   "name": "Swing small · deep dip + wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show deep pullback, on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,265 sleeve budget.",
+   "why": "Research (372 past signals on 84 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 123 percentage points over the hold (95% range 89 to 178). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 2265,
+   "max_positions": 2,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Swing small steady coverage + pullback, second set",
+    "s_q07w_s78_sm_deep70_wcov"
+   ]
+  },
+  "s_q07w_s52_ml_deep70_wlow": {
+   "name": "Swing mid/large · deep dip + quiet wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show deep pullback, quiet on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); low Wikipedia page views over the past 28 days (bottom third of what the research saw before 2020).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (209 past signals on 49 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 18 percentage points over the hold (95% range 10 to 26). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Swing mid/large quiet attention + pullback",
+    "s_q07w_s52_ml_deep70_wlow"
+   ]
+  },
+  "s_q07w_s52_ml_deep70_vix20_wlow": {
+   "name": "Swing mid/large · deep dip + stress + quiet wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show deep pullback, market stress, quiet on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); VIX at 20 or higher at the signal (a stressed market); low Wikipedia page views over the past 28 days (bottom third of what the research saw before 2020).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (140 past signals on 41 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 22 percentage points over the hold (95% range 9 to 34). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Swing mid/large quiet attention + pullback + stress",
+    "s_q07w_s52_ml_deep70_vix20_wlow"
+   ]
+  },
+  "s_q07w_s78_ml_deep70_wcov": {
+   "name": "Swing mid/large · deep dip + wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show deep pullback, on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 6 positions at once, within a $6,563 sleeve budget.",
+   "why": "Research (808 past signals on 173 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 36 percentage points over the hold (95% range 23 to 50). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 6563,
+   "max_positions": 6,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Swing mid/large steady coverage + pullback",
+    "s_q07w_s78_ml_deep70_wcov"
+   ]
+  },
+  "s_q07w_s78_ml_deep70_mom6_wlow": {
+   "name": "Swing mid/large · deep dip + momentum + quiet wiki · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show deep pullback, strong 6-month run, quiet on Wikipedia, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); a 6-month return in the top third (above the pre-2020 67th percentile); low Wikipedia page views over the past 28 days (bottom third of what the research saw before 2020).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (108 past signals on 34 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 27 percentage points over the hold (95% range 18 to 40). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Wiki Swing mid/large quiet attention + pullback + momentum",
+    "s_q07w_s78_ml_deep70_mom6_wlow"
+   ]
+  },
+  "s_q07w_c52_sm_cheap5_ins2_mom6": {
+   "name": "Cyan small · under $5 + insiders + momentum · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show under $5, insider buying, strong 6-month run, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (36 past signals on 27 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 179 percentage points over the hold (95% range 23 to 362). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Cyan small caps low-price + momentum",
+    "s_q07w_c52_sm_cheap5_ins2_mom6"
+   ]
+  },
+  "s_q07w_c78_sm_deep70_ins2_vix20": {
+   "name": "Cyan small · deep dip + insiders + stress · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show deep pullback, insider buying, market stress, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (61 past signals on 50 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 58 percentage points over the hold (95% range 14 to 91). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Cyan small caps pullback + stress",
+    "s_q07w_c78_sm_deep70_ins2_vix20"
+   ]
+  },
+  "s_q07w_c78_sm_ins2_mom6_vix20": {
+   "name": "Cyan small · insiders + momentum + stress · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show insider buying, strong 6-month run, market stress, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); a 6-month return in the top third (above the pre-2020 67th percentile); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (88 past signals on 71 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 54 percentage points over the hold (95% range 12 to 110). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Cyan small caps momentum + stress",
+    "s_q07w_c78_sm_ins2_mom6_vix20"
+   ]
+  },
+  "s_q07w_g78_sm_deep70_ins2": {
+   "name": "Green small · deep dip + insiders · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show deep pullback, insider buying, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (87 past signals on 83 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 92 percentage points over the hold (95% range 26 to 188). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Green small caps pullback",
+    "s_q07w_g78_sm_deep70_ins2"
+   ]
+  },
+  "s_q07w_g52_sm_deep70_ins2_vix20": {
+   "name": "Green small · deep dip + insiders + stress · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show deep pullback, insider buying, market stress, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (46 past signals on 45 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 110 percentage points over the hold (95% range 24 to 223). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Green small caps pullback + stress",
+    "s_q07w_g52_sm_deep70_ins2_vix20"
+   ]
+  },
+  "s_q07w_g78_sm_cheap5_ins2": {
+   "name": "Green small · under $5 + insiders · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show under $5, insider buying, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (46 past signals on 37 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 142 percentage points over the hold (95% range 24 to 326). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Green small caps low-price",
+    "s_q07w_g78_sm_cheap5_ins2"
+   ]
+  },
+  "s_q07w_g52_sm_ins2_wcov": {
+   "name": "Green small · insiders + wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show insider buying, on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); the company has a Wikipedia page (research found this mattered; it may partly reflect which companies survived).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,487 sleeve budget).",
+   "why": "Research (69 past signals on 49 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 72 percentage points over the hold (95% range 14 to 182). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1487,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider + wiki Green small caps",
+    "s_q07w_g52_sm_ins2_wcov"
+   ]
+  },
+  "s_q07w_g78_mi_cheap5_deep70_ins2": {
+   "name": "Green micro · under $5 + deep dip + insiders · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show under $5, deep pullback, insider buying, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (56 past signals on 49 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 40 percentage points over the hold (95% range 7 to 82). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Green micro caps",
+    "s_q07w_g78_mi_cheap5_deep70_ins2"
+   ]
+  },
+  "s_q07w_g52_ml_ins2_wlow": {
+   "name": "Green mid/large · insiders + quiet wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on mid/large caps that also show insider buying, quiet on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); low Wikipedia page views over the past 28 days (bottom third of what the research saw before 2020).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 3 positions at once, within a $3,167 sleeve budget.",
+   "why": "Research (85 past signals on 64 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 6 percentage points over the hold (95% range 0 to 14). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 3167,
+   "max_positions": 3,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider + wiki Green mid/large caps",
+    "s_q07w_g52_ml_ins2_wlow"
+   ]
+  },
+  "s_q07w_s78_sm_cheap5_ins2_vix20": {
+   "name": "Swing small · under $5 + insiders + stress · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show under $5, insider buying, market stress, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: priced under $5 at the signal; at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (91 past signals on 39 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 194 percentage points over the hold (95% range 82 to 379). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Swing small caps low-price + stress, second set",
+    "s_q07w_s78_sm_cheap5_ins2_vix20"
+   ]
+  },
+  "s_q07w_s52_sm_cheap5_ins2_vix20": {
+   "name": "Swing small · under $5 + insiders + stress · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show under $5, insider buying, market stress, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: priced under $5 at the signal; at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (101 past signals on 46 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 179 percentage points over the hold (95% range 67 to 300). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Swing small caps low-price + stress",
+    "s_q07w_s52_sm_cheap5_ins2_vix20"
+   ]
+  },
+  "s_q07w_s78_mi_cheap5_ins2_mom6": {
+   "name": "Swing micro · under $5 + insiders + momentum · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show under $5, insider buying, strong 6-month run, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: priced under $5 at the signal; at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (331 past signals on 116 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 67 percentage points over the hold (95% range 42 to 87). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Swing micro caps",
+    "s_q07w_s78_mi_cheap5_ins2_mom6"
+   ]
+  },
+  "s_q07w_s78_ml_deep70_ins2_vix20": {
+   "name": "Swing mid/large · deep dip + insiders + stress · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show deep pullback, insider buying, market stress, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (180 past signals on 61 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 53 percentage points over the hold (95% range 26 to 67). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Swing mid/large caps pullback + stress, second set",
+    "s_q07w_s78_ml_deep70_ins2_vix20"
+   ]
+  },
+  "s_q07w_s52_ml_deep70_ins2_vix20": {
+   "name": "Swing mid/large · deep dip + insiders + stress · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show deep pullback, insider buying, market stress, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (185 past signals on 64 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 30 percentage points over the hold (95% range 11 to 40). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Swing mid/large caps pullback + stress",
+    "s_q07w_s52_ml_deep70_ins2_vix20"
+   ]
+  },
+  "s_q07w_s78_sm_deep70_ins2": {
+   "name": "Swing small · deep dip + insiders · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show deep pullback, insider buying, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (668 past signals on 221 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 42 percentage points over the hold (95% range 20 to 68). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Swing small caps pullback",
+    "s_q07w_s78_sm_deep70_ins2"
+   ]
+  },
+  "s_q07w_s52_sm_cheap5_deep70_ins2": {
+   "name": "Swing small · under $5 + deep dip + insiders · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show under $5, deep pullback, insider buying, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (159 past signals on 58 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 78 percentage points over the hold (95% range 16 to 166). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Swing small caps low-price + pullback",
+    "s_q07w_s52_sm_cheap5_deep70_ins2"
+   ]
+  },
+  "s_q07w_s78_ml_deep70_glow_ins2": {
+   "name": "Swing mid/large · deep dip + low gamma + insiders · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show deep pullback, low dealer gamma, insider buying, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); dealer gamma (SqueezeMetrics GEX) in the bottom 30% of the past year; at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (35 past signals on 28 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 47 percentage points over the hold (95% range 8 to 82). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider + options Swing mid/large caps",
+    "s_q07w_s78_ml_deep70_glow_ins2"
+   ]
+  },
+  "s_q07w_s52_ml_ins2_mom6_vix20": {
+   "name": "Swing mid/large · insiders + momentum + stress · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show insider buying, strong 6-month run, market stress, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); a 6-month return in the top third (above the pre-2020 67th percentile); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,984 sleeve budget).",
+   "why": "Research (277 past signals on 123 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 11 percentage points over the hold (95% range 3 to 16). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1984,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider Swing mid/large caps momentum + stress",
+    "s_q07w_s52_ml_ins2_mom6_vix20"
+   ]
+  },
+  "s_q07w_s52_ml_ins2_mom6_wlow": {
+   "name": "Swing mid/large · insiders + momentum + quiet wiki · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show insider buying, strong 6-month run, quiet on Wikipedia, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: at least 2 company insiders bought shares on the open market in the past 180 days (SEC Form 4 filings); a 6-month return in the top third (above the pre-2020 67th percentile); low Wikipedia page views over the past 28 days (bottom third of what the research saw before 2020).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (118 past signals on 43 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 11 percentage points over the hold (95% range 3 to 16). Verdict: promising but not yet confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Insider + wiki Swing mid/large caps",
+    "s_q07w_s52_ml_ins2_mom6_wlow"
+   ]
+  },
+  "s_q07w_s78_mi_ats_z1_cheap5": {
+   "name": "Swing micro · dark pool + under $5 · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show dark-pool heavy, under $5, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: dark-pool (ATS) share of the stock's volume at least 1 standard deviation above its 26-week norm (FINRA data); priced under $5 at the signal.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (45 past signals on 26 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 148 percentage points over the hold (95% range 56 to 227). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Dark-pool Swing micro caps low-price",
+    "s_q07w_s78_mi_ats_z1_cheap5"
+   ]
+  },
+  "s_q07w_s78_mi_ats_z1_mom6": {
+   "name": "Swing micro · dark pool + momentum · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show dark-pool heavy, strong 6-month run, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: dark-pool (ATS) share of the stock's volume at least 1 standard deviation above its 26-week norm (FINRA data); a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Research (31 past signals on 23 stocks, 2020 onward, data the rules were not fitted on): these beat random picks from the same week and price band by about 166 percentage points over the hold (95% range 48 to 278). Verdict: confirmed. Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (Tensor signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Alt-data stacks (Wikipedia, insiders, dark pool)",
+   "aliases": [
+    "Dark-pool Swing micro caps momentum",
+    "s_q07w_s78_mi_ats_z1_mom6"
+   ]
+  },
+  "s_cl_qm_small": {
+   "name": "Breakout leaders small caps",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Small-cap stocks breaking out of a tight base after a big run, from ChartsLector's breakout screen, held 90 trading days.",
+   "looks_for": "A small-cap stock that newly passes ChartsLector's Qullamaggie-style breakout screen (a strong prior run, then a tight base and breakout), not more than 4 average daily ranges above its trend, and closing at $5 or more.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 90 trading days. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 14 positions at once, within a $14,491 sleeve budget.",
+   "why": "Out of sample it beat the market by about 3.7 points per trade (95% range 2.3 to 5.2), and it passed a strict multiple-testing check.",
+   "source": "ChartsLector screens",
+   "budget_usd": 14491,
+   "max_positions": 14,
+   "type": "Trend and breakout",
+   "aliases": [
+    "Breakout leaders small caps",
+    "s_cl_qm_small"
+   ]
+  },
+  "s_cl_vmr_qqq": {
+   "name": "Market fear rebound",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "When ChartsLector's VIX Mood Ring shows fear, it buys QQQ itself on a fear day and sells 5 trading days after the fill.",
+   "looks_for": "ChartsLector's VIX Mood Ring (a 0 to 100 blend of VIX, its term structure, VVIX and SKEW) at 35 or lower (lower means more fear; 30 and under is its red zone). The trade is QQQ, the Nasdaq-100 fund.",
+   "entry": "Waits for a fear day. On any of the 5 trading days after the signal, between 40 and 10 minutes before the close, it buys only if QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. No fear day in 5 days: the signal is skipped.",
+   "exit": "No stop loss. Time exit after 5 trading days. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Fear spikes have often been followed by short rebounds (+2% in research), but there were only 7 such events, so this is unproven.",
+   "source": "ChartsLector screens",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Dip-buying and mean reversion",
+   "aliases": [
+    "Market fear rebound",
+    "s_cl_vmr_qqq"
+   ]
+  },
+  "s_mn_hourly": {
+   "name": "Midna Hourly",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "hourly",
+   "summary": "Midna's hourly trading book: the engine's hourly signals with her own buy-block and a 15% disaster stop.",
+   "looks_for": "An hourly buy signal from Midna's Hourly book, which trades the Tensor engine's signals under her own rules (her Equity desk code, ported faithfully).",
+   "entry": "Buys within 30 minutes of the next hourly bar, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 3% over the signal-day close.",
+   "exit": "Stop loss: sells if the price falls 15% below the entry. Time exit after 60 hourly bars. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Runs Midna's rules as she wrote them, so her results can be checked on a real paper account.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Midna Hourly",
+    "s_mn_hourly"
+   ]
+  },
+  "s_mn_csmom": {
+   "name": "Midna momentum",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Holds the top tenth of Midna's liquid swing list by 6-month return, re-ranked every 63 trading days.",
+   "looks_for": "The top 10% of the liquid names on Midna's swing list by 126-session (about 6-month) return. Equal weight.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Exits at the 63-day re-rank if the stock drops out of the top tenth; any position 40% under its entry is sold (circuit breaker). The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 15 positions at once, within a $15,000 sleeve budget.",
+   "why": "Cross-sectional momentum (recent winners keep winning) is one of the best documented effects in markets. The lab version beat the market by 15 to 21% a year in its tests.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 15000,
+   "max_positions": 15,
+   "type": "Momentum",
+   "aliases": [
+    "Midna CS momentum",
+    "s_mn_csmom"
+   ]
+  },
+  "s_mn_nostop": {
+   "name": "Midna Hourly, no stop",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "hourly",
+   "summary": "The same hourly signals as Midna Hourly, but with no stop loss, to compare the two.",
+   "looks_for": "The same hourly buy signals as Midna Hourly. This is her 'no stop' twin book.",
+   "entry": "Buys within 30 minutes of the next hourly bar, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 3% over the signal-day close.",
+   "exit": "No stop loss. Time exit after 60 hourly bars. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Tests whether the 15% disaster stop helps or hurts. The account can hold a stock only once, so the two books cannot both own the same name.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Midna Hourly twin",
+    "s_mn_nostop"
+   ]
+  },
+  "s_mn_hedge": {
+   "name": "Midna QQQ hedge (TZA)",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Buys TZA, a fund that rises when small caps fall, when Midna's QQQ downturn signal turns on.",
+   "looks_for": "Midna's QQQ downturn signal ('flip5' in her code) turning on. The trade is TZA, a 3x inverse small-cap fund.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Sold when the downturn signal turns off, or after 20 trading days. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "A hedge: it should gain when the rest of the book is losing. It is sold when the signal turns off or after 20 trading days.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Hedges",
+   "aliases": [
+    "Midna QQQ→TZA hedge",
+    "s_mn_hedge"
+   ]
+  },
+  "s_mn_moonshot": {
+   "name": "Midna Moonshot",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Midna's version of Moonshot: cheap, deeply fallen stocks with a weekly signal, held 78 weeks.",
+   "looks_for": "A weekly signal on a stock priced at or under $14.94 whose 60-day range is at least 70.35% deep (Midna's thresholds).",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "No stop loss. Time exit after 78 weeks. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Rare, high-upside bets at 1% weights. Runs next to the desk's own Moonshot as a separate experiment.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Dip-buying and mean reversion",
+   "aliases": [
+    "Midna Moonshot",
+    "s_mn_moonshot"
+   ]
+  },
+  "s_mn_kronos": {
+   "name": "Midna Kronos",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Holds the 4 large caps that the Kronos AI price-forecast model ranks highest, rebalanced as the forecast changes.",
+   "looks_for": "The Kronos time-series model (Kronos-base) forecasts 10 days ahead for a fixed list of large caps. The book holds the top 4 and swaps out at most 1 at a time, never selling a name held under 5 trading days.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Sold when it drops out of the forecast top 4 (one swap at a time, minimum hold 5 trading days). The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget).",
+   "why": "Tests whether a pretrained price-forecast model adds value. Note: its forecast file is currently stale (last signal Oct 8), so it trades on that forecast until it is refreshed.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Models and lab rules",
+   "aliases": [
+    "Midna Kronos",
+    "s_mn_kronos"
+   ]
+  },
+  "s_mn_turtle": {
+   "name": "Midna Turtle",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "The classic Turtle breakout system: buy 20- or 55-day highs, exit on a 10-day low or a 2-ATR stop.",
+   "looks_for": "A close at a new 20-day high (Turtle System 1; skipped right after a winning trade) or a new 55-day high. At most 4 names, risking 1% per unit.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Sold at a 10-day low or at the Turtle stop of 2 ATR (average daily ranges) under the entry. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Trend-following breakouts are a long-tested public system (the Turtle traders).",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Trend and breakout",
+   "aliases": [
+    "Midna Turtle",
+    "s_mn_turtle"
+   ]
+  },
+  "s_mn_macd": {
+   "name": "Midna MACD-CCI",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Buys when MACD crosses up while CCI is above 100; exits on the opposite cross or a 3-ATR trailing stop.",
+   "looks_for": "A MACD bullish cross while the CCI indicator is above 100 (Lambert's trend line). At most 4 names.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Sold when MACD crosses back down, or at a 3-ATR trailing stop. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "A published trend-confirmation rule, tested on paper as its own book.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Trend and breakout",
+   "aliases": [
+    "Midna MACD",
+    "s_mn_macd"
+   ]
+  },
+  "s_mn_vwap": {
+   "name": "Midna EMA4-VWAP",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Buys when the 4-period average crosses above a rising 20-day VWAP; exits on the opposite cross or a 3-ATR trailing stop.",
+   "looks_for": "The 4-period EMA crossing above the 20-session VWAP while that VWAP is rising. At most 4 names.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Sold when the 4-period average crosses back below VWAP, or at a 3-ATR trailing stop. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "A simple trend entry that waits for buyers to be in control (rising VWAP).",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Trend and breakout",
+   "aliases": [
+    "Midna VWAP",
+    "s_mn_vwap"
+   ]
+  },
+  "s_mn_faber": {
+   "name": "Midna Faber",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Holds each of five ETFs only while it is above its 10-month average (Faber's trend rule).",
+   "looks_for": "Five broad ETFs; each is owned while its price is above its 10-month moving average.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Sold when the ETF closes below its 10-month average. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Faber's rule is a well-known way to sidestep long bear markets.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Trend and breakout",
+   "aliases": [
+    "Midna Faber",
+    "s_mn_faber"
+   ]
+  },
+  "s_mn_reversal": {
+   "name": "Midna Reversal",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Buys the five large caps with the worst return last month and holds about a month.",
+   "looks_for": "The five large-cap stocks with the worst prior-month return.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Rotated out at the next monthly re-pick (about 21 trading days). The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Short-term losers often bounce back the next month (a published Quantpedia effect).",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Dip-buying and mean reversion",
+   "aliases": [
+    "Midna Reversal",
+    "s_mn_reversal"
+   ]
+  },
+  "s_mn_pairs": {
+   "name": "Midna Pairs",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Buys the cheap side of a matched stock pair when their gap is unusually wide; sells when it closes.",
+   "looks_for": "Two stocks that normally move together (a 'distance pair') whose price gap is 2 standard deviations wider than usual. It buys the cheaper one.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Sold when the pair's gap closes back to normal. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Pairs tend to snap back together (a published Quantpedia strategy).",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Dip-buying and mean reversion",
+   "aliases": [
+    "Midna Pairs",
+    "s_mn_pairs"
+   ]
+  },
+  "s_mn_opt_turtle": {
+   "name": "Midna options Turtle (watch only)",
+   "desk": "Test desk",
+   "state": "Watch only (no orders)",
+   "timeframe": "daily",
+   "summary": "Midna's Turtle breakout book expressed in listed options. Tracked only: this desk trades stocks, not options.",
+   "looks_for": "The same breakouts as Midna Turtle, traded with options in her code.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Midna's own exit: opt turtle (shadow). The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned: it places no orders.",
+   "why": "Kept visible so the idea is not lost; it places no orders.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Options and watch-only",
+   "aliases": [
+    "Midna Opt Turtle",
+    "s_mn_opt_turtle"
+   ]
+  },
+  "s_mn_opt_reversal": {
+   "name": "Midna options Reversal (watch only)",
+   "desk": "Test desk",
+   "state": "Watch only (no orders)",
+   "timeframe": "daily",
+   "summary": "Midna's Reversal book in listed options. Tracked only: this desk trades stocks, not options.",
+   "looks_for": "The same picks as Midna Reversal, traded with options in her code.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Midna's own exit: opt reversal (shadow). The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned: it places no orders.",
+   "why": "Kept visible so the idea is not lost; it places no orders.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Options and watch-only",
+   "aliases": [
+    "Midna Opt Reversal",
+    "s_mn_opt_reversal"
+   ]
+  },
+  "s_mn_opt_pairs": {
+   "name": "Midna options Pairs (watch only)",
+   "desk": "Test desk",
+   "state": "Watch only (no orders)",
+   "timeframe": "daily",
+   "summary": "Midna's Pairs book in listed options. Tracked only: this desk trades stocks, not options.",
+   "looks_for": "The same pairs as Midna Pairs, traded with options in her code.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Midna's own exit: opt pairs (shadow). The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned: it places no orders.",
+   "why": "Kept visible so the idea is not lost; it places no orders.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Options and watch-only",
+   "aliases": [
+    "Midna Opt Pairs",
+    "s_mn_opt_pairs"
+   ]
+  },
+  "s_mn_qqq_ladder": {
+   "name": "Midna QQQ options ladder (watch only)",
+   "desk": "Test desk",
+   "state": "Watch only (no orders)",
+   "timeframe": "daily",
+   "summary": "Midna's ladder of QQQ option positions. Tracked only: this desk trades stocks, not options.",
+   "looks_for": "Midna's QQQ options ladder, marked to market in her code.",
+   "entry": "Places no stock orders (options book, tracked only).",
+   "exit": "Midna's own exit: ladder mark-to-market (shadow). The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "No money assigned: it places no orders.",
+   "why": "Kept visible so the idea is not lost; it places no orders.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": null,
+   "max_positions": null,
+   "type": "Options and watch-only",
+   "aliases": [
+    "Midna QQQ Ladder",
+    "s_mn_qqq_ladder"
+   ]
+  },
+  "s_mn_gbm_1d_cyan": {
+   "name": "Midna Daily cyan trees",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Daily Cyan signals that Midna's frozen boosted-tree model scores in its top 10%, held 21 trading days.",
+   "looks_for": "A daily Cyan signal on Midna's swing list whose frozen tree-model score is at or above the training 90th percentile. Up to 6 names.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "No stop loss. Time exit after 21 trading days. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "The one Tensor book whose sleeve passed all three test windows in Midna's research (walk-forward Sharpe 1.10, +14% a year above momentum). Runs next to the desk's Daily Cyan as a separate experiment.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Models and lab rules",
+   "aliases": [
+    "Midna Daily cyan trees",
+    "s_mn_gbm_1d_cyan"
+   ]
+  },
+  "s_mn_w_cyan_breadth": {
+   "name": "Midna weekly Cyan, quiet tape",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Weekly Cyan signals on lower-volume names while market breadth is improving, held about 6 months.",
+   "looks_for": "A weekly Cyan signal where daily dollar volume is at most about $8M (log10 at most 6.92), the slow trend state is bullish, and the share of her swing list above its 50-day average rose at least 3.7 points over 10 sessions.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "No stop loss. Time exit after 126 trading days. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Passed Midna's clean-support tests both plain and hedged.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Midna W cyan breadth",
+    "s_mn_w_cyan_breadth"
+   ]
+  },
+  "s_mn_w_cyan_vix": {
+   "name": "Midna weekly Cyan, mid VIX",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Weekly Cyan signals on strong lower-volume names when VIX is in a middle range, held about a year.",
+   "looks_for": "A weekly Cyan signal where daily dollar volume is at most about $23M (log10 at most 7.36), the 6-month return is at least +44%, and VIX is between 13.7 and 26.4.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "No stop loss. Time exit after 252 trading days. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Passed Midna's clean-support tests; deep history from 2010 was positive in 4 of 6 years.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Midna W cyan mid-VIX",
+    "s_mn_w_cyan_vix"
+   ]
+  },
+  "s_mn_d_green_band": {
+   "name": "Midna daily Green, $10 to $20",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Daily Green signals on $10 to $20 stocks in a calm-but-not-dead market, held 21 trading days.",
+   "looks_for": "A daily Green signal on a stock priced $10 to $20, with cross-stock dispersion between 0.021 and 0.029, and 32 to 252 sessions since its last 4% gap on 2.5x volume.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "No stop loss. Time exit after 21 trading days. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Passed Midna's clean-support tests on the full universe.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Midna Daily green band",
+    "s_mn_d_green_band"
+   ]
+  },
+  "s_mn_w_green_smh": {
+   "name": "Midna weekly Green, calm chips",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Weekly Green signals when chip stocks (SMH) are not far ahead of or behind the market, held about 6 months.",
+   "looks_for": "A weekly Green signal with 63-session return skew between −0.68 and 0.47, SMH minus SPY over 63 sessions between −4.9% and +9.7%, and no Fed decision in the next five sessions.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "No stop loss. Time exit after 126 trading days. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Passed Midna's clean-support tests on the full universe.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Midna W green calm SMH",
+    "s_mn_w_green_smh"
+   ]
+  },
+  "s_mn_w_cyan_adx": {
+   "name": "Midna weekly Cyan, strong trend",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "Weekly Cyan signals on strong lower-volume names with a strong trend (ADX), held about 6 months.",
+   "looks_for": "A weekly Cyan signal where daily dollar volume is at most about $22M (log10 at most 7.35), the 6-month return is at least +44.5%, and weekly ADX is at least 25.8.",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "No stop loss. Time exit after 126 trading days. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Passed Midna's clean-support tests; from 2008 to 2016 the same rule was positive in 6 of 7 years.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Midna W cyan high ADX",
+    "s_mn_w_cyan_adx"
+   ]
+  },
+  "s_mn_hourly_1d": {
+   "name": "Midna Hourly, daily signals",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "daily",
+   "summary": "The daily lane of Midna's Hourly book, held up to 40 trading days.",
+   "looks_for": "A daily buy signal that Midna's Hourly book trades in its daily lane (her rules code).",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Stop loss: sells if the price falls 15% below the entry. Time exit after 40 trading days. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Completes the port of Midna's Hourly book, which also trades daily and weekly signals.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Midna Hourly daily",
+    "s_mn_hourly_1d"
+   ]
+  },
+  "s_mn_hourly_1w": {
+   "name": "Midna Hourly, weekly signals",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "The weekly lane of Midna's Hourly book, held up to 52 weeks.",
+   "looks_for": "A weekly buy signal that Midna's Hourly book trades in its weekly lane (her rules code).",
+   "entry": "Buys at a desk check from 10:00 ET on the next trading day, unless Midna's buy-block is on: QQQ down, VIX up and the stock down, all at the same time (or any of those prices unknown). It sends one limit order, good for that day only: the current price plus 1%, never above 5% over the signal-day close.",
+   "exit": "Stop loss: sells if the price falls 15% below the entry. Time exit after 52 weeks. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent at the desk check about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. Up to 2 positions at once, within a $2,000 sleeve budget.",
+   "why": "Completes the port of Midna's Hourly book, which also trades daily and weekly signals.",
+   "source": "Midna's signal files (her Equity desk code) and Yahoo prices",
+   "budget_usd": 2000,
+   "max_positions": 2,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Midna Hourly Weekly",
+    "s_mn_hourly_1w"
+   ]
+  }
+ }
+}
