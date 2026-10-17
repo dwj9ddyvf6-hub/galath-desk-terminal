@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="1482d3b3cece">
+<meta name="gb-build" content="4e21d1806964">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -2132,7 +2132,7 @@ function renderLC(){const el=$("bslc");if(!el)return;const L=BS&&BS.lifecycle;if
   const R=L.rules||{},T=L.track||{};
   el.innerHTML=`<div class="card"><p class="kicker">Lifecycle</p><h2>Best Setups now (${(L.best||[]).length})</h2><p class="meta">${esc(R.ttl||"")}</p>${best||'<p class="empty">No name is at Tier A or B right now.</p>'}</div>
    <div class="card lc-sec" id="converging"><h2>Converging (${(L.converging||[]).length})</h2><p class="meta">Names closest to becoming a Best Setup, ranked by how many of the real rules they meet. Each line is exactly what is still missing. Context, not a pick.</p>${(L.converging||[]).map(lcConv).join("")||'<p class="empty">Nothing is converging right now.</p>'}</div>
-   <div class="card lc-sec" id="bought-shelf"><h2>Bought (${(L.bought||[]).length})</h2><p class="meta">Best Setups the desk bought, followed to the exit. Paper trading.</p>${bought||'<p class="empty">The desk has not bought a Best Setup since tracking started.</p>'}</div>
+   <div class="card lc-sec" id="bought-shelf"><h2>Bought (${(L.bought||[]).length})</h2><p class="meta">Best Setups the desk bought, followed to the exit.</p>${bought||'<p class="empty">The desk has not bought a Best Setup since tracking started.</p>'}</div>
    <div class="card lc-sec" id="fell-off"><h2>Recently fell off (${(L.recent||[]).length})</h2><p class="meta">${esc(R.recent||"")} ${esc(R.hysteresis||"")}</p>${recent||'<p class="empty">Nothing has fallen off in the last two weeks.</p>'}</div>
    <p class="meta">${esc(T.note||"")} ${T.chain_ok===false?"Lifecycle log: BROKEN.":T.since?`Logged since ${esc(mdy(T.since))}; lifecycle log intact.`:""}</p>`;}
 function lcTimeline(sym){const x=lcOf(sym);if(!x)return `<div class="card bs-p12" id="bslct"><h2>Lifecycle</h2><p class="meta">Not on the lifecycle shelves right now.</p></div>`;
@@ -2200,7 +2200,7 @@ function lcxRecent(r){const red=r.kind==="chart"||r.kind==="desk";
 renderLC=function(){const el=$("bslc");if(!el)return;const L=BS&&BS.lifecycle;if(!L){el.innerHTML="";return;}const R=L.rules||{},T=L.track||{};
   el.innerHTML=`<div class="card bs-p14"><p class="kicker">Lifecycle</p><h2>Best Setups now (${(L.best||[]).length})</h2><p class="meta">${esc(R.ttl||"")}</p>${(L.best||[]).map(lcxBest).join("")||'<p class="empty">No name is at Tier A or B right now.</p>'}</div>
    <div class="card lc-sec" id="converging"><h2>Converging (${(L.converging||[]).length})</h2><p class="meta">Closest to becoming a Best Setup, ranked by how many of the real rules they meet. Tap a card for every condition. Context, not a pick.</p>${(L.converging||[]).map(lcxConv).join("")||'<p class="empty">Nothing is converging right now.</p>'}</div>
-   <div class="card lc-sec" id="bought-shelf"><h2>Bought (${(L.bought||[]).length})</h2><p class="meta">Best Setups the desk bought, followed to the exit. Paper trading.</p>${(L.bought||[]).map(lcxBought).join("")||'<p class="empty">The desk has not bought a Best Setup since tracking started.</p>'}</div>
+   <div class="card lc-sec" id="bought-shelf"><h2>Bought (${(L.bought||[]).length})</h2><p class="meta">Best Setups the desk bought, followed to the exit.</p>${(L.bought||[]).map(lcxBought).join("")||'<p class="empty">The desk has not bought a Best Setup since tracking started.</p>'}</div>
    <div class="card lc-sec" id="fell-off"><h2>Recently fell off (${(L.recent||[]).length})</h2><p class="meta">${esc(R.recent||"")} ${esc(R.hysteresis||"")}</p>${(L.recent||[]).map(lcxRecent).join("")||'<p class="empty">Nothing has fallen off in the last two weeks.</p>'}</div>
    <p class="meta">${esc(T.note||"")} ${T.chain_ok===false?"Lifecycle log: BROKEN.":T.since?`Logged since ${esc(mdy(T.since))}; lifecycle log intact.`:""}</p>`;};
 /* bs-p17 plan layer: one CALL, a plain-English gist and the plan lead every setup, on-demand and Converging card; the analysis below is the why */
@@ -2553,7 +2553,7 @@ function bsCVChart(c,cr,mode){
   g+=`</svg>`;
   const key=[E?"Green box: buy zone":"","Red: wrong below",t1?"Blue: targets":"",EV.length?"Yellow circles: the bars the read mentions":""].filter(Boolean).join(" · ");
   const tf=k.weekly?`<span class="cv-tf">${["daily","weekly"].map(m=>`<button type="button" data-tf="${m}" class="${(wk?"weekly":"daily")===m?"on":""}">${m==="daily"?"Daily":"Weekly"}</button>`).join("")}</span>`:"";
-  return g+`<p class="cv-key">${tf}${esc(key)}. ${wk?"Weekly bars, about 18 months":"Daily bars, about 6 months"}; the rest of the chart's marks are in “The deeper evidence” below.</p>`;
+  return g+`<p class="cv-key">${tf}${esc(key)}. ${wk?"Weekly bars, about 18 months":"Daily bars, about 6 months"}.</p>`;
 }
 function cvTF(c){const h=(c.card&&c.card.facts&&c.card.facts.hold_days)||{};return (+h.v||0)>=200?"weekly":"daily";}   /* long holds (about a year) default to weekly bars */
 cvChart=async function(c,mode){const el=$("cvchart");if(!el)return;try{
@@ -2688,27 +2688,22 @@ const dcOf=k=>(k&&k.decision)||null;
 function dcChip(D){if(!D)return "";const lab=D.kind==="now"?(D.dir==="short"?"SHORT":"LONG"):(D.dir==="short"?"SHORT IF TRIGGERED":"LONG IF TRIGGERED");
   return `<span class="dc-chip ${D.dir}">${lab}</span><span class="dc-cv ${esc(D.conviction)}">${esc(D.conviction)} conviction</span>`;}
 function dcFace(c,page){const k=c.card,D=dcOf(k);if(!D)return "";const pr=csPr(k);
-  return `<p class="dc-chips">${dcChip(D)}</p>${pr?`<p class="cv-hd">${esc(pr.headline)}</p><p class="dc-call"><b>The call:</b> ${esc(D.call)}</p>`:`<p class="cv-hd">${esc(D.call)}</p>`}`+
-   dcBox(D)+`<p class="dc-fact"><b>Why:</b> ${esc(D.fact)}</p>${D.contrary?`<p class="dc-desk">${esc(D.desk)}</p>`:""}`;}
+  return `<p class="dc-chips">${dcChip(D)}</p><p class="cv-hd">${esc(pr?pr.headline:D.call)}</p>`+
+   dcBox(D)+`<p class="dc-fact"><b>Why:</b> ${esc(D.fact)}</p>`;}
 /* card format law (Galath 15:40 ET): zone, invalidation and target up front on every card */
 const dcUsd=v=>"$"+Number(v).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
 function dcBox(D){const e=D.entry||{},sh=D.dir==="short",z=(e.lo!=null&&e.hi!=null&&e.lo!==e.hi)?`${dcUsd(e.lo)}–${dcUsd(e.hi)}`:dcUsd(e.hi!=null?e.hi:e.lo);
   const t=D.trigger&&D.trigger.condition?` <span class="dc-if">only after ${esc(D.trigger.condition)}</span>`:"";
   return `<dl class="dc-box"><div><dt>${sh?"Short zone":"Buy zone"}</dt><dd>${z}${t}</dd></div><div><dt>Invalidation</dt><dd>a daily close ${sh?"over":"under"} ${dcUsd((D.invalidation||{}).v)}</dd></div><div><dt>Target</dt><dd>${dcUsd((D.objective||{}).v)} by ${esc(dcMd(D.by))}</dd></div></dl>`;}
-function dcPlay(k){const p=csPr(k),D=dcOf(k);return p?esc(p.play):`<span class="cs-pendp">The trade, from today's numbers: </span>${esc((k.fallback||{}).play||"")}`;}
+function dcPlay(k){const p=csPr(k),D=dcOf(k);return esc(p?p.play:((k.fallback||{}).play||D.call));}
 {const _c=cvCard;cvCard=function(c){const k=c.card,D=dcOf(k);if(!D)return _c(c);
-  return `<article class="card bs-card rd-card cv-card cs-card dc-${D.dir}" id="${esc(c.id)}">${csHead(c)}${dcFace(c)}<p class="cs-play">${dcPlay(k)}</p>${csPr(k)?"":`<p class="cv-src"><span class="cs-pend">Read pending</span> the trader's description for today isn't written yet; the call above is from today's numbers.</p>`}<a class="bs-open" href="#${esc(c.id)}">Setup page →</a></article>`;};}
-{const _f=cvFull;cvFull=function(c){const k=c.card,D=dcOf(k);let h=_f(c);if(!D)return h;
-  const ag=(D.against||[]).map(x=>`<li>${esc(x.why)}</li>`).join("");
-  const add=`<h3>How the call was made</h3><p class="dc-basis">${esc(D.basis)}</p>${ag?`<h4>What argues against it</h4><ul class="cs-ctx dc-ag">${ag}</ul>`:""}<p class="dc-basis">${esc(D.desk||"")}</p>${(BS&&BS.call_record)?`<p class="dc-basis">${esc(BS.call_record.line)}</p>`:""}`;
-  return h.replace("<summary>The deeper evidence</summary>","<summary>The deeper evidence</summary>"+add);};}
+  return `<article class="card bs-card rd-card cv-card cs-card dc-${D.dir}" id="${esc(c.id)}">${csHead(c)}${dcFace(c)}<p class="cs-play">${dcPlay(k)}</p><a class="bs-open" href="#${esc(c.id)}">Setup page →</a></article>`;};}
 {const _p=cvPage;cvPage=function(c){const k=c.card,D=dcOf(k);if(!D)return _p(c);const pr=csPr(k);
-  const st=pr?pr.story.map(x=>`<p>${esc(x)}</p>`).join(""):`<p class="cv-src"><span class="cs-pend">Read pending</span> ${esc(k.read_pending_why||"no read written for today's facts")}. The call and the trade come from today's numbers; the trader's description appears once today's read covers the full measurement list.</p>`;
-  return `<div class="dc-${D.dir}">${csHead(c,"h1")}${dcFace(c,1)}</div>
-   <div class="card cs-playbox" id="csplay"><h2>The trade</h2><p>${dcPlay(k)}</p>${!D.contrary&&D.desk?`<p class="cv-src">${esc(D.desk)}</p>`:""}</div>
-   <div class="card cs-story" id="csstory">${st}</div>
-   <div class="card cv-ch" id="cvchart">${rdChart(c)}</div>
-   ${cvFull(c)}`;};}
+  const st=pr?pr.story.map(x=>`<p>${esc(x)}</p>`).join(""):"";const tie=((D.basis||"").match(/Near-even[^.]*\./)||[""])[0];
+  return (`<div class="dc-${D.dir}">${csHead(c,"h1")}${dcFace(c,1)}</div>
+   <div class="card cs-playbox" id="csplay"><h2>The trade</h2><p>${dcPlay(k)}</p>${tie?`<p>${esc(tie)}</p>`:""}</div>
+   ${st?`<div class="card cs-story" id="csstory">${st}</div>`:""}
+   <div class="card cv-ch" id="cvchart">${rdChart(c)}</div>`).replace(/;? ?the rest of the chart(?:'|&#39;|’)s marks are in [“"]The deeper evidence[”"] below/,"");};}
 /* the chart draws the card's own trade: the decision's entry, invalidation and objective replace the desk-mechanics plan on the picture */
 function dcCard(c){const k=c.card,D=dcOf(k);if(!D||!D.chart)return c;const ch=D.chart,F=Object.assign({},k.facts||{}),dd=ch.d;
   F.zone_lo={v:ch.zone[0],d:dd.zone_lo};F.zone_hi={v:ch.zone[1],d:dd.zone_hi};F.stop={v:ch.stop,d:dd.stop};F.t1={v:ch.targets[0].v,d:dd.t1};F.t1_pct={v:0,d:dd.t1_pct};delete F.t2;delete F.t2_pct;
