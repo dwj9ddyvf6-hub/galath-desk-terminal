@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="aaceedcf5659">
+<meta name="gb-build" content="ad3363d5a8da">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -2251,14 +2251,19 @@ async function rdMore(){if(!rdOn()||!BS.more)return null;if(BSM&&BSM.generated_a
   try{const r=await fetch(BS.more.file+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);BSM=bsMain(await r.json());}catch(e){console.error("rdMore",e);}return BSM;}
 function rdFind(id){const a=(BS.setups||[]).find(c=>c.id===id);if(a)return a;return BSM?(BSM.shelves||[]).flatMap(s=>s.items||[]).find(c=>c.id===id):null;}
 function rdPred(c,long){const p=c.prediction;if(!p)return "";
-  if(p.p==null)return `<b>Win rate not measured yet</b> for this strategy. Its ${Number(p.n).toLocaleString()} past signals ${p.ret_edge>=0?"beat":"trailed"} ${esc(p.vs||"comparable picks")} by an average of about ${Math.abs(p.ret_edge)} percentage points of return over the hold${p.ci95?` (95% range ${Math.round(p.ci95[0])} to ${Math.round(p.ci95[1])})`:""}. That is an average across all signals, not a typical result for one stock${long?". Strategy-level: every name from this strategy shares this number.":""}`;
+  const sl=esc(p.strategy||"this strategy");
+  if(p.p==null){const t=p.tail;let s=`<b>No measured win-rate baseline yet</b> for ${sl}.`;
+    if(t&&t.p100!=null)s+=` Measured instead: ${Math.round(t.p100)}% of its ${Number(t.n).toLocaleString()} past signals (${t.names} stocks) at least doubled over ${esc(c.horizon||"the hold")}, vs ${Math.round(t.p100_base)}% of random picks from the same week; the median signal beat its random pick by ${Math.round(t.med_edge)} percentage points.`+((t.years||{})["2020"]?` ${t.years["2020"]} of the ${t.n} signals came from 2020.`:"");
+    else s+=` Its ${Number(p.n).toLocaleString()} past signals ${p.ret_edge>=0?"beat":"trailed"} ${esc(p.vs||"comparable picks")} by an average of about ${Math.abs(p.ret_edge)} percentage points over the hold.`;
+    if(long)s+=` The average gap was about ${Math.abs(p.ret_edge)} points${p.ci95?` (95% range ${Math.round(p.ci95[0])} to ${Math.round(p.ci95[1])})`:""}, pulled up by a few very large winners, so the median is the fairer guide. Strategy-level: every ${sl} name shares these numbers.`;
+    return s;}
   return `<b>${Math.round(p.p)}% finished up</b> vs ${Math.round(p.base)}% for any stock bought the same way${p.weak?": <b>no better than a random stock bought the same way</b>":""}`+
    (p.med!=null?` · typical ${rdS(p.med)}${p.mid?` (middle half ${rdS(p.mid[0])} to ${rdS(p.mid[1])})`:""} over ${esc(c.horizon||"the hold")}`:"")+
-   ` · ${Number(p.n).toLocaleString()} past trades`+(long?`. ${p.scope==="strategy-level"?"Strategy-level: every name from this strategy shares this number; a per-name estimate ships only after it beats this one out of sample.":""} As of the ${esc(p.as_of||"")} close.`:"");}
+   ` · ${Number(p.n).toLocaleString()} past trades`+(!long&&p.scope==="strategy-level"?` · same for every ${sl} name`:"")+(long?`. ${p.scope==="strategy-level"?"Strategy-level: every name from this strategy shares this number; a per-name estimate ships only after it beats this one out of sample.":""} As of the ${esc(p.as_of||"")} close.`:"");}
 function rdLv(c){const p=c.plan||{},P=c.last_close,e=p.entry,s=p.stop,t=p.target;if(!e||!s||!t||!P)return "";const B=e.hi,q=v=>rdS((v/B-1)*100);
   return `<div class="rd-lv"><div class="e"><i>${c.role==="setup"?"Buy":"Desk buys"}</i><b>${rdF(e.lo)}–${rdF(e.hi)}</b></div><div class="s"><i>Stop</i><b>${rdF(s.v)}</b> ${q(s.v)}</div><div class="t"><i>Target</i><b>${rdF(t.v)}</b> ${q(t.v)}</div></div>`+
    `<p class="meta">Stop and target % are from the top of the buy zone. Last close ${rdF(P)} on ${esc(c.last_close_day||"")}${c.rr!=null&&!c.rr_note?` · reward vs risk ${Number(c.rr).toFixed(2)} to 1`:""}</p>`;}
-function rdRole(c){if(c.role==="setup")return "";const dq=c.plan&&c.plan.desk_queued?" The desk's own rule may still buy it on a fear day (see Desk today).":"";
+function rdRole(c){if(c.role==="setup")return c.grade_cap?`<p class="rd-not">${esc(c.grade_cap)}</p>`:"";const dq=c.plan&&c.plan.desk_queued?" The desk's own rule may still buy it on a fear day (see Desk today).":"";
   if(c.role==="closest")return `<p class="rd-not">Closest to a setup: grade ${esc(c.grade)}, not a buy yet.${dq}</p>`;
   if(c.role==="best_available")return `<p class="rd-not">Best available, grade ${esc(c.grade)}: not a buy${c.not_buy?` (${esc(c.not_buy)})`:""}.${dq}</p>`;
   return `<p class="rd-not">Not on today's list: grade ${esc(c.grade)}${c.grade==="C"?", not a buy":""}${c.not_buy?` (${esc(c.not_buy)})`:""}.${dq}</p>`;}
@@ -2277,8 +2282,8 @@ function rdChart(c){const ch=c.chart;if(!ch||!ch.b||ch.b.length<2)return "";cons
   if(p.entry){g+=`<rect x="${L}" y="${Y(p.entry.hi)}" width="${W-R-L}" height="${Math.max(3,Y(p.entry.lo)-Y(p.entry.hi))}" fill="#2962ff" opacity=".16"/>`;lab.push([Y((p.entry.lo+p.entry.hi)/2),"#2962ff",`Buy ${rdF(p.entry.lo)}–${rdF(p.entry.hi)}`]);}
   for(let i=0;i<n;i++){const [o,h,l,cl]=b[i],up=cl>=o,col=up?"#26a69a":"#ef5350";g+=`<line x1="${X(i)}" x2="${X(i)}" y1="${Y(h)}" y2="${Y(l)}" stroke="${col}"/><rect x="${X(i)-cw/2}" y="${Y(Math.max(o,cl))}" width="${cw}" height="${Math.max(1,Math.abs(Y(o)-Y(cl)))}" fill="${col}"/>`;}
   const sm=ch.sma50||[];let d="";sm.forEach((v,i)=>{if(v!=null)d+=(d?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1);});if(d){g+=`<path d="${d}" fill="none" stroke="#f59e0b" stroke-width="1.6"/>`;}
-  if(p.stop){const y=Y(p.stop.v);g+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#ef5350" stroke-width="2"/>`;lab.push([y,"#ef5350",`Stop ${rdF(p.stop.v)} ${rdS((p.stop.v/P-1)*100)}`]);}
-  if(p.target){const y=Y(p.target.v);g+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#18744f" stroke-width="2"/>`;lab.push([y,"#18744f",`Target ${rdF(p.target.v)} ${rdS((p.target.v/P-1)*100)}`]);}
+  if(p.stop){const y=Y(p.stop.v);g+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#ef5350" stroke-width="2"/>`;lab.push([y,"#ef5350",`Stop ${rdF(p.stop.v)}`]);}
+  if(p.target){const y=Y(p.target.v);g+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#18744f" stroke-width="2"/>`;lab.push([y,"#18744f",`Target ${rdF(p.target.v)}`]);}
   lab.push([Y(P),"#16202a",`Close ${rdF(P)}`]);lab.sort((a,z)=>a[0]-z[0]);for(let i=1;i<lab.length;i++){if(lab[i][0]-lab[i-1][0]<15)lab[i][0]=lab[i-1][0]+15;}
   lab.forEach(([y,col,t])=>{g+=`<text x="${W-R+4}" y="${Math.min(H-B,y)+4}" font-size="${FS}" font-weight="700" fill="${col}">${esc(t)}</text>`;});
   const dd=ch.d||[];g+=`<text x="${L}" y="${H-6}" font-size="11" fill="#6b7a84">${esc(dd[0]||"")}</text><text x="${W-R}" y="${H-6}" font-size="11" fill="#6b7a84" text-anchor="end">${esc(dd[n-1]||"")}</text>`;
