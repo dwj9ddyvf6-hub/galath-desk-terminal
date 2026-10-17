@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="e64a2db53c3b">
+<meta name="gb-build" content="07fe85cb33ae">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -553,6 +553,15 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
 .pl-odds ul{margin:.3em 0 .1em;padding-left:1.1em}.pl-odds li{margin:.1em 0}.pl-oc{display:inline-block;font-size:.72rem;font-weight:700;border-radius:6px;padding:1px 6px;background:#e9edf1;color:#3d4b55;margin-left:4px}
 .pl-mini .pl-orng{margin:.25em 0 0;font-size:.8rem;font-weight:400;color:#33434d}
 @media (max-width:600px){.pl-lv{grid-template-columns:repeat(3,1fr);gap:4px}.pl-lv>div{padding:5px 6px}.pl-lv b{font-size:.92rem}.pl-gist{font-size:1.02rem}.pl-call.pl-big{font-size:1.15rem}.bsplan .meta{font-size:.78rem}}
+
+.rd-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.rd-rank{color:#6b7a84;font-weight:700;font-size:.85rem}.rd-g{font-weight:800;border-radius:6px;padding:1px 8px;font-size:.85rem;color:#fff;background:#6b7a84}
+.rd-g.A{background:#18744f}.rd-g.B{background:#1f6f8b}.rd-g.C{background:#8a6d1f}.rd-hz{font-size:.8rem;color:#3d5a73;border:1px solid #c9d3db;border-radius:10px;padding:0 7px}
+.rd-p{margin-left:auto;font-weight:800;font-variant-numeric:tabular-nums}.rd-th{font-weight:650;font-size:1rem;line-height:1.35;margin:.45em 0}.rd-not{margin:.3em 0;font-size:.85rem;color:#6b4e00;background:#fbf6ec;border-radius:6px;padding:4px 8px}
+.rd-wait{margin:.3em 0;font-weight:700;color:#8a3b12}.rd-lv{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:.45em 0}.rd-lv>div{background:#f4f6f8;border-radius:8px;padding:5px 7px;font-size:.8rem;line-height:1.25}
+.rd-lv i{display:block;font-style:normal;font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;color:#6b7a84}.rd-lv b{font-size:.98rem;font-variant-numeric:tabular-nums}.rd-lv .e{border-left:4px solid #2962ff}.rd-lv .s{border-left:4px solid #ef5350}.rd-lv .t{border-left:4px solid #18744f}
+.rd-card p{margin:.3em 0;font-size:.9rem;line-height:1.35}.rd-rr{color:#8a3b12}.rd-pr{font-size:.85rem!important;color:#33434d}.rd-note{border-left:4px solid #b7791f}
+.rd-desk table{width:100%;border-collapse:collapse;font-size:.85rem}.rd-desk td{padding:5px 4px;border-top:1px solid #e3e8ec;vertical-align:top}.rd-desk td:first-child{white-space:nowrap;font-weight:700;width:1%}
+.rd-chart svg{width:100%;height:auto;display:block}.rd-tog{margin:.4em 0}.rd-an[hidden]{display:none}.rd-ev>summary{cursor:pointer;font-weight:700}.rd-ind{font-size:.8rem;color:#33434d;margin:.25em 0}
 </style>
 </head>
 <body>
@@ -2232,6 +2241,80 @@ BSST["Desk already holds it"]="The desk already owns this stock from an earlier 
 {const _b=lcBadge;lcBadge=function(c){const h=_b(c),L=c&&c.life;if(!L||L.s!=="converging")return h;const r=((BS&&BS.lifecycle&&BS.lifecycle.converging)||[]).find(x=>x.sym===c.symbol);if(!r||r.reach!==false)return h;return h.replace(`Converging ${L.met}/${L.M}`,`${L.met}/${L.M} met · edge short`).replace('title="Lifecycle state"','title="The missing condition is its measured edge; price or market moves cannot close that gap, so it is not close to Tier B."');};}
 {const _x=lcxConv;lcxConv=function(r){let h=_x(r);if(!r.plan)return h;let k=h.indexOf('<span class="tr ');h=k<0?h:h.slice(0,k)+plCall(r.plan)+h.slice(k);k=h.indexOf('<div class="bd">');return k<0?h:h.slice(0,k+16)+`<p><b>${esc(r.plan.gist)}</b></p>`+(r.reach===false&&r.score!=null&&r.met<r.M?`<p class="meta">${r.met} of ${r.M} conditions are met, but the missing one is its measured edge: price or market moves cannot close that gap, so this is not close to Tier B.</p>`:"")+h.slice(k+16);};}
 function bsInflate(R){try{const U=o=>{if(!o||!Array.isArray(o.z))return o;let l=null;return o.z.map(q=>q==null?null:(l=l==null?q:l+q,l/o.s));};for(const k in ((R&&R.reads)||{})){const r=R.reads[k];if(!r)continue;const s=r.series;if(s&&s.sma200)s.sma200=U(s.sma200);const m=r.macd;if(m)for(const j in m)m[j]=U(m[j]);if(Array.isArray(r.divscan)){const o=[];for(const q of r.divscan){if(Array.isArray(q)&&q.length===3&&o.length&&Array.isArray(o[o.length-1])&&o[o.length-1].length===15){const z=o[o.length-1].slice();z[1]=q[0];z[13]=q[1];z[14]=q[2];o.push(z);}else o.push(q);}r.divscan=o;}}const L=R&&R.desk_fl,T=R&&R.desk_ft;if(!L||!T)return R;for(const k in (R.desk||{})){const d=R.desk[k];const S=R.desk_st||[];d.f=(d.f||[]).map(r=>Array.isArray(r)&&r.length===7?[r[0],...(L[r[1]]||["","",""]),r[2],r[3],r[4],T[r[5]],r[6]]:Array.isArray(r)&&r.length===6?[...(L[r[0]]||["","","",""]),r[1],r[2],r[3],T[r[4]],S[r[5]]]:Array.isArray(r)&&r.length===5?(()=>{const l=L[r[0]]||["","","",""];return [...l,r[1],r[2],S[r[4]]==="in"?Math.round(r[2]*({E:1,S:.75,H:.5,J:.25}[l[3]]||0)*100)/100:0,T[r[3]],S[r[4]]];})():r);}}catch(e){console.error("bsInflate",e);}return R;}
+
+let BSM=null,BSRM=null;
+{const _m=bsMain;bsMain=function(D){_m(D);try{if(D&&Array.isArray(D.setups))_m({rules_lib:D.rules_lib,shelves:[{items:D.setups}]});}catch(e){console.error("rd main",e);}return D;};}
+const rdF=v=>v==null?"":"$"+(v>=10?Number(v).toFixed(2):Number(v).toFixed(v>=1?2:3));
+const rdS=v=>(v>0?"+":v<0?"−":"")+Math.abs(v).toFixed(1)+"%";
+function rdOn(){return !!(BS&&Array.isArray(BS.setups));}
+async function rdMore(){if(!rdOn()||!BS.more)return null;if(BSM&&BSM.generated_at===BS.generated_at)return BSM;
+  try{const r=await fetch(BS.more.file+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);BSM=bsMain(await r.json());}catch(e){console.error("rdMore",e);}return BSM;}
+function rdFind(id){const a=(BS.setups||[]).find(c=>c.id===id);if(a)return a;return BSM?(BSM.shelves||[]).flatMap(s=>s.items||[]).find(c=>c.id===id):null;}
+function rdPred(c,long){const p=c.prediction;if(!p)return "";
+  if(p.p==null)return `<b>Win rate not measured yet</b> for this strategy. Its ${Number(p.n).toLocaleString()} past signals ${p.ret_edge>=0?"beat":"trailed"} ${esc(p.vs||"comparable picks")} by an average of about ${Math.abs(p.ret_edge)} percentage points of return over the hold${p.ci95?` (95% range ${Math.round(p.ci95[0])} to ${Math.round(p.ci95[1])})`:""}. That is an average across all signals, not a typical result for one stock${long?". Strategy-level: every name from this strategy shares this number.":""}`;
+  return `<b>${Math.round(p.p)}% finished up</b> vs ${Math.round(p.base)}% for any stock bought the same way${p.weak?": <b>no better than a random stock bought the same way</b>":""}`+
+   (p.med!=null?` · typical ${rdS(p.med)}${p.mid?` (middle half ${rdS(p.mid[0])} to ${rdS(p.mid[1])})`:""} over ${esc(c.horizon||"the hold")}`:"")+
+   ` · ${Number(p.n).toLocaleString()} past trades`+(long?`. ${p.scope==="strategy-level"?"Strategy-level: every name from this strategy shares this number; a per-name estimate ships only after it beats this one out of sample.":""} As of the ${esc(p.as_of||"")} close.`:"");}
+function rdLv(c){const p=c.plan||{},P=c.last_close,e=p.entry,s=p.stop,t=p.target;if(!e||!s||!t||!P)return "";const q=v=>rdS((v/P-1)*100);
+  return `<div class="rd-lv"><div class="e"><i>${c.role==="setup"?"Buy":"Desk buys"}</i><b>${rdF(e.lo)}–${rdF(e.hi)}</b></div><div class="s"><i>Stop</i><b>${rdF(s.v)}</b> ${q(s.v)}</div><div class="t"><i>Target</i><b>${rdF(t.v)}</b> ${q(t.v)}</div></div>`+
+   `<p class="meta">Last close ${rdF(P)} on ${esc(c.last_close_day||"")}${c.rr!=null&&!c.rr_note?` · reward vs risk ${Number(c.rr).toFixed(2)} to 1`:""}</p>`;}
+function rdRole(c){if(c.role==="setup")return "";const dq=c.plan&&c.plan.desk_queued?" The desk's own rule may still buy it on a fear day (see Desk today).":"";
+  if(c.role==="closest")return `<p class="rd-not">Closest to a setup: grade ${esc(c.grade)}, not a buy yet.${dq}</p>`;
+  if(c.role==="best_available")return `<p class="rd-not">Best available, grade ${esc(c.grade)}: not a buy${c.not_buy?` (${esc(c.not_buy)})`:""}.${dq}</p>`;
+  return `<p class="rd-not">Not on today's list: grade ${esc(c.grade)}${c.grade==="C"?", not a buy":""}${c.not_buy?` (${esc(c.not_buy)})`:""}.${dq}</p>`;}
+function rdHead(c,tag){const p=c.prediction;return `<div class="rd-top">${c.rank?`<span class="rd-rank">#${c.rank}</span>`:""}<${tag||"span"} class="bs-sym"${tag?' id="bsdh"':""}>${esc(c.symbol)}</${tag||"span"}><span class="rd-g ${esc(c.grade)}">${esc(c.grade)}</span><span class="rd-hz">${esc(c.horizon||"")}</span>${p?`<span class="rd-p">${p.p==null?"win rate not measured":Math.round(p.p)+"% win"}</span>`:""}</div>`;}
+function rdCard(c){return `<article class="card bs-card rd-card" id="${esc(c.id)}">${rdHead(c)}${rdRole(c)}<p class="rd-th">${esc(c.thesis||"")}</p>${c.wait?`<p class="rd-wait">${esc(c.wait)}</p>`:""}${rdLv(c)}
+  ${(c.why_now||[]).length?`<p><b>Why now:</b> ${c.why_now.map(esc).join("; ")}.</p>`:""}${c.kill?`<p><b>Wrong if:</b> ${esc(c.kill)}</p>`:""}${c.rr_note?`<p class="rd-rr">${esc(c.rr_note)}</p>`:""}
+  <p class="rd-pr">${rdPred(c)}</p><a class="bs-open" href="#${esc(c.id)}">Setup page →</a></article>`;}
+function rdDesk(){const R=BS.desk_today||[];if(!R.length)return "";const G={};R.forEach(r=>{(G[r.state]=G[r.state]||[]).push(r);});
+  const md=d=>d?String(d).slice(5).replace("-","/"):"",lbl={"Bought today":"at","Queued fear-day order":"at or under","Holding":"from"};
+  const cell=r=>`${r.page?`<a href="#bs-${esc(r.sym)}">${esc(r.sym)}</a>`:esc(r.sym)}${r.price!=null?" "+rdF(r.price):""}${r.exit?" to "+esc(md(r.exit)):""}`;
+  return `<div class="card rd-desk" id="bsdesk"><h2>Desk today</h2><p class="meta">What the paper desk did or will do on its own rules. Not setups, not advice.</p>${Object.keys(G).map(k=>`<p><b>${esc(k)} (${G[k].length})</b>${k==="Queued fear-day order"?' <span class="meta">buy cap, last day</span>':k==="Holding"?' <span class="meta">entry price</span>':' <span class="meta">fill price</span>'}<br>${G[k].map(cell).join(" · ")}</p>`).join("")}</div>`;}
+function rdChart(c){const ch=c.chart;if(!ch||!ch.b||ch.b.length<2)return "";const b=ch.b,n=b.length,p=c.plan||{},mob=(window.innerWidth||800)<600,W=mob?430:680,H=mob?300:320,L=6,R=mob?150:170,T=12,B=22,FS=mob?13:13;
+  let lo=Math.min(...b.map(x=>x[2])),hi=Math.max(...b.map(x=>x[1]));const lv=[p.entry&&p.entry.lo,p.entry&&p.entry.hi,p.stop&&p.stop.v,p.target&&p.target.v].filter(v=>v!=null);
+  lv.forEach(v=>{lo=Math.min(lo,v);hi=Math.max(hi,v);});const pad=(hi-lo)*.04;lo-=pad;hi+=pad;
+  const X=i=>L+(W-L-R)*(i+.5)/n,Y=v=>T+(H-T-B)*(1-(v-lo)/(hi-lo)),cw=Math.max(1,(W-L-R)/n*.62),P=b[n-1][3];let g="",lab=[];
+  if(p.entry){g+=`<rect x="${L}" y="${Y(p.entry.hi)}" width="${W-R-L}" height="${Math.max(3,Y(p.entry.lo)-Y(p.entry.hi))}" fill="#2962ff" opacity=".16"/>`;lab.push([Y((p.entry.lo+p.entry.hi)/2),"#2962ff",`Buy ${rdF(p.entry.lo)}–${rdF(p.entry.hi)}`]);}
+  for(let i=0;i<n;i++){const [o,h,l,cl]=b[i],up=cl>=o,col=up?"#26a69a":"#ef5350";g+=`<line x1="${X(i)}" x2="${X(i)}" y1="${Y(h)}" y2="${Y(l)}" stroke="${col}"/><rect x="${X(i)-cw/2}" y="${Y(Math.max(o,cl))}" width="${cw}" height="${Math.max(1,Math.abs(Y(o)-Y(cl)))}" fill="${col}"/>`;}
+  const sm=ch.sma50||[];let d="";sm.forEach((v,i)=>{if(v!=null)d+=(d?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1);});if(d){g+=`<path d="${d}" fill="none" stroke="#f59e0b" stroke-width="1.6"/>`;}
+  if(p.stop){const y=Y(p.stop.v);g+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#ef5350" stroke-width="2"/>`;lab.push([y,"#ef5350",`Stop ${rdF(p.stop.v)} ${rdS((p.stop.v/P-1)*100)}`]);}
+  if(p.target){const y=Y(p.target.v);g+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#18744f" stroke-width="2"/>`;lab.push([y,"#18744f",`Target ${rdF(p.target.v)} ${rdS((p.target.v/P-1)*100)}`]);}
+  lab.push([Y(P),"#16202a",`Close ${rdF(P)}`]);lab.sort((a,z)=>a[0]-z[0]);for(let i=1;i<lab.length;i++){if(lab[i][0]-lab[i-1][0]<15)lab[i][0]=lab[i-1][0]+15;}
+  lab.forEach(([y,col,t])=>{g+=`<text x="${W-R+4}" y="${Math.min(H-B,y)+4}" font-size="${FS}" font-weight="700" fill="${col}">${esc(t)}</text>`;});
+  const dd=ch.d||[];g+=`<text x="${L}" y="${H-6}" font-size="11" fill="#6b7a84">${esc(dd[0]||"")}</text><text x="${W-R}" y="${H-6}" font-size="11" fill="#6b7a84" text-anchor="end">${esc(dd[n-1]||"")}</text>`;
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.symbol)} daily price with the buy zone, stop and target">${g}</svg><p class="rd-ind">Candles: daily, about 6 months. Orange: 50-day average.</p>`;}
+async function rdJump(){const h=decodeURIComponent(location.hash.slice(1));if(!/^bs-/.test(h)||!BS)return;let c=rdFind(h);if(!c){await rdMore();c=rdFind(h);}
+  if(!c){$("bsmkt").textContent="That name is no longer on the list. "+$("bsmkt").textContent;return;}bsDetail(c);}
+{const _l=bsCRLoad;bsCRLoad=async function(c){try{if(rdOn()&&BS.more&&!(BS.setups||[]).some(x=>x.symbol===c.symbol)){
+   if(!BSR||BSR.generated_at!==BS.generated_at){const r=await fetch("best_setups_reads.json?t="+Date.now(),{cache:"no-store"});if(r.ok)BSR=bsInflate(await r.json());}
+   if(!BSRM||BSRM.generated_at!==BS.generated_at){const r=await fetch(BS.more.reads+"?t="+Date.now(),{cache:"no-store"});if(r.ok)BSRM=bsInflate(await r.json());}
+   if(BSR&&BSRM){BSR.reads=Object.assign(BSR.reads||{},BSRM.reads||{});BSR.desk=Object.assign(BSR.desk||{},BSRM.desk||{});}}}catch(e){console.error("rd reads",e);}return _l(c);};}
+{const _rb=renderBest;renderBest=function(){if(!rdOn())return _rb();try{
+  const m=BS.market||{},S=BS.setups||[];{const k=document.querySelector("#best-setups .kicker");if(k)k.textContent="Setups · graded A, B or C";if($("bestsub"))$("bestsub").textContent="A short list. Grade A and B are setups; when none qualify, the best few names are shown with their real grade. Each card has one plan, one prediction and what would prove it wrong.";}[".bs-shelves"].forEach(s=>{const e=document.querySelector(s);if(e)e.hidden=true;});["bsshsub","bsmore","bslc"].forEach(i=>{if($(i))$(i).hidden=true;});
+  $("bsmkt").textContent=`${BS.market_line||m.note||""} Updated ${BS.generated_at||""}.${(BS.stale_layers||[]).length?" Some inputs are stale and count as missing: "+BS.stale_layers.join(", ")+".":""}`;
+  const real=S.filter(c=>c.role==="setup").length;
+  const nt=BS.top_note?`<div class="card rd-note"><b>${esc(BS.top_note)}</b></div>`:"",up=S.filter(c=>c.role!=="best_available"),ba=S.filter(c=>c.role==="best_available");
+  let h=real?up.map(rdCard).join("")+(ba.length?nt+ba.map(rdCard).join(""):""):(nt||`<div class="card rd-note"><b>No setup qualifies today.</b></div>`)+S.map(rdCard).join("");$("bscards").innerHTML=h||`<div class="card"><p class="empty">Nothing to show right now.</p></div>`;
+  let dk=$("bsdeskw");if(!dk){dk=document.createElement("div");dk.id="bsdeskw";$("bscards").after(dk);}dk.innerHTML=rdDesk();
+  const f=$("odform");if(f&&dk.nextElementSibling!==f)dk.after(f);
+  const T=BS.track_record||{};$("bstrack").innerHTML=`<b>Track record</b> <span class="meta">${T.days_logged?`${T.days_logged} trading day${T.days_logged>1?"s":""} logged since ${esc(T.since)}`:"starts with the first morning digest"}. ${esc(T.note||"")}</span>`;
+  $("bsmethod").innerHTML=[].concat(BS.method||[]).map(x=>`<p>${esc(x)}</p>`).join("");bsAlerts();}catch(e){console.error("rd list",e);_rb();}};}
+{const _j=bsJump;bsJump=function(){if(!rdOn())return _j();rdJump();};}
+{const _d=bsDetail;bsDetail=function(c){_d(c);if(!rdOn()||!c.grade)return;try{
+  const din=$("bsdin"),bar=din.querySelector(".bsd-bar"),cr=$("bscr"),old=[...din.children].filter(e=>e!==bar);
+  const p=c.plan||{},risk=p.entry&&p.stop?p.entry.hi-p.stop.v:null,top=document.createElement("div");top.id="rdtop";
+  const neg=((c._desk||{}).matters||[]).filter(x=>x.dir<0);
+  top.innerHTML=`${rdHead(c,"h1")}${rdRole(c)}<p class="rd-th">${esc(c.thesis||"")}</p>${c.wait?`<p class="rd-wait">${esc(c.wait)}</p>`:""}
+   <div class="card rd-chart">${rdChart(c)}<button type="button" class="chip rd-tog" id="rdtog" aria-expanded="false">Analyst view: patterns, Fibonacci, waves</button><div class="rd-an" id="rdan" hidden></div></div>
+   <div class="card"><h2>Plan</h2>${rdLv(c)||"<p>No buy plan: this name is not a buy right now.</p>"}${p.call_text?`<p><b>How it gets bought:</b> ${esc(p.call_text)}</p>`:""}${p.hold?`<p><b>Exit:</b> ${esc(p.hold)}, or a daily close under the stop.</p>`:""}
+    ${c.kill?`<p><b>Wrong if:</b> ${esc(c.kill)}</p>`:""}${c.rr_note?`<p class="rd-rr">${esc(c.rr_note)}</p>`:""}${risk>0?`<p class="meta">Size: risking 1% of $10,000 ($100) means about ${Math.floor(100/risk)} shares at the top of the buy zone.</p>`:""}</div>
+   <div class="card"><h2>Why</h2>${((c.drivers||{}).for||[]).length?`<ul>${c.drivers.for.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:"<p>No stock-specific tested reason in its favour stands out.</p>"}
+    ${((c.drivers||{}).against||[]).length?`<h3>Against</h3><ul>${c.drivers.against.map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`:""}</div>
+   <div class="card"><h2>Prediction</h2><p>${rdPred(c,true)||"No tested history for this strategy."}</p></div>`;
+  const ev=document.createElement("details");ev.className="card rd-ev";ev.innerHTML="<summary>Evidence: score, strategy, desk read, method</summary>";
+  old.forEach(e=>{if(e===cr)return;if(e.id==="bsplan"||/Price, last 6 months/.test((e.querySelector("h2")||{}).textContent||"")||e.id==="bsdh"||e.classList.contains("kicker")||e.classList.contains("bs-st")){e.remove();return;}if(e.tagName==="P"&&!e.className){e.remove();return;}ev.appendChild(e);});
+  din.appendChild(top);din.appendChild(ev);const an=$("rdan");if(cr)an.appendChild(cr);
+  $("rdtog").onclick=()=>{const o=an.hidden;an.hidden=!o;$("rdtog").setAttribute("aria-expanded",String(o));};}catch(e){console.error("rd page",e);}};}
 bsLoad(); setInterval(bsLoad,120000);
 if("serviceWorker" in navigator&&(window.navigator.standalone||matchMedia("(display-mode: standalone)").matches)) navigator.serviceWorker.register("sw.js",{scope:"./"}).catch(()=>{});
 $("clrkchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;CL.rk=b.dataset.k;[...$("clrkchips").children].forEach(c=>c.classList.toggle("on",c===b));if(CL.d)clRanker(CL.d);};
