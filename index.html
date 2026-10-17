@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="c11e84a0b2e5">
+<meta name="gb-build" content="f80408a5a442">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -1527,7 +1527,7 @@ function render(){
   try{renderCLScore();}catch(e){console.error("renderCLScore",e);}
   try{renderDesk2();}catch(e){console.error("renderDesk2",e);}
   try{renderHow();}catch(e){console.error("renderHow",e);}
-  $("foot").innerHTML=`<span class="fbrand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/></svg>GrokBot <b>Desk</b></span><span>Paper trading with simulated money</span><span>Data updated ${esc(d.generated_at||"")} · refreshes every 60 seconds</span>`;
+  $("foot").innerHTML=`<span class="fbrand"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/></svg>GrokBot <b>Desk</b></span><span>Data updated ${esc(d.generated_at||"")} · refreshes every 60 seconds</span>`;
   document.querySelectorAll(".grid,.mood").forEach(g=>{g.dataset.n=g.querySelectorAll(":scope>.stat").length;});
   swipeHints(); freshness();
 }
