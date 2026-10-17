@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="4e21d1806964">
+<meta name="gb-build" content="c11e84a0b2e5">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -2714,7 +2714,7 @@ if(typeof bsCVChart==="function"){const _v=bsCVChart;bsCVChart=function(c,cr,mod
 /* BS-240: an on-demand read carries the same decisive call */
 {const _o=odRender;odRender=function(o){_o(o);try{const D=o&&o.decision;if(!D||OD.sym!==o.symbol)return;const b=$("odbody");if(!b||$("oddc"))return;
   const d=document.createElement("div");d.className=`card dc-${D.dir}`;d.id="oddc";
-  d.innerHTML=`<h2>The call</h2><p class="dc-chips">${dcChip(D)}</p><p class="cv-hd">${esc(D.call)}</p>${dcBox(D)}<p class="dc-fact"><b>Why:</b> ${esc(D.fact)}</p><p class="cs-play">${esc(D.play||"")}</p><p class="dc-basis">${esc(D.basis)}</p><p class="dc-basis">${esc(D.desk||"")}</p>`;
+  d.innerHTML=`<h2>The call</h2><p class="dc-chips">${dcChip(D)}</p><p class="cv-hd">${esc(D.call)}</p>${dcBox(D)}<p class="dc-fact"><b>Why:</b> ${esc(D.fact)}</p><p class="cs-play">${esc(D.play||"")}</p>`;
   const a=b.querySelector(".od-asof");if(a&&a.nextSibling)b.insertBefore(d,a.nextSibling.nextSibling||null);else b.prepend(d);}catch(e){console.error("od decision",e);}};}
 const dcMd=v=>{try{return new Date(String(v)+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"});}catch(e){return String(v);}};
 {const _h=csHead;csHead=function(c,tag){const D=dcOf(c&&c.card);let h=_h(c,tag);if(!D)return h;return h.replace(/<span class="cs-hz">[\s\S]*?<\/span>/,`<span class="cs-hz">call runs to ${esc(dcMd(D.by))}</span>`);};}
