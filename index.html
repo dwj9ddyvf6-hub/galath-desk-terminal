@@ -929,7 +929,7 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
     <h1>How the desk works</h1>
     <p class="sub">Everything behind this page: where the data comes from, how a buy signal becomes a paper trade, how the desk keeps itself running, and how this site is updated.</p>
     <div class="card">
-      <p class="howp">The desk is a set of <b>rules-based trading strategies</b> (we call each one a <b>sleeve</b>) running on <b>two paper-trading accounts</b> with simulated money. One always-on program reads fresh buy signals, checks each sleeve's rules, sends limit orders, records every step, and publishes the results here.</p>
+      <p class="howp">The desk is a set of <b>rules-based trading strategies</b> (each one is called a <b>sleeve</b>) running on <b>two paper-trading accounts</b> with simulated money. One always-on program reads fresh buy signals, checks each sleeve's rules, sends limit orders, records every step, and publishes the results here.</p>
       <div class="sstat" id="howstats"></div>
     </div>
   </section>
@@ -1154,8 +1154,8 @@ function renderPass(V){
   const lv=String(lp.ledger_verify||"").toLowerCase()==="ok"&&lp.ledger_chain_ok!==false, ok=lp.completed!==false&&lv&&lp.status!=="attention";
   const kh=((D&&D.last_pass)||{}).health||{};
   const kron=!V.main&&kh.kronos_signal_day?(()=>{const n=kh.kronos_age_sessions, d=esc(mdy(kh.kronos_signal_day));
-    return n!=null&&n<=1?`<div>Kronos forecast</div><div>up to date (${d})</div>`
-      :`<div>Kronos forecast</div><div><span class="warnt">last updated ${d}${n!=null?`, ${n} trading days ago`:""}</span><span class="meta" style="display:block;font-weight:500">The Kronos sleeve keeps trading on that forecast until a new one arrives.</span></div>`;})():"";
+    return n!=null&&n<=1?`<div>AI price forecast</div><div>up to date (${d})</div>`
+      :`<div>AI price forecast</div><div><span class="warnt">last updated ${d}${n!=null?`, ${n} trading days ago`:""}</span><span class="meta" style="display:block;font-weight:500">The AI forecast sleeve keeps trading on that forecast until a new one arrives.</span></div>`;})():"";
   box.innerHTML=`<span class="status ${ok?"ok":"warn"}">● ${ok?"Running normally":"Needs a look"}</span>
     <div class="kv"><div>Engine</div><div>One loop runs both desks</div>
     <div>Last check</div><div>${esc(lp.at)}${lp.phase?` <span class="meta">(${slotTxt(lp.phase,lp.at)})</span>`:""}</div>
@@ -1747,20 +1747,22 @@ function drawHeat(V){
   const up=H.filter(h=>(h.unrealized_pct||0)>0).length;
   $v(V,"heatsub").textContent=`${H.length} holdings worth ${usd(hm.total_value_usd,0)} · ${up} in profit · tile size = position value, color = gain or loss`;
   const W=box.clientWidth||600, Ht=box.clientHeight||300;
-  const R=squarify(H.map(h=>Object.assign({},h,{v:h.value_usd})),0,0,W,Ht); V.heat.tiles=R;
+  const dup=new Set(H.map(h=>h.symbol).filter((s,i,a)=>a.indexOf(s)!==i));
+  const R=squarify(H.map(h=>Object.assign({},h,{v:h.value_usd,dup:dup.has(h.symbol)})),0,0,W,Ht); V.heat.tiles=R;
   box.innerHTML=R.map(r=>{const [bg,fg]=heatColor(r.unrealized_pct),big=r.w>70&&r.h>46,tiny=r.w<34||r.h<24;
-    return `<div class="tile" style="left:${r.x}px;top:${r.y}px;width:${r.w}px;height:${r.h}px;background:${bg};color:${fg}" title="${esc(r.symbol)}${r.name?" · "+esc(r.name):""} · ${usd(r.value_usd,0)} · ${sgn(r.unrealized_pct)} (${usd(r.unrealized_usd)})${r.why?" · Why: "+esc(r.why):r.strategy?" · "+esc(r.strategy):""}" data-i="${R.indexOf(r)}">${tiny?"":`<b>${esc(r.symbol)}</b><span>${sgn(r.unrealized_pct)}</span>${big?`<small>${usd(r.value_usd,0)}</small>`:""}`}</div>`;}).join("");
-  if(V.heat.sel&&V.heat.tiles.some(z=>z.symbol===V.heat.sel)) heatDetail(V,V.heat.sel);
+    return `<div class="tile" style="left:${r.x}px;top:${r.y}px;width:${r.w}px;height:${r.h}px;background:${bg};color:${fg}" title="${esc(r.symbol)}${r.dup&&r.strategy?" ("+esc(r.strategy)+")":""}${r.name?" · "+esc(r.name):""} · ${usd(r.value_usd,0)} · ${sgn(r.unrealized_pct)} (${usd(r.unrealized_usd)})${r.why?" · Why: "+esc(r.why):r.strategy?" · "+esc(r.strategy):""}" data-i="${R.indexOf(r)}">${tiny?"":`<b>${esc(r.symbol)}</b><span>${sgn(r.unrealized_pct)}</span>${big?`<small>${r.dup&&r.strategy?esc(r.strategy):usd(r.value_usd,0)}</small>`:""}`}</div>`;}).join("");
+  if(V.heat.sel&&V.heat.tiles.some(z=>hkey(z)===V.heat.sel)) heatDetail(V,V.heat.sel);
 }
-function heatDetail(V,sym){
-  const T=V.heat.tiles, r=T.find(z=>z.symbol===sym); if(!r) return;
-  V.heat.sel=sym; [...$v(V,"heatmap").children].forEach(t=>t.classList.toggle("sel",T[+t.dataset.i]&&T[+t.dataset.i].symbol===sym));
-  $v(V,"heatdet").innerHTML=`<b>${esc(r.symbol)}</b>${r.name?` · ${esc(r.name)}`:""}<br>${usd(r.value_usd,0)} · <span class="${cls(r.unrealized_pct)}">${sgn(r.unrealized_pct)} (${usd(r.unrealized_usd)})</span> unrealized${r.strategy?` · ${esc(r.strategy)} ${tbadge(V.main&&r.test)}`:""}<div class="why"><b>Why we took it:</b> ${esc(r.why||"—")}</div>`;
+function hkey(z){return z.symbol+"|"+(z.strategy||"");}   // L-116: one symbol can be held by two sleeves; a tile is symbol + sleeve
+function heatDetail(V,key){
+  const T=V.heat.tiles, r=T.find(z=>hkey(z)===key); if(!r) return;
+  V.heat.sel=key; [...$v(V,"heatmap").children].forEach(t=>t.classList.toggle("sel",T[+t.dataset.i]&&hkey(T[+t.dataset.i])===key));
+  $v(V,"heatdet").innerHTML=`<b>${esc(r.symbol)}</b>${r.name?` · ${esc(r.name)}`:""}<br>${usd(r.value_usd,0)} · <span class="${cls(r.unrealized_pct)}">${sgn(r.unrealized_pct)} (${usd(r.unrealized_usd)})</span> unrealized${r.strategy?` · ${esc(r.strategy)} ${tbadge(V.main&&r.test)}`:""}<div class="why"><b>Why it was bought:</b> ${esc(r.why||"—")}</div>`;
 }
 function renderLog(V){
   const L=V.d.closed_trades_log||[];
   if(!L.length){$v(V,"logt").innerHTML=`<tr><td class="empty" style="white-space:normal">${V.main?"No trades have closed yet. A trade is listed here once it is fully closed.":"No trades yet. A trade is listed here once it is fully closed."}</td></tr>`;return;}
-  $v(V,"logt").innerHTML=`<tr><th>Symbol</th><th>Sleeve</th><th>Entry</th><th>Exit</th><th class="r">Hold</th><th class="r">P&amp;L</th><th class="r">P&amp;L %</th><th>Why we took it</th></tr>`+
+  $v(V,"logt").innerHTML=`<tr><th>Symbol</th><th>Sleeve</th><th>Entry</th><th>Exit</th><th class="r">Hold</th><th class="r">P&amp;L</th><th class="r">P&amp;L %</th><th>Why it was bought</th></tr>`+
     (L.length?(V.lall||L.length<=12?L:L.slice(0,10)).map(c=>`<tr><td><b>${esc(c.symbol)}</b></td><td>${esc(exName(c.lane,c.strategy))} ${tbadge(V.main&&c.test)}</td><td class="nw">${esc(noYear(c.entry_date)||"—")}<br><span class="meta">${usd(c.entry_price)}</span></td><td class="nw">${esc(noYear(c.exit_date)||"—")}<br><span class="meta">${usd(c.exit_price)}</span></td><td class="r nw">${days(c.hold_days)}</td><td class="r ${cls(c.pnl_usd)}">${usd(c.pnl_usd)}</td><td class="r ${cls(c.pnl_pct)}">${sgn(c.pnl_pct)}</td><td class="why" style="min-width:200px">${esc(c.why||"—")}</td></tr>`).join("")+(L.length>12?`<tr><td colspan="8"><div class="showall"><button class="chip more" data-logmore="${V.main?"m":"t"}">${V.lall?"Show fewer":`Show all ${L.length}`}</button></div></td></tr>`:""):
     `<tr><td colspan="8" class="empty">${V.main?"No trades have closed yet. A trade is listed here once it is fully closed.":"No trades yet. A trade is listed here once it is fully closed."}</td></tr>`);
 }
@@ -2574,8 +2576,8 @@ $("clscchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;CL.scr
 [VM,VT].forEach(V=>{
   $v(V,"cchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;V.mode=b.dataset.v;[...$v(V,"cchips").children].forEach(c=>c.classList.toggle("on",c===b));drawChart(V);};
   $v(V,"lchips").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;V.lf=b.dataset.l;renderPositions(V);};
-  $v(V,"heatmap").addEventListener("click",e=>{const t=e.target.closest(".tile");if(t&&V.heat.tiles[+t.dataset.i])heatDetail(V,V.heat.tiles[+t.dataset.i].symbol);});
-  $v(V,"heatmap").addEventListener("mouseover",e=>{const t=e.target.closest(".tile");if(t&&V.heat.tiles[+t.dataset.i]&&window.matchMedia("(hover:hover)").matches)heatDetail(V,V.heat.tiles[+t.dataset.i].symbol);});
+  $v(V,"heatmap").addEventListener("click",e=>{const t=e.target.closest(".tile");if(t&&V.heat.tiles[+t.dataset.i])heatDetail(V,hkey(V.heat.tiles[+t.dataset.i]));});
+  $v(V,"heatmap").addEventListener("mouseover",e=>{const t=e.target.closest(".tile");if(t&&V.heat.tiles[+t.dataset.i]&&window.matchMedia("(hover:hover)").matches)heatDetail(V,hkey(V.heat.tiles[+t.dataset.i]));});
 });
 document.querySelectorAll(".nav a").forEach(a=>a.addEventListener("click",()=>{document.querySelectorAll(".nav a").forEach(x=>x.classList.toggle("on",x===a));}));
 window.addEventListener("resize",()=>{if(!$("tab-cl").hidden){clDraw();return;}if(D){const T=!$("tab-test").hidden?VT:VM;drawChart(T);try{drawHeat(T);renderBeta(T);}catch(e){}swipeHints();}});
