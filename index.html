@@ -1120,7 +1120,7 @@ function renderLanes(V){
   if(V.main){
     const on=exs.filter(e=>e.state==="On"), off=exs.filter(e=>e.state!=="On");
     const used=sz.committed_usd!=null?sz.committed_usd:on.reduce((s,e)=>s+((byId[e.id]||{}).committed_usd||0),0), tb=sz.budget_total_usd;
-    $v(V,"lanesub").textContent=`A sleeve is one strategy with its own rules and its own budget for new buys. Tap any sleeve to see exactly how it works. In use: ${usd(used,0)}${tb?` of ${usd(tb,0)} budgeted`:""} (holdings at cost plus queued orders). Nothing is sold to make room; a full sleeve waits for a position to close.`;
+    $v(V,"lanesub").textContent=`A sleeve is one strategy with its own rules and its own budget for new buys. Tap any sleeve to see exactly how it works. In use: ${usd(used,0)}${tb?` of ${usd(tb,0)} budgeted`:""} (holdings at cost plus queued orders). Sleeve budgets are ceilings for new buys, not money set aside, so together they can add up to more than the account; every buy also needs free cash. Nothing is sold to make room; a full sleeve waits for a position to close.`;
     $v(V,"alloc").innerHTML=allocHTML(exs.map(e=>({label:e.name,v:(byId[e.id]||{}).committed_usd||0})),k$(used),tb?`of ${k$(tb)} in use`:"in use","Money in use by sleeve");
     box.innerHTML=(on.map(row).join("")+off.map(row).join("")+loose.map(l=>sleeveRow(V,null,l,{})).join(""))||`<div class="empty">No sleeves on file yet.</div>`;
   } else {
@@ -1175,7 +1175,7 @@ function dataDay(){return String((D&&D.generated_at_iso)||"").slice(0,10);}
 function isDataToday(){return dataDay()===new Date().toLocaleDateString("en-CA",{timeZone:"America/New_York"});}
 function dayWord(){return isDataToday()?"today":mdy(dataDay());}
 function chkLbl(){return isDataToday()?"Today's check":`${mdy(dataDay())} check`;}
-const noYear=s=>{const t=String(s||""),m=/,\s*(20\d\d)\b/.exec(t);return m&&+m[1]!==new Date().getFullYear()?t:t.replace(/,\s*20\d\d\b/,"");};   // L-102: a date in another year keeps its year (Oct 8, 2027 is not a past date)
+const noYear=s=>{const t=String(s||""),m=/,\s*(20\d\d)\b/.exec(t);return m&&+m[1]!==new Date().getFullYear()?t:t.replace(/,\s*20\d\d\b/,"");};   // L-103: a date in another year keeps its year (Oct 8, 2027 is not a past date)
 const coName=s=>String(s||"").replace(/,?\s*(Inc\.?|Corp\.?|Ltd\.?)?\s*(Class [A-Z] )?(Common Stock|Ordinary Shares|Common Shares|American Depositary Shares)\b.*$/i,(m,a)=>a?", "+a:"").replace(/,\s*$/,"");
 function gateShort(g,lbl){g=String(g||""); if(!g) return "";
   const i=g.indexOf(":"), v=i>0?g.slice(0,i).trim():"", segs=(i>0?g.slice(i+1):g).split(/[;|]/).map(x=>x.trim()).filter(Boolean);
@@ -1679,7 +1679,7 @@ function renderBeta(V){
   $v(V,"betalanes").innerHTML=(b.lanes||[]).filter(l=>l.holdings>0).map(l=>`<span class="bl"><b>${esc(exName(l.lane,l.label))}</b> · ${l.holdings} holding${l.holdings===1?"":"s"}${l.value_usd!=null?" · "+usd(l.value_usd,0):""}</span>`).join("");
   $v(V,"betanote").textContent=String(b.method_text||"");
   const pts=(b.history||[]).filter(p=>p.return_on_cost_pct!=null||p.iwm_since_start_pct!=null), wrap=$v(V,"betawrap");
-  const cbox=wrap.closest(".chart"); if(cbox) cbox.hidden=pts.length<2;   // L-109: no chart frame until there is a line to draw
+  const cbox=wrap.closest(".chart"); if(cbox) cbox.hidden=pts.length<2;   // L-110: no chart frame until there is a line to draw
   if(pts.length<2){wrap.innerHTML="";return;}
   const W=Math.max(300,Math.min(1040,wrap.clientWidth||600)),H=200,pl=8,pr=58,pt=12,pb=26;
   const vals=pts.flatMap(p=>[p.return_on_cost_pct,p.iwm_since_start_pct].filter(v=>v!=null));
