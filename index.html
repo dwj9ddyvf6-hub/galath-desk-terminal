@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="ec38b8aa6404">
+<meta name="gb-build" content="3ae9cc2c69a4">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -1389,13 +1389,13 @@ function bsCRCard(c,cr){
    ${cr.structure?`<p class="meta"><b>Structure screen:</b> ${esc(cr.structure.verdict)}${(cr.structure.reasons||[]).length?" ("+esc(cr.structure.reasons.join("; "))+")":""}.</p>`:""}
    <details><summary>How the chart read works</summary><p class="meta">${esc((BSR&&BSR.method)||"")}</p><p class="meta">${esc((BSR&&BSR.study_note)||"")}</p></details>`;
 }
-const BSDR_ORDER=["against","leaning_against","mixed","leaning","strong"], BSDR_COL={against:"#b0342e",leaning_against:"#e07b39",mixed:"#9aa5ad",leaning:"#5fb98a",strong:"#18744f"};
+const BSDR_ORDER=["against","leaning_against","two_sided","leaning","strong"], BSDR_COL={against:"#b0342e",leaning_against:"#e07b39",two_sided:"#9aa5ad",leaning:"#5fb98a",strong:"#18744f"};
 function bsDRBadge(c){const d=c.desk;if(!d)return "";return ` <span class="bs-dr" title="Desk read: judgment synthesis, being measured; never adds points"><i style="background:${BSDR_COL[d.g]||"#9aa5ad"}"></i>Desk: ${esc(d.w)}</span>`;}
 function bsDRHead(c){const d=c.desk;if(!d)return `<h2>Desk read</h2>`;
   return `<h2>Desk read <span class="meta">judgment synthesis, being measured</span></h2>
    <div class="drw" style="color:${BSDR_COL[d.g]||"inherit"}">${esc(d.w)}</div>
    <div class="drg" role="img" aria-label="Gut call: ${esc(d.w)}">${BSDR_ORDER.map(k=>`<span class="${k===d.g?"on":""}" style="background:${BSDR_COL[k]}"></span>`).join("")}</div>
-   <div class="drgl"><span>Against</span><span>Mixed</span><span>Strong</span></div>
+   <div class="drgl"><span>Against</span><span>Strong</span></div>
    <p class="drl">The whole picture the way a senior desk would weigh it: what is unusual and trustworthy rises, the rest fades. It never adds points to the score; it can only add one named warning, and every read is logged and scored forward.</p>`;}
 function bsDRFill(c,R0){
   const RR=R0||BSR, el=$("bsdr"); if(!el||!RR) return; const d=(RR.desk||{})[c.symbol];
@@ -1410,7 +1410,7 @@ function bsDRFill(c,R0){
    ${(d.conflicts||[]).length?`<h3>Conflicts</h3><ul class="drc">${d.conflicts.map(x=>`<li>${esc(x.text)}</li>`).join("")}</ul>`:`<p class="meta">No strong factors disagree.</p>`}
    ${d.capped?`<p class="meta"><b>Veto:</b> ${esc(d.capped)}.</p>`:""}
    <details><summary>Also considered (${rest.length})</summary><ul class="drf">${rest.map(li).join("")}</ul></details>
-   <details><summary>How the desk read works</summary><p class="meta">Every factor gets a salience: how unusual it is right now (a percentile against its own history or the whole universe) times how much the canon trusts it (evidence grade E 1.0, S 0.75, H 0.5, J 0.25; fixed, never fitted). One family, one vote: the strongest factor of each family speaks for it. The gut call is the salience-weighted balance of those voices (${d.families} families from ${d.n_in} measured factors of ${d.n_factors}); broken structure caps it at mixed. Missing or stale inputs are absent, never bearish.</p>
+   <details><summary>How the desk read works</summary><p class="meta">Every factor gets a salience: how unusual it is right now (a percentile against its own history or the whole universe) times how much the canon trusts it (evidence grade E 1.0, S 0.75, H 0.5, J 0.25; fixed, never fitted). One family, one vote: the strongest factor of each family speaks for it. The gut call is the salience-weighted balance of those voices (${d.families} families from ${d.n_in} measured factors of ${d.n_factors}); broken structure caps it at two-sided. Missing or stale inputs are absent, never bearish.</p>
    ${G?`<p class="meta"><b>Gestalt Inventory coverage:</b> all ${G.n} components accounted for: ${G.used} feed factors, ${G.rules} are rules this read follows, ${G.na} are not per-setup inputs (research history, engine, operations), ${G.lacking} lack data on this box: ${(G.lacking_list||[]).map(x=>esc(x.why)).join("; ")}.</p>`:""}</details>
    <p class="meta"><b>${R0?"On-demand reads track record":"Desk read track record"}:</b> ${T?`${T.logged||0} reads logged since ${esc(T.since||"today")}; ${esc(T.status||"dormant")}. `:""}${esc((T&&T.note)||"Every Desk read is logged before outcomes and scored at 5, 20 and 60 sessions against SPY; it earns no weight until it proves out.")}</p>`;
 }
@@ -2681,7 +2681,7 @@ function ngClean(root){try{
 .dc-cv{display:inline-block;font-size:.74rem;font-weight:700;color:#33434d;border:1px solid #c9d2d8;border-radius:5px;padding:1px 6px;vertical-align:middle}.dc-cv.Top{background:#1d2a33;color:#fff;border-color:#1d2a33}.dc-cv.High{background:#e8eef2}
 .dc-call{font-size:.9rem;line-height:1.4;margin:.25em 0;color:#1d2a33;background:#f4f6f8;border-radius:6px;padding:5px 8px}.dc-call b{font-weight:750}
 .dc-fact{font-size:.86rem;line-height:1.4;margin:.25em 0;color:#26343d}.dc-fact b{color:#0f6b45}.dc-short .dc-fact b{color:#a12a22}
-#bstrack{display:none!important}.dc-box{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4em;margin:.4em 0;padding:0}.dc-box div{background:#f3f7f5;border-radius:6px;padding:.35em .5em}.dc-box dt{font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:#5a6b74;margin:0}.dc-box dd{margin:0;font-weight:600;font-size:.9rem;color:#14232c}.dc-short .dc-box div{background:#fbf1f0}.dc-if{display:block;font-weight:400;font-size:.74rem;color:#5a6b74}@media(max-width:480px){.dc-box{grid-template-columns:1fr}}
+#bstrack,.bs-dr,.drw,.drg,.drgl{display:none!important}.dc-box{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4em;margin:.4em 0;padding:0}.dc-box div{background:#f3f7f5;border-radius:6px;padding:.35em .5em}.dc-box dt{font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;color:#5a6b74;margin:0}.dc-box dd{margin:0;font-weight:600;font-size:.9rem;color:#14232c}.dc-short .dc-box div{background:#fbf1f0}.dc-if{display:block;font-weight:400;font-size:.74rem;color:#5a6b74}@media(max-width:480px){.dc-box{grid-template-columns:1fr}}
 .dc-desk{font-size:.82rem;line-height:1.4;margin:.3em 0;color:#6b4e00;background:#fbf6ec;border-radius:6px;padding:4px 8px}
 .dc-basis{font-size:.8rem;color:#4a5963;line-height:1.45}.dc-ag li{font-size:.84rem}`;document.head.appendChild(st);})();
 const dcOf=k=>(k&&k.decision)||null;
