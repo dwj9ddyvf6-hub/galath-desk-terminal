@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="d3a9f57f2278">
+<meta name="gb-build" content="ec38b8aa6404">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -2235,7 +2235,7 @@ function plBox(p){p=plN(p);if(!p)return "";const C=p.confidence||{};
 function plMore(p){p=plN(p);if(!p)return "";
   return `<details class="card bsplan pl-more" id="bsplan2"><summary>Hold, what the desk does, and the fine print</summary><div class="pl-dl"><p><b>Expected hold:</b> ${esc(p.hold||"")}</p><p><b>What the desk does:</b> ${esc(p.desk||"")}</p>${p.read_note?`<p><b>Desk read vs this call:</b> ${esc(p.read_note)}</p>`:""}
    ${p.tier_cap_exempt?`<p><b>Why a BUY IF on a low-score name:</b> ${esc(p.tier_cap_exempt)}.</p>`:""}</div>
-   <p class="meta">Built only from the measured numbers on this page; it never adds points, and the chart read is context, not edge. Paper trading, not advice.</p></details>`;}
+   <p class="meta">Built only from the measured numbers on this page; it never adds points, and the chart read is context, not edge.</p></details>`;}
 let PLLAST=null;
 function plMove(){try{const cr=$("bscr");if(!cr)return;const sv=cr.querySelector(":scope > svg.crc");if(!sv)return;let b=$("bsplan");if(!b&&PLLAST){sv.insertAdjacentHTML("afterend",plBox(PLLAST));b=$("bsplan");}else if(b&&sv.nextElementSibling!==b)sv.after(b);if(b)b.classList.add("pl-in");}catch(e){console.error("plMove",e);}}
 function plPlace(p){try{PLLAST=p||null;if(!p||$("bsplan"))return plMove();const c=$("bscr"),a=c||$("bsdr");if(!a)return;if(c){c.insertAdjacentHTML("afterend",plMore(p));c.insertAdjacentHTML("afterend",plBox(p));}else{a.insertAdjacentHTML("beforebegin",plBox(p));a.insertAdjacentHTML("afterend",plMore(p));}plMove();}catch(e){console.error("plan",e);}}   /* BS-98 (Galath 10:58): header, then the chart with its RSI/MACD panes, then the plan box, then everything else */
@@ -2282,7 +2282,7 @@ function rdPred(c,long){const p=c.prediction;if(!p)return "";
     return s;}
   return `<b>${Math.round(p.p)}% finished up</b> vs ${Math.round(p.base)}% for any stock bought the same way${p.weak?": <b>no better than a random stock bought the same way</b>":""}`+
    (p.med!=null?` · typical ${rdS(p.med)}${p.mid?` (middle half ${rdS(p.mid[0])} to ${rdS(p.mid[1])})`:""} over ${esc(c.horizon||"the hold")}`:"")+
-   ` · ${Number(p.n).toLocaleString()} past trades`+(!long&&p.scope==="strategy-level"?` · same for every ${sl} name`:"")+(long?`. ${p.scope==="strategy-level"?"Strategy-level: every name from this strategy shares this number; a per-name estimate ships only after it beats this one out of sample.":""} As of the ${esc(p.as_of||"")} close.`:"");}
+   ` · ${Number(p.n).toLocaleString()} past trades`+(!long&&p.scope==="strategy-level"?` · same for every ${sl} name`:"")+(long?`. ${p.scope==="strategy-level"?"Strategy-level: every name from this strategy shares this number.":""} As of the ${esc(p.as_of||"")} close.`:"");}
 function rdLv(c){const p=c.plan||{},P=c.last_close,e=p.entry,s=p.stop,t=p.target;if(!e||!s||!t||!P)return "";const B=e.hi,q=v=>rdS((v/B-1)*100);
   return `<div class="rd-lv"><div class="e"><i>${c.role==="setup"?"Buy":"Desk buys"}</i><b>${rdF(e.lo)}–${rdF(e.hi)}</b></div><div class="s"><i>Stop</i><b>${rdF(s.v)}</b> ${q(s.v)}</div><div class="t"><i>Target</i><b>${rdF(t.v)}</b> ${q(t.v)}</div></div>`+
    `<p class="meta">Stop and target % are from the top of the buy zone. Last close ${rdF(P)} on ${esc(c.last_close_day||"")}${c.rr!=null&&!c.rr_note?` · reward vs risk ${Number(c.rr).toFixed(2)} to 1`:""}</p>`;}
@@ -2394,7 +2394,7 @@ cvCard=function(c){const k=c.card;return `<article class="card bs-card rd-card c
 cvFull=function(c){const k=c.card,pr=csPr(k),cf=k.confluence,tn=k.tensor||{};let h="";
   if(cf&&cf.n&&k.plan&&k.plan.stop!=null)h+=`<h3>What holds the floor</h3><p>${cf.n} things meet in ${cvD(c,"stop")}–${cvD(c,"stop_zone_hi")}: ${cf.items.map(esc).join(", ")}.</p>`;
   const tl=["1wk","1d","1h"].filter(t=>tn[t]).map(t=>`${tn[t].label} trend ${esc(tn[t].trend)}${tn[t].short?`, short-term ${esc(tn[t].short)}`:""}`);
-  if(tl.length)h+=`<h3>Tensor</h3><p>${tl.join("; ")}.</p>`;
+  if(tl.length)h+=`<h3>Trend by timeframe</h3><p>${tl.join("; ")}.</p>`;
   const cx=k.context||[];if(cx.length)h+=`<h3>The measured backdrop</h3><ul class="cs-ctx">${cx.map(x=>`<li class="${x.dir>0?"p":x.dir<0?"m":""}">${esc(x.label)}: ${esc(x.text)}</li>`).join("")}</ul>`;
   if(k.desk_plain)h+=`<h3>How the desk trades it</h3><p>${esc(k.desk_plain)}</p>`;
   const co=k.considered||[];if(co.length){const li=x=>`<li><b>${esc(x.label)}</b>: ${esc(x.value!=null?x.value:"not available ("+x.na+")")}. <i>${esc(x.why||"")}</i></li>`;
@@ -2696,6 +2696,11 @@ function dcBox(D){const e=D.entry||{},sh=D.dir==="short",z=(e.lo!=null&&e.hi!=nu
 function dcPlay(k){const p=csPr(k),D=dcOf(k);return esc(p?p.play:((k.fallback||{}).play||D.call));}
 {const _c=cvCard;cvCard=function(c){const k=c.card,D=dcOf(k);if(!D)return _c(c);
   return `<article class="card bs-card rd-card cv-card cs-card dc-${D.dir}" id="${esc(c.id)}">${csHead(c)}${dcFace(c)}<p class="cs-play">${dcPlay(k)}</p><a class="bs-open" href="#${esc(c.id)}">Setup page →</a></article>`;};}
+function dcDeskCounts(D){const m=(D&&D.positions)||[],t=((D&&D.second_desk)||{}).positions||[];
+  const mq=m.filter(p=>p.status==="queued"||p.status==="entry_pending"),mh=m.filter(p=>p.status==="open"),tq=t.filter(p=>p.queued),th=t.filter(p=>!p.queued);
+  return {main:{queued:mq.map(p=>p.symbol),held:mh.map(p=>p.symbol)},test:{queued:tq.map(p=>p.symbol),held:th.map(p=>p.symbol)}};}
+rdDesk=function(){if(typeof D==="undefined"||!D)return "";const C=dcDeskCounts(D),row=(lab,x)=>`<p><b>${lab}: ${x.queued.length} queued, ${x.held.length} held</b>${x.queued.length?`<br><span class="meta">Queued:</span> ${x.queued.map(esc).join(" · ")}`:""}${x.held.length?`<br><span class="meta">Held:</span> ${x.held.map(esc).join(" · ")}`:""}</p>`;
+  return `<div class="card rd-desk" id="bsdesk"><h2>Desk today</h2>${row("Main desk",C.main)}${row("Test desk",C.test)}</div>`;};
 {const _p=cvPage;cvPage=function(c){const k=c.card,D=dcOf(k);if(!D)return _p(c);const pr=csPr(k);
   const st=pr?pr.story.map(x=>`<p>${esc(x)}</p>`).join(""):"";const tie=((D.basis||"").match(/Near-even[^.]*\./)||[""])[0];
   return (`<div class="dc-${D.dir}">${csHead(c,"h1")}${dcFace(c,1)}</div>
