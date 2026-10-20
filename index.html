@@ -652,9 +652,9 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
     <p class="sub" id="betasub"></p>
     <div class="grid" id="betastats"></div>
     <div id="betalanes" class="betalanes"></div>
-    <div class="chart" style="margin-top:12px"><div class="top"><span class="tk">Small-cap sleeves vs IWM</span><span class="brandtag">return since start · <b>daily</b></span></div>
+    <div class="chart" style="margin-top:12px"><div class="top"><span class="tk">Small-cap holdings vs IWM</span><span class="brandtag">return since start · <b>daily</b></span></div>
       <div id="betawrap"></div>
-      <div class="legend"><span><i style="background:#7ee0c3"></i>Small-cap sleeves (return on cost)</span><span><i style="background:#f2d68a"></i>IWM since desk start</span></div>
+      <div class="legend"><span><i style="background:#7ee0c3"></i>Small-cap holdings (return on cost)</span><span><i style="background:#f2d68a"></i>IWM over the same period</span></div>
     </div>
     <p class="meta" id="betanote" style="margin-top:10px;line-height:1.5"></p>
   </section>
@@ -765,7 +765,7 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
     <div id="t2betalanes" class="betalanes"></div>
     <div class="chart" style="margin-top:12px"><div class="top"><span class="tk">Test desk holdings vs IWM</span><span class="brandtag">return since start · <b>daily</b></span></div>
       <div id="t2betawrap"></div>
-      <div class="legend"><span><i style="background:#7ee0c3"></i>Test desk holdings (return on cost)</span><span><i style="background:#f2d68a"></i>IWM since desk start</span></div>
+      <div class="legend"><span><i style="background:#7ee0c3"></i>Test desk holdings (return on cost)</span><span><i style="background:#f2d68a"></i>IWM over the same period</span></div>
     </div>
     <p class="meta" id="t2betanote" style="margin-top:10px;line-height:1.5"></p>
   </section>
@@ -1673,8 +1673,8 @@ function renderBeta(V){
     [gl?`${esc(gl)} long exposure`:"Small-cap long exposure",usd(b.value_usd,0),b.equity_pct!=null?`${b.equity_pct.toFixed(2)}% of equity · ${b.holdings} holding${b.holdings===1?"":"s"}`:`${b.holdings??0} holding${b.holdings===1?"":"s"}`,"flat"],
     (b.holdings!=null&&b.holdings>0&&b.holdings<3)?["Beta to IWM","—",`n=${b.holdings}, not meaningful`,"flat"]:["Beta to IWM",b.beta_iwm==null?"—":b.beta_iwm.toFixed(2),b.beta_iwm==null?(b.holdings?"not enough price history":"no filled holdings"):(b.beta_coverage_pct!=null&&b.beta_coverage_pct<100?`covers ${b.beta_coverage_pct.toFixed(0)}% of the value`:"market-value weighted"),"flat"],
     (b.holdings!=null&&b.holdings>0&&b.holdings<3)?["IWM-equivalent","—","not meaningful with so few holdings","flat"]:["IWM-equivalent",usd(b.iwm_equivalent_usd,0),"exposure that acts like owning IWM","flat"],
-    [gl?`${esc(gl)} P&L`:"Small-cap sleeves P&L",usd(b.pnl_usd),b.return_on_cost_pct!=null?`${sgn(b.return_on_cost_pct)} on cost`:"",cls(b.pnl_usd)],
-    ["IWM since desk start",sgn(b.iwm_since_start_pct),asOf?(b.as_of===new Date().toLocaleDateString("en-CA",{timeZone:"America/New_York"})?`latest price ${asOf}`:`close ${asOf}`):"",cls(b.iwm_since_start_pct)],
+    [gl?`${esc(gl)} P&L`:"Small-cap holdings P&L",usd(b.pnl_usd),b.return_on_cost_pct!=null?`${sgn(b.return_on_cost_pct)} on cost`:"",cls(b.pnl_usd)],
+    ["IWM over the same period",sgn(b.iwm_since_start_pct),asOf?(b.as_of===new Date().toLocaleDateString("en-CA",{timeZone:"America/New_York"})?`latest price ${asOf}`:`close ${asOf}`):"",cls(b.iwm_since_start_pct)],
   ].map(([l,v,s,c])=>`<div class="stat"><div class="l">${l}</div><div class="v">${v}</div><div class="s ${c}">${s}</div></div>`).join("");
   $v(V,"betalanes").innerHTML=(b.lanes||[]).filter(l=>l.holdings>0).map(l=>`<span class="bl"><b>${esc(exName(l.lane,l.label))}</b> · ${l.holdings} holding${l.holdings===1?"":"s"}${l.value_usd!=null?" · "+usd(l.value_usd,0):""}</span>`).join("");
   $v(V,"betanote").textContent=String(b.method_text||"");
@@ -1688,7 +1688,7 @@ function renderBeta(V){
   const line=k=>pts.map((p,i)=>p[k]==null?null:[x(i),y(p[k])]).filter(Boolean).map((q,i)=>(i?"L":"M")+q[0].toFixed(1)+" "+q[1].toFixed(1)).join(" ");
   let g="";for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4;g+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v)}" y2="${y(v)}" stroke="#454a5e"/><text x="${W-pr+8}" y="${y(v)+4}" fill="#9aa3b8" font-size="11">${(v>0?"+":"")+v.toFixed(2)}%</text>`;}
   const lab=[...new Set([0,pts.length-1])].map(i=>`<text x="${x(i)}" y="${H-8}" fill="#9aa3b8" font-size="11" text-anchor="${i?"end":"start"}">${esc(new Date(pts[i].date+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}))}</text>`).join("");
-  wrap.innerHTML=`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="${gl?esc(gl):"Small-cap sleeves"} return vs IWM">${g}<line x1="${pl}" x2="${W-pr}" y1="${y(0)}" y2="${y(0)}" stroke="#8a91a6" stroke-dasharray="4 4"/>
+  wrap.innerHTML=`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="${gl?esc(gl):"Small-cap holdings"} return vs IWM">${g}<line x1="${pl}" x2="${W-pr}" y1="${y(0)}" y2="${y(0)}" stroke="#8a91a6" stroke-dasharray="4 4"/>
     <path d="${line("iwm_since_start_pct")}" fill="none" stroke="#f2d68a" stroke-width="2" stroke-dasharray="5 3"/><path d="${line("return_on_cost_pct")}" fill="none" stroke="#7ee0c3" stroke-width="2.6"/>${lab}</svg>`;
 }
 // ---- 2026-10-05 second desk (data key: second_desk). Its own paper account; nothing here feeds the main desk figures above.
