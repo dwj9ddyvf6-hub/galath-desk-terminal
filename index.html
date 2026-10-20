@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="fc0b66985780">
+<meta name="gb-build" content="f684d04626cd">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -604,7 +604,7 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
     <p class="kicker">Best setups · strongest evidence first</p>
     <h1 id="besth">Best setups</h1>
     <p class="sub" id="bestsub">Every signal from every sleeve on both desks, ranked by how strong the evidence behind its strategy is. Tap a card for the reasons; tap a sleeve to see exactly how it trades.</p>
-    <form class="card od-box bs-p11" id="odform" autocomplete="off" novalidate><label for="odsym"><b>Analyze any ticker</b></label><div class="od-row"><input id="odsym" name="sym" type="text" inputmode="text" autocapitalize="characters" autocorrect="off" spellcheck="false" maxlength="8" placeholder="e.g. AAPL" aria-describedby="odhint"><button type="submit" class="chip on" id="odgo">Analyze</button></div><p class="meta" id="odhint">The chart read, divergence scan and Desk read for any US stock or ETF, run on the desk computer.</p></form>
+    <form class="card od-box bs-p11" id="odform" autocomplete="off" novalidate><label for="odsym"><b>Analyze any ticker</b></label><div class="od-row"><input id="odsym" name="sym" type="text" inputmode="text" autocapitalize="characters" autocorrect="off" spellcheck="false" maxlength="8" placeholder="e.g. AAPL" aria-describedby="odhint"><button type="submit" class="chip on" id="odgo">Analyze</button></div><p class="meta" id="odhint">The chart read and the one-call trade for any US stock or ETF.</p></form>
     <div class="bs-mkt" id="bsmkt"></div>
     <div class="bs-shelves" role="tablist" aria-label="Shelf"><button class="chip on" type="button" data-shelf="week" id="bsshw">This week</button><button class="chip" type="button" data-shelf="long" id="bsshl">Long holds</button></div>
     <p class="meta" id="bsshsub"></p>
@@ -1476,7 +1476,7 @@ function bsAlerts(){
   else if(ios&&!standalone) h+=`<p class="meta">You are in Safari: do step 1 first, then open this panel from the Home Screen app.</p>`;
   else if(!can) h+=`<p class="meta">This browser cannot receive web alerts. On iPhone use iOS 16.4 or newer and the Home Screen app.</p>`;
   else h+=`<button class="chip" type="button" id="bsenable">${on?"Alerts are on ✓ (tap to re-send setup)":"Enable alerts"}</button><div id="bsstat" class="meta" aria-live="polite"></div>`;
-  h+=`<p class="meta">You get a 9:00 AM ET digest of the top setups, then only new top setups, a top setup the desk just bought, or a fear-day buy coming up. At most 6 a day, nothing between 9 PM and 7 AM ET. Tapping an alert opens its card.</p>`;
+  h+=`<p class="meta">You get a 9:00 AM ET digest of the top setups, then only new top setups. At most 6 a day, nothing between 9 PM and 7 AM ET. Tapping an alert opens its card.</p>`;
   if($("bsalerts").dataset.h===h) return; $("bsalerts").dataset.h=h; $("bsalerts").innerHTML=h;
   const b=$("bsenable"); if(b) b.onclick=async()=>{
     const st=$("bsstat"); b.disabled=true; st.textContent="Asking for permission…";
@@ -2288,7 +2288,7 @@ function rdPred(c,long){const p=c.prediction;if(!p)return "";
 function rdLv(c){const p=c.plan||{},P=c.last_close,e=p.entry,s=p.stop,t=p.target;if(!e||!s||!t||!P)return "";const B=e.hi,q=v=>rdS((v/B-1)*100);
   return `<div class="rd-lv"><div class="e"><i>${c.role==="setup"?"Buy":"Desk buys"}</i><b>${rdF(e.lo)}–${rdF(e.hi)}</b></div><div class="s"><i>Stop</i><b>${rdF(s.v)}</b> ${q(s.v)}</div><div class="t"><i>Target</i><b>${rdF(t.v)}</b> ${q(t.v)}</div></div>`+
    `<p class="meta">Stop and target % are from the top of the buy zone. Last close ${rdF(P)} on ${esc(c.last_close_day||"")}${c.rr!=null&&!c.rr_note?` · reward vs risk ${Number(c.rr).toFixed(2)} to 1`:""}</p>`;}
-function rdRole(c){if(c.role==="setup")return c.grade_cap?`<p class="rd-not">${esc(c.grade_cap)}</p>`:"";const dq=c.plan&&c.plan.desk_queued?" The desk's own rule may still buy it on a fear day (see Desk today).":"";
+function rdRole(c){if(c.role==="setup")return c.grade_cap?`<p class="rd-not">${esc(c.grade_cap)}</p>`:"";const dq="";/* bs-309 */
   if(c.role==="closest")return `<p class="rd-not">Closest to a setup: grade ${esc(c.grade)}, not a buy yet.${dq}</p>`;
   if(c.role==="best_available")return `<p class="rd-not">Best available, grade ${esc(c.grade)}: not a buy${c.not_buy?` (${esc(c.not_buy)})`:""}.${dq}</p>`;
   return `<p class="rd-not">Not on today's list: grade ${esc(c.grade)}${c.grade==="C"?", not a buy":""}${c.not_buy?` (${esc(c.not_buy)})`:""}.${dq}</p>`;}
@@ -2321,13 +2321,13 @@ async function rdJump(){const h=decodeURIComponent(location.hash.slice(1));if(!/
    if(BSR&&BSRM){BSR.reads=Object.assign(BSR.reads||{},BSRM.reads||{});BSR.desk=Object.assign(BSR.desk||{},BSRM.desk||{});}}}catch(e){console.error("rd reads",e);}return _l(c);};}
 {const _rb=renderBest;renderBest=function(){if(!rdOn())return _rb();try{
   const m=BS.market||{},S=BS.setups||[];{const k=document.querySelector("#best-setups .kicker");if(k)k.textContent=(S.some(c=>c&&c.card)?"Setups · how the chart is set up":"Setups · how the chart is set up");if($("bestsub"))$("bestsub").textContent=S.some(c=>c&&c.card)?"A short list, strongest evidence first. Each card describes what the chart is doing and how a trader would play it.":"A short list, strongest evidence first. Each card says plainly whether it is a buy.";}[".bs-shelves"].forEach(s=>{const e=document.querySelector(s);if(e)e.hidden=true;});["bsshsub","bsmore","bslc"].forEach(i=>{if($(i))$(i).hidden=true;});
-  $("bsmkt").textContent=`${BS.market_line||m.note||""}${(BS.stale_layers||[]).length?" Some inputs are stale and count as missing: "+BS.stale_layers.join(", ")+".":""}`;
+  $("bsmkt").textContent=bsPub(BS.market_line||m.note||"");/* bs-309 */
   const real=S.filter(c=>c.role==="setup").length;
   const nt=BS.top_note?`<div class="card rd-note"><b>${esc(BS.top_note)}</b></div>`:"",up=S.filter(c=>c.role!=="best_available"),ba=S.filter(c=>c.role==="best_available");
   let h=real?up.map(rdCard).join("")+(ba.length?nt+ba.map(rdCard).join(""):""):(nt||`<div class="card rd-note"><b>No setup qualifies today.</b></div>`)+S.map(rdCard).join("");$("bscards").innerHTML=h||`<div class="card"><p class="empty">Nothing to show right now.</p></div>`;
   let dk=$("bsdeskw");if(!dk){dk=document.createElement("div");dk.id="bsdeskw";$("bscards").after(dk);}dk.innerHTML=rdDesk();
   const f=$("odform");if(f&&dk.nextElementSibling!==f)dk.after(f);
-  const T=BS.track_record||{};$("bstrack").innerHTML=`<b>Track record</b> <span class="meta">${T.days_logged?`${T.days_logged} trading day${T.days_logged>1?"s":""} logged since ${esc(T.since)}`:"starts with the first morning digest"}. ${esc(T.note||"")}</span>`;
+  const T=BS.track_record||{};$("bstrack").innerHTML=`<b>Track record</b> <span class="meta">Every call is scored against SPY 5, 20 and 60 trading days after it publishes${T.since?`, starting ${esc(bsDay(T.since))}`:""}.</span>`;/* bs-309: no log/status notes */
   $("bsmethod").innerHTML=[].concat(BS.method||[]).map(x=>`<p>${esc(x)}</p>`).join("");bsAlerts();}catch(e){console.error("rd list",e);_rb();}};}
 {const _j=bsJump;bsJump=function(){if(!rdOn())return _j();rdJump();};}
 {const _d=bsDetail;bsDetail=function(c){_d(c);if(!rdOn()||!c.grade)return;try{
@@ -2419,6 +2419,8 @@ cvPage=function(c){const k=c.card,pr=csPr(k);
    Candles, only the averages the read names, the plan as a path into empty space on the right, the one shape that matters,
    at most one indicator panel, circles on the bars the read mentions, <=5 coloured axis tags that never overlap, round gridlines,
    labels on the chart instead of a legend. Long holds default to weekly bars. Every number is SVG text from the card's facts. */
+function bsPub(t){return String(t||"").replace(/,?\s*(?:not )?a fear day\b\.?/gi,".").replace(/\s*\(?(?:its )?fear-day buy (?:rule|condition)[^.)]*\)?/gi,"").replace(/\.\.+/g,".").trim();}
+function bsDay(iso){const M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],m=/^(\d{4})-(\d\d)-(\d\d)/.exec(String(iso||""));return m?M[+m[2]-1]+" "+(+m[3]):String(iso||"");}
 function bsCVChart(c,cr,mode){
   const k=c.card||{},F=k.facts||{},fd=q=>(F[q]||{}).d,fv=q=>(F[q]||{}).v,pr=csPr(k),TX=pr?[pr.headline,...pr.story,pr.play].join(" "):"";
   const has=s=>s!=null&&TX.indexOf(s)>=0&&!/\d/.test(TX.charAt(TX.indexOf(s)+s.length));
@@ -2492,6 +2494,7 @@ function bsCVChart(c,cr,mode){
   const MK=(!wk&&k.decision&&k.decision.chart&&k.decision.chart.marks)||[];let MKL=[];
   MK.forEach(m=>{if(m.kind==="div"&&m.x1<n){const col=m.side==="bearish"?"#ef5350":"#26a69a";g+=`<line class="cvdiv" x1="${xa(m.x1).toFixed(1)}" y1="${Y(m.p1).toFixed(1)}" x2="${xa(m.x2).toFixed(1)}" y2="${Y(m.p2).toFixed(1)}" stroke="${col}" stroke-width="2"/>`;MKL.push([xa(m.x2),Y(m.p2)+(m.side==="bearish"?-14:16),`${m.side} ${m.ind||"RSI"} divergence`,col]);}
     else if(m.kind==="candle"){const i=n-1-(m.ago||0),cy=(Y(B[i][1])+Y(B[i][2]))/2;g+=`<ellipse class="cvcdl" cx="${X(i).toFixed(1)}" cy="${cy.toFixed(1)}" rx="${Math.max(7,bw*1.5).toFixed(1)}" ry="${Math.max(9,(Y(B[i][2])-Y(B[i][1]))/2+5).toFixed(1)}" fill="none" stroke="#fdd835" stroke-width="1.4"/>`;MKL.push([X(i)-8,Y(B[i][m.dir>0?2:1])+(m.dir>0?18:-12),m.text,"#fdd835","end"]);}
+    else if(m.kind==="level"&&m.v>lo&&m.v<hi){const y=Y(m.v);g+=`<line class="cvlvl" x1="${X(Math.floor(n*.35)).toFixed(1)}" x2="${xN.toFixed(1)}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}" stroke="#b39ddb" stroke-width="1.1" stroke-dasharray="2 3"/>`;MKL.push([X(Math.floor(n*.37)),y-5,`${m.text} ${bsFmt(m.v)}`,"#c5b3f0",""]);}
     else if(m.kind==="pattern"&&!SH&&m.upper&&m.lower){[m.upper,m.lower].forEach(s=>{g+=`<line class="cvshape" x1="${xa(s[0][0]).toFixed(1)}" y1="${Y(s[0][1]).toFixed(1)}" x2="${xa(s[1][0]).toFixed(1)}" y2="${Y(s[1][1]).toFixed(1)}" stroke="#ffeb3b" stroke-width="1.5" stroke-dasharray="6 4" opacity=".85"/>`;});MKL.push([cl(xa(m.upper[0][0]),L+4,xN-60),Y(m.upper[0][1])-6,m.name,"#ffee58"]);}});
   /* fib lines span only their swing */
   fibs.forEach(([r,v])=>{const xs=cl(xa(Math.max(ov.fib.x_hi||0,ov.fib.x_lo||0)),L,xN);g+=`<line class="cvfib" x1="${xs.toFixed(1)}" x2="${(xN+FUT*.05).toFixed(1)}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}" stroke="#d4a72c" stroke-width="1.2" stroke-dasharray="4 3"/>`;});
@@ -2655,7 +2658,7 @@ load(); setInterval(load,60000); /* bs-p17 refresh on every resume */ (function(
    evidence block and the prediction card, and strips any element whose text still carries grade or study wording. Checked by BS-221. */
 const NG_RE=/\b(grades?|graded|grading|(?<!top-)tiers?|tier [ABC]|scorecard|scores?|scored|scoring|letter grade|out of 100|\d+ ?\/ ?100|\d+ ?\/ ?60|backtests?|backtested|stud(?:y|ies)|simulat\w*|research\w*|in-sample|out[- ]of[- ]sample|held-out|fresh[- ]data|pre-registered|replay\w*|win rates?|hit rates?|past signals|past trades like this|its past trades|empirical-Bayes|t of at least|t-stat\w*|calibrat\w*|hypothes\w*|tested history|tested reason|95% range|percentage points of return|random picks?|measured edge|strategy edge|edge points|no proven edge|inconclusive|desk's tests|p-values?|significan\w*)\b/i;
 function ngStrip(h){return String(h||"").replace(/<span class="rd-g[^"]*">[^<]*<\/span>/g,"").replace(/<span class="rd-p">[\s\S]*?<\/span>/g,"").replace(/<span class="bs-tier[^"]*">[^<]*<\/span>/g,"").replace(/<span class="bs-score">[^<]*<\/span>/g,"");}
-rdRole=function(c){if(c.role==="setup")return "";const dq=c.plan&&c.plan.desk_queued?" The desk's own rule may still buy it on a fear day (see Desk today).":"";
+rdRole=function(c){if(c.role==="setup")return "";const dq="";/* bs-309 */
   if(c.role==="closest")return `<p class="rd-not">Closest to a setup, not a buy yet.${dq}</p>`;
   if(c.role==="best_available")return `<p class="rd-not">Best available, not a buy${c.not_buy?` (${esc(c.not_buy)})`:""}.${dq}</p>`;
   return `<p class="rd-not">Not on today's list${c.not_buy?`, not a buy (${esc(c.not_buy)})`:""}.${dq}</p>`;};
@@ -2708,7 +2711,7 @@ function dcDeskCounts(D){const m=(D&&D.positions)||[],t=((D&&D.second_desk)||{})
   const mq=m.filter(p=>p.status==="queued"||p.status==="entry_pending"),mh=m.filter(p=>p.status==="open"),tq=t.filter(p=>p.queued),th=t.filter(p=>!p.queued);
   return {main:{queued:mq.map(p=>p.symbol),held:mh.map(p=>p.symbol)},test:{queued:tq.map(p=>p.symbol),held:th.map(p=>p.symbol)}};}
 rdDesk=function(){if(typeof D==="undefined"||!D)return "";const C=dcDeskCounts(D),row=(lab,x)=>`<p><b>${lab}: ${x.queued.length} queued, ${x.held.length} held</b>${x.queued.length?`<br><span class="meta">Queued:</span> ${x.queued.map(esc).join(" · ")}`:""}${x.held.length?`<br><span class="meta">Held:</span> ${x.held.map(esc).join(" · ")}`:""}</p>`;
-  return `<div class="card rd-desk" id="bsdesk"><h2>Desk today</h2>${row("Main desk",C.main)}${row("Test desk",C.test)}</div>`;};
+  return "";};/* bs-309: desk mechanics stay on the Main and Test tabs */
 {const _p=cvPage;cvPage=function(c){const k=c.card,D=dcOf(k);if(!D)return _p(c);const pr=csPr(k);
   const st=pr?pr.story.map(x=>`<p>${esc(x)}</p>`).join(""):"";const tie=((D.basis||"").match(/Near-even[^.]*\./)||[""])[0];
   return (`<div class="dc-${D.dir}">${csHead(c,"h1")}${dcFace(c,1)}</div>
