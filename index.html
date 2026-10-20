@@ -2488,6 +2488,11 @@ function bsCVChart(c,cr,mode){
   if(SH&&SH.upper&&SH.lower){[SH.upper,SH.lower].forEach(s=>{g+=`<line class="cvshape" x1="${xa(s[0][0]).toFixed(1)}" y1="${Y(s[0][1]).toFixed(1)}" x2="${xa(s[1][0]).toFixed(1)}" y2="${Y(s[1][1]).toFixed(1)}" stroke="#ffeb3b" stroke-width="1.5" stroke-dasharray="6 4" opacity=".85"/>`;});
     const s=SH.upper;SH._lab=[cl(xa(s[0][0]),L+4,xN-60),Y(s[0][1])-6,SH.name];}
   else if(SH&&SH.path){g+=`<polyline class="cvshape" points="${SH.path.map(q=>xa(q[0]).toFixed(1)+","+Y(q[1]).toFixed(1)).join(" ")}" fill="none" stroke="#00bcd4" stroke-width="1.8"/>`;SH._lab=[xa(SH.path[0][0]),Y(SH.path[0][1])+16,"rising support line"];}
+  /* bs-286: the engine's material chart marks (a price-confirmed divergence, a candle at a level on volume, the one pattern) */
+  const MK=(!wk&&k.decision&&k.decision.chart&&k.decision.chart.marks)||[];let MKL=[];
+  MK.forEach(m=>{if(m.kind==="div"&&m.x1<n){const col=m.side==="bearish"?"#ef5350":"#26a69a";g+=`<line class="cvdiv" x1="${xa(m.x1).toFixed(1)}" y1="${Y(m.p1).toFixed(1)}" x2="${xa(m.x2).toFixed(1)}" y2="${Y(m.p2).toFixed(1)}" stroke="${col}" stroke-width="2"/>`;MKL.push([xa(m.x2),Y(m.p2)+(m.side==="bearish"?-14:16),`${m.side} ${m.ind||"RSI"} divergence`,col]);}
+    else if(m.kind==="candle"){const i=n-1-(m.ago||0),cy=(Y(B[i][1])+Y(B[i][2]))/2;g+=`<ellipse class="cvcdl" cx="${X(i).toFixed(1)}" cy="${cy.toFixed(1)}" rx="${Math.max(7,bw*1.5).toFixed(1)}" ry="${Math.max(9,(Y(B[i][2])-Y(B[i][1]))/2+5).toFixed(1)}" fill="none" stroke="#fdd835" stroke-width="1.4"/>`;MKL.push([X(i)-8,Y(B[i][m.dir>0?2:1])+(m.dir>0?18:-12),m.text,"#fdd835","end"]);}
+    else if(m.kind==="pattern"&&!SH&&m.upper&&m.lower){[m.upper,m.lower].forEach(s=>{g+=`<line class="cvshape" x1="${xa(s[0][0]).toFixed(1)}" y1="${Y(s[0][1]).toFixed(1)}" x2="${xa(s[1][0]).toFixed(1)}" y2="${Y(s[1][1]).toFixed(1)}" stroke="#ffeb3b" stroke-width="1.5" stroke-dasharray="6 4" opacity=".85"/>`;});MKL.push([cl(xa(m.upper[0][0]),L+4,xN-60),Y(m.upper[0][1])-6,m.name,"#ffee58"]);}});
   /* fib lines span only their swing */
   fibs.forEach(([r,v])=>{const xs=cl(xa(Math.max(ov.fib.x_hi||0,ov.fib.x_lo||0)),L,xN);g+=`<line class="cvfib" x1="${xs.toFixed(1)}" x2="${(xN+FUT*.05).toFixed(1)}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}" stroke="#d4a72c" stroke-width="1.2" stroke-dasharray="4 3"/>`;});
   B.forEach((x,i)=>{const col=x[3]>=x[0]?"#26a69a":"#ef5350";g+=`<line x1="${X(i).toFixed(1)}" x2="${X(i).toFixed(1)}" y1="${Y(x[1]).toFixed(1)}" y2="${Y(x[2]).toFixed(1)}" stroke="${col}"/><rect x="${(X(i)-bw/2).toFixed(1)}" y="${Y(Math.max(x[0],x[3])).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(1,Math.abs(Y(x[0])-Y(x[3]))).toFixed(1)}" fill="${col}"/>`;});
@@ -2527,6 +2532,7 @@ function bsCVChart(c,cr,mode){
     if(C.length)LB+=lab(C[0][0],C[0][1],m.lab.trim(),m.c,"end",{cands:C,step:2});});
   fibs.forEach(([r,v])=>{const xs=cl(xa(Math.max(ov.fib.x_hi||0,ov.fib.x_lo||0)),L,xN);LB+=lab(xs+4,Y(v)-4,`${r} (${fd("fib_"+r)})`,"#e0b84a","");});
   if(SH&&SH._lab)LB+=lab(SH._lab[0],SH._lab[1],SH._lab[2],SH.path?"#4dd0e1":"#ffee58","");
+  MKL.forEach(q=>{LB+=lab(q[0],q[1],q[2],q[3],q[4]||"mid",{cls:"cvmk"});});
   g+=EVG+LB;
   /* right axis: priority placement, 17px apart, T2 dropped if it would have to move; a leader line when a tag moves */
   const TH=16,GP=17,yMin=T+8,yMax=T+PH-8,placed=[];
