@@ -1063,6 +1063,32 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
     <p class="howp"><b>Step 6: publish.</b> The cards are saved as JSON files and pushed to a free GitHub Pages website several times a day. Phone alerts go out through ntfy and web push, at most six a day.</p>
     <p class="howp"><b>To build your own:</b> a Linux computer or cloud box, Python, a free price data source, a scheduler (cron or a small loop), a GitHub repo with Pages turned on, and an AI model to write the reads under a strict style checker.</p>
   </section>
+  <section id="how-files" class="card">
+    <p class="kicker">Data files</p>
+    <h2>What each data file holds</h2>
+    <p class="sub">Everything the desk knows lives in a few plain files. If you build your own desk, keep the same split.</p>
+    <ul>
+      <li><b>Config file.</b> The rules: which strategies run, how much each may spend, entry and exit settings, and the order price caps.</li>
+      <li><b>State file.</b> The current book: every open position, its entry price, its planned exit time, and every order the desk has sent and its status. It is rewritten safely after each change, so a crash never leaves half a file.</li>
+      <li><b>Ledger.</b> An append-only record of every decision, order, fill and closed trade. Each line is chained to the one before it, so any edit or gap is detected. If the state file is ever lost, it is rebuilt from the ledger.</li>
+      <li><b>Finished-orders list.</b> One small file per day listing every order that is already filled, cancelled or rejected, so the desk never sends the same order twice.</li>
+      <li><b>Signal files.</b> The research jobs' daily output: which symbols fired a buy signal today and their plans.</li>
+      <li><b>Website data.</b> One summary file per publish with positions, results and charts. This page is drawn from it; it holds no account keys and no private settings.</li>
+      <li><b>Backups.</b> Copies of all of the above, saved off the machine every 15 minutes and to a private code repository, each checked against a checksum before it is ever restored.</li>
+    </ul>
+  </section>
+  <section id="how-sleep" class="card">
+    <p class="kicker">When the computer sleeps</p>
+    <h2>How machine sleep or a reset affects trading</h2>
+    <p class="sub">The desk runs on a cloud computer that can pause or be reset. This is what happens when it does.</p>
+    <ul>
+      <li><b>Nothing runs while it is paused.</b> Scheduled checks that fall inside a pause are missed, and this page stops updating until the machine wakes.</li>
+      <li><b>Protective stops stay on at the broker.</b> Every position (except the ones deliberately held) carries a standing stop order at the broker, a fixed distance under its entry price. It works even while the desk machine is asleep or being restored.</li>
+      <li><b>Orders already sent keep working.</b> Day limit orders stay live at the broker until they fill or the session ends.</li>
+      <li><b>On wake, it catches up.</b> The desk reads every order back from the broker, applies any fills that happened while it was away, and runs the next due check. A missed closing check has a catch-up pass.</li>
+      <li><b>After a reset, it restores itself.</b> On a fresh start it restores the newest checked backup before trading, then compares its book with the broker's positions and flags any difference.</li>
+    </ul>
+  </section>
   <section id="how-glossary" class="card">
     <p class="kicker">Words used on this site</p>
     <h2>Glossary</h2>
