@@ -578,7 +578,7 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
 .cv-src{font-size:.75rem;color:#6b7a84}.cv-ch .crc{width:100%;height:auto;display:block;border-radius:6px}.cv-ch .crl{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.72rem;color:#33434d;margin-top:6px}.cv-ch .crl i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
 .cv-key{font-size:12.5px;color:#9598a1;margin:8px 2px 0;line-height:1.5}.cv-tf{display:inline-flex;gap:4px;margin-right:10px;vertical-align:middle}.cv-tf button{background:#1e222d;color:#b2b5be;border:1px solid #363a45;border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer}.cv-tf button.on{background:#2962ff;color:#fff;border-color:#2962ff}.cv-all{margin-top:8px}
 </style>
-</head>
+<style id="bs-removed-20261025">/* Galath 2026-10-25: Best Setups removed */#best-setups,#bsdetail,#bs-alerts,.bs-p14,a[href="#best-setups"]{display:none!important}</style></head>
 <body>
 <header class="hdr">
   <div class="logo" role="img" aria-label="GrokBot Desk logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7ee0c3" stroke-width="1.8" stroke-linecap="round"><path d="M4 20 C9 17 11 12 12 4"/><path d="M12 9 C14 7 17 7 19 8"/><path d="M11.5 13 C9 11 6.5 11 5 12"/><path d="M14 16 l3-4 3 1" stroke="#2bd49a"/></svg></div>
@@ -2683,7 +2683,7 @@ window.addEventListener("resize",()=>{if(!$("tab-cl").hidden){clDraw();return;}i
 
 // ---- pass 3b: sticky section links, back to top, sleeve finder
 const JUMP={main:[["overview","Overview"],["chart","Chart"],["beta","Small caps"],["mood","Mood"],["positions","Positions"],["heat","Heatmap"],["lanes","Sleeves"],["pass","Engine"],["trades","Closed"],["tradelog","Trade log"],["scorecards","Scorecards"],["signals","Breakdown"]],
-  cl:[["best-setups","Best setups"],["clhead","Market read"],["clmood","Mood Ring"],["clpulse","Pulse"],["clbreadth","Breadth"],["clrisk","Risk appetite"],["clranker","Ranker"],["clthemes","Themes"],["clrot","Rotation"],["clscreens","Screens"],["clscore","Sleeves"]],
+  cl:[["clhead","Market read"],["clmood","Mood Ring"],["clpulse","Pulse"],["clbreadth","Breadth"],["clrisk","Risk appetite"],["clranker","Ranker"],["clthemes","Themes"],["clrot","Rotation"],["clscreens","Screens"],["clscore","Sleeves"]],
   how:[["how-top","Overview"],["how-map","Map"],["how-data","Data"],["how-loop","The loop"],["how-order","Orders"],["how-accounts","Accounts"],["how-ops","Operations"],["how-site","Tabs"],["how-glossary","Glossary"]]};
 JUMP.test=JUMP.main.map(([i,l])=>[i==="overview"?"desk2":"t2"+i,l]);
 let JT="main";
