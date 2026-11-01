@@ -1,8 +1,8 @@
 {
  "schema": "grokbot-desk/psychology/1",
- "generated_at": "Nov 1, 2026 at 1:12 AM ET",
- "generated_at_iso": "2026-11-01T01:12:00-04:00",
- "as_of": "2026-11-01T05:12:01.059247+00:00",
+ "generated_at": "Nov 1, 2026 at 1:17 AM ET",
+ "generated_at_iso": "2026-11-01T01:17:41-04:00",
+ "as_of": "2026-11-01T05:17:41.945690+00:00",
  "engine": {
   "name": "Psychology Engine",
   "version": "0.4.1",
@@ -1157,7 +1157,7 @@
    "reason": null,
    "next_proxy": 19.677500000000002,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-01T05:12:01.059247+00:00"
+   "as_of": "2026-11-01T05:17:41.945690+00:00"
   },
   {
    "source": "wikimedia_company_attention",
@@ -1167,7 +1167,7 @@
    "reason": null,
    "next_proxy": 740931.0,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-01T05:12:01.059247+00:00"
+   "as_of": "2026-11-01T05:17:41.945690+00:00"
   },
   {
    "source": "cboe_vvix",
@@ -1177,7 +1177,7 @@
    "reason": null,
    "next_proxy": 107.68,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-01T05:12:01.059247+00:00"
+   "as_of": "2026-11-01T05:17:41.945690+00:00"
   },
   {
    "source": "cboe_skew",
@@ -1187,7 +1187,7 @@
    "reason": null,
    "next_proxy": 149.45749999999998,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-01T05:12:01.059247+00:00"
+   "as_of": "2026-11-01T05:17:41.945690+00:00"
   }
  ],
  "decision": {
@@ -1238,36 +1238,36 @@
  "source_health": {
   "cboe_vix": {
    "status": "ok",
-   "checked_at": "2026-11-01T05:12:01.033159+00:00",
+   "checked_at": "2026-11-01T05:17:41.922308+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vix3m": {
    "status": "ok",
-   "checked_at": "2026-11-01T05:12:01.041161+00:00",
+   "checked_at": "2026-11-01T05:17:41.929592+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vvix": {
    "status": "ok",
-   "checked_at": "2026-11-01T05:12:01.048916+00:00",
+   "checked_at": "2026-11-01T05:17:41.936497+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_skew": {
    "status": "ok",
-   "checked_at": "2026-11-01T05:12:01.056223+00:00",
+   "checked_at": "2026-11-01T05:17:41.943403+00:00",
    "detail": "80 rows from desk cache"
   },
   "wikimedia_company_attention": {
    "status": "ok",
-   "checked_at": "2026-11-01T05:12:01.058504+00:00",
+   "checked_at": "2026-11-01T05:17:41.944996+00:00",
    "detail": "9 rows from desk cache"
   }
  },
  "ingest_status": {
-  "cboe_vix": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 80, \"duplicates\": 0}",
-  "cboe_vix3m": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 80, \"duplicates\": 0}",
-  "cboe_vvix": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 80, \"duplicates\": 0}",
-  "cboe_skew": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 80, \"duplicates\": 0}",
-  "wikimedia_company_attention": "ok: 9 rows, last event 2026-10-30, ingest {\"inserted\": 9, \"duplicates\": 0}"
+  "cboe_vix": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 0, \"duplicates\": 80}",
+  "cboe_vix3m": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 0, \"duplicates\": 80}",
+  "cboe_vvix": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 0, \"duplicates\": 80}",
+  "cboe_skew": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 0, \"duplicates\": 80}",
+  "wikimedia_company_attention": "ok: 9 rows, last event 2026-10-30, ingest {\"inserted\": 0, \"duplicates\": 9}"
  },
  "interpretation": [
   "A VIX reading is option-implied risk, not a survey of investor fear.",
