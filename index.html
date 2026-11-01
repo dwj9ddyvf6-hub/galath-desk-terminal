@@ -578,7 +578,25 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
 .cv-src{font-size:.75rem;color:#6b7a84}.cv-ch .crc{width:100%;height:auto;display:block;border-radius:6px}.cv-ch .crl{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.72rem;color:#33434d;margin-top:6px}.cv-ch .crl i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
 .cv-key{font-size:12.5px;color:#9598a1;margin:8px 2px 0;line-height:1.5}.cv-tf{display:inline-flex;gap:4px;margin-right:10px;vertical-align:middle}.cv-tf button{background:#1e222d;color:#b2b5be;border:1px solid #363a45;border-radius:6px;padding:3px 10px;font-size:12px;cursor:pointer}.cv-tf button.on{background:#2962ff;color:#fff;border-color:#2962ff}.cv-all{margin-top:8px}
 </style>
-<style id="bs-removed-20261025">/* Galath 2026-10-25: Best Setups removed */#best-setups,#bsdetail,#bs-alerts,.bs-p14,a[href="#best-setups"]{display:none!important}</style></head>
+<style id="bs-removed-20261025">/* Galath 2026-10-25: Best Setups removed */#best-setups,#bsdetail,#bs-alerts,.bs-p14,a[href="#best-setups"]{display:none!important}</style><style id="eng-20261101">/* 2026-11-01 Galath t274u: Psychology + Technical (Test-repo engines) sections in the Market tab; reuses the ChartsLector look */
+.engrow{border-bottom:1px solid #e6efeb;padding:7px 0;font-size:13.5px}
+.engrow .hd{display:grid;grid-template-columns:64px 112px 1fr;align-items:center;gap:8px;cursor:pointer}
+.engrow .hd b{color:var(--navy)}
+.engrow .gist{color:var(--muted);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.engrow .bd{display:none;padding:8px 2px 4px;font-size:13px;line-height:1.45}
+.engrow.open .bd{display:block}
+.engrow .bd h4{margin:8px 0 3px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--teal)}
+.engrow .bd li{margin:2px 0}.engrow .bd ul{margin:0;padding-left:18px}
+.engrow .sh{display:flex;gap:6px;align-items:baseline;margin:2px 0}.engrow .sh i{flex:0 0 8px;height:8px;border-radius:50%;margin-top:3px}
+.engbadge{display:inline-block;border-radius:999px;padding:2px 9px;font-size:11.5px;font-weight:800;letter-spacing:.03em;white-space:nowrap}
+.engbadge.up{background:#e1f3ea;color:#18744f}.engbadge.dn{background:#f8e3e1;color:#a63a34}.engbadge.mx{background:#eef1f3;color:#4b5a66}
+.engsrc{display:flex;gap:8px;align-items:baseline;padding:5px 0;border-bottom:1px solid #e6efeb;font-size:13px}.engsrc b{min-width:0}
+.engsrc .st{flex:0 0 auto}
+.engsrch{width:100%;max-width:260px;border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;margin:0 0 10px;background:#fff;color:var(--ink)}
+.engscan{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}@media(min-width:820px){.engscan{grid-template-columns:1fr 1fr}}
+.engscan h3{margin:0 0 4px;font-size:14px;color:var(--navy)}
+</style>
+</head>
 <body>
 <header class="hdr">
   <div class="logo" role="img" aria-label="GrokBot Desk logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7ee0c3" stroke-width="1.8" stroke-linecap="round"><path d="M4 20 C9 17 11 12 12 4"/><path d="M12 9 C14 7 17 7 19 8"/><path d="M11.5 13 C9 11 6.5 11 5 12"/><path d="M14 16 l3-4 3 1" stroke="#2bd49a"/></svg></div>
@@ -915,6 +933,38 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
     <div class="chips" id="clscchips"></div>
     <div class="chart"><div class="top"><span class="tk" id="clsctk">MATCHES</span><span class="brandtag">names passing · <b>daily</b></span></div><div id="clscline"></div></div>
     <div style="margin-top:12px"><div class="scroll"><table id="clsct"></table></div><p class="swipe meta">Swipe sideways to see all columns →</p></div>
+  </section>
+  <section id="clpsy" class="card">
+    <p class="kicker">Market psychology</p>
+    <h2>Psychology Engine</h2>
+    <p class="sub" id="clpssub">Observable beliefs, attention, uncertainty and stress, measured from data the desk already keeps. Research and description only: it never places or sizes a trade.</p>
+    <div class="err" id="clpserr" hidden></div>
+    <div class="headline" id="clpshead" style="font-size:15px">Loading…</div>
+    <div class="grid" id="clpsstats" style="margin-top:10px"></div>
+    <div class="clwrap g2" style="margin-top:14px">
+      <div class="chart"><div class="top"><span class="tk">VIX vs 3-MONTH VIX</span><span class="brandtag">CBOE · <b>daily</b></span></div><div id="clpsvix"></div>
+        <div class="legend"><span><i style="background:#7ee0c3"></i>VIX</span><span><i style="background:#f2d68a"></i>VIX3M</span></div></div>
+      <div class="chart"><div class="top"><span class="tk">WIKIPEDIA ATTENTION</span><span class="brandtag">tracked companies · <b>daily page views</b></span></div><div id="clpswiki"></div></div>
+    </div>
+    <h3 style="margin:16px 0 4px;font-size:14px;color:var(--navy)">What the engine's detectors say</h3>
+    <div class="clpills" id="clpspat"></div>
+    <div style="margin-top:12px"><div class="scroll"><table id="clpsdim"></table></div><p class="swipe meta">Swipe sideways to see all columns →</p></div>
+    <h3 style="margin:16px 0 4px;font-size:14px;color:var(--navy)">Data sources</h3>
+    <div id="clpssrc"></div>
+    <p class="meta" style="margin-top:10px" id="clpsnote"></p>
+  </section>
+  <section id="cltech" class="card">
+    <p class="kicker">Technical analysis</p>
+    <h2>Chart Read Engine</h2>
+    <p class="sub" id="cltcsub">Every name read the same way from its own daily bars: trend, levels, momentum, volume, volatility, candles, patterns, gaps and waves, in plain words. A description of the chart, never a trade instruction.</p>
+    <div class="err" id="cltcerr" hidden></div>
+    <div class="grid" id="cltcstats"></div>
+    <div class="chips" id="cltcchips" style="margin-top:12px"></div>
+    <input class="engsrch" id="cltcq" type="search" placeholder="Find a symbol" autocomplete="off" autocapitalize="characters" aria-label="Find a symbol in the chart reads">
+    <div id="cltclist"></div>
+    <p class="meta" id="cltcmore" style="margin-top:8px"></p>
+    <div class="engscan" id="cltcscans"></div>
+    <p class="meta" style="margin-top:12px" id="cltcnote"></p>
   </section>
   <section id="clscore">
     <p class="kicker">Traded on the Test desk</p>
@@ -1879,7 +1929,7 @@ const clW=el=>Math.max(300,Math.min(1040,(el&&el.clientWidth)||600));
 async function clLoad(){
   if(CL.busy) return; CL.busy=true;
   try{const r=await fetch("chartslector.json?t="+Date.now(),{cache:"no-store"});if(!r.ok) throw new Error("HTTP "+r.status);
-    CL.d=await r.json();clRender();}
+    CL.d=await r.json();clRender();engLoad();}
   catch(e){const b=$("clerr");b.hidden=false;b.style.display="block";b.textContent="Could not load the ChartsLector data ("+e.message+"). It retries with the next page refresh.";}
   finally{CL.busy=false;}
 }
@@ -1891,6 +1941,74 @@ function clRender(){
   [clSummary,clMood,clPulse,clBreadth,clRisk,clRanker,clThemes,clRotation,clScreens].forEach(f=>{try{f(d);}catch(e){console.error(f.name,e);}});
   swipeHints();
 }
+/* ---- 2026-11-01 engines: Psychology Engine + Chart Read Engine (Test-repo engines, desk data only) ---- */
+const ENG={ps:null,tc:null,f:"all",q:"",busy:false,open:{},lim:40};
+async function engLoad(){
+  if(ENG.busy) return; ENG.busy=true;
+  const g=async u=>{try{const r=await fetch(u+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);return await r.json();}catch(e){return {__err:e.message};}};
+  try{const [a,b]=await Promise.all([g("psychology.json"),g("technical.json")]);ENG.ps=a;ENG.tc=b;engRender();}finally{ENG.busy=false;}
+}
+function engAge(d){const t=Date.parse(d&&d.generated_at_iso);return isNaN(t)?null:(Date.now()-t)/36e5;}
+function engWarn(id,d,name){const b=$(id);if(!b)return;if(!d||d.__err){b.hidden=false;b.style.display="block";b.textContent=`The ${name} data could not be loaded${d&&d.__err?" ("+d.__err+")":""}. It retries with the next refresh.`;return false;}
+  const h=engAge(d);if(h!=null&&h>40){b.hidden=false;b.style.display="block";b.textContent=`This reading is ${Math.round(h)} hours old (${d.generated_at}); its refresh has not run since.`;}else{b.hidden=true;b.style.display="none";}return true;}
+function engRender(){[engPsy,engTech].forEach(f=>{try{f();}catch(e){console.error(f.name,e);}});swipeHints();}
+function engPsy(){
+  const d=ENG.ps; if(!engWarn("clpserr",d,"psychology")) {$("clpshead").textContent="Not available.";return;}
+  $("clpshead").textContent=d.headline||"Not enough observed data yet.";
+  const S=d.series||{},last=a=>a&&a.length?a[a.length-1]:null,vx=last(S.vix),v3=last(S.vix3m),wk=S.wiki_views||[];
+  const pat=(d.patterns||[]).find(p=>p.pattern==="attention_acceleration");
+  $("clpsstats").innerHTML=statHTML([
+    ["Stress · VIX",vx?vx[1].toFixed(1):"—",vx?`close ${clDate(vx[0])}${v3?` · 3-mo ${v3[1].toFixed(1)}`:""}`:"no data","flat"],
+    ["Attention",pat&&pat.measure!=null?sgn(pat.measure*100,0,"%"):"—","3-day page views vs the 3 before","flat"],
+    ["Sources live",`${d.sources_active||0}`,"of 50 catalogued; the rest need new feeds","flat"],
+    ["Engine stance",esc(String((d.decision||{}).action||"—").replace(/_/g," ")),"research only · no orders","flat"]]);
+  const ln=(id,keys,cols,fmt)=>{const el=$(id),a=S[keys[0]]||[];if(a.length<2){el.innerHTML=`<div style="padding:28px 8px;color:#9aa3b8">Not enough history yet.</div>`;return;}
+    clLine(el,a.map(x=>x[0]),keys.map((k,i)=>({v:(S[k]||[]).map(x=>x[1]),c:cols[i]})).filter(s=>s.v.length===a.length),{H:170,fmt:fmt||(z=>z.toFixed(0)),label:id});};
+  ln("clpsvix",["vix","vix3m"],["#7ee0c3","#f2d68a"],z=>z.toFixed(1));
+  ln("clpswiki",["wiki_views"],["#b9a7f0"],z=>(z/1e3).toFixed(0)+"k");
+  const PN={attention_acceleration:"Attention acceleration",stress_persistence:"Stress persistence",source_disagreement:"Source disagreement",sentiment_price_divergence:"Sentiment/price divergence",narrative_concentration:"Narrative concentration"};
+  $("clpspat").innerHTML=(d.patterns||[]).map(p=>`<span class="clpill ${p.status==="watch"?"mid":p.status==="context"?"yes":""}" title="${esc(p.reason||"")}">${esc(PN[p.pattern]||p.pattern)} · ${esc(p.status)}${p.measure!=null&&typeof p.measure==="number"?" ("+(p.pattern==="attention_acceleration"?sgn(p.measure*100,0,"%"):p.measure.toFixed(1))+")":""}</span>`).join("");
+  const DL={sentiment:"Sentiment",attention:"Attention",uncertainty:"Uncertainty",disagreement:"Disagreement",positioning:"Positioning",stress:"Stress",narrative_change:"Narrative change"};
+  $("clpsdim").innerHTML=`<tr><th>Dimension</th><th>Observed</th><th>Measure</th><th>Source families</th></tr>`+(d.dimensions||[]).map(x=>`<tr><td>${esc(DL[x.key]||x.key)}</td><td>${x.observed?"yes":"not observed"}</td><td>${(x.populations||[]).length?x.populations.map(p=>`<b>${Number(p.value).toLocaleString("en-US",{maximumFractionDigits:Math.abs(p.value)>1e3?0:2})}</b> <span class="meta">${esc(p.units.replace(/_/g," "))} · ${esc(p.population)}</span>`).join("<br>"):"—"}</td><td>${x.families||0}</td></tr>`).join("");
+  $("clpssrc").innerHTML=(d.sources||[]).map(x=>`<div class="engsrc"><span class="engbadge ${x.status==="active"?"up":"mx"} st">${esc(x.status)}</span><span><b>${esc(x.name)}</b> <span class="meta">· ${esc(x.dimension)} · ${esc(x.detail)}</span></span></div>`).join("");
+  $("clpsnote").textContent=`${(d.engine||{}).name||"Engine"} ${(d.engine||{}).version||""} (${(d.engine||{}).source||""}). ${(d.interpretation||[]).join(" ")} Updated ${d.generated_at||""}.`;
+}
+function engTech(){
+  const d=ENG.tc; if(!engWarn("cltcerr",d,"technical")){$("cltclist").innerHTML=`<div class="empty">Not available.</div>`;return;}
+  const N=d.names||[],C=d.stance_counts||{};
+  $("cltcstats").innerHTML=statHTML([
+    ["Names read",String(N.length),`daily bars through ${clDate(d.as_of)}`,"flat"],
+    ["Net for",String(C["Net for"]||0),`+ ${C["Leans for"]||0} leaning for`,"flat"],
+    ["Net against",String(C["Net against"]||0),`+ ${C["Leans against"]||0} leaning against`,"flat"],
+    ["Mixed",String(C["Mixed"]||0),"evidence roughly balanced","flat"]]);
+  const F=[["all","All"],["Net for","Net for"],["Net against","Net against"],["Main desk","Main desk"],["Test desk","Test desk"],["Ranker","Ranker"],["Index / fund","Funds"]];
+  $("cltcchips").innerHTML=F.map(([k,l])=>`<button class="chip${ENG.f===k?" on":""}" data-k="${esc(k)}">${esc(l)}</button>`).join("");
+  const q=ENG.q.trim().toUpperCase();
+  let R=N.filter(r=>(ENG.f==="all"||r.stance===ENG.f||(r.groups||[]).includes(ENG.f))&&(!q||r.s.includes(q)));
+  R=R.slice().sort((a,b)=>ENG.f==="Net against"?a.evidence-b.evidence:b.evidence-a.evidence);
+  const tot=R.length;R=R.slice(0,ENG.lim);
+  const cls=s=>s==="Net for"||s==="Leans for"?"up":s==="Net against"||s==="Leans against"?"dn":"mx";
+  const SC=["#d4504a","#9aa3b8","#2bb07f"],li=a=>(a||[]).length?`<ul>${a.map(f=>`<li><b>${esc(f.head)}.</b> ${esc(f.text)}</li>`).join("")}</ul>`:`<div class="meta">None flagged.</div>`;
+  $("cltclist").innerHTML=R.map(r=>{const w=Math.max(2,Math.min(100,50+r.evidence*12));return `<div class="engrow${ENG.open[r.s]?" open":""}" data-s="${esc(r.s)}"><div class="hd"><b>${esc(r.s)}</b><span><span class="engbadge ${cls(r.stance)}">${esc(r.stance)}</span></span><span class="gist" title="${esc(r.take||"")}">${esc(r.take||"")} <span class="meta">${esc((r.groups||[]).join(" · "))}</span></span></div>
+    <div class="bd"><div class="rkbar" title="Evidence net ${r.evidence}"><div style="width:${w}%"></div></div>
+    <h4>Evidence for</h4>${li(r.material.concat(r.standouts))}<h4>Evidence against</h4>${li(r.against)}
+    <h4>Read sheet</h4>${(r.sheet||[]).map(x=>`<div class="sh"><i style="background:${SC[x[0]+1]}"></i><span>${esc(x[1])}</span></div>`).join("")}
+    <div class="meta" style="margin-top:6px">vs 20/50/200-day average: ${Object.entries(r.avgs_vs_close||{}).map(([k,v])=>esc(k.replace("sma",""))+"d "+sgn(-v,1)).join(" · ")} · evidence net ${r.evidence}</div></div></div>`;}).join("")||`<div class="empty">No names match.</div>`;
+  $("cltcmore").innerHTML=tot>ENG.lim?`Showing ${ENG.lim} of ${tot}. <a href="#" id="cltcall" style="color:var(--teal);font-weight:700">Show more</a>`:`${tot} name${tot===1?"":"s"}.`;
+  const sc=d.scans||{},st=(sc.strat||{}),cn=st.counts||{},mm=sc.momentum||{},bo=(sc.breakout||{}).rows||[],uv=(sc.unusual_volume||{}).rows||[];
+  const tbl=(h,rows)=>`<div class="scroll"><table><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${rows.map(r=>`<tr>${r.map((c,i)=>`<td>${i?c:"<b>"+esc(c)+"</b>"}</td>`).join("")}</tr>`).join("")}</table></div><p class="swipe meta">Swipe sideways to see all columns →</p>`;
+  $("cltcscans").innerHTML=`<div><h3>Strat bar labels · ${clDate(sc.session)}</h3><div class="clpills">${["1","2U","2D","3"].map(k=>`<span class="clpill" title="${esc((st.meaning||{})[k]||"")}">${k} · ${cn[k]??"—"}</span>`).join("")}</div><p class="meta" style="margin-top:8px">${esc(sc.labelled||0)} of ${esc(sc.universe||0)} names labelled by their latest bar: 1 inside, 2U took the prior high only, 2D took the prior low only, 3 took both sides. Labels only.</p></div>
+  <div><h3>Momentum Clock · strongest 6-month</h3>${tbl(["Name","1M","3M","6M","12M"],(mm.leaders||[]).slice(0,10).map(r=>[r.s,sgn(r.d21,0),sgn(r.d63,0),sgn(r.d126,0),sgn(r.d252,0)]))}</div>
+  <div><h3>Breakout Scanner · nearest the 52-week high</h3>${tbl(["Name","Below high","10-day range"],bo.slice(0,10).map(r=>[r.s,(r.below_high_pct).toFixed(1)+"%",r.range10_pct!=null?r.range10_pct.toFixed(1)+"%":"—"]))}</div>
+  <div><h3>Unusual Volume · vs 50-day average</h3>${tbl(["Name","Volume","Day"],uv.slice(0,10).map(r=>[r.s,r.x.toFixed(1)+"x",sgn(r.chg_pct,1)]))}</div>`;
+  $("cltcnote").textContent=`${(d.engine||{}).name||""} (${(d.engine||{}).source||""}); ${(d.notes||[]).join(" ")} Updated ${d.generated_at||""}.`;
+}
+document.addEventListener("click",e=>{
+  const c=e.target.closest&&e.target.closest("#cltcchips .chip");if(c){ENG.f=c.dataset.k;ENG.lim=40;engTech();return;}
+  const h=e.target.closest&&e.target.closest("#cltclist .engrow .hd");if(h){const r=h.parentNode;ENG.open[r.dataset.s]=!ENG.open[r.dataset.s];r.classList.toggle("open");return;}
+  if(e.target.id==="cltcall"){e.preventDefault();ENG.lim+=60;engTech();}
+});
+document.addEventListener("input",e=>{if(e.target.id==="cltcq"){ENG.q=e.target.value;ENG.lim=40;engTech();}});
 function clDraw(){if(CL.d){[clMood,clPulse,clBreadth,clRisk,clRotation,clScreens].forEach(f=>{try{f(CL.d);}catch(e){console.error(f.name,e);}});swipeHints();}}
 function clLine(wrap,dates,series,o){
   o=o||{};const W=clW(wrap),H=o.H||200,pl=8,pr=44,pt=10,pb=24,n=dates.length;
@@ -2683,7 +2801,7 @@ window.addEventListener("resize",()=>{if(!$("tab-cl").hidden){clDraw();return;}i
 
 // ---- pass 3b: sticky section links, back to top, sleeve finder
 const JUMP={main:[["overview","Overview"],["chart","Chart"],["beta","Small caps"],["mood","Mood"],["positions","Positions"],["heat","Heatmap"],["lanes","Sleeves"],["pass","Engine"],["trades","Closed"],["tradelog","Trade log"],["scorecards","Scorecards"],["signals","Breakdown"]],
-  cl:[["clhead","Market read"],["clmood","Mood Ring"],["clpulse","Pulse"],["clbreadth","Breadth"],["clrisk","Risk appetite"],["clranker","Ranker"],["clthemes","Themes"],["clrot","Rotation"],["clscreens","Screens"],["clscore","Sleeves"]],
+  cl:[["clhead","Market read"],["clmood","Mood Ring"],["clpulse","Pulse"],["clbreadth","Breadth"],["clrisk","Risk appetite"],["clranker","Ranker"],["clthemes","Themes"],["clrot","Rotation"],["clscreens","Screens"],["clpsy","Psychology"],["cltech","Technical"],["clscore","Sleeves"]],
   how:[["how-top","Overview"],["how-map","Map"],["how-data","Data"],["how-loop","The loop"],["how-order","Orders"],["how-accounts","Accounts"],["how-ops","Operations"],["how-site","Tabs"],["how-glossary","Glossary"]]};
 JUMP.test=JUMP.main.map(([i,l])=>[i==="overview"?"desk2":"t2"+i,l]);
 let JT="main";

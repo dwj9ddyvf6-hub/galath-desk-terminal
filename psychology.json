@@ -1,0 +1,1278 @@
+{
+ "schema": "grokbot-desk/psychology/1",
+ "generated_at": "Nov 1, 2026 at 1:12 AM ET",
+ "generated_at_iso": "2026-11-01T01:12:00-04:00",
+ "as_of": "2026-11-01T05:12:01.059247+00:00",
+ "engine": {
+  "name": "Psychology Engine",
+  "version": "0.4.1",
+  "source": "dwj9ddyvf6-hub/Test@8b1ba49",
+  "mode": "research advisory only; no order interface; Tensor/the desk keep all timing authority",
+  "validation": "70 shipped + 5 independent + 6 operational tests pass on this box; predictive validity NOT established"
+ },
+ "headline": "Stress reads normal: the VIX closed at 19.4 on 2026-10-30, below the 3-month VIX (20.8), so the curve is upward-sloping. Attention: Wikipedia page views for the desk's tracked companies are +38% over the last three days versus the three before.",
+ "dimensions": [
+  {
+   "key": "sentiment",
+   "observed": false,
+   "measures": null,
+   "observations": 0,
+   "families": 0,
+   "coverage": "unknown",
+   "populations": []
+  },
+  {
+   "key": "attention",
+   "observed": true,
+   "measures": {
+    "article_daily_user_pageviews": 464951.3333333334
+   },
+   "observations": 3,
+   "families": 1,
+   "coverage": "single_family",
+   "populations": [
+    {
+     "units": "article_daily_user_pageviews",
+     "population": "English Wikipedia user page views, summed over the US-listed company articles the desk tracks (about 1,200)",
+     "value": 464951.333
+    }
+   ]
+  },
+  {
+   "key": "uncertainty",
+   "observed": true,
+   "measures": {
+    "VVIX_index_points": 100.35
+   },
+   "observations": 3,
+   "families": 1,
+   "coverage": "single_family",
+   "populations": [
+    {
+     "units": "VVIX_index_points",
+     "population": "CBOE VVIX (volatility of VIX), daily close",
+     "value": 100.35
+    }
+   ]
+  },
+  {
+   "key": "disagreement",
+   "observed": false,
+   "measures": null,
+   "observations": 0,
+   "families": 0,
+   "coverage": "unknown",
+   "populations": []
+  },
+  {
+   "key": "positioning",
+   "observed": false,
+   "measures": null,
+   "observations": 0,
+   "families": 0,
+   "coverage": "unknown",
+   "populations": []
+  },
+  {
+   "key": "stress",
+   "observed": true,
+   "measures": null,
+   "observations": 9,
+   "families": 1,
+   "coverage": "single_family",
+   "populations": [
+    {
+     "units": "VIX_index_points",
+     "population": "CBOE Volatility Index (S&P 500 30-day implied volatility), daily close",
+     "value": 17.843
+    },
+    {
+     "units": "VIX3M_index_points",
+     "population": "CBOE 3-Month Volatility Index, daily close",
+     "value": 19.79
+    },
+    {
+     "units": "SKEW_index_points",
+     "population": "CBOE SKEW index (tail-risk pricing), daily close",
+     "value": 149.843
+    }
+   ]
+  },
+  {
+   "key": "narrative_change",
+   "observed": false,
+   "measures": null,
+   "observations": 0,
+   "families": 0,
+   "coverage": "unknown",
+   "populations": []
+  }
+ ],
+ "series": {
+  "vix": [
+   [
+    "2026-08-10",
+    15.46
+   ],
+   [
+    "2026-08-11",
+    15.28
+   ],
+   [
+    "2026-08-12",
+    14.55
+   ],
+   [
+    "2026-08-13",
+    14.63
+   ],
+   [
+    "2026-08-14",
+    14.25
+   ],
+   [
+    "2026-08-17",
+    15.19
+   ],
+   [
+    "2026-08-18",
+    15.84
+   ],
+   [
+    "2026-08-19",
+    14.89
+   ],
+   [
+    "2026-08-20",
+    16.01
+   ],
+   [
+    "2026-08-21",
+    15.13
+   ],
+   [
+    "2026-08-24",
+    15.85
+   ],
+   [
+    "2026-08-25",
+    15.45
+   ],
+   [
+    "2026-08-26",
+    15.21
+   ],
+   [
+    "2026-08-27",
+    14.51
+   ],
+   [
+    "2026-08-28",
+    14.43
+   ],
+   [
+    "2026-08-31",
+    14.92
+   ],
+   [
+    "2026-09-01",
+    16.34
+   ],
+   [
+    "2026-09-02",
+    15.2
+   ],
+   [
+    "2026-09-03",
+    14.32
+   ],
+   [
+    "2026-09-04",
+    14.53
+   ],
+   [
+    "2026-09-07",
+    15.3
+   ],
+   [
+    "2026-09-08",
+    15.72
+   ],
+   [
+    "2026-09-09",
+    16.46
+   ],
+   [
+    "2026-09-10",
+    17.84
+   ],
+   [
+    "2026-09-11",
+    15.84
+   ],
+   [
+    "2026-09-14",
+    17.1
+   ],
+   [
+    "2026-09-15",
+    17.2
+   ],
+   [
+    "2026-09-16",
+    17.71
+   ],
+   [
+    "2026-09-17",
+    15.44
+   ],
+   [
+    "2026-09-18",
+    14.81
+   ],
+   [
+    "2026-09-21",
+    14.87
+   ],
+   [
+    "2026-09-22",
+    14.21
+   ],
+   [
+    "2026-09-23",
+    15.18
+   ],
+   [
+    "2026-09-24",
+    15.67
+   ],
+   [
+    "2026-09-25",
+    14.87
+   ],
+   [
+    "2026-09-28",
+    16.07
+   ],
+   [
+    "2026-09-29",
+    16.04
+   ],
+   [
+    "2026-09-30",
+    16.34
+   ],
+   [
+    "2026-10-01",
+    16.39
+   ],
+   [
+    "2026-10-02",
+    15.31
+   ],
+   [
+    "2026-10-05",
+    15.52
+   ],
+   [
+    "2026-10-06",
+    15.01
+   ],
+   [
+    "2026-10-07",
+    15.08
+   ],
+   [
+    "2026-10-08",
+    15.41
+   ],
+   [
+    "2026-10-09",
+    14.84
+   ],
+   [
+    "2026-10-12",
+    15.21
+   ],
+   [
+    "2026-10-13",
+    15.27
+   ],
+   [
+    "2026-10-14",
+    16.87
+   ],
+   [
+    "2026-10-15",
+    16.46
+   ],
+   [
+    "2026-10-16",
+    19.99
+   ],
+   [
+    "2026-10-19",
+    18.44
+   ],
+   [
+    "2026-10-20",
+    17.31
+   ],
+   [
+    "2026-10-21",
+    16.68
+   ],
+   [
+    "2026-10-22",
+    19.03
+   ],
+   [
+    "2026-10-23",
+    19.45
+   ],
+   [
+    "2026-10-26",
+    18.39
+   ],
+   [
+    "2026-10-27",
+    17.52
+   ],
+   [
+    "2026-10-28",
+    16.91
+   ],
+   [
+    "2026-10-29",
+    17.2
+   ],
+   [
+    "2026-10-30",
+    19.42
+   ]
+  ],
+  "vix3m": [
+   [
+    "2026-08-07",
+    18.72
+   ],
+   [
+    "2026-08-10",
+    18.98
+   ],
+   [
+    "2026-08-11",
+    18.91
+   ],
+   [
+    "2026-08-12",
+    18.53
+   ],
+   [
+    "2026-08-13",
+    18.61
+   ],
+   [
+    "2026-08-14",
+    18.46
+   ],
+   [
+    "2026-08-17",
+    19.04
+   ],
+   [
+    "2026-08-18",
+    19.27
+   ],
+   [
+    "2026-08-19",
+    18.57
+   ],
+   [
+    "2026-08-20",
+    19.06
+   ],
+   [
+    "2026-08-21",
+    18.5
+   ],
+   [
+    "2026-08-24",
+    18.56
+   ],
+   [
+    "2026-08-25",
+    18.21
+   ],
+   [
+    "2026-08-26",
+    17.99
+   ],
+   [
+    "2026-08-27",
+    17.56
+   ],
+   [
+    "2026-08-28",
+    17.48
+   ],
+   [
+    "2026-08-31",
+    17.53
+   ],
+   [
+    "2026-09-01",
+    18.33
+   ],
+   [
+    "2026-09-02",
+    17.73
+   ],
+   [
+    "2026-09-03",
+    17.42
+   ],
+   [
+    "2026-09-04",
+    17.61
+   ],
+   [
+    "2026-09-08",
+    18.39
+   ],
+   [
+    "2026-09-09",
+    18.87
+   ],
+   [
+    "2026-09-10",
+    19.73
+   ],
+   [
+    "2026-09-11",
+    18.6
+   ],
+   [
+    "2026-09-14",
+    19.28
+   ],
+   [
+    "2026-09-15",
+    19.36
+   ],
+   [
+    "2026-09-16",
+    19.73
+   ],
+   [
+    "2026-09-17",
+    18.55
+   ],
+   [
+    "2026-09-18",
+    18.24
+   ],
+   [
+    "2026-09-21",
+    18.08
+   ],
+   [
+    "2026-09-22",
+    17.61
+   ],
+   [
+    "2026-09-23",
+    18.11
+   ],
+   [
+    "2026-09-24",
+    18.43
+   ],
+   [
+    "2026-09-25",
+    17.93
+   ],
+   [
+    "2026-09-28",
+    18.23
+   ],
+   [
+    "2026-09-29",
+    18.09
+   ],
+   [
+    "2026-09-30",
+    18.37
+   ],
+   [
+    "2026-10-01",
+    18.58
+   ],
+   [
+    "2026-10-02",
+    18.01
+   ],
+   [
+    "2026-10-05",
+    18.0
+   ],
+   [
+    "2026-10-06",
+    17.64
+   ],
+   [
+    "2026-10-07",
+    17.72
+   ],
+   [
+    "2026-10-08",
+    18.08
+   ],
+   [
+    "2026-10-09",
+    17.77
+   ],
+   [
+    "2026-10-12",
+    17.93
+   ],
+   [
+    "2026-10-13",
+    17.96
+   ],
+   [
+    "2026-10-14",
+    18.79
+   ],
+   [
+    "2026-10-15",
+    18.49
+   ],
+   [
+    "2026-10-16",
+    20.5
+   ],
+   [
+    "2026-10-19",
+    19.6
+   ],
+   [
+    "2026-10-20",
+    18.99
+   ],
+   [
+    "2026-10-21",
+    18.72
+   ],
+   [
+    "2026-10-22",
+    20.12
+   ],
+   [
+    "2026-10-23",
+    20.48
+   ],
+   [
+    "2026-10-26",
+    19.94
+   ],
+   [
+    "2026-10-27",
+    19.57
+   ],
+   [
+    "2026-10-28",
+    19.22
+   ],
+   [
+    "2026-10-29",
+    19.37
+   ],
+   [
+    "2026-10-30",
+    20.78
+   ]
+  ],
+  "vvix": [
+   [
+    "2026-08-07",
+    90.42
+   ],
+   [
+    "2026-08-10",
+    92.51
+   ],
+   [
+    "2026-08-11",
+    90.9
+   ],
+   [
+    "2026-08-12",
+    88.5
+   ],
+   [
+    "2026-08-13",
+    89.42
+   ],
+   [
+    "2026-08-14",
+    87.48
+   ],
+   [
+    "2026-08-17",
+    93.92
+   ],
+   [
+    "2026-08-18",
+    92.87
+   ],
+   [
+    "2026-08-19",
+    86.53
+   ],
+   [
+    "2026-08-20",
+    89.86
+   ],
+   [
+    "2026-08-21",
+    86.27
+   ],
+   [
+    "2026-08-24",
+    88.64
+   ],
+   [
+    "2026-08-25",
+    85.67
+   ],
+   [
+    "2026-08-26",
+    85.24
+   ],
+   [
+    "2026-08-27",
+    82.9
+   ],
+   [
+    "2026-08-28",
+    86.63
+   ],
+   [
+    "2026-08-31",
+    86.29
+   ],
+   [
+    "2026-09-01",
+    91.25
+   ],
+   [
+    "2026-09-02",
+    86.25
+   ],
+   [
+    "2026-09-03",
+    83.8
+   ],
+   [
+    "2026-09-04",
+    84.42
+   ],
+   [
+    "2026-09-08",
+    88.69
+   ],
+   [
+    "2026-09-09",
+    94.5
+   ],
+   [
+    "2026-09-10",
+    102.66
+   ],
+   [
+    "2026-09-11",
+    91.28
+   ],
+   [
+    "2026-09-14",
+    94.89
+   ],
+   [
+    "2026-09-15",
+    94.91
+   ],
+   [
+    "2026-09-16",
+    95.41
+   ],
+   [
+    "2026-09-17",
+    87.72
+   ],
+   [
+    "2026-09-18",
+    87.38
+   ],
+   [
+    "2026-09-21",
+    85.77
+   ],
+   [
+    "2026-09-22",
+    83.17
+   ],
+   [
+    "2026-09-23",
+    88.6
+   ],
+   [
+    "2026-09-24",
+    90.57
+   ],
+   [
+    "2026-09-25",
+    87.84
+   ],
+   [
+    "2026-09-28",
+    91.02
+   ],
+   [
+    "2026-09-29",
+    89.71
+   ],
+   [
+    "2026-09-30",
+    89.48
+   ],
+   [
+    "2026-10-01",
+    92.01
+   ],
+   [
+    "2026-10-02",
+    87.02
+   ],
+   [
+    "2026-10-05",
+    85.46
+   ],
+   [
+    "2026-10-06",
+    82.59
+   ],
+   [
+    "2026-10-07",
+    83.18
+   ],
+   [
+    "2026-10-08",
+    87.66
+   ],
+   [
+    "2026-10-09",
+    84.88
+   ],
+   [
+    "2026-10-12",
+    85.93
+   ],
+   [
+    "2026-10-13",
+    85.38
+   ],
+   [
+    "2026-10-14",
+    94.45
+   ],
+   [
+    "2026-10-15",
+    92.57
+   ],
+   [
+    "2026-10-16",
+    109.91
+   ],
+   [
+    "2026-10-19",
+    106.93
+   ],
+   [
+    "2026-10-20",
+    97.15
+   ],
+   [
+    "2026-10-21",
+    94.55
+   ],
+   [
+    "2026-10-22",
+    107.94
+   ],
+   [
+    "2026-10-23",
+    109.7
+   ],
+   [
+    "2026-10-26",
+    101.43
+   ],
+   [
+    "2026-10-27",
+    99.45
+   ],
+   [
+    "2026-10-28",
+    96.61
+   ],
+   [
+    "2026-10-29",
+    98.01
+   ],
+   [
+    "2026-10-30",
+    106.43
+   ]
+  ],
+  "skew": [
+   [
+    "2026-08-07",
+    132.57
+   ],
+   [
+    "2026-08-10",
+    137.13
+   ],
+   [
+    "2026-08-11",
+    135.59
+   ],
+   [
+    "2026-08-12",
+    136.54
+   ],
+   [
+    "2026-08-13",
+    134.37
+   ],
+   [
+    "2026-08-14",
+    138.36
+   ],
+   [
+    "2026-08-17",
+    142.91
+   ],
+   [
+    "2026-08-18",
+    143.6
+   ],
+   [
+    "2026-08-19",
+    142.93
+   ],
+   [
+    "2026-08-20",
+    143.23
+   ],
+   [
+    "2026-08-21",
+    143.9
+   ],
+   [
+    "2026-08-24",
+    145.64
+   ],
+   [
+    "2026-08-25",
+    143.27
+   ],
+   [
+    "2026-08-26",
+    142.96
+   ],
+   [
+    "2026-08-27",
+    144.05
+   ],
+   [
+    "2026-08-28",
+    149.77
+   ],
+   [
+    "2026-08-31",
+    148.53
+   ],
+   [
+    "2026-09-01",
+    149.23
+   ],
+   [
+    "2026-09-02",
+    144.12
+   ],
+   [
+    "2026-09-03",
+    150.63
+   ],
+   [
+    "2026-09-04",
+    151.58
+   ],
+   [
+    "2026-09-08",
+    148.86
+   ],
+   [
+    "2026-09-09",
+    149.25
+   ],
+   [
+    "2026-09-10",
+    147.02
+   ],
+   [
+    "2026-09-11",
+    154.49
+   ],
+   [
+    "2026-09-14",
+    152.09
+   ],
+   [
+    "2026-09-15",
+    146.61
+   ],
+   [
+    "2026-09-16",
+    145.95
+   ],
+   [
+    "2026-09-17",
+    145.7
+   ],
+   [
+    "2026-09-18",
+    148.1
+   ],
+   [
+    "2026-09-21",
+    142.19
+   ],
+   [
+    "2026-09-22",
+    144.8
+   ],
+   [
+    "2026-09-23",
+    146.15
+   ],
+   [
+    "2026-09-24",
+    146.04
+   ],
+   [
+    "2026-09-25",
+    144.91
+   ],
+   [
+    "2026-09-28",
+    146.25
+   ],
+   [
+    "2026-09-29",
+    144.58
+   ],
+   [
+    "2026-09-30",
+    141.92
+   ],
+   [
+    "2026-10-01",
+    142.77
+   ],
+   [
+    "2026-10-02",
+    144.88
+   ],
+   [
+    "2026-10-05",
+    143.04
+   ],
+   [
+    "2026-10-06",
+    141.21
+   ],
+   [
+    "2026-10-07",
+    141.84
+   ],
+   [
+    "2026-10-08",
+    149.19
+   ],
+   [
+    "2026-10-09",
+    154.34
+   ],
+   [
+    "2026-10-12",
+    155.06
+   ],
+   [
+    "2026-10-13",
+    154.74
+   ],
+   [
+    "2026-10-14",
+    157.3
+   ],
+   [
+    "2026-10-15",
+    160.45
+   ],
+   [
+    "2026-10-16",
+    168.59
+   ],
+   [
+    "2026-10-19",
+    161.86
+   ],
+   [
+    "2026-10-20",
+    160.4
+   ],
+   [
+    "2026-10-21",
+    150.36
+   ],
+   [
+    "2026-10-22",
+    152.39
+   ],
+   [
+    "2026-10-23",
+    151.8
+   ],
+   [
+    "2026-10-26",
+    150.97
+   ],
+   [
+    "2026-10-27",
+    149.22
+   ],
+   [
+    "2026-10-28",
+    148.74
+   ],
+   [
+    "2026-10-29",
+    151.03
+   ],
+   [
+    "2026-10-30",
+    149.76
+   ]
+  ],
+  "wiki_views": [
+   [
+    "2026-10-22",
+    376669.0
+   ],
+   [
+    "2026-10-23",
+    346271.0
+   ],
+   [
+    "2026-10-24",
+    290418.0
+   ],
+   [
+    "2026-10-25",
+    289037.0
+   ],
+   [
+    "2026-10-26",
+    348246.0
+   ],
+   [
+    "2026-10-27",
+    370065.0
+   ],
+   [
+    "2026-10-28",
+    354936.0
+   ],
+   [
+    "2026-10-29",
+    377524.0
+   ],
+   [
+    "2026-10-30",
+    662394.0
+   ]
+  ]
+ },
+ "patterns": [
+  {
+   "pattern": "attention_acceleration",
+   "status": "context",
+   "reason": "Latest three observations versus prior three; 50% research threshold",
+   "measure": 0.38467937594555246
+  },
+  {
+   "pattern": "stress_persistence",
+   "status": "context",
+   "reason": "Three consecutive observed VIX closes >=25; risk proxy only",
+   "measure": 16.91
+  },
+  {
+   "pattern": "source_disagreement",
+   "status": "abstain",
+   "reason": "Need two nonduplicated source families, common units and observations within 48h",
+   "measure": null
+  },
+  {
+   "pattern": "sentiment_price_divergence",
+   "status": "abstain",
+   "reason": "Need three time-aligned sentiment and explicitly supplied decimal-return observations",
+   "measure": null
+  },
+  {
+   "pattern": "narrative_concentration",
+   "status": "abstain",
+   "reason": "Not implemented: requires topic-share denominator, taxonomy version and complete topic coverage",
+   "measure": null
+  }
+ ],
+ "forecasts": [
+  {
+   "source": "cboe_vix",
+   "target": "stress",
+   "units": "VIX_index_points",
+   "status": "research_forecast",
+   "reason": null,
+   "next_proxy": 19.677500000000002,
+   "method": "persistence and mean of last four first differences",
+   "as_of": "2026-11-01T05:12:01.059247+00:00"
+  },
+  {
+   "source": "wikimedia_company_attention",
+   "target": "attention",
+   "units": "article_daily_user_pageviews",
+   "status": "research_forecast",
+   "reason": null,
+   "next_proxy": 740931.0,
+   "method": "persistence and mean of last four first differences",
+   "as_of": "2026-11-01T05:12:01.059247+00:00"
+  },
+  {
+   "source": "cboe_vvix",
+   "target": "uncertainty",
+   "units": "VVIX_index_points",
+   "status": "research_forecast",
+   "reason": null,
+   "next_proxy": 107.68,
+   "method": "persistence and mean of last four first differences",
+   "as_of": "2026-11-01T05:12:01.059247+00:00"
+  },
+  {
+   "source": "cboe_skew",
+   "target": "stress",
+   "units": "SKEW_index_points",
+   "status": "research_forecast",
+   "reason": null,
+   "next_proxy": 149.45749999999998,
+   "method": "persistence and mean of last four first differences",
+   "as_of": "2026-11-01T05:12:01.059247+00:00"
+  }
+ ],
+ "decision": {
+  "mode": "research_advisory",
+  "entry_authority": "Tensor",
+  "orders_allowed": false,
+  "action": "review_evidence",
+  "minimum_source_families": 2,
+  "observed_source_families": 2,
+  "predictive_validation": "not_established",
+  "reason": "No calibrated trading mapping is enabled."
+ },
+ "sources": [
+  {
+   "name": "CBOE VIX, VIX3M, VVIX, SKEW",
+   "status": "active",
+   "detail": "daily closes from the desk's CBOE cache (ChartsLector nightly export); last 2026-10-30",
+   "dimension": "stress / uncertainty"
+  },
+  {
+   "name": "Wikipedia attention (tracked companies)",
+   "status": "active",
+   "detail": "daily user page views summed over the desk's tracked US companies (WIKI_LIVE); 9 days",
+   "dimension": "attention"
+  },
+  {
+   "name": "Federal Reserve press releases (RSS)",
+   "status": "not connected",
+   "detail": "needs a new data pipeline; skipped by rule",
+   "dimension": "sentiment / uncertainty"
+  },
+  {
+   "name": "FRBSF daily news sentiment index",
+   "status": "not connected",
+   "detail": "needs a new data pipeline; skipped by rule",
+   "dimension": "sentiment"
+  },
+  {
+   "name": "46 other catalogued sources (surveys, filings, social, options flow ...)",
+   "status": "research only",
+   "detail": "listed in the engine's 50-source catalog; none is wired",
+   "dimension": "various"
+  }
+ ],
+ "sources_active": 2,
+ "evidence_rows": 15,
+ "excluded_rows": 314,
+ "source_health": {
+  "cboe_vix": {
+   "status": "ok",
+   "checked_at": "2026-11-01T05:12:01.033159+00:00",
+   "detail": "80 rows from desk cache"
+  },
+  "cboe_vix3m": {
+   "status": "ok",
+   "checked_at": "2026-11-01T05:12:01.041161+00:00",
+   "detail": "80 rows from desk cache"
+  },
+  "cboe_vvix": {
+   "status": "ok",
+   "checked_at": "2026-11-01T05:12:01.048916+00:00",
+   "detail": "80 rows from desk cache"
+  },
+  "cboe_skew": {
+   "status": "ok",
+   "checked_at": "2026-11-01T05:12:01.056223+00:00",
+   "detail": "80 rows from desk cache"
+  },
+  "wikimedia_company_attention": {
+   "status": "ok",
+   "checked_at": "2026-11-01T05:12:01.058504+00:00",
+   "detail": "9 rows from desk cache"
+  }
+ },
+ "ingest_status": {
+  "cboe_vix": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 80, \"duplicates\": 0}",
+  "cboe_vix3m": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 80, \"duplicates\": 0}",
+  "cboe_vvix": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 80, \"duplicates\": 0}",
+  "cboe_skew": "ok: 80 rows, last event 2026-10-30, ingest {\"inserted\": 80, \"duplicates\": 0}",
+  "wikimedia_company_attention": "ok: 9 rows, last event 2026-10-30, ingest {\"inserted\": 9, \"duplicates\": 0}"
+ },
+ "interpretation": [
+  "A VIX reading is option-implied risk, not a survey of investor fear.",
+  "Attention is page views, not sentiment.",
+  "Dimension values are descriptive; they are not calibrated probabilities or trading signals.",
+  "Single source family per dimension: the engine abstains from multi-family conclusions."
+ ]
+}
