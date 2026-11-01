@@ -966,6 +966,15 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
     <div class="engscan" id="cltcscans"></div>
     <p class="meta" style="margin-top:12px" id="cltcnote"></p>
   </section>
+  <section id="cllineup" class="card">
+    <p class="kicker">Lineup tools · from the Test repo</p>
+    <h2>Desk lineup tools</h2>
+    <p class="sub">Public-terminal tools from the Test repo that run on data the desk already keeps: opening range, expected move, move bands, bar-label combos, reversal wire, fear days, pullback depth, a screener, a watchlist, a one-page report, a payoff sketch and each tool's receipt. Readings only, never a call.</p>
+    <div class="err" id="lulerr" hidden></div>
+    <div class="chips" id="luchips"></div>
+    <div id="lupane"><div class="empty">Loading…</div></div>
+    <p class="meta" style="margin-top:12px" id="lunote"></p>
+  </section>
   <section id="clscore">
     <p class="kicker">Traded on the Test desk</p>
     <h2>ChartsLector sleeves</h2>
@@ -999,7 +1008,7 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
       <div class="src"><b>Options snapshots</b>A nightly snapshot of the options market, used to estimate dealer gamma (how options dealers' hedging pushes a stock around).</div>
       <div class="src"><b>ChartsLector</b>The public screens and market gauges of the trader @ChartsLector, rebuilt from his open-source indicators. Two Test-desk sleeves trade his screens; the Market tab shows the gauges.</div>
       <div class="src"><b>Signal engine and strategy library</b>The signal engine scores every stock with 7 trend and momentum votes and produces the Cyan, Green and Swing buy signals. The strategy library is a separate set of books that run as Test-desk sleeves.</div>
-      <div class="src"><b>Market psychology and chart reading</b>Two research readers on the Market tab, built only on the data above. The Psychology Engine describes stress (VIX, VIX3M, VVIX, SKEW) and attention (Wikipedia page views). The Chart Read Engine reads each tracked name's daily bars in plain words. Both describe; neither places or sizes an order.</div>
+      <div class="src"><b>Market psychology and chart reading</b>Two research readers on the Market tab, built only on the data above. The Psychology Engine describes stress (VIX, VIX3M, VVIX, SKEW) and attention (Wikipedia page views). The Chart Read Engine reads each tracked name's daily bars in plain words. Both describe; neither places or sizes an order. The lineup tools (opening range, expected move, move bands, bar-label combos, screener, payoff sketch and more) read the same desk data plus the three index funds' 5-minute bars from the paper-account data service.</div>
     </div>
   </section>
   <section id="how-loop" class="card">
@@ -1947,7 +1956,7 @@ const ENG={ps:null,tc:null,f:"all",q:"",busy:false,open:{},lim:40};
 async function engLoad(){
   if(ENG.busy) return; ENG.busy=true;
   const g=async u=>{try{const r=await fetch(u+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);return await r.json();}catch(e){return {__err:e.message};}};
-  try{const [a,b]=await Promise.all([g("psychology.json"),g("technical.json")]);ENG.ps=a;ENG.tc=b;engRender();}finally{ENG.busy=false;}
+  try{const [a,b]=await Promise.all([g("psychology.json"),g("technical.json")]);ENG.ps=a;ENG.tc=b;engRender();if(typeof luLoad==="function")luLoad();}finally{ENG.busy=false;}
 }
 function engAge(d){const t=Date.parse(d&&d.generated_at_iso);return isNaN(t)?null:(Date.now()-t)/36e5;}
 function engWarn(id,d,name){const b=$(id);if(!b)return;if(!d||d.__err){b.hidden=false;b.style.display="block";b.textContent=`The ${name} data could not be loaded${d&&d.__err?" ("+d.__err+")":""}. It retries with the next refresh.`;return false;}
@@ -2804,7 +2813,7 @@ window.addEventListener("resize",()=>{if(!$("tab-cl").hidden){clDraw();return;}i
 
 // ---- pass 3b: sticky section links, back to top, sleeve finder
 const JUMP={main:[["overview","Overview"],["chart","Chart"],["beta","Small caps"],["mood","Mood"],["positions","Positions"],["heat","Heatmap"],["lanes","Sleeves"],["pass","Engine"],["trades","Closed"],["tradelog","Trade log"],["scorecards","Scorecards"],["signals","Breakdown"]],
-  cl:[["clhead","Market read"],["clmood","Mood Ring"],["clpulse","Pulse"],["clbreadth","Breadth"],["clrisk","Risk appetite"],["clranker","Ranker"],["clthemes","Themes"],["clrot","Rotation"],["clscreens","Screens"],["clpsy","Psychology"],["cltech","Technical"],["clscore","Sleeves"]],
+  cl:[["clhead","Market read"],["clmood","Mood Ring"],["clpulse","Pulse"],["clbreadth","Breadth"],["clrisk","Risk appetite"],["clranker","Ranker"],["clthemes","Themes"],["clrot","Rotation"],["clscreens","Screens"],["clpsy","Psychology"],["cltech","Technical"],["cllineup","Lineup"],["clscore","Sleeves"]],
   how:[["how-top","Overview"],["how-map","Map"],["how-data","Data"],["how-loop","The loop"],["how-order","Orders"],["how-accounts","Accounts"],["how-ops","Operations"],["how-site","Tabs"],["how-glossary","Glossary"]]};
 JUMP.test=JUMP.main.map(([i,l])=>[i==="overview"?"desk2":"t2"+i,l]);
 let JT="main";
@@ -2945,6 +2954,232 @@ const dcMd=v=>{try{return new Date(String(v)+"T12:00:00").toLocaleDateString("en
 {const _h=csHead;csHead=function(c,tag){const D=dcOf(c&&c.card);let h=_h(c,tag);if(!D)return h;return h.replace(/<span class="cs-hz">[\s\S]*?<\/span>/,`<span class="cs-hz">call runs to ${esc(dcMd(D.by))}</span>`);};}
 {const _t=cvTF;cvTF=function(c){return dcOf(c&&c.card)?"daily":_t(c);};}   /* the call's horizon is days to weeks: daily bars */
 {const _r=rdRole;rdRole=function(c){if(c&&c.card&&c.card.decision)return "";return _r(c);};}
+</script>
+<script id="lineup-20261101">
+/* 2026-11-01 Galath t275u: Desk lineup tools (Test-repo terminal-lineup tools that run on data the desk already keeps). Descriptive readings only. */
+const LU={d:null,u:null,pane:"or",busy:false,lim:40,f:{g:"all",pmin:"",pmax:"",m63:"",hi:"",v200:"any",volx:"",strat:"any",stance:"any",sort:"dvol_m"},wl:[],rq:"",po:null};
+try{LU.wl=JSON.parse(localStorage.getItem("gd_watch")||"[]").filter(x=>typeof x==="string").slice(0,40);}catch(e){}
+const LUP=[["or","Opening Range"],["em","Expected Move"],["cb","Corrected Band"],["sc","Strat Combos"],["rw","Reversal Wire"],["fd","Fear Days"],["pn","Pullback Norm"],["scr","Screener"],["wl","Watchlist"],["opr","One-Page Report"],["po","Payoff Sketch"],["rc","Receipts"]];
+async function luLoad(){
+  if(LU.busy) return; LU.busy=true;
+  const g=async u=>{try{const r=await fetch(u+"?t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);return await r.json();}catch(e){return {__err:e.message};}};
+  try{const [a,b]=await Promise.all([g("lineup.json"),g("universe.json")]);LU.d=a;LU.u=b;luIndex();luRender();}finally{LU.busy=false;}
+}
+function luIndex(){const u=LU.u;LU.ix={};if(u&&u.rows){const c=u.cols;u.rows.forEach(r=>{const o={};c.forEach((k,i)=>o[k]=r[i]);LU.ix[o.s]=o;});}}
+const luD=v=>v>=1000?(v/1000).toFixed(1)+"B":Math.round(v)+"M";
+const luP=(v,d=1)=>v==null?"—":Number(v).toFixed(d)+"%";
+const luN=(n,p)=>p==null?`${n}`:`${n} <span class="meta">(${p.toFixed(1)}%)</span>`;
+const luT=(h,rows,rc)=>`<div class="scroll"><table><tr>${h.map((x,i)=>`<th${rc&&rc.includes(i)?' class="r"':""}>${x}</th>`).join("")}</tr>${rows.map(r=>`<tr>${r.map((c,i)=>`<td${rc&&rc.includes(i)?' class="r"':""}>${i===0?"<b>"+c+"</b>":c}</td>`).join("")}</tr>`).join("")}</table></div><p class="swipe meta">Swipe sideways to see all columns →</p>`;
+const luDay=s=>{if(!s)return"—";const d=new Date(s+"T12:00:00");return isNaN(d)?esc(s):d.toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"});};
+function luWarn(){
+  const d=LU.d,b=$("lulerr");if(!b)return false;
+  if(!d||d.__err){b.hidden=false;b.style.display="block";b.textContent="The lineup tools data could not be loaded"+(d&&d.__err?" ("+d.__err+")":"")+". It retries with the next refresh.";return false;}
+  const h=engAge(d);if(h!=null&&h>40){b.hidden=false;b.style.display="block";b.textContent=`These readings are ${Math.round(h)} hours old (${d.generated_at}); their refresh has not run since.`;}else{b.hidden=true;b.style.display="none";}return true;
+}
+function luRender(){
+  if(!$("lupane")) return;
+  $("luchips").innerHTML=LUP.map(([k,l])=>`<button class="chip${LU.pane===k?" on":""}" data-k="${k}">${esc(l)}</button>`).join("");
+  if(!luWarn()){$("lupane").innerHTML=`<div class="empty">Not available.</div>`;return;}
+  try{({or:luOR,em:luEM,cb:luCB,sc:luSC,rw:luRW,fd:luFD,pn:luPN,scr:luSCR,wl:luWL,opr:luOPR,po:luPO,rc:luRC})[LU.pane]();}catch(e){console.error("lineup pane",LU.pane,e);$("lupane").innerHTML=`<div class="empty">This tool could not be drawn.</div>`;}
+  $("lunote").textContent=`${(LU.d.engine||{}).name||""}: ${(LU.d.engine||{}).source||""}. Daily bars through ${clDate(LU.d.as_of)}. ${(LU.d.notes||[]).join(" ")} Updated ${LU.d.generated_at||""}.`;
+  swipeHints();
+}
+function luOR(){
+  const o=LU.d.opening_range,W=o.windows||[],h=W.find(w=>w.headline)||W[W.length-1];
+  const lr=(o.first_hour_long_record||{}).by_name||{};
+  $("lupane").innerHTML=`<p class="sub">What the rest of the day usually did after price broke out of the opening range of SPY, QQQ and IWM. ${esc(o.sessions)} completed sessions (${clDate(o.first)} to ${clDate(o.last)}) from 5-minute bars, all three funds counted together.</p>
+  <div class="grid" data-n="4">${statHTML([["First hour · broke a side",luP(h.broke_any_pct),`${h.broke_any} of ${h.days} fund-days`,"flat"],["First hour · both sides",luP(h.both_pct),`${h.both} fund-days`,"flat"],["Ran half a range past",luP(h.extension[0].pct_of_breaks,0),"of the days that broke","flat"],["Ran a full range past",luP(h.extension[1].pct_of_breaks,0),"of the days that broke","flat"]])}</div>
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">By opening window</h3>
+  ${luT(["Window","Days","Up side only","Down side only","Both sides","Neither","½ range+","1 range+","1½ range+"],W.map(w=>[esc(w.label),w.days,luN(w.up_only,w.up_only_pct),luN(w.down_only,w.down_only_pct),luN(w.both,w.both_pct),luN(w.neither,w.neither_pct),luP(w.extension[0].pct_of_breaks,0),luP(w.extension[1].pct_of_breaks,0),luP(w.extension[2].pct_of_breaks,0)]),[1,2,3,4,5,6,7,8])}
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">First hour, longer record, by fund</h3>
+  ${luT(["Fund","Days","From","Up only","Down only","Both","Neither","Closed past the range (one-side days)"],Object.entries(lr).map(([s,r])=>[esc(s),r.days,clDate(r.first),luN(r.up_only,r.up_only_pct),luN(r.down_only,r.down_only_pct),luN(r.both,r.both_pct),luN(r.neither,r.neither_pct),`up ${luP((r.closed_beyond_one_side||{}).up_pct,0)} · down ${luP((r.closed_beyond_one_side||{}).down_pct,0)}`]),[1,3,4,5,6])}
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">Latest session</h3>
+  ${luT(["Fund","Session","First-hour high","First-hour low","Range","After the first hour"],Object.entries(o.latest||{}).map(([s,r])=>[esc(s),luDay(r.session),r.range_high,r.range_low,luP(r.range_pct,2),esc(r.after_first_hour)]),[2,3,4])}
+  <p class="meta" style="margin-top:8px">${esc(o.definition)} ${(o.notes||[]).map(esc).join(" ")}</p>`;
+}
+function luEM(){
+  const e=LU.d.expected_move,M=e.maps||[];
+  $("lupane").innerHTML=`<p class="sub">The move the VIX prices for the next session (${luDay(e.next_session)}), drawn around each fund's last close. A map of how far, not which way.</p>
+  <div class="grid" data-n="${M.length}">${statHTML(M.map(m=>[`${esc(m.name)} · next session`,`±${m.move_points}`,`${m.lower_wall} to ${m.upper_wall} · VIX ${m.vix_close} ${esc(m.regime)}`,"flat"]))}</div>
+  ${luT(["Fund","Close","Move","Lower wall","Lower half","Upper half","Upper wall","Week ±","Week range"],M.map(m=>[esc(m.name),m.base_close,`±${m.move_points} (${m.move_pct.toFixed(2)}%)`,m.lower_wall,m.lower_half,m.upper_half,m.upper_wall,`±${m.week_move_points}`,`${m.week_lower} to ${m.week_upper}`]),[1,2,3,4,5,6,7,8])}
+  ${M[0]?`<h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">${esc(M[0].name)} funding curve</h3><p class="meta">How much of the session move is "funded" by each elapsed minute (move × square root of elapsed time).</p>${luT(["Minutes in","Funded points","Lower","Upper"],M[0].funding_curve.map(c=>[c.elapsed_minutes,c.funded_points,c.lower,c.upper]),[0,1,2,3])}`:""}
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">How the construction has done on the desk's own history</h3>
+  ${luT(["Fund","Sessions","Close stayed inside","Last 250 sessions","Recent sessions (✓ inside)"],Object.entries(e.record||{}).map(([s,r])=>[esc(s),r.sessions,luP(r.close_inside_pct),luP(r.last250_close_inside_pct),(r.recent||[]).map(x=>`<span title="${esc(x.session)}: close ${x.close}, band ${x.lower} to ${x.upper}" class="clpill ${x.close_inside?"yes":"no"}" style="padding:1px 7px">${x.close_inside?"✓":"✗"}</span>`).join(" ")]),[1,2,3])}
+  <p class="meta" style="margin-top:8px">${esc(e.construction)} ${esc(e.note)}</p>`;
+}
+function luCB(){
+  const c=LU.d.corrected_band,H=c.history||{},R=c.record||{},LV=["50","68","81","95"];
+  const live=c.live||[];
+  $("lupane").innerHTML=`<p class="sub">Move bands for SPY and QQQ whose stated percentage is a claim that gets graded: each band is written to a ledger before it is shown, then scored when its horizon closes. No direction is ever forecast.</p>
+  ${luT(["Fund","Horizon","Close","Recent movement (annual)","50%","68%","81%","95%"],live.map(x=>[esc(x.symbol),x.h+(x.h===1?" session":" sessions"),x.base_close,luP(x.vol_annual_pct,1),...LV.map(L=>`${x.bands[L][0]} – ${x.bands[L][1]}`)]),[2,3,4,5,6,7])}
+  <p class="meta">Base session ${clDate((live[0]||{}).base_session)}. VIX ${(live[0]||{}).vix??"—"} vs 3-month VIX ${(live[0]||{}).vix3m??"—"}: ${(live[0]||{}).backwardation?"VIX above the 3-month, so the 95% band is widened by 25%":"not backwardated, no widening"}.</p>
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">Measured coverage on the desk's bars (how often the later close landed inside the band)</h3>
+  ${luT(["Fund","Horizon","Band days","50% claimed","68% claimed","81% claimed","95% claimed"],Object.entries(H).flatMap(([s,hh])=>Object.entries(hh).map(([h,r])=>[esc(s),h+"d",r.base_days,...LV.map(L=>`${luP(r.coverage[L],0)} <span class="meta">(last 250: ${luP(r.last250_coverage[L],0)})</span>`)])),[2,3,4,5,6])}
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">Live ledger</h3>
+  <p class="meta">${R.issued||0} bands issued since ${clDate(R.first_base)}. ${Object.keys(R.graded||{}).length?Object.entries(R.graded).map(([h,g])=>`${h}d: ${g.graded} graded, 68% band held ${luP(g.coverage["68"],0)}`).join(" · "):"None has reached its horizon yet; graded counts accrue one session at a time."}</p>
+  <p class="meta" style="margin-top:8px">${esc(c.construction)} The reconstruction of the repo's recent-movement recipe is the desk's own, so exact replication is not claimed; the measured coverage above is the honest check on it.</p>`;
+}
+function luSC(){
+  const s=LU.d.strat_combos,P=s.sequence_pairs||[];
+  $("lupane").innerHTML=`<p class="sub">Each name's last five daily bar labels, grouped by their last two, and the multi-bar patterns completed on ${clDate(s.session)}. Labels only: nothing about what follows.</p>
+  <div class="clpills">${P.slice(0,10).map(p=>`<span class="clpill" title="${esc(p.sample.join(", "))}">${esc(p.seq)} · ${p.count}</span>`).join("")}</div>
+  <p class="meta" style="margin-top:6px">${s.names_labelled} names labelled. 1 inside bar · 2U took the prior high only · 2D took the prior low only · 3 outside bar. Hover a group for sample names.</p>
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">Completed patterns on the latest session (${s.completed_entries} entries)</h3>
+  ${luT(["Pattern","Names","Some of them"],(s.completed||[]).map(c=>[esc(c.pattern),c.count,esc(c.names.slice(0,14).join(", "))]),[1])}
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">Most common three-bar runs</h3>
+  ${luT(["Last three labels","Names","Samples"],(s.sequence_triples||[]).slice(0,8).map(c=>[esc(c.seq),c.count,esc(c.sample.slice(0,6).join(", "))]),[1])}
+  <p class="meta" style="margin-top:8px">${esc(s.note)}</p>`;
+}
+function luRW(){
+  const w=LU.d.reversal_wire,E=w.entries||[];
+  $("lupane").innerHTML=`<p class="sub">Reversal-shaped bar labels as a dated wire, from the last five sessions (names trading at least $2M a day). Labels, not calls to act.</p>
+  ${luT(["Session","Label","Names","Names (latest session)"],E.map(e=>[luDay(e.date),esc(e.label),e.count,esc(e.names.slice(0,30).join(", ")+(e.names.length>30?" …":""))]),[2])}
+  <p class="meta" style="margin-top:8px">${esc(w.note)}</p>`;
+}
+function luFD(){
+  const f=LU.d.fear_day,l=f.last_session||{};
+  if(f.unavailable){$("lupane").innerHTML=`<div class="empty">${esc(f.unavailable)}</div>`;return;}
+  $("lupane").innerHTML=`<p class="sub">${esc(f.definition)}</p>
+  <div class="grid" data-n="4">${statHTML([["Latest session",l.is_fear_day?"Fear day":"Not a fear day",`${clDate(l.date)} · SPY ${sgn(l.spy_pct,2)} · VIX ${l.vix}`,"flat"],["Fear days on record",String(f.fear_days),`${luP(f.fear_days_pct,0)} of ${f.sessions_judged} sessions since ${clDate(f.first)}`,"flat"],["Why latest qualifies",esc((l.arms||[]).join("; ")||"no rule met"),"","flat"],["After a fear day, 5 sessions",f.spy_after[1].median_pct==null?"—":sgn(f.spy_after[1].median_pct,2),`median SPY move · ${luP(f.spy_after[1].positive_pct,0)} positive · n ${f.spy_after[1].n}`,"flat"]])}</div>
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">Which rule fired</h3>
+  ${luT(["Rule","Days"],Object.entries(f.arm_counts||{}).map(([k,v])=>[esc(k),v]),[1])}
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">What SPY did after fear days</h3>
+  ${luT(["After","Fear days","Median SPY move","Share positive"],(f.spy_after||[]).map(a=>[a.h+(a.h===1?" session":" sessions"),a.n,a.median_pct==null?"—":sgn(a.median_pct,2),luP(a.positive_pct,0)]),[1,2,3])}
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">Most recent fear days</h3>
+  ${luT(["Date","SPY","VIX","Rules"],(f.recent||[]).map(r=>[luDay(r.date),sgn(r.spy_pct,2),r.vix,esc((r.arms||[]).join("; "))]),[1,2])}
+  <p class="meta" style="margin-top:8px">${esc(f.note)}</p>`;
+}
+function luPN(){
+  const p=LU.d.pullback_norm;
+  $("lupane").innerHTML=`<p class="sub">${esc(p.definition)}</p>
+  <div class="grid" data-n="3">${statHTML([["Names measured",String(p.names_measured),"$2M+ a day, at least 330 sessions","flat"],["Above their 200-day",String(p.uptrend_names),"the uptrend names","flat"],["Unusually deep (95+)",String((p.buckets[4]||{}).uptrend??"—"),"of the uptrend names","flat"]])}</div>
+  ${luT(["Depth vs its own history","Uptrend names","All names"],(p.buckets||[]).map(b=>[esc(b.label),b.uptrend,b.all]),[1,2])}
+  <h3 style="margin:14px 0 4px;font-size:14px;color:var(--navy)">The desk's own names, deepest against their own history first</h3>
+  ${luT(["Name","Depth percentile","vs 200-day","Below 52-wk high"],(p.desk_names||[]).slice(0,25).map(r=>[esc(r.s),r.depth_pctile,sgn(r.vs200,1),luP(r.below_high_pct)]),[1,2,3])}
+  <p class="meta" style="margin-top:8px">${esc(p.note)}</p>`;
+}
+function luRows(){
+  const u=LU.u;if(!u||!u.rows)return [];const g=LU.f,tc=(ENG.tc&&ENG.tc.names)||[],st={},grp={};tc.forEach(r=>{st[r.s]=r.stance;grp[r.s]=r.groups||[];});
+  const pm=g.pmin===""?null:+g.pmin,px=g.pmax===""?null:+g.pmax,m63=g.m63===""?null:+g.m63,hi=g.hi===""?null:+g.hi,vx=g.volx===""?null:+g.volx;
+  const GL={Main:"Main desk",Test:"Test desk",Ranker:"Ranker",Funds:"Index / fund"};
+  let R=Object.values(LU.ix).filter(r=>(g.g==="all"||(grp[r.s]||[]).includes(GL[g.g]))&&(pm==null||r.close>=pm)&&(px==null||r.close<=px)&&(m63==null||(r.d63!=null&&r.d63>=m63))&&(hi==null||(r.below_high!=null&&r.below_high<=hi))&&(g.v200==="any"||(g.v200==="above"?(r.vs200!=null&&r.vs200>0):(r.vs200!=null&&r.vs200<0)))&&(vx==null||(r.volx!=null&&r.volx>=vx))&&(g.strat==="any"||String(r.strat5).split("-").pop()===g.strat)&&(g.stance==="any"||st[r.s]===g.stance)&&(!LU.sq||r.s.includes(LU.sq)));
+  const k=g.sort;R.sort((a,b)=>k==="s"?(a.s<b.s?-1:1):((b[k]==null?-1e18:b[k])-(a[k]==null?-1e18:a[k])));
+  return R.map(r=>({...r,stance:st[r.s]}));
+}
+function luSCRBody(){
+  const R=luRows(),tot=R.length,V=R.slice(0,LU.lim);
+  $("luscres").innerHTML=`<p class="meta">${tot} name${tot===1?"":"s"} match.</p>`+luT(["Name","Close","Day","3 mo","6 mo","Below high","vs 200d","RSI","Vol ×","$M/day","Last label","Chart-read stance"],V.map(r=>[esc(r.s),r.close,sgn(r.d1,1),sgn(r.d63,0),sgn(r.d126,0),luP(r.below_high,0),sgn(r.vs200,0),r.rsi??"—",r.volx==null?"—":r.volx+"×",r.dvol_m??"—",esc(String(r.strat5).split("-").pop()),esc(r.stance||"—")]),[1,2,3,4,5,6,7,8,9])+(tot>LU.lim?`<p class="meta">Showing ${LU.lim}. <a href="#" id="luscall" style="color:var(--teal);font-weight:700">Show more</a></p>`:"");
+  swipeHints();
+}
+function luSCR(){
+  const f=LU.f,sel=(id,opts,v)=>`<select id="${id}" class="engsrch" style="max-width:150px;margin:0 6px 6px 0">${opts.map(([k,l])=>`<option value="${k}"${v===k?" selected":""}>${l}</option>`).join("")}</select>`,inp=(id,ph,v)=>`<input id="${id}" class="engsrch" style="max-width:110px;margin:0 6px 6px 0" inputmode="decimal" placeholder="${ph}" value="${esc(v)}">`;
+  $("lupane").innerHTML=`<p class="sub">Filter every name the desk keeps daily bars for (${LU.u.rows.length}) by plain conditions. A screen is a filter, not a recommendation.</p>
+  <div>${sel("lufg",[["all","All names"],["Main","Main desk"],["Test","Test desk"],["Ranker","Ranker"],["Funds","Funds"]],f.g)}${inp("lufpmin","Min price",f.pmin)}${inp("lufpmax","Max price",f.pmax)}${inp("lufm63","3-mo ≥ %",f.m63)}${inp("lufhi","Within % of high",f.hi)}${inp("lufvx","Vol × ≥",f.volx)}
+  ${sel("lufv200",[["any","vs 200-day: any"],["above","Above 200-day"],["below","Below 200-day"]],f.v200)}${sel("lufst",[["any","Last label: any"],["1","1 inside"],["2U","2U"],["2D","2D"],["3","3 outside"]],f.strat)}${sel("lufsn",[["any","Stance: any"],["Net for","Net for"],["Leans for","Leans for"],["Mixed","Mixed"],["Leans against","Leans against"],["Net against","Net against"]],f.stance)}
+  ${sel("lufso",[["dvol_m","Sort: $ volume"],["d63","Sort: 3-mo"],["d126","Sort: 6-mo"],["d21","Sort: 1-mo"],["volx","Sort: volume ×"],["s","Sort: name"]],f.sort)}<input id="lufq" class="engsrch" style="max-width:130px" type="search" placeholder="Symbol" autocapitalize="characters" value="${esc(LU.sq||"")}"></div><div id="luscres"></div>`;
+  luSCRBody();
+}
+function luSave(){try{localStorage.setItem("gd_watch",JSON.stringify(LU.wl));}catch(e){}}
+function luWL(){
+  const ix=LU.ix,st={};((ENG.tc&&ENG.tc.names)||[]).forEach(r=>st[r.s]=r.stance);
+  $("lupane").innerHTML=`<p class="sub">Your list, one line each, from the desk's own readings. Saved only in this browser, never sent anywhere, no account.</p>
+  <div><input id="luwlq" class="engsrch" style="max-width:150px;display:inline-block;margin-right:6px" placeholder="Add symbol" autocapitalize="characters"><button class="chip" id="luwladd">Add</button> ${LU.wl.length?"":`<span class="meta">Start with</span> ${["SPY","QQQ","AAPL"].map(s=>`<button class="chip luwlq1" data-s="${s}">${s}</button>`).join("")}`}</div>
+  ${LU.wl.length?luT(["Name","Close","Day","3 mo","vs 200d","Vol ×","Last five labels","Chart-read stance",""],LU.wl.map(s=>{const r=ix[s];return r?[esc(s),r.close,sgn(r.d1,1),sgn(r.d63,0),sgn(r.vs200,0),r.volx==null?"—":r.volx+"×",esc(r.strat5),esc(st[s]||"not read"),`<a href="#" class="luwlx" data-s="${esc(s)}" style="color:var(--red)">remove</a>`]:[esc(s),"not on record","","","","","","",`<a href="#" class="luwlx" data-s="${esc(s)}" style="color:var(--red)">remove</a>`];}),[1,2,3,4,5]):""}`;
+}
+function luOPR(){
+  $("lupane").innerHTML=`<p class="sub">Every reading the terminal has on one name, gathered on one page. Each section carries a reading or says plainly that none is on record.</p>
+  <input id="luoq" class="engsrch" placeholder="Symbol, e.g. AAPL" autocapitalize="characters" value="${esc(LU.rq)}"><div id="luores"></div>`;luOPRBody();
+}
+function luOPRBody(){
+  const s=LU.rq.trim().toUpperCase(),el=$("luores");if(!s){el.innerHTML=`<p class="meta">Type a symbol.</p>`;return;}
+  const r=LU.ix[s],tc=((ENG.tc&&ENG.tc.names)||[]).find(x=>x.s===s),sec=[];
+  const li=a=>(a||[]).length?`<ul>${a.map(f=>`<li><b>${esc(f.head)}.</b> ${esc(f.text)}</li>`).join("")}</ul>`:`<div class="meta">None flagged.</div>`;
+  const none=t=>`<div class="meta">${t}</div>`;
+  sec.push(["Price and trend",r?`Close ${r.close} (${clDate(LU.u.as_of)}). Day ${sgn(r.d1,1)}, 1 mo ${sgn(r.d21,1)}, 3 mo ${sgn(r.d63,1)}, 6 mo ${sgn(r.d126,1)}. ${luP(r.below_high,1)} below its 52-week closing high; ${sgn(r.vs50,1)} vs 50-day, ${sgn(r.vs200,1)} vs 200-day. RSI ${r.rsi??"—"}.`:null]);
+  sec.push(["Chart Read",tc?`<span class="engbadge ${/for/.test(tc.stance)?"up":/against/.test(tc.stance)?"dn":"mx"}">${esc(tc.stance)}</span> ${esc(tc.take||"")}<h4 style="margin:8px 0 3px">Evidence for</h4>${li(tc.material.concat(tc.standouts))}<h4 style="margin:8px 0 3px">Evidence against</h4>${li(tc.against)}`:null]);
+  sec.push(["Bar labels (Strat)",r?`Last five labels, oldest first: <b>${esc(r.strat5)}</b>.`+(((LU.d.strat_combos.completed||[]).filter(c=>c.names.includes(s)).map(c=>c.pattern)).length?" Completed pattern: "+LU.d.strat_combos.completed.filter(c=>c.names.includes(s)).map(c=>esc(c.pattern)).join("; ")+".":""):null]);
+  sec.push(["Volume",r&&r.volx!=null?`Volume ${r.volx}× its 50-session average; about $${luD(r.dvol_m)} traded a day.`:null]);
+  sec.push(["Pullback depth",r&&r.depth_pctile!=null?`Depth is at the ${r.depth_pctile}th percentile of this name's own history (0 shallowest, 100 deepest).`:null]);
+  const cw=((ENG.tc||{}).scans||{}).correlation_web||{},tw=(cw.pairs||[]).filter(p=>p.a===s||p.b===s).map(p=>`${esc(p.a===s?p.b:p.a)} (${p.r})`);
+  sec.push(["Moves with",tw.length?`Closest twins in the desk's correlation web: ${tw.join(", ")}.`:null]);
+  const idx=(LU.d.expected_move.maps||[]).find(m=>m.name===s);
+  if(idx)sec.push(["Expected move",`Next session priced move ±${idx.move_points} (${idx.lower_wall} to ${idx.upper_wall}); week ±${idx.week_move_points}. VIX ${idx.vix_close} ${esc(idx.regime)}.`]);
+  const orr=(LU.d.opening_range.latest||{})[s];if(orr)sec.push(["Opening range",`${luDay(orr.session)}: first-hour range ${orr.range_low} to ${orr.range_high} (${luP(orr.range_pct,2)}); after the first hour it ${esc(orr.after_first_hour)}.`]);
+  const n=sec.filter(x=>x[1]).length;
+  el.innerHTML=`<div class="headline" style="font-size:15px;margin:10px 0"><b>${esc(s)}</b> · ${n} of ${sec.length} sections carry a reading</div>`+sec.map(([h,b])=>`<div class="engrow open"><div class="bd" style="display:block"><h4>${esc(h)}</h4>${b||none("Not on record for this name.")}</div></div>`).join("");
+}
+function luPO(){
+  if(!LU.po){const sp=(LU.ix.SPY||{}).close||100;LU.po={spot:+sp,legs:[{k:"call",s:"long",strike:Math.round(sp),prem:Math.max(1,+(sp*0.015).toFixed(2)),q:1}]};}
+  const P=LU.po,PRE=["Long call","Long put","Covered call","Bull call spread","Bear put spread","Iron condor"];
+  $("lupane").innerHTML=`<p class="sub">Draw any multi-leg options position's payoff at expiration: profit and loss at every price, breakevens, maximum gain and loss. It runs in your browser from the numbers you type; nothing is sent anywhere and no market feed is used except the starting price. Preset premiums are illustrative placeholders: type real quotes.</p>
+  <div class="chips">${PRE.map(k=>`<button class="chip lupre" data-k="${esc(k)}">${esc(k)}</button>`).join("")}</div>
+  <label class="meta">Price now <input id="lupospot" class="engsrch" style="max-width:100px;margin:0 8px 0 4px;display:inline-block" inputmode="decimal" value="${P.spot}"></label>
+  <div id="lupolegs"></div><button class="chip" id="luposadd">Add a leg</button>
+  <div id="lupores" style="margin-top:12px"></div>`;
+  luPOLegs();luPODraw();
+}
+function luPOLegs(){
+  const P=LU.po;
+  $("lupolegs").innerHTML=P.legs.map((l,i)=>`<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:6px 0"><select class="engsrch lupol" data-i="${i}" data-f="s" style="max-width:90px;margin:0"><option${l.s==="long"?" selected":""}>long</option><option${l.s==="short"?" selected":""}>short</option></select>
+  <select class="engsrch lupol" data-i="${i}" data-f="k" style="max-width:90px;margin:0"><option${l.k==="call"?" selected":""}>call</option><option${l.k==="put"?" selected":""}>put</option><option${l.k==="stock"?" selected":""}>stock</option></select>
+  <input class="engsrch lupol" data-i="${i}" data-f="strike" style="max-width:90px;margin:0" inputmode="decimal" value="${l.strike}" title="${l.k==="stock"?"entry price":"strike"}"><input class="engsrch lupol" data-i="${i}" data-f="prem" style="max-width:90px;margin:0" inputmode="decimal" value="${l.prem}" title="premium per share${l.k==="stock"?" (unused)":""}"><input class="engsrch lupol" data-i="${i}" data-f="q" style="max-width:70px;margin:0" inputmode="numeric" value="${l.q}" title="${l.k==="stock"?"shares":"contracts (x100)"}"><a href="#" class="luporm" data-i="${i}" style="color:var(--red);font-size:13px">remove</a></div>`).join("")+`<p class="meta">Each row: long or short, type, strike (entry price for stock), premium per share, contracts (shares for stock).</p>`;
+}
+function luPODraw(){
+  const P=LU.po,spot=+P.spot;if(!(spot>0)){$("lupores").innerHTML=`<div class="empty">Enter a price.</div>`;return;}
+  const L=P.legs.map(l=>({k:l.k,sg:l.s==="long"?1:-1,K:+l.strike,p:+l.prem||0,q:+l.q||0})).filter(l=>l.q>0&&l.K>0);
+  if(!L.length){$("lupores").innerHTML=`<div class="empty">Add a leg.</div>`;return;}
+  const pay2=S=>L.reduce((a,l)=>a+(l.k==="stock"?l.sg*l.q*(S-l.K):l.sg*l.q*100*((l.k==="call"?Math.max(S-l.K,0):Math.max(l.K-S,0))-l.p)),0);
+  const ks=L.map(l=>l.K),lo=Math.max(0.01,Math.min(spot,...ks)*0.7),hi=Math.max(spot,...ks)*1.3,N=240,xs=[],ys=[];
+  for(let i=0;i<=N;i++){const S=lo+(hi-lo)*i/N;xs.push(S);ys.push(pay2(S));}
+  const be=[];for(let i=1;i<=N;i++)if((ys[i-1]<0&&ys[i]>=0)||(ys[i-1]>0&&ys[i]<=0)){const t=ys[i-1]/(ys[i-1]-ys[i]);be.push(xs[i-1]+(xs[i]-xs[i-1])*t);}
+  const mx=Math.max(...ys),mn=Math.min(...ys),slopeR=(ys[N]-ys[N-1])/(xs[N]-xs[N-1]),slopeL=(ys[1]-ys[0])/(xs[1]-xs[0]);
+  const gain=slopeR>1e-9?"unlimited":"$"+mx.toFixed(0),loss=(slopeR<-1e-9||slopeL>1e-9)?"unlimited":"$"+Math.abs(mn).toFixed(0);
+  const W=Math.max(300,Math.min(1040,($("lupores").clientWidth)||600)),H=210,pl=8,pr=52,pt=10,pb=24,ylo=Math.min(mn,0),yhi=Math.max(mx,0),ys0=yhi===ylo?1:yhi-ylo;
+  const X=S=>pl+(W-pl-pr)*(S-lo)/(hi-lo),Y=v=>pt+(H-pt-pb)*(yhi-v)/ys0;
+  const pos=ys.map((v,i)=>`${i?"L":"M"}${X(xs[i]).toFixed(1)} ${Y(v).toFixed(1)}`).join("");
+  $("lupores").innerHTML=`<div class="grid" data-n="3">${statHTML([["Max gain",gain,"within the drawn range","flat"],["Max loss",loss,"within the drawn range","flat"],["Breakevens",be.length?be.map(b=>b.toFixed(2)).join(", "):"none in range","at expiration","flat"]])}</div>
+  <div class="chart" style="margin-top:10px"><div class="top"><span class="tk">PROFIT / LOSS AT EXPIRATION</span><span class="brandtag">price now <b>${spot}</b></span></div><svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="Payoff at expiration">
+  <line x1="${pl}" x2="${W-pr}" y1="${Y(0).toFixed(1)}" y2="${Y(0).toFixed(1)}" stroke="#8a91a6"/><line x1="${X(spot).toFixed(1)}" x2="${X(spot).toFixed(1)}" y1="${pt}" y2="${H-pb}" stroke="#454a5e" stroke-dasharray="4 3"/>
+  <path d="${pos}" fill="none" stroke="#7ee0c3" stroke-width="2.4"/>${be.map(b=>`<circle cx="${X(b).toFixed(1)}" cy="${Y(0).toFixed(1)}" r="3.5" fill="#f2d68a"/>`).join("")}
+  <text x="${W-pr+6}" y="${(Y(yhi)+10).toFixed(1)}" fill="#9aa3b8" font-size="11">${yhi>=1e3?(yhi/1e3).toFixed(1)+"k":yhi.toFixed(0)}</text><text x="${W-pr+6}" y="${(Y(0)+4).toFixed(1)}" fill="#9aa3b8" font-size="11">0</text><text x="${W-pr+6}" y="${(Y(ylo)-2).toFixed(1)}" fill="#9aa3b8" font-size="11">${ylo<=-1e3?(ylo/1e3).toFixed(1)+"k":ylo.toFixed(0)}</text>
+  <text x="${pl}" y="${H-6}" fill="#9aa3b8" font-size="11">${lo.toFixed(0)}</text><text x="${W-pr}" y="${H-6}" fill="#9aa3b8" font-size="11" text-anchor="end">${hi.toFixed(0)}</text></svg></div>
+  <p class="meta">Dollars per position at expiration, before commissions; options are 100 shares per contract. The chart spans 70% below to 30% above the legs' prices; where the line still slopes at an edge the gain or loss is unlimited.</p>`;
+}
+function luRC(){
+  const R=LU.d.receipts||[];
+  $("lupane").innerHTML=`<p class="sub">Each tool's receipt in plain words: what record its figures come from, how recent, how complete.</p>
+  ${luT(["Tool","Built from","As of","Coverage","Status"],R.map(r=>[esc(r.tool),esc(r.source),r.as_of?clDate(String(r.as_of).slice(0,10)):"—",esc(r.coverage),`<span class="engbadge ${r.complete?"up":"dn"}">${r.complete?"complete":"partial"}</span>`]))}
+  <p class="meta" style="margin-top:8px">Not installed (each would need a new data feed): options chain, flow, gamma, dark-pool, short-interest, filings, insider, 13F, earnings and macro calendars, forecast ledgers built on the repo's replay data, public-trader boards. The study ledger in the desk repo lists each with the feed it would need.</p>`;
+}
+document.addEventListener("click",e=>{
+  const c=e.target.closest&&e.target.closest("#luchips .chip");if(c){LU.pane=c.dataset.k;LU.lim=40;luRender();return;}
+  if(e.target.id==="luscall"){e.preventDefault();LU.lim+=60;luSCRBody();return;}
+  if(e.target.id==="luwladd"){const q=($("luwlq").value||"").trim().toUpperCase();if(/^[A-Z0-9.\-]{1,8}$/.test(q)&&!LU.wl.includes(q)&&LU.wl.length<40){LU.wl.push(q);luSave();luWL();}return;}
+  const w1=e.target.closest&&e.target.closest(".luwlq1");if(w1){LU.wl.push(w1.dataset.s);luSave();luWL();return;}
+  const wx=e.target.closest&&e.target.closest(".luwlx");if(wx){e.preventDefault();LU.wl=LU.wl.filter(x=>x!==wx.dataset.s);luSave();luWL();return;}
+  const pr=e.target.closest&&e.target.closest(".lupre");if(pr){const sp=+LU.po.spot||100,A=Math.round(sp),st=Math.max(1,Math.round(sp*0.05));
+    const PRE={"Long call":[["call","long",A,1]],"Long put":[["put","long",A,1]],"Covered call":[["stock","long",A,100],["call","short",A+st,1]],"Bull call spread":[["call","long",A,1],["call","short",A+st,1]],"Bear put spread":[["put","long",A,1],["put","short",A-st,1]],"Iron condor":[["put","long",A-2*st,1],["put","short",A-st,1],["call","short",A+st,1],["call","long",A+2*st,1]]}[pr.dataset.k];
+    const prem=(k,s,K)=>k==="stock"?0:+Math.max(0.05,(k==="call"?Math.max(sp-K,0):Math.max(K-sp,0))/1+sp*0.02*Math.exp(-Math.abs(K-sp)/(sp*0.05))).toFixed(2);
+    LU.po.legs=PRE.map(([k,s,K,q])=>({k,s,strike:K,prem:prem(k,s,K),q}));luPOLegs();luPODraw();return;}
+  if(e.target.id==="luposadd"){LU.po.legs.push({k:"call",s:"long",strike:Math.round(+LU.po.spot||100),prem:1,q:1});luPOLegs();luPODraw();return;}
+  const rm=e.target.closest&&e.target.closest(".luporm");if(rm){e.preventDefault();LU.po.legs.splice(+rm.dataset.i,1);luPOLegs();luPODraw();return;}
+});
+document.addEventListener("input",e=>{
+  const id=e.target.id,F=LU.f;
+  const M={lufpmin:"pmin",lufpmax:"pmax",lufm63:"m63",lufhi:"hi",lufvx:"volx"};
+  if(M[id]){F[M[id]]=e.target.value;LU.lim=40;luSCRBody();return;}
+  if(id==="lufq"){LU.sq=e.target.value.trim().toUpperCase();LU.lim=40;luSCRBody();return;}
+  if(id==="luoq"){LU.rq=e.target.value;luOPRBody();return;}
+  if(id==="lupospot"){LU.po.spot=e.target.value;luPODraw();return;}
+  if(e.target.classList&&e.target.classList.contains("lupol")&&e.target.tagName==="INPUT"){const l=LU.po.legs[+e.target.dataset.i];if(l){l[e.target.dataset.f]=e.target.value;luPODraw();}}
+});
+document.addEventListener("change",e=>{
+  const id=e.target.id,F=LU.f,M={lufg:"g",lufv200:"v200",lufst:"strat",lufsn:"stance",lufso:"sort"};
+  if(M[id]){F[M[id]]=e.target.value;LU.lim=40;luSCRBody();return;}
+  if(e.target.classList&&e.target.classList.contains("lupol")&&e.target.tagName==="SELECT"){const l=LU.po.legs[+e.target.dataset.i];if(l){l[e.target.dataset.f]=e.target.value;luPOLegs();luPODraw();}}
+});
+window.addEventListener("resize",()=>{if(LU.pane==="po"&&$("lupores"))luPODraw();});
+
 </script>
 </body>
 </html>
