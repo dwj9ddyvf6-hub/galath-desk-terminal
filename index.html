@@ -3370,6 +3370,28 @@ function vzLive(){try{const d=CL&&CL.d;if(!d||!/in progress/.test((d.source||{})
   const w=document.createTreeWalker($("tab-cl"),NodeFilter.SHOW_TEXT);let n;const re=new RegExp("\\bclose "+lab.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"\\b","g");
   while(n=w.nextNode()){if(re.test(n.nodeValue)){re.lastIndex=0;n.nodeValue=n.nodeValue.replace(re,"live "+lab);}re.lastIndex=0;}}catch(e){}}
 (function(){let tm=0;const mo=new MutationObserver(()=>{clearTimeout(tm);tm=setTimeout(()=>{vzScrub();vzLive();},80);});const r=$("tab-cl");if(r)mo.observe(r,{childList:true,subtree:true,characterData:true});setTimeout(()=>{vzScrub();vzLive();},300);})();
+/* ranker + themes charts (2026-11-02, Galath t284u): market read from the payload already on the page */
+const _clRanker0=clRanker;
+clRanker=function(d){_clRanker0(d);try{const k=d.ranker;if(!k||!(k.rows||[]).length)return;const sec=$("clranker"),W=vzW(sec),R=(CL.rk==="top"?k.rows.slice(0,20):k.rows.slice(0,25)),lw=54,rw=96,rh=22,H=R.length*rh+30,pw=W-lw-rw;
+  let s=vzT(lw,12,"0",{s:10})+vzT(lw+pw,12,"100",{a:"end",s:10})+vzT(lw+pw/2,12,"Opportunity score (0-100) · tick = yesterday",{a:"middle",s:10});
+  R.forEach((r,i)=>{const y=20+i*rh,dl=r.opp_prev==null?null:r.opp-r.opp_prev,c=dl==null?VZ.B:dl>=0?VZ.G:VZ.R,w=Math.max(2,pw*r.opp/100);
+    s+=vzT(lw-8,y+rh*.66,r.sym,{a:"end",c:VZ.L,w:700})+`<rect x="${lw}" y="${y+3}" width="${pw}" height="${rh-8}" rx="3" fill="#2f3447"/><rect x="${lw}" y="${y+3}" width="${w.toFixed(1)}" height="${rh-8}" rx="3" fill="${c}"/>`
+      +(r.opp_prev!=null?`<rect x="${(lw+pw*r.opp_prev/100-1).toFixed(1)}" y="${y+1}" width="2" height="${rh-4}" fill="#fff"/>`:"")
+      +vzT(lw+pw+6,y+rh*.66,vzN(r.opp,0)+(dl==null?"":" ("+(dl>=0?"+":"")+dl.toFixed(1)+")"),{c:VZ.L});});
+  vzRoot("vzrk",$("clrklist"),`<div class="vzdash">${vzBox("Highest-scoring names","opportunity score",vzSvg(W,H,s,"Opportunity ranker scores"),[[VZ.G,"score up vs yesterday"],[VZ.R,"score down"],["#fff","yesterday's score"]])}</div>`);
+ }catch(e){console.error("vz ranker",e);}};
+const _clThemes0=clThemes;
+clThemes=function(d){_clThemes0(d);try{const t=d.themes;if(!t)return;const per=CL.per,nm={d1:"1-day",w1:"1-week",m1:"1-month",m3:"3-month"}[per],sec=$("clthemes"),W=vzW(sec);
+  const A=(t.rows||[]).filter(r=>r.group===CL.grp&&r[per]!=null).sort((a,b)=>b[per]-a[per]);if(!A.length)return;
+  const n=Math.min(8,Math.floor(A.length/2)),top=A.slice(0,n),bot=A.slice(A.length-n),QC={Leading:VZ.G,Weakening:VZ.Y,Lagging:VZ.R,Improving:VZ.B},
+  R=top.concat(bot),lw=50,rw=58,rh=22,H=R.length*rh+10,pw=W-lw-rw,lo=Math.min(0,...R.map(r=>r[per])),hi=Math.max(0,...R.map(r=>r[per])),sp=pw/((hi-lo)||1),x0=lw+(-lo)*sp;
+  let sv=`<line x1="${x0.toFixed(1)}" x2="${x0.toFixed(1)}" y1="2" y2="${H-4}" stroke="${VZ.N}"/>`;
+  R.forEach((r,i)=>{const y=4+i*rh,v=r[per],w=Math.max(1.5,Math.abs(v)*sp),x=v>=0?x0:x0-w;
+    sv+=vzT(lw-6,y+rh*.66,r.sym,{a:"end",c:VZ.L,w:700})+`<rect x="${x.toFixed(1)}" y="${y+3}" width="${w.toFixed(1)}" height="${rh-8}" rx="3" fill="${QC[r.quadrant]||VZ.T}"/>`+vzT(W-rw+8,y+rh*.66,sgn(v,1),{c:v>=0?VZ.G:VZ.R,w:700});
+    if(i===n-1)sv+=`<line x1="2" x2="${W-4}" y1="${y+rh+1}" y2="${y+rh+1}" stroke="${VZ.GR}" stroke-dasharray="3 3"/>`;});
+  const svg=vzSvg(W,H,sv,"Leaders and laggards");
+  vzRoot("vzth",$("clheat"),`<div class="vzdash">${vzBox(`Leaders and laggards · ${nm} return`,CL.grp==="theme"?"themes":"sectors",svg,[[VZ.G,"Leading"],[VZ.Y,"Weakening"],[VZ.B,"Improving"],[VZ.R,"Lagging"]])}</div>`);
+ }catch(e){console.error("vz themes",e);}};
 /* VZ-END */
 </script>
 </body>
