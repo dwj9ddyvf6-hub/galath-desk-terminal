@@ -3364,7 +3364,12 @@ let vzRT=0;window.addEventListener("resize",()=>{clearTimeout(vzRT);vzRT=setTime
 window.addEventListener("hashchange",()=>setTimeout(()=>{if(!$("tab-cl").hidden){try{engRender();luRender();}catch(e){console.error(e);}}},120));
 /* scrub internal counts and dates from market-panel subtitles (health lives in the Data-as-of line at the top of the tab) */
 function vzScrub(){["clranker","clthemes","clrisk","clscreens","clbreadth","clpulse","clmood"].forEach(id=>{const sec=$(id);if(!sec)return;sec.querySelectorAll(".sub").forEach(e=>{const t=e.textContent;let n=t.replace(/ on a \d+-name watchlist \(\d+ with enough data\)/,"").replace(/^Opportunity Ranker, close/,"Opportunity Ranker,").replace(/,? close (?:[A-Z][a-z]{2} \d+)\./,".").replace(/how many of [\d,]+ liquid US stocks/,"how many liquid US stocks").replace(/^\d+ (theme|sector) funds/,"Theme and sector funds").replace(/^(\d+) of (\d+) ratios lean risk-on/,"$1 of $2 ratios lean risk-on").replace(/\s*\(close [A-Z][a-z]{2} \d+\)/,"");if(n!==t)e.textContent=n;});});}
-(function(){let tm=0;const mo=new MutationObserver(()=>{clearTimeout(tm);tm=setTimeout(vzScrub,80);});const r=$("tab-cl");if(r)mo.observe(r,{childList:true,subtree:true,characterData:true});setTimeout(vzScrub,300);})();
+function vzLive(){try{const d=CL&&CL.d;if(!d||!/in progress/.test((d.source||{}).note||""))return;const lab=clDate(d.as_of);
+  const a=$("clasof");if(a&&/Data as of the/.test(a.textContent))a.textContent=a.textContent.replace(/Data as of the (.+?) close/,"Live: $1 session in progress, prices about 15 minutes delayed");
+  const h=document.querySelector("#clhead .sub");if(h)h.textContent=h.textContent.replace("recomputed every evening from end-of-day prices","recomputed every 15 minutes during the session (prices about 15 minutes delayed) and again from the final close each evening");
+  const w=document.createTreeWalker($("tab-cl"),NodeFilter.SHOW_TEXT);let n;const re=new RegExp("\\bclose "+lab.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+"\\b","g");
+  while(n=w.nextNode()){if(re.test(n.nodeValue)){re.lastIndex=0;n.nodeValue=n.nodeValue.replace(re,"live "+lab);}re.lastIndex=0;}}catch(e){}}
+(function(){let tm=0;const mo=new MutationObserver(()=>{clearTimeout(tm);tm=setTimeout(()=>{vzScrub();vzLive();},80);});const r=$("tab-cl");if(r)mo.observe(r,{childList:true,subtree:true,characterData:true});setTimeout(()=>{vzScrub();vzLive();},300);})();
 /* VZ-END */
 </script>
 </body>
