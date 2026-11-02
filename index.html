@@ -969,7 +969,7 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
   <section id="cllineup" class="card">
     <p class="kicker">Lineup tools · from the Test repo</p>
     <h2>Desk lineup tools</h2>
-    <p class="sub">Public-terminal tools from the Test repo that run on data the desk already keeps: opening range, expected move, move bands, bar-label combos, reversal wire, fear days, pullback depth, a screener, a watchlist, a one-page report, a payoff sketch and each tool's receipt. Readings only, never a call.</p>
+    <p class="sub">Public-terminal tools from the Test repo that run on data the desk already keeps: opening range, expected move, move bands, bar-label combos, reversal wire, fear days, pullback depth, a screener, a watchlist, a one-page report and a payoff sketch. Each opens on a chart; the numbers and tool health fold underneath. Readings only, never a call.</p>
     <div class="err" id="lulerr" hidden></div>
     <div class="chips" id="luchips"></div>
     <div id="lupane"><div class="empty">Loading…</div></div>
@@ -3180,6 +3180,192 @@ document.addEventListener("change",e=>{
 });
 window.addEventListener("resize",()=>{if(LU.pane==="po"&&$("lupores"))luPODraw();});
 
+/* VZ-BEGIN 2026-11-02 (Galath t284u): every engine / tool panel leads with a chart of what it says about the market or names.
+   Counts, timestamps, run stats and coverage live in collapsed "health" areas. Built only from the feeds already published (technical, psychology, lineup, universe). */
+const VZ={G:"#7ee0c3",R:"#ff8a80",Y:"#f2d68a",P:"#b9a7f0",B:"#7fb2ff",GR:"#454a5e",T:"#9aa3b8",L:"#dfe3ee",N:"#6f7690"};
+const vzW=el=>{const w=el&&el.clientWidth;return Math.max(300,Math.min(1040,(w||600)))-26;};
+const vzSvg=(W,H,b,l)=>`<svg width="100%" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(l||"chart")}" style="display:block;max-width:100%">${b}</svg>`;
+const vzT=(x,y,s,o)=>{o=o||{};return `<text x="${(+x).toFixed(1)}" y="${(+y).toFixed(1)}" fill="${o.c||VZ.T}" font-size="${o.s||11}" text-anchor="${o.a||"start"}"${o.w?` font-weight="${o.w}"`:""}>${esc(s)}</text>`;};
+const vzBox=(t,tag,inner,leg)=>`<div class="chart vz"><div class="top"><span class="tk" style="font-size:15px">${esc(t)}</span><span class="brandtag">${tag||""}</span></div>${inner}${leg?`<div class="legend">${leg.map(([c,l])=>`<span><i style="background:${c}"></i>${esc(l)}</span>`).join("")}</div>`:""}</div>`;
+const vzH2=W=>window.innerWidth>=760?Math.floor((W-38)/2):W;
+const vzN=(v,d)=>v==null||isNaN(v)?"—":(Math.abs(v)>=1000?(v/1000).toFixed(1)+"k":Number(v).toFixed(d==null?1:d));
+function vzHBars(W,rows,o){o=o||{};const lw=o.lw||58,rw=o.rw||78,rh=o.rh||23,H=rows.length*rh+8,mx=o.max||Math.max(1e-9,...rows.map(r=>Math.abs(r.v)));let s="";
+  if(o.div){const lo=Math.min(0,...rows.map(r=>r.v)),hi=Math.max(0,...rows.map(r=>r.v)),sp=(W-lw-rw)/((hi-lo)||1),x0=lw+(-lo)*sp;
+    s+=`<line x1="${x0.toFixed(1)}" x2="${x0.toFixed(1)}" y1="2" y2="${H-2}" stroke="${VZ.N}"/>`;
+    rows.forEach((r,i)=>{const y=4+i*rh,w=Math.max(1,Math.abs(r.v)*sp),x=r.v>=0?x0:x0-w;s+=vzT(lw-8,y+rh*.64,r.l,{a:"end",c:VZ.L,w:700})+`<rect x="${x.toFixed(1)}" y="${y+3}" width="${w.toFixed(1)}" height="${rh-8}" rx="3" fill="${r.c||(r.v>=0?VZ.G:VZ.R)}"/>`+vzT(r.v>=0?x0+w+5:x0-w-5,y+rh*.64,r.r!=null?r.r:vzN(r.v),{a:r.v>=0?"start":"end",c:VZ.L});});
+  }else rows.forEach((r,i)=>{const y=4+i*rh,w=Math.max(2,(W-lw-rw)*Math.abs(r.v)/mx);s+=vzT(lw-8,y+rh*.64,r.l,{a:"end",c:VZ.L,w:700})+`<rect x="${lw}" y="${y+3}" width="${(W-lw-rw)}" height="${rh-8}" rx="3" fill="#2f3447"/><rect x="${lw}" y="${y+3}" width="${w.toFixed(1)}" height="${rh-8}" rx="3" fill="${r.c||VZ.G}"/>`+vzT(lw+(W-lw-rw)+6,y+rh*.64,r.r!=null?r.r:vzN(r.v),{c:VZ.L});});
+  return vzSvg(W,H,s,o.label);}
+function vzCols(W,groups,o){o=o||{};const H=o.H||190,pl=34,pr=6,pt=12,pb=34,nb=Math.max(...groups.map(g=>g.bars.length)),vals=groups.flatMap(g=>g.bars.map(b=>b.v)),hi=o.max||Math.max(1e-9,...vals),lo=o.min!=null?o.min:Math.min(0,...vals),y=v=>pt+(H-pt-pb)*(hi-v)/(hi-lo),gw=(W-pl-pr)/groups.length;let s="";
+  for(let k=0;k<=3;k++){const v=lo+(hi-lo)*k/3;s+=`<line x1="${pl}" x2="${W-pr}" y1="${y(v).toFixed(1)}" y2="${y(v).toFixed(1)}" stroke="${VZ.GR}"/>`+vzT(pl-4,y(v)+4,(o.fmt||vzN)(v),{a:"end"});}
+  groups.forEach((g,i)=>{const bw=Math.min(34,gw*.8/nb),x0=pl+gw*i+gw/2-bw*g.bars.length/2;g.bars.forEach((b,j)=>{const yy=Math.min(y(b.v),y(0)),hh=Math.max(1,Math.abs(y(b.v)-y(0)));s+=`<rect x="${(x0+j*bw+1).toFixed(1)}" y="${yy.toFixed(1)}" width="${(bw-2).toFixed(1)}" height="${hh.toFixed(1)}" rx="2" fill="${b.c}"><title>${esc(g.l)}: ${esc(b.t!=null?b.t:vzN(b.v))}</title></rect>`;if(b.t!==false&&gw>46)s+=vzT(x0+j*bw+bw/2,yy-3,b.t!=null?b.t:vzN(b.v,0),{a:"middle",c:VZ.L,s:10});});
+    s+=vzT(pl+gw*i+gw/2,H-pb+15,g.l,{a:"middle",c:VZ.L,s:11,w:700});});
+  return vzSvg(W,H,s,o.label);}
+function vzStack(W,rows,o){o=o||{};const lw=o.lw||92,rh=o.rh||28,H=rows.length*rh+6,bw=W-lw-8;let s="";
+  rows.forEach((r,i)=>{const y=3+i*rh,tot=r.parts.reduce((a,p)=>a+p.v,0)||1;let x=lw;s+=vzT(lw-8,y+rh*.62,r.l,{a:"end",c:VZ.L,w:700});
+    r.parts.forEach(p=>{const w=bw*p.v/tot;if(w<=0)return;s+=`<rect x="${x.toFixed(1)}" y="${y+3}" width="${Math.max(0,w-1).toFixed(1)}" height="${rh-8}" fill="${p.c}"><title>${esc(p.n||"")}: ${(100*p.v/tot).toFixed(0)}%</title></rect>`;if(w>34)s+=vzT(x+w/2,y+rh*.62,(100*p.v/tot).toFixed(0)+"%",{a:"middle",c:"#10202a",w:700,s:10.5});x+=w;});});
+  return vzSvg(W,H,s,o.label);}
+function vzMeter(W,m){const lw=0,bw=W-24,x=v=>12+bw*Math.max(0,Math.min(1,(v-m.min)/(m.max-m.min))),H=58;let s="";
+  m.zones.forEach(z=>{s+=`<rect x="${x(z[0]).toFixed(1)}" y="22" width="${Math.max(1,x(z[1])-x(z[0])).toFixed(1)}" height="14" fill="${z[2]}" opacity=".85"/>`;if(x(z[1])-x(z[0])>52)s+=vzT((x(z[0])+x(z[1]))/2,33,z[3],{a:"middle",c:"#10202a",s:9.5,w:700});});
+  if(m.v!=null){const px=x(m.v);s+=`<path d="M${(px-6).toFixed(1)} 16 L${(px+6).toFixed(1)} 16 L${px.toFixed(1)} 26 Z" fill="#fff"/><line x1="${px.toFixed(1)}" x2="${px.toFixed(1)}" y1="22" y2="38" stroke="#fff" stroke-width="2"/>`;}
+  s+=vzT(12,52,m.fmt?m.fmt(m.min):m.min)+vzT(W-12,52,m.fmt?m.fmt(m.max):m.max,{a:"end"});
+  return `<div class="vzmeter"><div class="vzml"><b>${esc(m.l)}</b><span style="color:${VZ.Y}">${esc(m.t||"")}</span></div>${vzSvg(W,H,s,m.l)}</div>`;}
+function vzHeatCol(v,cap){if(v==null)return["#2f3447","#9aa3b8"];const k=Math.min(1,Math.sqrt(Math.abs(v)/cap));return v>=0?[`rgba(43,176,127,${(.18+.72*k).toFixed(2)})`,"#eafff6"]:[`rgba(224,86,76,${(.18+.72*k).toFixed(2)})`,"#fff0ee"];}
+function vzHeat(W,labels,cols,vals,o){o=o||{};const lw=o.lw||56,rh=o.rh||24,cw=(W-lw-4)/cols.length,H=rh*(labels.length+1)+4;let s="";
+  cols.forEach((c,j)=>{s+=vzT(lw+cw*j+cw/2,rh-8,c,{a:"middle",c:VZ.T,s:10.5});});
+  labels.forEach((l,i)=>{const y=rh+i*rh;s+=vzT(lw-8,y+rh*.64,l,{a:"end",c:VZ.L,w:700});cols.forEach((c,j)=>{const v=vals[i][j],[bg,fg]=vzHeatCol(v,(o.caps||[])[j]||o.cap||60);s+=`<rect x="${(lw+cw*j+1).toFixed(1)}" y="${y+1}" width="${(cw-2).toFixed(1)}" height="${rh-2}" rx="3" fill="${bg}"/>`+vzT(lw+cw*j+cw/2,y+rh*.64,v==null?"—":(v>0?"+":"")+(Math.abs(v)>=100?v.toFixed(0):v.toFixed(1))+"%",{a:"middle",c:fg,s:10.5,w:700});});});
+  return vzSvg(W,H,s,o.label);}
+function vzRoot(id,before,html){let e=$(id);if(!e){e=document.createElement("div");e.id=id;before.parentNode.insertBefore(e,before);}e.innerHTML=html;return e;}
+function vzDet(id,summary,parent,after){let d=$(id);if(!d){d=document.createElement("details");d.id=id;d.className="vzdet";d.innerHTML=`<summary>${esc(summary)}</summary><div class="vzdb"></div>`;if(after)after.insertAdjacentElement("afterend",d);else parent.appendChild(d);}return d.querySelector(".vzdb");}
+/* ---------- Psychology ---------- */
+const _engPsy0=engPsy;
+engPsy=function(){_engPsy0();const d=ENG.ps;if(!d||d.__err)return;const sec=$("clpsy"),S=d.series||{},last=a=>a&&a.length?a[a.length-1][1]:null;
+  const vix=last(S.vix),v3=last(S.vix3m),vv=last(S.vvix),sk=last(S.skew),pat=(d.patterns||[]).find(p=>p.pattern==="attention_acceleration"),att=pat&&pat.measure!=null?pat.measure*100:null,W=vzW(sec)-6;
+  const M=[];
+  if(vix!=null)M.push(vzMeter(W,{l:"Stress · VIX",v:vix,min:10,max:40,t:vix.toFixed(1)+" · "+(vix<15?"calm":vix<20?"normal":vix<25?"elevated":"stressed"),zones:[[10,15,VZ.G,"calm"],[15,20,"#9bd9a7","normal"],[20,25,VZ.Y,"elevated"],[25,40,VZ.R,"stressed"]]}));
+  if(vix!=null&&v3)M.push(vzMeter(W,{l:"Curve · VIX vs 3-month VIX",v:vix/v3,min:.8,max:1.2,fmt:z=>z.toFixed(1),t:(vix/v3).toFixed(2)+" · "+(vix/v3<.97?"upward-sloping (calm)":vix/v3<=1?"flat":"inverted (stress)"),zones:[[.8,.97,VZ.G,"upward-sloping"],[.97,1,VZ.Y,"flat"],[1,1.2,VZ.R,"inverted"]]}));
+  if(vv!=null)M.push(vzMeter(W,{l:"Volatility of volatility · VVIX",v:vv,min:70,max:140,t:vv.toFixed(0)+" · "+(vv<90?"quiet":vv<110?"normal":vv<125?"elevated":"jumpy"),zones:[[70,90,VZ.G,"quiet"],[90,110,"#9bd9a7","normal"],[110,125,VZ.Y,"elevated"],[125,140,VZ.R,"jumpy"]]}));
+  if(sk!=null)M.push(vzMeter(W,{l:"Tail-risk pricing · SKEW",v:sk,min:100,max:170,t:sk.toFixed(0)+" · "+(sk<125?"low":sk<145?"normal":"high"),zones:[[100,125,VZ.G,"low"],[125,145,"#9bd9a7","normal"],[145,170,VZ.R,"high"]]}));
+  if(att!=null)M.push(vzMeter(W,{l:"Attention · Wikipedia page views, 3-day vs prior 3",v:Math.max(-100,Math.min(100,att)),min:-100,max:100,fmt:z=>(z>0?"+":"")+z+"%",t:(att>0?"+":"")+att.toFixed(0)+"% · "+(att>50?"surging":att>15?"rising":att<-15?"fading":"steady"),zones:[[-100,-15,VZ.B,"fading"],[-15,15,"#9aa3b8","steady"],[15,50,VZ.Y,"rising"],[50,100,VZ.R,"surging"]]}));
+  vzRoot("vzpsy",sec.querySelector(".clwrap"),`<div class="vzdash">${vzBox("Stress and attention dashboard","reading bands · descriptive",M.join(""))}</div>`);
+  const body=vzDet("vzpsyh","Engine health, detectors and data sources",sec);
+  [$("clpsstats"),$("clpsdim")&&$("clpsdim").closest(".scroll").parentNode,$("clpssrc")&&$("clpssrc").previousElementSibling,$("clpssrc"),$("clpsnote")].forEach(e=>{if(e&&e.parentNode!==body)body.appendChild(e);});
+  const pp=$("clpspat");if(pp)[...pp.children].forEach(c=>{if(/abstain/.test(c.textContent))c.remove();});
+};
+/* ---------- Technical (Chart Read Engine) ---------- */
+const _engTech0=engTech;
+engTech=function(){_engTech0();const d=ENG.tc;if(!d||d.__err)return;const sec=$("cltech"),W=vzW(sec)-6,N=d.names||[],C=d.stance_counts||{},sc=d.scans||{};
+  const st=$("cltcstats");if(st)st.style.display="none";
+  const SV={"Net for":VZ.G,"Leans for":"#9bd9a7",Mixed:VZ.N,"Leans against":"#f0a29a","Net against":VZ.R};
+  const WH=vzH2(W),stack=vzStack(WH,[{l:"Stance mix",parts:Object.keys(SV).map(k=>({v:C[k]||0,c:SV[k],n:k}))}],{lw:84});
+  const ev=N.map(r=>r.evidence).filter(v=>v!=null),lo=Math.floor(Math.min(...ev)),hi=Math.ceil(Math.max(...ev)),bins=[];for(let b=lo;b<hi;b++)bins.push({l:String(b),bars:[{v:ev.filter(v=>v>=b&&v<b+1).length,c:b+.5>=0?VZ.G:VZ.R,t:false}]});
+  const hist=vzCols(WH,bins,{H:150,label:"evidence histogram",fmt:z=>Math.round(z)});
+  const keys=["trend","momentum","levels","pattern","volume","waves"],lab={trend:"Trend",momentum:"Momentum",levels:"Levels",pattern:"Patterns",volume:"Volume",waves:"Waves"};
+  const vrows=keys.map(k=>{const v=N.map(r=>(r.votes||{})[k]).filter(x=>x!=null);return {l:lab[k],parts:[{v:v.filter(x=>x>.15).length,c:VZ.G,n:"for"},{v:v.filter(x=>x<=.15&&x>=-.15).length,c:VZ.N,n:"neutral"},{v:v.filter(x=>x<-.15).length,c:VZ.R,n:"against"}]};});
+  const votes=vzStack(WH,vrows,{lw:84,rh:26});
+  let h=`<div class="vz2" style="margin-top:12px">${vzBox("What the chart reads say","share of names by stance",stack+`<div style="height:8px"></div>`+hist+`<div class="vzax"><span>← evidence against</span><span>evidence for →</span></div>`)}${vzBox("Which signals agree","share of names: for / neutral / against",votes,[[VZ.G,"for"],[VZ.N,"neutral"],[VZ.R,"against"]])}</div>`;
+  vzRoot("vztcdash",$("cltcchips"),h);
+  // per-row evidence bar in the name list
+  const byS={};N.forEach(r=>byS[r.s]=r);document.querySelectorAll("#cltclist .engrow").forEach(row=>{const r=byS[row.dataset.s],hd=row.querySelector(".hd");if(!r||!hd||hd.querySelector(".vzev"))return;const w=Math.min(50,Math.abs(r.evidence)*8);hd.insertAdjacentHTML("beforeend",`<span class="vzev" title="Evidence net ${r.evidence}"><i style="${r.evidence>=0?"left":"right"}:50%;width:${w}%;background:${r.evidence>=0?"#2bb07f":"#d4504a"}"></i></span>`);});
+  const mo=$("cltcmore");if(mo){const a=mo.querySelector("#cltcall");mo.innerHTML=a?`<a href="#" id="cltcall" style="color:var(--teal);font-weight:700">Show more names</a>`:"";}
+  // scans as charts
+  const gf=sc.gap_fill||{},cw=sc.correlation_web||{},stc=sc.strat||{},cn=stc.counts||{},mm=sc.momentum||{},bo=(sc.breakout||{}).rows||[],uv=(sc.unusual_volume||{}).rows||[],S=[];
+  const SC={"1":VZ.B,"2U":VZ.G,"2D":VZ.R,"3":VZ.Y},SN={"1":"1 inside","2U":"2U up","2D":"2D down","3":"3 outside"};
+  S.push(vzBox("Strat bar labels · latest bar","share of names",vzCols(vzH2(W),["1","2U","2D","3"].map(k=>({l:SN[k],bars:[{v:cn[k]||0,c:SC[k],t:Math.round(100*(cn[k]||0)/Math.max(1,Object.values(cn).reduce((a,b)=>a+b,0)))+"%"}]})),{H:170,fmt:z=>Math.round(z)}),null));
+  const lead=(mm.leaders||[]).slice(0,8),lag=(mm.laggards||[]).slice(0,5);
+  S.push(vzBox("Momentum Clock","strongest and weakest, 1M · 3M · 6M · 12M",vzHeat(vzH2(W),lead.concat(lag).map(r=>r.s),["1M","3M","6M","12M"],lead.concat(lag).map(r=>[r.d21,r.d63,r.d126,r.d252]),{caps:[40,150,250,400]})));
+  const bw=bo.slice(0,12);
+  S.push(vzBox("Breakout Scanner · names at or near the 52-week high","dot = how far under the high; tail = 10-day range",vzLolli(vzH2(W),bw),[[VZ.G,"at the high"],[VZ.Y,"under it"]]));
+  S.push(vzBox("Unusual Volume · times the 50-day average","bar colour = the day's move",vzHBars(vzH2(W),uv.slice(0,12).map(r=>({l:r.s,v:r.x,c:r.chg_pct>=0?VZ.G:VZ.R,r:r.x.toFixed(1)+"× · "+sgn(r.chg_pct,1)})),{rw:100}),[[VZ.G,"up day"],[VZ.R,"down day"]]));
+  S.push(vzBox("Gap-Fill · how often an opening gap closes the same day","share filled",gf.by_size?vzCols(vzH2(W),gf.by_size.map(r=>({l:r.size,bars:[{v:r.up.filled_pct||0,c:VZ.G,t:(r.up.filled_pct||0)+"%"},{v:r.down.filled_pct||0,c:VZ.R,t:(r.down.filled_pct||0)+"%"}]})),{H:180,max:100,min:0,fmt:z=>Math.round(z)+"%"}):`<div class="empty">Not available.</div>`,[[VZ.G,"gap up filled"],[VZ.R,"gap down filled"]]));
+  S.push(vzBox("Correlation Web · who moves together","line weight = correlation",vzNet(vzH2(W),cw)));
+  vzRoot("vztcscans",$("cltcchips"),`<div class="vz2 vzgrid">${S.join("")}</div>`);const old=$("cltcscans");if(old)old.style.display="none";
+  const body=vzDet("vztch","Engine health and data coverage",sec);const nt=$("cltcnote");if(nt&&nt.parentNode!==body)body.appendChild(nt);
+  const ms=$("vztchm");if(!ms){body.insertAdjacentHTML("afterbegin",`<p class="meta" id="vztchm"></p>`);}$("vztchm").textContent=`Names read: ${N.length}; daily bars through ${d.as_of}; Strat labels cover ${sc.labelled||0} of ${sc.universe||0} names; correlation web uses ${cw.names||0} names over ${cw.window||0} sessions; gap-fill sample ${(gf.gaps||0).toLocaleString("en-US")} gaps. Updated ${d.generated_at||""}.`;
+};
+function vzLolli(W,rows){const lw=54,rw=150,rh=22,H=rows.length*rh+30,mx=Math.max(3,...rows.map(r=>r.below_high_pct)),pw=W-lw-rw,X=v=>lw+pw*v/mx;let s=`<line x1="${lw}" x2="${lw}" y1="14" y2="${H-4}" stroke="#fff" stroke-dasharray="3 3"/>`+vzT(lw,10,"52-week high",{c:"#fff",s:10});
+  [1,2,3].filter(t=>t<=mx).forEach(t=>{s+=`<line x1="${X(t).toFixed(1)}" x2="${X(t).toFixed(1)}" y1="14" y2="${H-4}" stroke="${VZ.GR}"/>`+vzT(X(t),H+0,t+"%",{a:"middle",s:9.5});});
+  rows.forEach((r,i)=>{const y=20+i*rh,c=r.below_high_pct<=.5?VZ.G:VZ.Y;s+=vzT(lw-8,y+4,r.s,{a:"end",c:VZ.L,w:700})+`<line x1="${lw}" x2="${X(r.below_high_pct).toFixed(1)}" y1="${y}" y2="${y}" stroke="${c}" stroke-width="2"/><circle cx="${X(r.below_high_pct).toFixed(1)}" cy="${y}" r="6" fill="${c}"/>`+vzT(X(r.below_high_pct)+12,y+4,(r.below_high_pct<=.05?"at the high":r.below_high_pct.toFixed(1)+"% under")+(r.range10_pct!=null?" · "+r.range10_pct.toFixed(1)+"%":""),{c:VZ.L,s:10.5});});
+  return vzSvg(W,H+10,s,"Breakout lollipop");}
+function vzNet(W,cw){const P=(cw.pairs||[]).slice(0,15);if(!P.length)return `<div class="empty">Not available.</div>`;const nodes=[...new Set(P.flatMap(p=>[p.a,p.b]))],H=Math.min(380,Math.max(300,W*.85)),cx=W/2,cy=H/2,R=Math.min(W,H)/2-34,cl={};(cw.clusters||[]).forEach((c,i)=>c.members.forEach(m=>{if(cl[m]==null)cl[m]=i;}));
+  const PAL=[VZ.G,VZ.Y,VZ.P,VZ.B,"#f0a29a"],ord=nodes.slice().sort((a,b)=>(cl[a]??9)-(cl[b]??9)||a.localeCompare(b)),pos={};ord.forEach((n,i)=>{const a=-Math.PI/2+2*Math.PI*i/ord.length;pos[n]=[cx+R*Math.cos(a),cy+R*Math.sin(a),a];});
+  let s="";P.forEach(p=>{const a=pos[p.a],b=pos[p.b],k=Math.max(0,(p.r-.8)/.2);s+=`<line x1="${a[0].toFixed(1)}" y1="${a[1].toFixed(1)}" x2="${b[0].toFixed(1)}" y2="${b[1].toFixed(1)}" stroke="${VZ.G}" stroke-width="${(1+5*k).toFixed(1)}" opacity="${(.3+.6*k).toFixed(2)}"><title>${esc(p.a)} / ${esc(p.b)}: ${p.r}</title></line>`;});
+  ord.forEach(n=>{const q=pos[n],c=PAL[(cl[n]??4)%PAL.length],lx=q[0]+Math.cos(q[2])*14,ly=q[1]+Math.sin(q[2])*14+4;s+=`<circle cx="${q[0].toFixed(1)}" cy="${q[1].toFixed(1)}" r="6" fill="${c}"/>`+vzT(lx,ly,n,{a:Math.cos(q[2])>.25?"start":Math.cos(q[2])<-.25?"end":"middle",c:VZ.L,w:700,s:11});});
+  return vzSvg(W,H,s,"Correlation web");}
+/* ---------- Lineup tools ---------- */
+(function(){const i=LUP.findIndex(x=>x[0]==="rc");if(i>=0)LUP.splice(i,1);})();
+const _luRender0=luRender;
+function vzFold(sum){const p=$("lupane");if(!p)return;const old=p.innerHTML;p.innerHTML=(p.__vz||"")+`<details class="vzdet"><summary>${esc(sum||"The numbers behind it")}</summary><div class="vzdb">${old}</div></details>`;p.__vz="";}
+luRender=function(){
+  if(!$("lupane"))return;if(!LU.d||LU.d.__err||!LU.u){_luRender0();return;}
+  const fold={or:luOR,em:luEM,cb:luCB,sc:luSC,rw:luRW,fd:luFD,pn:luPN};
+  _luRender0();const W=vzW($("lupane"))-6;let vis="";
+  try{if(LU.pane==="or")vis=vzOR(W);else if(LU.pane==="em")vis=vzEM(W);else if(LU.pane==="cb")vis=vzCB(W);else if(LU.pane==="sc")vis=vzSC(W);else if(LU.pane==="rw")vis=vzRW(W);else if(LU.pane==="fd")vis=vzFD(W);else if(LU.pane==="pn")vis=vzPN(W);}catch(e){console.error("vz lineup",LU.pane,e);}
+  if(fold[LU.pane]&&vis){$("lupane").__vz=vis;vzFold(LU.pane==="cb"?"The numbers and measured coverage behind it":"The numbers behind it");}
+  else if(LU.pane==="wl"||LU.pane==="opr"||LU.pane==="scr"){}
+  const sub=$("lupane").querySelector(":scope > .sub");if(sub&&["po"].indexOf(LU.pane)<0&&LU.pane!=="po")sub.classList.add("vzsub");
+  // health area: receipts + notes, collapsed
+  const sec=$("cllineup"),body=vzDet("vzluh","Tool health and data coverage",sec);const nt=$("lunote");if(nt&&nt.parentNode!==body)body.appendChild(nt);
+  let rc=$("vzrc");if(!rc){rc=document.createElement("div");rc.id="vzrc";body.insertBefore(rc,body.firstChild);}const prev=LU.pane;const hold=$("lupane").innerHTML;
+  const R=(LU.d.receipts||[]);rc.innerHTML=luT(["Tool","Built from","As of","Coverage","Status"],R.map(r=>[esc(r.tool),esc(r.source),r.as_of?clDate(String(r.as_of).slice(0,10)):"—",esc(r.coverage),`<span class="engbadge ${r.complete?"up":"dn"}">${r.complete?"complete":"partial"}</span>`]))+`<p class="meta" style="margin-top:8px">Not installed (each would need a new data feed): options chain, flow, gamma, dark-pool, short-interest, filings, insider, 13F, earnings and macro calendars, public-trader boards.</p>`;
+  swipeHints();
+};
+const vzPal={"1":VZ.B,"2U":VZ.G,"2D":VZ.R,"3":VZ.Y};
+function vzOR(W){const o=LU.d.opening_range,Ws=o.windows||[],w2=vzH2(W);
+  const stack=vzStack(w2,Ws.map(w=>({l:w.label.replace("First ","").replace(" minutes"," min").replace(" (60 min)",""),parts:[{v:w.up_only,c:VZ.G,n:"up side only"},{v:w.both,c:VZ.Y,n:"both sides"},{v:w.down_only,c:VZ.R,n:"down side only"},{v:w.neither,c:VZ.N,n:"neither"}]})),{lw:62,label:"Opening range outcomes"});
+  const ext=vzCols(w2,Ws.map(w=>({l:w.label.replace("First ","").replace(" minutes"," min").replace(" (60 min)",""),bars:w.extension.map((e,i)=>({v:e.pct_of_breaks,c:[VZ.B,VZ.G,VZ.Y][i],t:Math.round(e.pct_of_breaks)+"%"}))})),{H:170,max:100,min:0,fmt:z=>Math.round(z)+"%"});
+  const L=Object.entries(o.latest||{}).map(([s,r])=>`<span class="clpill ${/low only/.test(r.after_first_hour)?"no":/high only/.test(r.after_first_hour)?"yes":"mid"}" title="first-hour range ${r.range_low} to ${r.range_high}">${esc(s)} · ${esc(r.after_first_hour)}</span>`).join("");
+  return `<div class="vz2 vzgrid">${vzBox("Where price went after the opening range","what breaking the range led to",stack,[[VZ.G,"broke up only"],[VZ.Y,"broke both sides"],[VZ.R,"broke down only"],[VZ.N,"neither"]])}${vzBox("How far it ran past the range","of the days that broke",ext,[[VZ.B,"½ range"],[VZ.G,"1 range"],[VZ.Y,"1½ ranges"]])}</div><h3 class="vzh">Latest session after the first hour</h3><div class="clpills">${L}</div>`;}
+function vzEM(W){const M=LU.d.expected_move.maps||[];if(!M.length)return "";const H=M.length*74+30,pl=44,pr=44,mx=Math.max(...M.map(m=>(m.week_upper-m.base_close)/m.base_close*100)),X=v=>pl+(W-pl-pr)*(v+mx)/(2*mx);let s="";
+  [-1,-.5,0,.5,1].forEach(k=>{const v=k*mx,x=X(v);s+=`<line x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="6" y2="${H-18}" stroke="${v===0?VZ.T:VZ.GR}" ${v===0?"":'stroke-dasharray="3 4"'}/>`+vzT(x,H-4,(v>0?"+":"")+v.toFixed(1)+"%",{a:"middle"});});
+  M.forEach((m,i)=>{const y=14+i*74,p=v=>(v-m.base_close)/m.base_close*100;s+=vzT(pl-8,y+22,m.name,{a:"end",c:VZ.L,w:800,s:12.5})+
+   `<rect x="${X(p(m.week_lower)).toFixed(1)}" y="${y+4}" width="${(X(p(m.week_upper))-X(p(m.week_lower))).toFixed(1)}" height="9" rx="4" fill="#3a4160"><title>Week range ${m.week_lower} to ${m.week_upper}</title></rect>`+
+   `<rect x="${X(p(m.lower_wall)).toFixed(1)}" y="${y+16}" width="${(X(p(m.upper_wall))-X(p(m.lower_wall))).toFixed(1)}" height="17" rx="4" fill="${VZ.B}" opacity=".35"><title>Next session ${m.lower_wall} to ${m.upper_wall}</title></rect>`+
+   `<rect x="${X(p(m.lower_half)).toFixed(1)}" y="${y+16}" width="${(X(p(m.upper_half))-X(p(m.lower_half))).toFixed(1)}" height="17" rx="4" fill="${VZ.G}" opacity=".8"/>`+
+   `<line x1="${X(0).toFixed(1)}" x2="${X(0).toFixed(1)}" y1="${y+12}" y2="${y+38}" stroke="#fff" stroke-width="2.5"/>`+
+   vzT(X(p(m.lower_wall))-3,y+29,m.lower_wall,{a:"end",s:10})+vzT(X(p(m.upper_wall))+3,y+29,m.upper_wall,{a:"start",s:10})+vzT(X(0),y+54,"close "+m.base_close,{a:"middle",s:10,c:VZ.L})+vzT(X(p(m.week_lower)),y+11,m.week_lower,{a:"start",s:9.5})+vzT(X(p(m.week_upper)),y+11,m.week_upper,{a:"end",s:9.5});});
+  const m0=M[0],fc=m0.funding_curve||[],H2=200,pl2=46,pr2=50,pt=24,pb=26,lo=Math.min(...fc.map(c=>c.lower)),hi=Math.max(...fc.map(c=>c.upper)),X2=t=>pl2+(W-pl2-pr2)*t/390,Y2=v=>pt+(H2-pt-pb)*(hi-v)/(hi-lo);
+  const up=fc.map(c=>`${X2(c.elapsed_minutes).toFixed(1)} ${Y2(c.upper).toFixed(1)}`),dn=fc.slice().reverse().map(c=>`${X2(c.elapsed_minutes).toFixed(1)} ${Y2(c.lower).toFixed(1)}`);
+  let s2=`<path d="M${up.join(" L")} L${dn.join(" L")} Z" fill="${VZ.G}" opacity=".22"/><path d="M${up.join(" L")}" fill="none" stroke="${VZ.G}" stroke-width="2"/><path d="M${fc.map(c=>`${X2(c.elapsed_minutes).toFixed(1)} ${Y2(c.lower).toFixed(1)}`).join(" L")}" fill="none" stroke="${VZ.R}" stroke-width="2"/><line x1="${pl2}" x2="${W-pr2}" y1="${Y2(m0.base_close).toFixed(1)}" y2="${Y2(m0.base_close).toFixed(1)}" stroke="#fff" stroke-dasharray="4 3"/>`;
+  [0,1,2,3].forEach(k=>{const v=lo+(hi-lo)*k/3;s2+=vzT(W-pr2+6,Y2(v)+4,v.toFixed(0));});[0,120,240,390].forEach(t=>{s2+=vzT(X2(t),H2-8,t===0?"open":t===390?"close":(t/60)+"h",{a:"middle"});});
+  s2+=vzT(X2(390)-4,Y2(m0.upper_wall)-6,"+"+m0.move_points+" pts",{a:"end",c:VZ.G})+vzT(X2(390)-4,Y2(m0.lower_wall)+16,"-"+m0.move_points+" pts",{a:"end",c:VZ.R});
+  return `<div class="vzgrid1">${vzBox("Priced move · next session and week","distance from the last close",vzSvg(W,H,s,"Expected move ranges"),[[VZ.G,"inner half of the move"],[VZ.B,"full priced move"],["#3a4160","week range"]])}</div><div class="vzgrid1" style="margin-top:12px">${vzBox(m0.name+" · how the move is spent through the day","the range widens with the square root of time",vzSvg(W,H2,s2,"Funding curve"))}</div>`;}
+function vzCB(W){const L=LU.d.corrected_band.live||[];if(!L.length)return "";const rh=118,H=L.length*rh+24,pl=62,pr=50,LV=["95","81","68","50"],CO={"95":"#2f3b66","81":"#3e5fa8","68":VZ.B,"50":VZ.G};
+  const mx=Math.max(...L.map(x=>(x.bands["95"][1]-x.base_close)/x.base_close*100)),X=v=>pl+(W-pl-pr)*(v+mx)/(2*mx);let s="";
+  [-1,-.5,0,.5,1].forEach(k=>{const v=k*mx,x=X(v);s+=`<line x1="${x.toFixed(1)}" x2="${x.toFixed(1)}" y1="4" y2="${H-18}" stroke="${v===0?VZ.T:VZ.GR}" ${v===0?"":'stroke-dasharray="3 4"'}/>`+vzT(x,H-4,(v>0?"+":"")+v.toFixed(1)+"%",{a:"middle"});});
+  L.forEach((x,i)=>{const y=8+i*rh,p=v=>(v-x.base_close)/x.base_close*100;s+=vzT(pl-8,y+34,x.symbol,{a:"end",c:VZ.L,w:800,s:12.5})+vzT(pl-8,y+48,x.h+(x.h===1?" session":" sessions"),{a:"end",s:10});
+    LV.forEach((k,j)=>{const b=x.bands[k],yy=y+j*24;s+=`<rect x="${X(p(b[0])).toFixed(1)}" y="${yy}" width="${(X(p(b[1]))-X(p(b[0]))).toFixed(1)}" height="19" rx="4" fill="${CO[k]}"><title>${k}% band ${b[0]} to ${b[1]}</title></rect>`;if(k==="95")s+=vzT(X(p(b[0]))-4,yy+13,b[0],{s:10,a:"end"})+vzT(X(p(b[1]))+4,yy+13,b[1],{s:10});if(k==="50"&&X(p(b[1]))-X(p(b[0]))>110)s+=vzT(X(p(b[0]))+5,yy+13,b[0],{s:9.5,c:"#10202a"})+vzT(X(p(b[1]))-5,yy+13,b[1],{s:9.5,c:"#10202a",a:"end"});});
+    s+=`<line x1="${X(0).toFixed(1)}" x2="${X(0).toFixed(1)}" y1="${y-2}" y2="${y+98}" stroke="#fff" stroke-width="2"/>`+vzT(X(0),y+110,"close "+x.base_close,{a:"middle",c:VZ.L,s:10});});
+  return `<div class="vzgrid1">${vzBox("Move bands · where the next closes are priced","nested: 95% widest, 50% narrowest",vzSvg(W,H,s,"Move bands"),[["#2f3b66","95%"],["#3e5fa8","81%"],[VZ.B,"68%"],[VZ.G,"50%"]])}</div>`;}
+function vzSC(W){const s=LU.d.strat_combos,w2=vzH2(W),col=q=>vzPal[String(q).split("-").pop()]||VZ.P;
+  const pr=(s.sequence_pairs||[]).slice(0,10).map(p=>({l:p.seq,v:p.count,c:col(p.seq),r:String(p.count)}));
+  const cp=(s.completed||[]).slice(0,8).map(c=>({l:c.pattern,v:c.count,c:/2d$/.test(c.pattern)?VZ.R:/2u$/.test(c.pattern)?VZ.G:VZ.Y,r:String(c.count)}));
+  return `<div class="vz2 vzgrid">${vzBox("Last two bar labels, grouped","how many names sit in each pairing",vzHBars(w2,pr,{lw:64,rw:44}),[[VZ.G,"ends 2U"],[VZ.R,"ends 2D"],[VZ.B,"ends inside"],[VZ.Y,"ends outside"]])}${vzBox("Patterns completed on the latest bar","names per pattern",vzHBars(w2,cp.length?cp:[{l:"none",v:0}],{lw:130,rw:44}))}</div>`;}
+function vzRW(W){const E=LU.d.reversal_wire.entries||[],dates=[...new Set(E.map(e=>e.date))].sort(),flags=[...new Set(E.map(e=>e.flag))],PAL=[VZ.G,VZ.R,VZ.Y,VZ.B,VZ.P,"#f0a29a"],fc={};flags.forEach((f,i)=>fc[f]=PAL[i%PAL.length]);
+  const lab={};E.forEach(e=>lab[e.flag]=e.label.split(" (")[0]);
+  return `<div class="vzgrid1">${vzBox("Reversal-shaped bars, session by session","names printing each shape",vzCols(W,dates.map(d=>({l:luDay(d).replace(/^(\w+), /,"$1 "),bars:flags.map(f=>{const e=E.find(x=>x.date===d&&x.flag===f);return {v:e?e.count:0,c:fc[f],t:e?String(e.count):"0"};})})),{H:210,fmt:z=>Math.round(z)}),flags.map(f=>[fc[f],lab[f]]))}</div>`;}
+function vzFD(W){const f=LU.d.fear_day;if(f.unavailable)return "";const l=f.last_session||{},w2=vzH2(W),R=(f.recent||[]).slice().reverse();
+  const status=`<div class="clpills"><span class="clpill ${l.is_fear_day?"no":"yes"}" style="font-size:14px">${l.is_fear_day?"Latest session: FEAR DAY":"Latest session: not a fear day"} · SPY ${sgn(l.spy_pct,2)} · VIX ${l.vix}</span>${(l.arms||[]).map(a=>`<span class="clpill mid">${esc(a)}</span>`).join("")}</div>`;
+  if(!R.length)return status;const t0=new Date(R[0].date).getTime(),t1=new Date(R[R.length-1].date).getTime(),H=190,pl=40,pr=10,pt=12,pb=26,ys=R.map(r=>r.spy_pct),lo=Math.min(-3,...ys),hi=Math.max(3,...ys),X=d=>pl+(w2-pl-pr)*((new Date(d).getTime()-t0)/Math.max(1,t1-t0)),Y=v=>pt+(H-pt-pb)*(hi-v)/(hi-lo);let s="";
+  [lo,0,hi].forEach(v=>{s+=`<line x1="${pl}" x2="${w2-pr}" y1="${Y(v).toFixed(1)}" y2="${Y(v).toFixed(1)}" stroke="${v===0?VZ.T:VZ.GR}"/>`+vzT(pl-4,Y(v)+4,(v>0?"+":"")+v.toFixed(0)+"%",{a:"end"});});
+  R.forEach(r=>{s+=`<circle cx="${X(r.date).toFixed(1)}" cy="${Y(r.spy_pct).toFixed(1)}" r="${(3+Math.min(6,Math.max(0,(r.vix-15)/3))).toFixed(1)}" fill="${r.spy_pct<0?VZ.R:VZ.G}" opacity=".85"><title>${esc(r.date)} · SPY ${r.spy_pct}% · VIX ${r.vix} · ${esc((r.arms||[]).join("; "))}</title></circle>`;});
+  s+=vzT(pl,H-8,clDate(R[0].date))+vzT(w2-pr,H-8,clDate(R[R.length-1].date),{a:"end"});
+  const arms=Object.entries(f.arm_counts||{}).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k.replace("VIX at 20+ on a down day for SPY or QQQ","VIX 20+ & down day").replace("SPY fell more than 1.5%","SPY -1.5%+").replace("VIX rose more than 15%","VIX +15%").replace("VIX closed at 25 or more","VIX 25+"),v,c:VZ.Y,r:String(v)}));
+  const af=(f.spy_after||[]).map(a=>({l:"+"+a.h+(a.h===1?" day":" days"),v:a.median_pct==null?0:a.median_pct,r:a.median_pct==null?"—":sgn(a.median_pct,2)+" · "+Math.round(a.positive_pct)+"% up"}));
+  return status+`<div class="vz2 vzgrid" style="margin-top:10px">${vzBox("Recent fear days · SPY move that day","dot size = VIX level",vzSvg(w2,H,s,"Recent fear days"),[[VZ.R,"SPY down"],[VZ.G,"SPY up"]])}${vzBox("What SPY did after fear days","median move, share of times up",vzHBars(w2,af,{div:true,lw:58,rw:112}))}</div><div class="vzgrid1" style="margin-top:12px">${vzBox("Which rule fires most","fear days by rule",vzHBars(W,arms,{lw:140,rw:44}))}</div>`;}
+function vzPN(W){const p=LU.d.pullback_norm,w2=vzH2(W);
+  const cols=vzCols(w2,(p.buckets||[]).map(b=>({l:b.label.replace(/ \(.*$/,""),bars:[{v:b.uptrend,c:VZ.G,t:String(b.uptrend)},{v:b.all,c:"#5d6a99",t:String(b.all)}]})),{H:190,fmt:z=>Math.round(z)});
+  const dn=(p.desk_names||[]).slice(0,14).map(r=>({l:r.s,v:r.depth_pctile,c:r.depth_pctile>=95?VZ.R:r.depth_pctile>=80?VZ.Y:VZ.G,r:r.depth_pctile.toFixed(0)+" · "+r.below_high_pct.toFixed(0)+"% off high"}));
+  return `<div class="vz2 vzgrid">${vzBox("How deep pullbacks usually run","names by depth vs their own history",cols,[[VZ.G,"uptrend names"],["#5d6a99","all names"]])}${vzBox("The desk's names · how deep now","percentile of their own pullbacks (100 = deepest)",vzHBars(w2,dn,{lw:52,rw:112,max:100}),[[VZ.G,"normal"],[VZ.Y,"deep"],[VZ.R,"extreme"]])}</div>`;}
+/* screener / watchlist / one-page report: chart above the result */
+const _luSCRBody0=luSCRBody;
+luSCRBody=function(){_luSCRBody0();const R=luRows().filter(r=>r.d63!=null&&r.vs200!=null);const el=$("luscres");if(!el)return;if(R.length<2){return;}
+  const W=vzW($("lupane"))-6,H=230,pl=40,pr=10,pt=12,pb=28,q=(a,p)=>{const s=a.slice().sort((x,y)=>x-y);return s[Math.max(0,Math.min(s.length-1,Math.round(p*(s.length-1))))];};
+  const xs=R.map(r=>r.d63),ys=R.map(r=>r.vs200),xl=Math.min(q(xs,.03),-5),xh=Math.max(q(xs,.97),5),yl=Math.min(q(ys,.03),-5),yh=Math.max(q(ys,.97),5),X=v=>pl+(W-pl-pr)*(Math.max(xl,Math.min(xh,v))-xl)/(xh-xl),Y=v=>pt+(H-pt-pb)*(yh-Math.max(yl,Math.min(yh,v)))/(yh-yl);
+  let s=`<line x1="${pl}" x2="${W-pr}" y1="${Y(0).toFixed(1)}" y2="${Y(0).toFixed(1)}" stroke="${VZ.T}"/><line x1="${X(0).toFixed(1)}" x2="${X(0).toFixed(1)}" y1="${pt}" y2="${H-pb}" stroke="${VZ.T}"/>`+vzT(W-pr,H-8,"3-month return →",{a:"end"})+vzT(pl+4,pt+10,"↑ above 200-day average")+vzT(pl+4,H-pb-4,"↓ below 200-day");
+  R.slice(0,400).forEach(r=>{s+=`<circle cx="${X(r.d63).toFixed(1)}" cy="${Y(r.vs200).toFixed(1)}" r="${(2.5+Math.min(4,(r.volx||1)-1)).toFixed(1)}" fill="${r.d1>=0?VZ.G:VZ.R}" opacity=".7"><title>${esc(r.s)} · 3 mo ${sgn(r.d63,0)} · vs 200d ${sgn(r.vs200,0)} · day ${sgn(r.d1,1)}</title></circle>`;});
+  R.slice(0,6).forEach(r=>{s+=vzT(X(r.d63)+6,Y(r.vs200)-5,r.s,{c:VZ.L,w:700,s:10.5});});
+  el.insertAdjacentHTML("afterbegin",`<div class="vzgrid1" id="vzscr" style="margin-bottom:12px">${vzBox("Where the matching names sit","trend strength vs 3-month return",vzSvg(W,H,s,"Screener scatter"),[[VZ.G,"up on the day"],[VZ.R,"down on the day"]])}</div>`);
+};
+const _luWL0=luWL;
+luWL=function(){_luWL0();const R=LU.wl.map(s=>LU.ix[s]).filter(Boolean);if(!R.length)return;const W=vzW($("lupane"))-6;
+  $("lupane").insertAdjacentHTML("beforeend",`<div class="vzgrid1" style="margin-top:12px">${vzBox("Your list at a glance","percent change over each span",vzHeat(W,R.map(r=>r.s),["Day","1 mo","3 mo","6 mo","vs 50d","vs 200d"],R.map(r=>[r.d1,r.d21,r.d63,r.d126,r.vs50,r.vs200]),{caps:[4,15,40,80,20,40]}))}</div>`);};
+const _luOPRBody0=luOPRBody;
+luOPRBody=function(){_luOPRBody0();const s=(LU.rq||"").trim().toUpperCase(),r=LU.ix[s],el=$("luores");if(!el||!r)return;const W=vzW($("lupane"))-6,tc=((ENG.tc&&ENG.tc.names)||[]).find(x=>x.s===s);
+  const M=[vzMeter(W,{l:"Momentum · RSI",v:r.rsi,min:0,max:100,t:r.rsi==null?"":r.rsi+" · "+(r.rsi>70?"stretched":r.rsi<30?"washed out":"neutral"),zones:[[0,30,VZ.B,"washed out"],[30,70,"#9aa3b8","neutral"],[70,100,VZ.R,"stretched"]]}),
+   vzMeter(W,{l:"Distance under the 52-week high",v:Math.min(60,r.below_high||0),min:0,max:60,fmt:z=>z+"%",t:(r.below_high||0).toFixed(1)+"% below",zones:[[0,5,VZ.G,"near high"],[5,20,VZ.Y,"pulled back"],[20,60,VZ.R,"deep"]]})];
+  if(r.depth_pctile!=null)M.push(vzMeter(W,{l:"Pullback depth vs its own history",v:r.depth_pctile,min:0,max:100,t:r.depth_pctile+"th percentile",zones:[[0,20,VZ.G,"shallow"],[20,80,"#9aa3b8","usual"],[80,100,VZ.R,"deep"]]}));
+  el.insertAdjacentHTML("afterbegin",`<div class="vzgrid1" id="vzopr">${vzBox(s+" · returns, trend and position","one name, every reading",vzHeat(W,[s],["Day","1 mo","3 mo","6 mo","vs 50d","vs 200d"],[[r.d1,r.d21,r.d63,r.d126,r.vs50,r.vs200]],{caps:[4,15,40,80,20,40]})+M.join(""))}</div>`);};
+/* collapsed-area + chart styling */
+(function(){const st=document.createElement("style");st.textContent=`.vzdet{margin-top:14px;border:1px solid var(--line);border-radius:12px;background:#fbfdfc}.vzdet>summary{cursor:pointer;padding:9px 12px;font-weight:700;font-size:13px;color:var(--navy)}.vzdet .vzdb{padding:4px 12px 10px}
+.vz2{display:grid;grid-template-columns:1fr;gap:14px;align-items:start}@media(min-width:760px){.vz2{grid-template-columns:1fr 1fr}}.vz{margin-top:12px}.vz svg text{font-family:inherit}.vzgrid1 .chart{margin-top:0}.vzgrid{margin-top:12px}.vzh{margin:14px 0 4px;font-size:14px;color:var(--navy)}.vzmeter{padding:4px 4px 0}.vzml{display:flex;justify-content:space-between;gap:8px;font-size:12.5px;color:#dfe3ee;padding-top:8px}.vzax{display:flex;justify-content:space-between;font-size:11px;color:#9aa3b8;padding:0 4px}
+.vzsub{display:none}.vzev{position:relative;height:8px;width:90px;background:#e6efeb;border-radius:4px;justify-self:end;margin-right:6px}.vzev i{position:absolute;top:0;bottom:0;border-radius:4px}.vzev:after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:#7a8a85}
+#cltech .engrow .hd{grid-template-columns:64px 112px 1fr 96px}#cltech .engrow .bd .rkbar{display:none}`;document.head.appendChild(st);})();
+let vzRT=0;window.addEventListener("resize",()=>{clearTimeout(vzRT);vzRT=setTimeout(()=>{if(!$("tab-cl").hidden){try{engRender();luRender();}catch(e){console.error(e);}}},250);});
+window.addEventListener("hashchange",()=>setTimeout(()=>{if(!$("tab-cl").hidden){try{engRender();luRender();}catch(e){console.error(e);}}},120));
+/* scrub internal counts and dates from market-panel subtitles (health lives in the Data-as-of line at the top of the tab) */
+function vzScrub(){["clranker","clthemes","clrisk","clscreens","clbreadth","clpulse","clmood"].forEach(id=>{const sec=$(id);if(!sec)return;sec.querySelectorAll(".sub").forEach(e=>{const t=e.textContent;let n=t.replace(/ on a \d+-name watchlist \(\d+ with enough data\)/,"").replace(/^Opportunity Ranker, close/,"Opportunity Ranker,").replace(/,? close (?:[A-Z][a-z]{2} \d+)\./,".").replace(/how many of [\d,]+ liquid US stocks/,"how many liquid US stocks").replace(/^\d+ (theme|sector) funds/,"Theme and sector funds").replace(/^(\d+) of (\d+) ratios lean risk-on/,"$1 of $2 ratios lean risk-on").replace(/\s*\(close [A-Z][a-z]{2} \d+\)/,"");if(n!==t)e.textContent=n;});});}
+(function(){let tm=0;const mo=new MutationObserver(()=>{clearTimeout(tm);tm=setTimeout(vzScrub,80);});const r=$("tab-cl");if(r)mo.observe(r,{childList:true,subtree:true,characterData:true});setTimeout(vzScrub,300);})();
+/* VZ-END */
 </script>
 </body>
 </html>
