@@ -2,8 +2,8 @@
  "what": "Plain-English explainer for every sleeve, keyed by lane id. Read by the GrokBot Desk terminal.",
  "generated_from": {
   "config": "desk sleeve settings",
-  "sha256": "fb95c8f10480fdc0",
-  "sleeves": 100
+  "sha256": "b388506255e8e0e2",
+  "sleeves": 164
  },
  "glossary": {
   "Fear day": "A day when QQQ (the Nasdaq-100 fund) trades below its prior close. Most sleeves only buy on fear days, and only if the stock is down too.",
@@ -354,18 +354,18 @@
   "s_1wsw_stress": {
    "name": "1W Swing stress",
    "desk": "Test desk",
-   "state": "Not trading",
+   "state": "On",
    "timeframe": "weekly",
    "summary": "Not trading: no live signal source exists yet.",
    "looks_for": "Weekly Swing signals on stocks under $5 that fell hard, while VIX is 20 or higher.",
    "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
    "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the signal bar. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
-   "sizing": "No money assigned.",
-   "why": "It places no orders until it goes live.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,335 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "This sleeve trades the pattern above live, with fixed rules and a fixed budget.",
    "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
-   "budget_usd": null,
-   "max_positions": null,
-   "type": "Not trading yet",
+   "budget_usd": 1335,
+   "max_positions": 1,
+   "type": "Dip-buying and mean reversion",
    "aliases": [
     "1W Swing stress",
     "s_1wsw_stress"
@@ -2029,6 +2029,1286 @@
    "aliases": [
     "Library Hourly Weekly",
     "s_mn_hourly_1w"
+   ]
+  },
+  "s_q07w_g52_mi_cheap5_tierA": {
+   "name": "Green micro · under $5 + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show under $5, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps low-price",
+    "s_q07w_g52_mi_cheap5_tierA"
+   ]
+  },
+  "s_q07w_g78_mi_cheap5_tierA": {
+   "name": "Green micro · under $5 + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show under $5, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps low-price, second set",
+    "s_q07w_g78_mi_cheap5_tierA"
+   ]
+  },
+  "s_q07w_c78_mi_cheap5_mom6_tierA": {
+   "name": "Cyan micro · under $5 + momentum + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show under $5, strong 6-month run, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps low-price + momentum, second set",
+    "s_q07w_c78_mi_cheap5_mom6_tierA"
+   ]
+  },
+  "s_q07w_c78_mi_cheap5_tierA": {
+   "name": "Cyan micro · under $5 + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show under $5, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps low-price, second set",
+    "s_q07w_c78_mi_cheap5_tierA"
+   ]
+  },
+  "s_q07w_c52_mi_cheap5_deep70_tierA": {
+   "name": "Cyan micro · under $5 + deep dip + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show under $5, deep pullback, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps low-price + pullback",
+    "s_q07w_c52_mi_cheap5_deep70_tierA"
+   ]
+  },
+  "s_q07w_c78_sm_cheap5_tierA": {
+   "name": "Cyan small · under $5 + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show under $5, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan small caps low-price, second set",
+    "s_q07w_c78_sm_cheap5_tierA"
+   ]
+  },
+  "s_q07w_c52_mi_cheap5_tierA": {
+   "name": "Cyan micro · under $5 + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show under $5, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps low-price",
+    "s_q07w_c52_mi_cheap5_tierA"
+   ]
+  },
+  "s_q07w_c52_sm_cheap5_mom6_tierA": {
+   "name": "Cyan small · under $5 + momentum + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show under $5, strong 6-month run, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan small caps low-price + momentum",
+    "s_q07w_c52_sm_cheap5_mom6_tierA"
+   ]
+  },
+  "s_q07w_s78_sm_cheap5_deep70_vix20": {
+   "name": "Swing small · under $5 + deep dip + stress · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show under $5, deep pullback, market stress, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing small caps low-price + pullback + stress, second set",
+    "s_q07w_s78_sm_cheap5_deep70_vix20"
+   ]
+  },
+  "s_q07w_c52_mi_cheap5_mom6_tierA": {
+   "name": "Cyan micro · under $5 + momentum + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show under $5, strong 6-month run, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps low-price + momentum",
+    "s_q07w_c52_mi_cheap5_mom6_tierA"
+   ]
+  },
+  "s_q07w_c78_mi_mom6_tierA": {
+   "name": "Cyan micro · momentum + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show strong 6-month run, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps momentum, second set",
+    "s_q07w_c78_mi_mom6_tierA"
+   ]
+  },
+  "s_q07w_c78_sm_cheap5_mom6_tierA": {
+   "name": "Cyan small · under $5 + momentum + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show under $5, strong 6-month run, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan small caps low-price + momentum, second set",
+    "s_q07w_c78_sm_cheap5_mom6_tierA"
+   ]
+  },
+  "s_q07w_c78_mi_tierA": {
+   "name": "Cyan micro · top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps, second set",
+    "s_q07w_c78_mi_tierA"
+   ]
+  },
+  "s_q07w_c78_mi_cheap5_deep70_tierA": {
+   "name": "Cyan micro · under $5 + deep dip + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show under $5, deep pullback, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps low-price + pullback, second set",
+    "s_q07w_c78_mi_cheap5_deep70_tierA"
+   ]
+  },
+  "s_q07w_c52_mi_deep70_tierA": {
+   "name": "Cyan micro · deep dip + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show deep pullback, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps pullback",
+    "s_q07w_c52_mi_deep70_tierA"
+   ]
+  },
+  "s_q07w_c52_sm_cheap5_tierA": {
+   "name": "Cyan small · under $5 + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show under $5, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan small caps low-price",
+    "s_q07w_c52_sm_cheap5_tierA"
+   ]
+  },
+  "s_q07w_s78_sm_cheap5_mom6_vix20": {
+   "name": "Swing small · under $5 + momentum + stress · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show under $5, strong 6-month run, market stress, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: priced under $5 at the signal; a 6-month return in the top third (above the pre-2020 67th percentile); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing small caps low-price + momentum + stress, second set",
+    "s_q07w_s78_sm_cheap5_mom6_vix20"
+   ]
+  },
+  "s_q07w_g52_mi_tierA": {
+   "name": "Green micro · top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps",
+    "s_q07w_g52_mi_tierA"
+   ]
+  },
+  "s_q07w_c78_mi_deep70_mom6_tierA": {
+   "name": "Cyan micro · deep dip + momentum + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show deep pullback, strong 6-month run, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps pullback + momentum, second set",
+    "s_q07w_c78_mi_deep70_mom6_tierA"
+   ]
+  },
+  "s_q07w_c52_mi_deep70_mom6_tierA": {
+   "name": "Cyan micro · deep dip + momentum + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show deep pullback, strong 6-month run, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps pullback + momentum",
+    "s_q07w_c52_mi_deep70_mom6_tierA"
+   ]
+  },
+  "s_q07w_s78_sm_cheap5_vix20": {
+   "name": "Swing small · under $5 + stress · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show under $5, market stress, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: priced under $5 at the signal; VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing small caps low-price + stress, second set",
+    "s_q07w_s78_sm_cheap5_vix20"
+   ]
+  },
+  "s_q07w_c52_sm_cheap5_mom6_vix20": {
+   "name": "Cyan small · under $5 + momentum + stress · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show under $5, strong 6-month run, market stress, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; a 6-month return in the top third (above the pre-2020 67th percentile); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan small caps low-price + momentum + stress",
+    "s_q07w_c52_sm_cheap5_mom6_vix20"
+   ]
+  },
+  "s_q07w_g52_mi_deep70_tierA": {
+   "name": "Green micro · deep dip + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show deep pullback, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps pullback",
+    "s_q07w_g52_mi_deep70_tierA"
+   ]
+  },
+  "s_q07w_g78_sm_mom6_vix20_tierA": {
+   "name": "Green small · momentum + stress + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show strong 6-month run, market stress, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: a 6-month return in the top third (above the pre-2020 67th percentile); VIX at 20 or higher at the signal (a stressed market); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green small caps momentum + stress, second set",
+    "s_q07w_g78_sm_mom6_vix20_tierA"
+   ]
+  },
+  "s_q07w_g78_mi_tierA": {
+   "name": "Green micro · top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps, second set",
+    "s_q07w_g78_mi_tierA"
+   ]
+  },
+  "s_q07w_c52_mi_mom6_tierA": {
+   "name": "Cyan micro · momentum + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on micro caps that also show strong 6-month run, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan micro caps momentum",
+    "s_q07w_c52_mi_mom6_tierA"
+   ]
+  },
+  "s_q07w_c78_sm_cheap5_deep70_tierA": {
+   "name": "Cyan small · under $5 + deep dip + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Cyan signals on small caps that also show under $5, deep pullback, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Cyan buy signal (the UT-Bot trend indicator flips to 'buy' while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Cyan small caps low-price + pullback, second set",
+    "s_q07w_c78_sm_cheap5_deep70_tierA"
+   ]
+  },
+  "s_q07w_g52_mi_mom6_tierA": {
+   "name": "Green micro · momentum + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show strong 6-month run, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps momentum",
+    "s_q07w_g52_mi_mom6_tierA"
+   ]
+  },
+  "s_q07w_g78_mi_cheap5_deep70_vix20": {
+   "name": "Green micro · under $5 + deep dip + stress · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show under $5, deep pullback, market stress, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps low-price + pullback + stress, second set",
+    "s_q07w_g78_mi_cheap5_deep70_vix20"
+   ]
+  },
+  "s_q07w_s78_mi_cheap5_deep70_mom6": {
+   "name": "Swing micro · under $5 + deep dip + momentum · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show under $5, deep pullback, strong 6-month run, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing micro caps low-price + pullback + momentum, second set",
+    "s_q07w_s78_mi_cheap5_deep70_mom6"
+   ]
+  },
+  "s_q07w_g78_sm_cheap5_deep70": {
+   "name": "Green small · under $5 + deep dip · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show under $5, deep pullback, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green small caps low-price + pullback, second set",
+    "s_q07w_g78_sm_cheap5_deep70"
+   ]
+  },
+  "s_q07w_g78_sm_vix20_tierA": {
+   "name": "Green small · stress + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show market stress, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: VIX at 20 or higher at the signal (a stressed market); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green small caps stress, second set",
+    "s_q07w_g78_sm_vix20_tierA"
+   ]
+  },
+  "s_q07w_g78_sm_cheap5_deep70_mom6": {
+   "name": "Green small · under $5 + deep dip + momentum · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show under $5, deep pullback, strong 6-month run, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green small caps low-price + pullback + momentum, second set",
+    "s_q07w_g78_sm_cheap5_deep70_mom6"
+   ]
+  },
+  "s_q07w_s78_mi_cheap5_mom6_vix20": {
+   "name": "Swing micro · under $5 + momentum + stress · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show under $5, strong 6-month run, market stress, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: priced under $5 at the signal; a 6-month return in the top third (above the pre-2020 67th percentile); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing micro caps low-price + momentum + stress, second set",
+    "s_q07w_s78_mi_cheap5_mom6_vix20"
+   ]
+  },
+  "s_q07w_s78_mi_cheap5_mom6": {
+   "name": "Swing micro · under $5 + momentum · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show under $5, strong 6-month run, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: priced under $5 at the signal; a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing micro caps low-price + momentum, second set",
+    "s_q07w_s78_mi_cheap5_mom6"
+   ]
+  },
+  "s_q07w_g78_mi_mom6_tierA": {
+   "name": "Green micro · momentum + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show strong 6-month run, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps momentum, second set",
+    "s_q07w_g78_mi_mom6_tierA"
+   ]
+  },
+  "s_q07w_g78_mi_cheap5_deep70_mom6": {
+   "name": "Green micro · under $5 + deep dip + momentum · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show under $5, deep pullback, strong 6-month run, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps low-price + pullback + momentum, second set",
+    "s_q07w_g78_mi_cheap5_deep70_mom6"
+   ]
+  },
+  "s_q07w_g52_sm_cheap5_tierA": {
+   "name": "Green small · under $5 + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show under $5, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green small caps low-price",
+    "s_q07w_g52_sm_cheap5_tierA"
+   ]
+  },
+  "s_q07w_g78_mi_deep70_tierA": {
+   "name": "Green micro · deep dip + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show deep pullback, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps pullback, second set",
+    "s_q07w_g78_mi_deep70_tierA"
+   ]
+  },
+  "s_q07w_s52_sm_cheap5_deep70_vix20": {
+   "name": "Swing small · under $5 + deep dip + stress · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show under $5, deep pullback, market stress, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing small caps low-price + pullback + stress",
+    "s_q07w_s52_sm_cheap5_deep70_vix20"
+   ]
+  },
+  "s_q07w_s52_mi_cheap5_deep70_vix20": {
+   "name": "Swing micro · under $5 + deep dip + stress · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show under $5, deep pullback, market stress, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing micro caps low-price + pullback + stress",
+    "s_q07w_s52_mi_cheap5_deep70_vix20"
+   ]
+  },
+  "s_q07w_s52_sm_cheap5_mom6_vix20": {
+   "name": "Swing small · under $5 + momentum + stress · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show under $5, strong 6-month run, market stress, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: priced under $5 at the signal; a 6-month return in the top third (above the pre-2020 67th percentile); VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing small caps low-price + momentum + stress",
+    "s_q07w_s52_sm_cheap5_mom6_vix20"
+   ]
+  },
+  "s_q07w_s52_sm_cheap5_vix20": {
+   "name": "Swing small · under $5 + stress · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on small caps that also show under $5, market stress, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a small-cap company, when all of these are true: priced under $5 at the signal; VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing small caps low-price + stress",
+    "s_q07w_s52_sm_cheap5_vix20"
+   ]
+  },
+  "s_q07w_s52_mi_cheap5_deep70": {
+   "name": "Swing micro · under $5 + deep dip · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show under $5, deep pullback, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing micro caps low-price + pullback",
+    "s_q07w_s52_mi_cheap5_deep70"
+   ]
+  },
+  "s_q07w_s52_mi_cheap5_vix20": {
+   "name": "Swing micro · under $5 + stress · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show under $5, market stress, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: priced under $5 at the signal; VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing micro caps low-price + stress",
+    "s_q07w_s52_mi_cheap5_vix20"
+   ]
+  },
+  "s_q07w_s52_mi_cheap5_deep70_mom6": {
+   "name": "Swing micro · under $5 + deep dip + momentum · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show under $5, deep pullback, strong 6-month run, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing micro caps low-price + pullback + momentum",
+    "s_q07w_s52_mi_cheap5_deep70_mom6"
+   ]
+  },
+  "s_q07w_g52_sm_cheap5_deep70_mom6": {
+   "name": "Green small · under $5 + deep dip + momentum · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show under $5, deep pullback, strong 6-month run, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green small caps low-price + pullback + momentum",
+    "s_q07w_g52_sm_cheap5_deep70_mom6"
+   ]
+  },
+  "s_q07w_g52_sm_deep70_tierA": {
+   "name": "Green small · deep dip + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on small caps that also show deep pullback, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a small-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green small caps pullback",
+    "s_q07w_g52_sm_deep70_tierA"
+   ]
+  },
+  "s_q07w_s78_ml_cheap5": {
+   "name": "Swing mid/large · under $5 · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show under $5, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: priced under $5 at the signal.",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing mid/large caps low-price, second set",
+    "s_q07w_s78_ml_cheap5"
+   ]
+  },
+  "s_q07w_g52_mi_cheap5_deep70": {
+   "name": "Green micro · under $5 + deep dip · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show under $5, deep pullback, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps low-price + pullback",
+    "s_q07w_g52_mi_cheap5_deep70"
+   ]
+  },
+  "s_q07w_s52_mi_cheap5": {
+   "name": "Swing micro · under $5 · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show under $5, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: priced under $5 at the signal.",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing micro caps low-price",
+    "s_q07w_s52_mi_cheap5"
+   ]
+  },
+  "s_q07w_s52_mi_cheap5_mom6": {
+   "name": "Swing micro · under $5 + momentum · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on micro caps that also show under $5, strong 6-month run, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a micro-cap company, when all of these are true: priced under $5 at the signal; a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing micro caps low-price + momentum",
+    "s_q07w_s52_mi_cheap5_mom6"
+   ]
+  },
+  "s_q07w_g78_ml_mom6_tierA": {
+   "name": "Green mid/large · momentum + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on mid/large caps that also show strong 6-month run, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green mid/large caps momentum, second set",
+    "s_q07w_g78_ml_mom6_tierA"
+   ]
+  },
+  "s_q07w_g52_mi_cheap5_deep70_mom6": {
+   "name": "Green micro · under $5 + deep dip + momentum · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on micro caps that also show under $5, deep pullback, strong 6-month run, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a micro-cap company, when all of these are true: priced under $5 at the signal; a deep 60-day range (its 60-day low is at least 70% below its 60-day high); a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green micro caps low-price + pullback + momentum",
+    "s_q07w_g52_mi_cheap5_deep70_mom6"
+   ]
+  },
+  "s_q07w_s78_ml_cheap5_vix20": {
+   "name": "Swing mid/large · under $5 + stress · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show under $5, market stress, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: priced under $5 at the signal; VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing mid/large caps low-price + stress, second set",
+    "s_q07w_s78_ml_cheap5_vix20"
+   ]
+  },
+  "s_q07w_s78_ml_cheap5_mom6": {
+   "name": "Swing mid/large · under $5 + momentum · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show under $5, strong 6-month run, held about 18 months.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: priced under $5 at the signal; a 6-month return in the top third (above the pre-2020 67th percentile).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing mid/large caps low-price + momentum, second set",
+    "s_q07w_s78_ml_cheap5_mom6"
+   ]
+  },
+  "s_q07w_g52_ml_mom6_tierA": {
+   "name": "Green mid/large · momentum + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on mid/large caps that also show strong 6-month run, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: a 6-month return in the top third (above the pre-2020 67th percentile); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green mid/large caps momentum",
+    "s_q07w_g52_ml_mom6_tierA"
+   ]
+  },
+  "s_q07w_g78_ml_mom6_vix20_tierA": {
+   "name": "Green mid/large · momentum + stress + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on mid/large caps that also show strong 6-month run, market stress, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: a 6-month return in the top third (above the pre-2020 67th percentile); VIX at 20 or higher at the signal (a stressed market); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green mid/large caps momentum + stress, second set",
+    "s_q07w_g78_ml_mom6_vix20_tierA"
+   ]
+  },
+  "s_q07w_g78_ml_vix20_tierA": {
+   "name": "Green mid/large · stress + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on mid/large caps that also show market stress, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: VIX at 20 or higher at the signal (a stressed market); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green mid/large caps stress, second set",
+    "s_q07w_g78_ml_vix20_tierA"
+   ]
+  },
+  "s_q07w_g78_ml_deep70_tierA": {
+   "name": "Green mid/large · deep dip + top-tier · 18 mo",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on mid/large caps that also show deep pullback, top-tier, held about 18 months.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: a deep 60-day range (its 60-day low is at least 70% below its 60-day high); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 78 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green mid/large caps pullback, second set",
+    "s_q07w_g78_ml_deep70_tierA"
+   ]
+  },
+  "s_q07w_s52_ml_cheap5_vix20": {
+   "name": "Swing mid/large · under $5 + stress · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show under $5, market stress, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: priced under $5 at the signal; VIX at 20 or higher at the signal (a stressed market).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing mid/large caps low-price + stress",
+    "s_q07w_s52_ml_cheap5_vix20"
+   ]
+  },
+  "s_q07w_s52_ml_cheap5": {
+   "name": "Swing mid/large · under $5 · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Swing signals on mid/large caps that also show under $5, held about a year.",
+   "looks_for": "At the weekly close, a weekly Swing buy signal (at least 5 of the engine's 7 trend and momentum votes are bullish and bulls beat bears by 4 or more, confirmed by an early 'monitor' buy on that bar or one of the 3 before it) on a mid- or large-cap company, when all of these are true: priced under $5 at the signal.",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Swing mid/large caps low-price",
+    "s_q07w_s52_ml_cheap5"
+   ]
+  },
+  "s_q07w_g52_ml_vix20_tierA": {
+   "name": "Green mid/large · stress + top-tier · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on mid/large caps that also show market stress, top-tier, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: VIX at 20 or higher at the signal (a stressed market); rated top-tier by the research (tier A: passes every research veto and has at least two independent supporting signals).",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green mid/large caps stress",
+    "s_q07w_g52_ml_vix20_tierA"
+   ]
+  },
+  "s_q07w_g52_ml_cheap5": {
+   "name": "Green mid/large · under $5 · 1 yr",
+   "desk": "Test desk",
+   "state": "On",
+   "timeframe": "weekly",
+   "summary": "Weekly Green signals on mid/large caps that also show under $5, held about a year.",
+   "looks_for": "At the weekly close, a Green buy signal (the 8-period average crosses above the 21-period average while at least 6 of the engine's 7 trend and momentum votes agree) on a mid- or large-cap company, when all of these are true: priced under $5 at the signal.",
+   "entry": "It buys on the first of the 5 trading days after the signal when, between 40 and 10 minutes before the close, QQQ is below yesterday's close, the stock is at or below its own yesterday's close, and the price is no more than 2% above the signal-day close. It sends one limit order, good for that day only: the current price plus 1%, never above that 2% cap. If no such day comes, the signal is dropped.",
+   "exit": "A protective stop sells it after a large drop. Time exit after 52 weeks. The hold is counted from the fill. Every sale is one limit sell order at the price minus 1%; a time exit is sent about 20 minutes before its exit time.",
+   "sizing": "About $1,000 per stock, in whole shares, and never more than 1% of the stock's average daily dollar volume. One position at a time ($1,000 sleeve budget). Every buy also needs free cash in the account.",
+   "why": "Stacking several independent signals on one stock is the idea; each cell trades one small position as a live test.",
+   "source": "the Test desk's signal feed (engine signals plus alt-data tags: Wikipedia, insider filings, dark-pool data, options)",
+   "budget_usd": 1000,
+   "max_positions": 1,
+   "type": "Signal families (Cyan, Green, Swing)",
+   "aliases": [
+    "Green mid/large caps low-price",
+    "s_q07w_g52_ml_cheap5"
    ]
   }
  }
