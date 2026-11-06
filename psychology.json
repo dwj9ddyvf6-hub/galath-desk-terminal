@@ -1,8 +1,8 @@
 {
  "schema": "grokbot-desk/psychology/1",
- "generated_at": "Nov 6, 2026 at 2:53 PM ET",
- "generated_at_iso": "2026-11-06T14:53:23-05:00",
- "as_of": "2026-11-06T19:53:24.832270+00:00",
+ "generated_at": "Nov 6, 2026 at 3:12 PM ET",
+ "generated_at_iso": "2026-11-06T15:12:32-05:00",
+ "as_of": "2026-11-06T20:12:34.023666+00:00",
  "engine": {
   "name": "Psychology Engine",
   "version": "0.4.1",
@@ -10,7 +10,7 @@
   "mode": "research advisory only; no order interface; Tensor/the desk keep all timing authority",
   "validation": "70 shipped + 5 independent + 6 operational tests pass on this box; predictive validity NOT established"
  },
- "headline": "Stress reads elevated: the VIX closed at 24.8 on 2026-11-06, above the 3-month VIX (23.9), so the curve is inverted. Attention: Wikipedia page views for the desk's tracked companies are +38% over the last three days versus the three before.",
+ "headline": "Stress reads elevated: the VIX closed at 24.7 on 2026-11-06, above the 3-month VIX (23.9), so the curve is inverted. Attention: Wikipedia page views for the desk's tracked companies are +38% over the last three days versus the three before.",
  "dimensions": [
   {
    "key": "sentiment",
@@ -34,7 +34,7 @@
    "key": "uncertainty",
    "observed": true,
    "measures": {
-    "VVIX_index_points": 112.79199999999999
+    "VVIX_index_points": 112.926
    },
    "observations": 5,
    "families": 1,
@@ -43,7 +43,7 @@
     {
      "units": "VVIX_index_points",
      "population": "CBOE VVIX (volatility of VIX), daily close",
-     "value": 112.792
+     "value": 112.926
     }
    ]
   },
@@ -76,12 +76,12 @@
     {
      "units": "VIX3M_index_points",
      "population": "CBOE 3-Month Volatility Index, daily close",
-     "value": 22.226
+     "value": 22.222
     },
     {
      "units": "VIX_index_points",
      "population": "CBOE Volatility Index (S&P 500 30-day implied volatility), daily close",
-     "value": 22.316
+     "value": 22.3
     },
     {
      "units": "SKEW_index_points",
@@ -340,7 +340,7 @@
    ],
    [
     "2026-11-06",
-    24.81
+    24.73
    ]
   ],
   "vix3m": [
@@ -582,7 +582,7 @@
    ],
    [
     "2026-11-06",
-    23.91
+    23.89
    ]
   ],
   "vvix": [
@@ -824,7 +824,7 @@
    ],
    [
     "2026-11-06",
-    120.69
+    121.36
    ]
   ],
   "skew": [
@@ -1147,9 +1147,9 @@
    "units": "VIX_index_points",
    "status": "research_forecast",
    "reason": null,
-   "next_proxy": 25.724999999999998,
+   "next_proxy": 25.625,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-06T19:53:24.832270+00:00"
+   "as_of": "2026-11-06T20:12:34.023666+00:00"
   },
   {
    "source": "wikimedia_company_attention",
@@ -1159,7 +1159,7 @@
    "reason": "Need five ordered fresh-ended observations with gaps <=72h",
    "next_proxy": null,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-06T19:53:24.832270+00:00"
+   "as_of": "2026-11-06T20:12:34.023666+00:00"
   },
   {
    "source": "cboe_vvix",
@@ -1167,9 +1167,9 @@
    "units": "VVIX_index_points",
    "status": "research_forecast",
    "reason": null,
-   "next_proxy": 123.245,
+   "next_proxy": 124.0825,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-06T19:53:24.832270+00:00"
+   "as_of": "2026-11-06T20:12:34.023666+00:00"
   },
   {
    "source": "cboe_skew",
@@ -1179,7 +1179,7 @@
    "reason": null,
    "next_proxy": 148.5175,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-06T19:53:24.832270+00:00"
+   "as_of": "2026-11-06T20:12:34.023666+00:00"
   }
  ],
  "decision": {
@@ -1230,27 +1230,27 @@
  "source_health": {
   "cboe_vix": {
    "status": "ok",
-   "checked_at": "2026-11-06T19:53:24.801744+00:00",
+   "checked_at": "2026-11-06T20:12:33.998358+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vix3m": {
    "status": "ok",
-   "checked_at": "2026-11-06T19:53:24.809727+00:00",
+   "checked_at": "2026-11-06T20:12:34.005889+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vvix": {
    "status": "ok",
-   "checked_at": "2026-11-06T19:53:24.818316+00:00",
+   "checked_at": "2026-11-06T20:12:34.013788+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_skew": {
    "status": "ok",
-   "checked_at": "2026-11-06T19:53:24.830494+00:00",
+   "checked_at": "2026-11-06T20:12:34.021819+00:00",
    "detail": "80 rows from desk cache"
   },
   "wikimedia_company_attention": {
    "status": "ok",
-   "checked_at": "2026-11-06T19:53:24.832008+00:00",
+   "checked_at": "2026-11-06T20:12:34.023432+00:00",
    "detail": "9 rows from desk cache"
   }
  },
