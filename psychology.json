@@ -1,8 +1,8 @@
 {
  "schema": "grokbot-desk/psychology/1",
- "generated_at": "Nov 8, 2026 at 4:05 PM ET",
- "generated_at_iso": "2026-11-08T16:05:21-05:00",
- "as_of": "2026-11-08T21:05:22.881291+00:00",
+ "generated_at": "Nov 9, 2026 at 8:26 AM ET",
+ "generated_at_iso": "2026-11-09T08:26:04-05:00",
+ "as_of": "2026-11-09T13:26:05.482990+00:00",
  "engine": {
   "name": "Psychology Engine",
   "version": "0.4.1",
@@ -1149,7 +1149,7 @@
    "reason": "Need five ordered fresh-ended observations with gaps <=72h",
    "next_proxy": null,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-08T21:05:22.881291+00:00"
+   "as_of": "2026-11-09T13:26:05.482990+00:00"
   },
   {
    "source": "wikimedia_company_attention",
@@ -1159,7 +1159,7 @@
    "reason": "Need five ordered fresh-ended observations with gaps <=72h",
    "next_proxy": null,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-08T21:05:22.881291+00:00"
+   "as_of": "2026-11-09T13:26:05.482990+00:00"
   },
   {
    "source": "cboe_vvix",
@@ -1169,7 +1169,7 @@
    "reason": null,
    "next_proxy": 124.8075,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-08T21:05:22.881291+00:00"
+   "as_of": "2026-11-09T13:26:05.482990+00:00"
   },
   {
    "source": "cboe_skew",
@@ -1179,7 +1179,7 @@
    "reason": "Need five ordered fresh-ended observations with gaps <=72h",
    "next_proxy": null,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-08T21:05:22.881291+00:00"
+   "as_of": "2026-11-09T13:26:05.482990+00:00"
   }
  ],
  "decision": {
@@ -1230,27 +1230,27 @@
  "source_health": {
   "cboe_vix": {
    "status": "ok",
-   "checked_at": "2026-11-08T21:05:22.730689+00:00",
+   "checked_at": "2026-11-09T13:26:05.437403+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vix3m": {
    "status": "ok",
-   "checked_at": "2026-11-08T21:05:22.840354+00:00",
+   "checked_at": "2026-11-09T13:26:05.457777+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vvix": {
    "status": "ok",
-   "checked_at": "2026-11-08T21:05:22.863634+00:00",
+   "checked_at": "2026-11-09T13:26:05.469568+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_skew": {
    "status": "ok",
-   "checked_at": "2026-11-08T21:05:22.871820+00:00",
+   "checked_at": "2026-11-09T13:26:05.476610+00:00",
    "detail": "80 rows from desk cache"
   },
   "wikimedia_company_attention": {
    "status": "ok",
-   "checked_at": "2026-11-08T21:05:22.879745+00:00",
+   "checked_at": "2026-11-09T13:26:05.478591+00:00",
    "detail": "9 rows from desk cache"
   }
  },
