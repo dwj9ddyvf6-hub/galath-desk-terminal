@@ -1,8 +1,8 @@
 {
  "schema": "grokbot-desk/psychology/1",
- "generated_at": "Nov 13, 2026 at 4:56 PM ET",
- "generated_at_iso": "2026-11-13T16:56:37-05:00",
- "as_of": "2026-11-13T21:56:39.988022+00:00",
+ "generated_at": "Nov 13, 2026 at 6:59 PM ET",
+ "generated_at_iso": "2026-11-13T18:59:35-05:00",
+ "as_of": "2026-11-13T23:59:35.779969+00:00",
  "engine": {
   "name": "Psychology Engine",
   "version": "0.4.1",
@@ -10,7 +10,7 @@
   "mode": "research advisory only; no order interface; Tensor/the desk keep all timing authority",
   "validation": "70 shipped + 5 independent + 6 operational tests pass on this box; predictive validity NOT established"
  },
- "headline": "Stress reads normal: the VIX closed at 19.3 on 2026-11-13, below the 3-month VIX (20.6), so the curve is upward-sloping. Attention: Wikipedia page views for the desk's tracked companies are +41% over the last three days versus the three before.",
+ "headline": "Stress reads normal: the VIX closed at 18.7 on 2026-11-12, below the 3-month VIX (20.6), so the curve is upward-sloping. Attention: Wikipedia page views for the desk's tracked companies are +41% over the last three days versus the three before.",
  "dimensions": [
   {
    "key": "sentiment",
@@ -42,16 +42,16 @@
    "key": "uncertainty",
    "observed": true,
    "measures": {
-    "VVIX_index_points": 96.21
+    "VVIX_index_points": 96.335
    },
-   "observations": 3,
+   "observations": 4,
    "families": 1,
    "coverage": "single_family",
    "populations": [
     {
      "units": "VVIX_index_points",
      "population": "CBOE VVIX (volatility of VIX), daily close",
-     "value": 96.21
+     "value": 96.335
     }
    ]
   },
@@ -77,24 +77,24 @@
    "key": "stress",
    "observed": true,
    "measures": null,
-   "observations": 9,
+   "observations": 10,
    "families": 1,
    "coverage": "single_family",
    "populations": [
     {
      "units": "VIX_index_points",
      "population": "CBOE Volatility Index (S&P 500 30-day implied volatility), daily close",
-     "value": 18.75
+     "value": 18.55
     },
     {
      "units": "VIX3M_index_points",
      "population": "CBOE 3-Month Volatility Index, daily close",
-     "value": 20.167
+     "value": 20.14
     },
     {
      "units": "SKEW_index_points",
      "population": "CBOE SKEW index (tail-risk pricing), daily close",
-     "value": 149.767
+     "value": 150.123
     }
    ]
   },
@@ -347,15 +347,11 @@
     17.49
    ],
    [
-    "2026-11-13",
-    19.3
+    "2026-11-12",
+    18.7
    ]
   ],
   "vix3m": [
-   [
-    "2026-08-20",
-    19.06
-   ],
    [
     "2026-08-21",
     18.5
@@ -589,15 +585,15 @@
     19.24
    ],
    [
+    "2026-11-12",
+    20.06
+   ],
+   [
     "2026-11-13",
     20.62
    ]
   ],
   "vvix": [
-   [
-    "2026-08-20",
-    89.86
-   ],
    [
     "2026-08-21",
     86.27
@@ -829,6 +825,10 @@
    [
     "2026-11-11",
     90.47
+   ],
+   [
+    "2026-11-12",
+    96.71
    ],
    [
     "2026-11-13",
@@ -1073,8 +1073,8 @@
     149.09
    ],
    [
-    "2026-11-13",
-    149.09
+    "2026-11-12",
+    150.16
    ]
   ],
   "wiki_views": [
@@ -1163,9 +1163,9 @@
    "units": "VIX_index_points",
    "status": "research_forecast",
    "reason": null,
-   "next_proxy": 17.715,
+   "next_proxy": 16.965,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-13T21:56:39.988022+00:00"
+   "as_of": "2026-11-13T23:59:35.779969+00:00"
   },
   {
    "source": "wikimedia_company_attention",
@@ -1175,7 +1175,7 @@
    "reason": "Need five ordered fresh-ended observations with gaps <=72h",
    "next_proxy": null,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-13T21:56:39.988022+00:00"
+   "as_of": "2026-11-13T23:59:35.779969+00:00"
   },
   {
    "source": "cboe_vvix",
@@ -1183,9 +1183,9 @@
    "units": "VVIX_index_points",
    "status": "research_forecast",
    "reason": null,
-   "next_proxy": 96.42750000000001,
+   "next_proxy": 102.305,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-13T21:56:39.988022+00:00"
+   "as_of": "2026-11-13T23:59:35.779969+00:00"
   },
   {
    "source": "cboe_skew",
@@ -1193,9 +1193,9 @@
    "units": "SKEW_index_points",
    "status": "research_forecast",
    "reason": null,
-   "next_proxy": 147.975,
+   "next_proxy": 149.3125,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-13T21:56:39.988022+00:00"
+   "as_of": "2026-11-13T23:59:35.779969+00:00"
   }
  ],
  "decision": {
@@ -1212,7 +1212,7 @@
   {
    "name": "CBOE VIX, VIX3M, VVIX, SKEW",
    "status": "active",
-   "detail": "daily closes from the desk's CBOE cache (ChartsLector nightly export); last 2026-11-13",
+   "detail": "daily closes from the desk's CBOE cache (ChartsLector nightly export); last 2026-11-12",
    "dimension": "stress / uncertainty"
   },
   {
@@ -1241,40 +1241,40 @@
   }
  ],
  "sources_active": 2,
- "evidence_rows": 14,
+ "evidence_rows": 16,
  "excluded_rows": 353,
  "source_health": {
   "cboe_vix": {
    "status": "ok",
-   "checked_at": "2026-11-13T21:56:39.877277+00:00",
+   "checked_at": "2026-11-13T23:59:35.732670+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vix3m": {
    "status": "ok",
-   "checked_at": "2026-11-13T21:56:39.894778+00:00",
+   "checked_at": "2026-11-13T23:59:35.749225+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vvix": {
    "status": "ok",
-   "checked_at": "2026-11-13T21:56:39.912395+00:00",
+   "checked_at": "2026-11-13T23:59:35.763396+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_skew": {
    "status": "ok",
-   "checked_at": "2026-11-13T21:56:39.955886+00:00",
+   "checked_at": "2026-11-13T23:59:35.778804+00:00",
    "detail": "80 rows from desk cache"
   },
   "wikimedia_company_attention": {
    "status": "ok",
-   "checked_at": "2026-11-13T21:56:39.981845+00:00",
+   "checked_at": "2026-11-13T23:59:35.779739+00:00",
    "detail": "2 rows from desk cache"
   }
  },
  "ingest_status": {
-  "cboe_vix": "ok: 80 rows, last event 2026-11-13, ingest {\"inserted\": 1, \"duplicates\": 79}",
-  "cboe_vix3m": "ok: 80 rows, last event 2026-11-13, ingest {\"inserted\": 1, \"duplicates\": 79}",
-  "cboe_vvix": "ok: 80 rows, last event 2026-11-13, ingest {\"inserted\": 1, \"duplicates\": 79}",
-  "cboe_skew": "ok: 80 rows, last event 2026-11-13, ingest {\"inserted\": 1, \"duplicates\": 79}",
+  "cboe_vix": "ok: 80 rows, last event 2026-11-12, ingest {\"inserted\": 1, \"duplicates\": 79}",
+  "cboe_vix3m": "ok: 80 rows, last event 2026-11-13, ingest {\"inserted\": 2, \"duplicates\": 78}",
+  "cboe_vvix": "ok: 80 rows, last event 2026-11-13, ingest {\"inserted\": 2, \"duplicates\": 78}",
+  "cboe_skew": "ok: 80 rows, last event 2026-11-12, ingest {\"inserted\": 1, \"duplicates\": 79}",
   "wikimedia_company_attention": "ok: 2 rows, last event 2026-11-11, ingest {\"inserted\": 0, \"duplicates\": 2}"
  },
  "interpretation": [
