@@ -5,9 +5,9 @@
  "rules_version": "1.4.13",
  "account_type": "paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Nov 13, 2026 at 11:50 PM ET",
- "generated_at_iso": "2026-11-13T23:50:19-05:00",
- "headline": "Market closed. By the latest marks (11:50 PM ET), the desk is down 0.21% versus the prior close and behind SPY by 8.27 percentage points since it started.",
+ "generated_at": "Nov 14, 2026 at 9:32 AM ET",
+ "generated_at_iso": "2026-11-14T09:32:55-05:00",
+ "headline": "Market closed. By the latest marks (9:32 AM ET), the desk is up 0.00% versus the prior close and behind SPY by 8.27 percentage points since it started.",
  "headline_scope": "last_close",
  "headline_as_of": "2026-11-13",
  "headline_basis": null,
@@ -16,8 +16,8 @@
   "cash": 58601.15,
   "start_equity": 100000.0,
   "long_market_value": 32044.37,
-  "day_pl": -186.88,
-  "day_pl_pct": -0.206,
+  "day_pl": 0.0,
+  "day_pl_pct": 0.0,
   "total_pl": -9354.48,
   "total_pl_pct": -9.354
  },
@@ -155,7 +155,7 @@
    "spy_pct": -0.868
   },
   {
-   "t": "2026-11-13T23:50",
+   "t": "2026-11-14T09:32",
    "label": "now",
    "desk_pct": -9.354,
    "spy_pct": -1.059
@@ -2199,7 +2199,7 @@
   "close_pass_exit": null,
   "ledger_verify": "ok",
   "ledger_chain_ok": true,
-  "ledger_records": 4332,
+  "ledger_records": 4355,
   "passes_today": null,
   "locks": null,
   "health": {
@@ -2208,21 +2208,12 @@
    "missed": null,
    "moc_missed": null,
    "audited": null,
-   "data_unavailable": null,
-   "data_at": null,
-   "data_bad_pct": null,
    "exec_day": null,
    "exec_n": null,
    "exec_bps": null,
    "exec_usd": null,
    "exec_5d_n": null,
    "exec_5d_bps": null,
-   "tape_qqq_pct": null,
-   "tape_at": null,
-   "tape_stale": null,
-   "tape_red": null,
-   "tape_n": null,
-   "tape_ready": null,
    "self_verdict": null,
    "self_expected": null,
    "self_done": null,
@@ -2236,169 +2227,22 @@
    "kronos_signal_day": "2026-11-12",
    "kronos_age_sessions": 1,
    "kronos_note": null,
+   "tape_qqq_pct": null,
+   "tape_at": null,
+   "tape_stale": null,
+   "tape_red": null,
+   "tape_n": null,
+   "tape_ready": null,
+   "data_unavailable": null,
+   "data_at": null,
+   "data_bad_pct": null,
    "box_asleep_rth_min": null,
    "box_suspends": null,
    "box_crit_hits": null
   }
  },
- "skips_today": [
-  {
-   "symbol": "AFRM",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "CDW",
-   "reason": "filter",
-   "detail": "log only: tested weak"
-  },
-  {
-   "symbol": "CENX",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "CHTR",
-   "reason": "already held or queued",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "CRUS",
-   "reason": "filter",
-   "detail": "log only: tested weak"
-  },
-  {
-   "symbol": "CRWD",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "DLR",
-   "reason": "filter",
-   "detail": "log only: tested weak"
-  },
-  {
-   "symbol": "ELAN",
-   "reason": "timing window",
-   "detail": "window closed without a fear day"
-  },
-  {
-   "symbol": "EQIX",
-   "reason": "filter",
-   "detail": "log only: tested weak"
-  },
-  {
-   "symbol": "ERII",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "EXTR",
-   "reason": "timing window",
-   "detail": "window closed without a fear day"
-  },
-  {
-   "symbol": "FLY",
-   "reason": "timing window",
-   "detail": "window closed without a fear day"
-  },
-  {
-   "symbol": "IBP",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "INDI",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "JOBY",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "LAZ",
-   "reason": "filter",
-   "detail": "log only: tested weak"
-  },
-  {
-   "symbol": "LCID",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "LSCC",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "LZB",
-   "reason": "already held or queued",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "MPWR",
-   "reason": "already held or queued",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "MVST",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "NXT",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "ROIV",
-   "reason": "filter",
-   "detail": "log only: tested weak"
-  },
-  {
-   "symbol": "SYNA",
-   "reason": "already held or queued",
-   "detail": "log only: tested weak"
-  },
-  {
-   "symbol": "TMDX",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "TPC",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "TWST",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "VIR",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "WHR",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  },
-  {
-   "symbol": "ZETA",
-   "reason": "budget full",
-   "detail": "lane cap: lane slots full"
-  }
- ],
- "skips_today_counts": {
-  "already held or queued": 4,
-  "budget full": 17,
-  "timing window": 3,
-  "filter": 6
- },
+ "skips_today": [],
+ "skips_today_counts": {},
  "track_record": {
   "period_start": "2026-10-01",
   "period_text": "Since Oct 1, 2026 (desk start)",
@@ -3717,12 +3561,12 @@
    "plain": "Wikipedia page views for the 1,226 US companies tracked are running 17% below their usual level (typical company, past week compared with the prior three months). 11 of them are seeing unusually heavy attention."
   },
   "account": {
-   "equity": 96454.78,
-   "cash": -21993.44,
+   "equity": 96454.63,
+   "cash": -21993.59,
    "start_equity": 100000.0,
-   "day_pl": -578.95,
-   "day_pl_pct": -0.597,
-   "total_pl": -3545.22,
+   "day_pl": 0.01,
+   "day_pl_pct": 0.0,
+   "total_pl": -3545.37,
    "total_pl_pct": -3.545
   },
   "counts": {
@@ -7311,12 +7155,12 @@
   "realized_usd": -5209.51,
   "unrealized_usd": 1654.43,
   "start_date": "2026-10-12",
-  "as_of": "Nov 13, 2026 at 11:50 PM ET",
+  "as_of": "Nov 14, 2026 at 9:32 AM ET",
   "stale": false,
   "note": "Runs on its own paper account with simulated money. Its numbers are kept completely apart from the main desk.",
   "unavailable": null,
   "panels": {
-   "headline": "The test desk is down 3.54% since it started and behind SPY by 0.43 percentage points.",
+   "headline": "The test desk is down 3.54% since it started and behind SPY by 0.15 percentage points.",
    "stats": {
     "closed": 70,
     "wins": 16,
@@ -10930,8 +10774,14 @@
     {
      "t": "2026-11-13",
      "label": "Nov 13",
-     "desk_pct": -3.555,
+     "desk_pct": -3.558,
      "spy_pct": -3.114
+    },
+    {
+     "t": "2026-11-14T09:32",
+     "label": "now",
+     "desk_pct": -3.555,
+     "spy_pct": -3.394
     }
    ],
    "account": {
@@ -10939,8 +10789,8 @@
     "cash": -22003.29,
     "start_equity": 100000.0,
     "long_market_value": 118448.21,
-    "day_pl": -578.95,
-    "day_pl_pct": -0.597,
+    "day_pl": 0.01,
+    "day_pl_pct": 0.0,
     "total_pl": -3555.08,
     "total_pl_pct": -3.555
    },
@@ -14685,7 +14535,7 @@
     "as_of": "2026-11-13",
     "unavailable": null
    },
-   "generated_at": "Nov 13, 2026 at 11:50 PM ET",
+   "generated_at": "Nov 14, 2026 at 9:32 AM ET",
    "desk_version": "Test desk",
    "account_type": "separate paper account (simulated money)",
    "day_label": "Since the start",
@@ -17385,7 +17235,7 @@
     "passes_today": null,
     "ledger_verify": "ok",
     "ledger_chain_ok": true,
-    "ledger_records": 4332,
+    "ledger_records": 4355,
     "scheduler_exit": null,
     "empty_text": null,
     "ledger_note": null
