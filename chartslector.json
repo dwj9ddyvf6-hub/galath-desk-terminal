@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated_at": "2026-11-19 17:16 ET",
+ "generated_at": "2026-11-20 06:38 ET",
  "as_of": "2026-11-19",
  "source": {
   "author": "@ChartsLector",
@@ -8,22 +8,22 @@
   "note": "Rebuilt from his public TradingView scripts and posts, run on end-of-day data."
  },
  "mood_ring": {
-  "as_of": "2026-11-18",
-  "composite": 46.7,
-  "state": "AMBER",
-  "divergence": "Backwardation",
+  "as_of": "2026-11-19",
+  "composite": 35.5,
+  "state": "PURPLE",
+  "divergence": "Complacency Trap",
   "inputs": {
-   "vix": 24.56,
-   "vix3m": 24.29,
-   "term_ratio": 1.011,
-   "vvix": 118.37,
-   "skew": 142.84
+   "vix": 28.44,
+   "vix3m": 27.03,
+   "term_ratio": 1.052,
+   "vvix": 127.1,
+   "skew": 140.86
   },
   "parts": {
-   "vix": 60.9,
-   "term": 26.7,
-   "skew": 44.6,
-   "vvix": 50.5
+   "vix": 40.3,
+   "term": 14.4,
+   "skew": 47.9,
+   "vvix": 38.9
   },
   "weights": {
    "vix": 35,
@@ -58,10 +58,6 @@
    ]
   ],
   "history": [
-   {
-    "d": "2025-11-27",
-    "v": 71.1
-   },
    {
     "d": "2025-11-28",
     "v": 74.6
@@ -1065,6 +1061,10 @@
    {
     "d": "2026-11-18",
     "v": 46.7
+   },
+   {
+    "d": "2026-11-19",
+    "v": 35.5
    }
   ]
  },
@@ -1072,7 +1072,7 @@
   "QQQE": {
    "state": "RED",
    "score": 0,
-   "ram": 90.6,
+   "ram": 86.6,
    "ram_level": "EXTREME",
    "checks": {
     "above_rising_5ema": false,
@@ -1860,14 +1860,14 @@
      "d": "2026-11-19",
      "s": "RED",
      "sc": 0,
-     "ram": 90.6
+     "ram": 86.6
     }
    ]
   },
   "RSP": {
    "state": "RED",
    "score": 0,
-   "ram": 94.2,
+   "ram": 90.2,
    "ram_level": "EXTREME",
    "checks": {
     "above_rising_5ema": false,
@@ -2655,7 +2655,7 @@
      "d": "2026-11-19",
      "s": "RED",
      "sc": 0,
-     "ram": 94.2
+     "ram": 90.2
     }
    ]
   }
@@ -5029,11 +5029,11 @@
    },
    {
     "sym": "MRVL",
-    "opp": 17.7,
+    "opp": 17.8,
     "opp_prev": 17.8,
     "s10": 20.1,
-    "s20": 19.1,
-    "s42": 16.3,
+    "s20": 19.2,
+    "s42": 16.4,
     "s63": 15.4,
     "breakout": 36.7,
     "expansion": 8.7,
@@ -5269,14 +5269,14 @@
     "sym": "UMC",
     "opp": 12.2,
     "opp_prev": 11.9,
-    "s10": 15.3,
+    "s10": 15.2,
     "s20": 13.7,
     "s42": 10.7,
-    "s63": 9.2,
-    "breakout": 30.5,
+    "s63": 9.1,
+    "breakout": 30.4,
     "expansion": 0.0,
     "risk": 0.0,
-    "ext_atr": -7.16,
+    "ext_atr": -7.15,
     "rs1m": 4.8,
     "atr_rank": 85.1,
     "close": 13.4,
@@ -7309,7 +7309,7 @@
     "rs21": 0.0,
     "rs63": 0.0,
     "rs126": 0.0,
-    "rvol": 75.0,
+    "rvol": 77.0,
     "rrr_ratio": 95.29,
     "rrr_mom": 99.76,
     "quadrant": "Lagging",
@@ -8369,7 +8369,7 @@
     "rs21": 0.0,
     "rs63": 0.0,
     "rs126": 0.0,
-    "rvol": 122.0,
+    "rvol": 123.0,
     "rrr_ratio": 94.37,
     "rrr_mom": 99.38,
     "quadrant": "Lagging",
@@ -9479,7 +9479,7 @@
     "rs21": 24.0,
     "rs63": 8.0,
     "rs126": 6.0,
-    "rvol": 77.0,
+    "rvol": 78.0,
     "rrr_ratio": 97.65,
     "rrr_mom": 99.49,
     "quadrant": "Lagging",
@@ -9732,7 +9732,7 @@
     "group": "theme",
     "close": 42.06,
     "d1": -2.26,
-    "w1": -4.73,
+    "w1": -4.72,
     "m1": -1.6,
     "m3": -0.46,
     "rs5": 40.0,
