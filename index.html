@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="945941fa7850">
+<meta name="gb-build" content="c7d67baed24a">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -636,6 +636,50 @@ h2{color:var(--navy);font-weight:700}
   .row-between>:first-child{white-space:nowrap}
   #totop,.totop{bottom:calc(96px + env(safe-area-inset-bottom))!important}
 }
+</style>
+<style id="ft2-20261120">
+/* 2026-11-20 t787u pass 2: component patterns (list rows, chart frames, collapsibles, empty cards). Rollback = delete this block. */
+/* list rows: full width, thin dividers, not boxed */
+.list .it.ftrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:16px 2px;border-left:0;border-top:1px solid #e3ece9}
+.list .it.ftrow:first-child{border-top:0}
+.ftrow .tkr{font-size:22px;font-weight:800;color:var(--navy)}
+.ftrow .nm{font-size:14px;color:#6b7a83;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.ftrow .det{font-size:12.5px;color:#7a8890;margin-top:4px}
+.ftrow .ftl{min-width:0}
+.ftrow .ftr{display:flex;align-items:flex-start;gap:10px}
+.ftrow .ftsp{margin-top:6px;flex:none}
+.ftrow .px{font-size:24px;font-weight:800}
+.ftrow .chg{font-size:14.5px}
+.ftrow .ftb{grid-column:1/-1;min-width:0}
+.ftrow .ftb .hold{margin-top:6px}
+details.ftlv{margin-top:8px;border-top:1px dashed #dbe6e2;padding-top:6px}
+details.ftlv>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;font-size:13.5px;font-weight:800;color:var(--ft-teal,#0f3d44);min-height:30px}
+details.ftlv>summary::-webkit-details-marker{display:none}
+details.ftlv>summary>span:first-child::before{content:"+ ";font-weight:800}
+details.ftlv[open]>summary>span:first-child::before{content:"− "}
+details.ftlv .ftn{font-size:12.5px;font-weight:600;color:#7a8890}
+details.ftlv .det.rules{margin-top:2px}
+.ftbtns{margin-top:10px}
+.ftbtns .t,.ftbtns a.t{display:inline-block;border:1.5px solid #cfdcd8;border-radius:10px;background:#fff;color:var(--ft-teal,#0f3d44);font-weight:800;font-size:13px;letter-spacing:.01em;padding:7px 12px;margin:0 8px 0 0;text-decoration:none}
+/* closed-trade and lane rows: plain dividers */
+.list .it{border-left-width:0}
+/* dark charts framed in a rounded card with a light header strip */
+.chart{border:1px solid #d6e3df;overflow:hidden}
+.chart .top{margin:-14px -12px 10px;padding:11px 16px 10px;background:#f1f6f4;border-bottom:1px solid #dbe6e2}
+.chart .tk{color:var(--navy)}
+.chart .top .tk span,.chart .top .tk small,.chart .top span[style*="#c9cfdd"]{color:#6b7a83!important}
+details.how>summary::before,details.vzdet>summary::before,details.card>summary::before{display:none!important}
+details.how>summary,details.vzdet>summary,details.card>summary{text-align:left}
+.chart .brandtag{color:#6b7a83}.chart .brandtag b{color:#16786a}
+/* collapsible sections: thin rounded card, teal Open + / Close − */
+details.how,details.vzdet{border:1px solid var(--ft-line,#d6e7e1);border-radius:14px;padding:4px 14px;background:#fff;margin-top:10px}
+details.how>summary,details.vzdet>summary,details.card>summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--navy);font-weight:800;min-height:40px}
+details.how>summary::-webkit-details-marker,details.vzdet>summary::-webkit-details-marker,details.card>summary::-webkit-details-marker{display:none}
+details.how>summary::after,details.vzdet>summary::after,details.card>summary::after{content:"Open +";flex:none;color:#16786a;font-size:13px;font-weight:800}
+details.how[open]>summary::after,details.vzdet[open]>summary::after,details.card[open]>summary::after{content:"Close −"}
+/* cards with no data: dashed border */
+.stat.ftempty{border-style:dashed;background:#fbfdfc}
+.stat.ftempty .v{color:#9aa7ad}
 </style>
 </head>
 <body>
@@ -1779,6 +1823,12 @@ function renderBreakdown(V){
       return `<tr><td><b>${e?`<a href="${slAnchor(V,e)}">${esc(e.name)}</a>`:esc(b.strategy||"")}</b> ${tbadge(V.main&&b.test)}</td><td class="r">${b.open}</td><td class="r">${b.queued??0}</td><td class="r">${b.closed}</td><td class="r">${b.win_rate_closed_pct==null?"—":b.win_rate_closed_pct.toFixed(0)+"%"}</td><td class="r ${cls(b.avg_return_pct)}">${sgn(b.avg_return_pct)}</td><td class="r ${cls(b.realized_usd)}">${usd(b.realized_usd)}</td><td class="r ${cls(b.unrealized_usd)}">${usd(b.unrealized_usd)}</td><td class="r"><div class="pnl">${bar(pl(b))}<b class="${cls(pl(b))}">${usd(pl(b),0)}</b></div></td></tr>`;}).join("");
 }
 
+/* 2026-11-20 t787u pass 2: small 6-month trend line per holding, from universe.json (close and its 126/63/21/1-day returns), no new data */
+let FTU=null,FTUP=null;
+function ftUni(){if(FTU||FTUP)return;FTUP=fetch("universe.json?t="+Date.now(),{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(!j||!j.cols)return;const c=j.cols,ix=k=>c.indexOf(k),m={};for(const r of j.rows||[])m[r[ix("s")]]=[r[ix("close")],r[ix("d126")],r[ix("d63")],r[ix("d21")],r[ix("d1")]];FTU=m;try{if(D){renderPositions(VM);renderPositions(VT);}}catch(e){}}).catch(()=>{}).finally(()=>{FTUP=null;});}
+function ftSpark(sym){if(!FTU){ftUni();return "";}const r=FTU[sym];if(!r||r[0]==null)return "";const c=r[0],pts=[r[1],r[2],r[3],r[4]].map(d=>d==null?null:c/(1+d/100)).concat([c]).filter(v=>v!=null&&isFinite(v));if(pts.length<3)return "";
+  const lo=Math.min(...pts),hi=Math.max(...pts),w=56,h=24,sp=hi-lo||1,xy=pts.map((v,i)=>`${(i*(w-4)/(pts.length-1)+2).toFixed(1)},${(h-3-(v-lo)/sp*(h-6)).toFixed(1)}`).join(" ");
+  const up=pts[pts.length-1]>=pts[0];return `<svg class="ftsp" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" role="img" aria-label="6-month trend ${up?"up":"down"}"><title>Last 6 months</title><polyline points="${xy}" fill="none" stroke="${up?"#18744f":"#b0342e"}" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>`;}
 function renderPositions(V){
   const d=V.d, st=d.stats||{}, P=d.positions||[];
   if(!P.some(p=>p.lane===V.lf)) V.lf="all";
@@ -1787,12 +1837,14 @@ function renderPositions(V){
   const unrl=P.reduce((s,p)=>s+(p.unrealized_usd||0),0);
   $v(V,"possub").textContent=P.length?`${st.open??P.filter(p=>p.qty>0).length} open · ${st.queued??P.filter(p=>!(p.qty>0)).length} waiting to buy · unrealized ${usd(unrl)} · ${(d.headline_scope==="last_close"&&(d.headline_basis||{}).desk_close_equity!=null)?"latest broker prices":"latest broker prices"}`:"";
   const F0=P.filter(p=>V.lf==="all"||p.lane===V.lf), LIM=10, F=V.pall||F0.length<=LIM+2?F0:F0.slice(0,LIM);
-  $v(V,"poslist").innerHTML=(F.length?F.map(p=>`<div class="it ${p.unrealized_pct>0?"up":p.unrealized_pct<0?"down":""}">
-    <div><div class="tkr">${esc(p.symbol)}</div><div class="nm">${esc(coName(p.name))}</div>
-      <div class="tags">${laneTag(V,p.lane,p.strategy)}${tbadge(V.main&&p.test)}${p.status&&p.status!=="open"?`<span class="t" style="color:var(--muted)">${esc(p.status.replace(/_/g," "))}</span>`:""}</div>
-      <div class="det">${p.qty>0?`Bought at ${usd(p.entry_price)} · ${esc(p.entry_date||"")} · ${p.qty} sh`:`Waiting to buy${p.qty_requested?` · ${p.qty_requested} sh planned`:""}`}</div>${holdBar(p)}${openRules(p)}</div>
-    <div class="right">${p.qty>0?`<div class="px">${usd(p.current_price)}</div><div class="chg ${cls(p.unrealized_pct)}">${sgn(p.unrealized_pct)}</div>`:""}
-      ${p.qty>0?`<div class="small">${usd(p.unrealized_usd)} unrealized</div>`:`<div class="small">not bought yet</div>`}${p.day_change_pct!=null&&!(p.qty>0&&Math.abs(p.day_change_pct-(p.unrealized_pct||0))<0.005)?`<div class="small">today ${sgn(p.day_change_pct)}</div>`:""}</div></div>`).join(""):`<div class="empty">${V.main?"No open positions.":"No positions yet."}</div>`)
+  $v(V,"poslist").innerHTML=(F.length?F.map(p=>{const rl=openRules(p),dl=(()=>{const b=dParse(p.planned_exit);const n=b==null?0:Math.max(0,Math.ceil((b-Date.now())/864e5));return p.qty>0&&n?`${n} day${n===1?"":"s"} left`:"";})();
+    return `<div class="it ftrow ${p.unrealized_pct>0?"up":p.unrealized_pct<0?"down":""}">
+    <div class="ftl"><div class="tkr">${esc(p.symbol)}</div><div class="nm">${esc(coName(p.name))}</div>
+      <div class="det">${p.qty>0?`Bought at ${usd(p.entry_price)} · ${esc(p.entry_date||"")} · ${p.qty} sh`:`Waiting to buy${p.qty_requested?` · ${p.qty_requested} sh planned`:""}`}</div></div>
+    <div class="right ftr">${ftSpark(p.symbol)}<div>${p.qty>0?`<div class="px">${usd(p.current_price)}</div><div class="chg ${cls(p.unrealized_pct)}">${sgn(p.unrealized_pct)}</div>`:""}
+      ${p.qty>0?`<div class="small">${usd(p.unrealized_usd)} unrealized</div>`:`<div class="small">not bought yet</div>`}${p.day_change_pct!=null&&!(p.qty>0&&Math.abs(p.day_change_pct-(p.unrealized_pct||0))<0.005)?`<div class="small">today ${sgn(p.day_change_pct)}</div>`:""}</div></div>
+    <div class="ftb">${holdBar(p)}${rl?`<details class="ftlv"><summary><span>Exit plan</span>${dl?`<span class="ftn">${dl}</span>`:""}</summary>${rl}</details>`:""}
+      <div class="tags ftbtns">${laneTag(V,p.lane,p.strategy)}${tbadge(V.main&&p.test)}${p.status&&p.status!=="open"?`<span class="t" style="color:var(--muted)">${esc(p.status.replace(/_/g," "))}</span>`:""}</div></div></div>`;}).join(""):`<div class="empty">${V.main?"No open positions.":"No positions yet."}</div>`)
     +(F0.length>F.length||V.pall&&F0.length>LIM+2?`<div class="showall"><button class="chip more" data-more="${V.main?"m":"t"}">${V.pall?"Show fewer":`Show all ${F0.length}`}</button></div>`:"");
 }
 
@@ -2195,9 +2247,9 @@ function clRotation(d){
   const x=v=>X0+(X1-X0)*(v-(100-ex))/(2*ex),y=v=>Y0+(Y1-Y0)*((100+ey)-v)/(2*ey),xc=x(100),yc=y(100);
   let s=`<defs><clipPath id="clrotclip"><rect x="${X0}" y="${Y0}" width="${X1-X0}" height="${Y1-Y0}"/></clipPath></defs>`;
   s+=`<rect data-plot="1" x="${X0}" y="${Y0}" width="${X1-X0}" height="${Y1-Y0}" fill="none" stroke="#3a3f52"/>`;
-  s+=`<rect x="${xc}" y="${Y0}" width="${X1-xc}" height="${yc-Y0}" fill="#2bb07f" opacity=".08"/><rect x="${X0}" y="${Y0}" width="${xc-X0}" height="${yc-Y0}" fill="#4a8fe0" opacity=".08"/><rect x="${X0}" y="${yc}" width="${xc-X0}" height="${Y1-yc}" fill="#d4504a" opacity=".08"/><rect x="${xc}" y="${yc}" width="${X1-xc}" height="${Y1-yc}" fill="#e2bf3f" opacity=".08"/>`;
-  s+=`<line x1="${X0}" x2="${X1}" y1="${yc}" y2="${yc}" stroke="#8a91a6"/><line y1="${Y0}" y2="${Y1}" x1="${xc}" x2="${xc}" stroke="#8a91a6"/>`;
-  s+=`<text x="${X1}" y="${Y0-9}" fill="#2bb07f" font-size="11" text-anchor="end">LEADING</text><text x="${X0}" y="${Y0-9}" fill="#4a8fe0" font-size="11">IMPROVING</text><text x="${X0}" y="${H-8}" fill="#d4504a" font-size="11">LAGGING</text><text x="${X1}" y="${H-8}" fill="#e2bf3f" font-size="11" text-anchor="end">WEAKENING</text>`;
+  s+=`<rect x="${xc}" y="${Y0}" width="${X1-xc}" height="${yc-Y0}" fill="#2bb07f" opacity=".16"/><rect x="${X0}" y="${Y0}" width="${xc-X0}" height="${yc-Y0}" fill="#2bb07f" opacity=".08"/><rect x="${X0}" y="${yc}" width="${xc-X0}" height="${Y1-yc}" fill="#d4504a" opacity=".16"/><rect x="${xc}" y="${yc}" width="${X1-xc}" height="${Y1-yc}" fill="#d4504a" opacity=".08"/>`;
+  s+=`<line x1="${X0}" x2="${X1}" y1="${yc}" y2="${yc}" stroke="#8a91a6" stroke-dasharray="4 4"/><line y1="${Y0}" y2="${Y1}" x1="${xc}" x2="${xc}" stroke="#8a91a6" stroke-dasharray="4 4"/>`;
+  s+=`<text x="${X1}" y="${Y0-9}" fill="#2bb07f" font-size="11" font-weight="800" text-anchor="end">LEADING</text><text x="${X0}" y="${Y0-9}" fill="#4a8fe0" font-size="11" font-weight="800">IMPROVING</text><text x="${X0}" y="${H-8}" fill="#d4504a" font-size="11" font-weight="800">LAGGING</text><text x="${X1}" y="${H-8}" fill="#e2bf3f" font-size="11" font-weight="800" text-anchor="end">WEAKENING</text>`;
   s+=`<text x="${X0-4}" y="${yc+4}" fill="#9aa3b8" font-size="9.5" text-anchor="end">100</text><text x="${X1}" y="${H-8-13}" fill="#6f778c" font-size="9.5" text-anchor="end">${(100+ex).toFixed(1)}</text><text x="${X0}" y="${H-8-13}" fill="#6f778c" font-size="9.5">${(100-ex).toFixed(1)}</text>`;
   const fs=10.5,obst=[],placed=[];
   const ax1=`RS-Ratio →`,ax2=`↑ RS-Momentum`,w1=clMeasure(ax1,10)*.95,w2=clMeasure(ax2,10)*.95;
@@ -3455,7 +3507,8 @@ const mo=new MutationObserver(sync);document.querySelectorAll(".tabs .tab").forE
 addEventListener("hashchange",()=>setTimeout(sync,30));sync();
 const rb=document.getElementById("refresh");if(rb)rb.addEventListener("click",()=>{rb.classList.remove("spin");void rb.offsetWidth;rb.classList.add("spin");});
 const mk=()=>{try{const c=document.getElementById("tab-cl");if(c&&!c.hidden&&!document.hidden&&typeof clLoad==="function")clLoad();}catch(e){}};
-setInterval(mk,180000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)mk();});
+setInterval(mk,180000);
+let ftT=0;const ftE=()=>{document.querySelectorAll(".stat").forEach(x=>{const v=x.querySelector(".v");x.classList.toggle("ftempty",!!v&&/^[—–-]?$/.test(v.textContent.trim()));});};new MutationObserver(()=>{clearTimeout(ftT);ftT=setTimeout(ftE,120);}).observe(document.querySelector("main"),{childList:true,subtree:true});ftE();document.addEventListener("visibilitychange",()=>{if(!document.hidden)mk();});
 })();
 </script>
 </body>
