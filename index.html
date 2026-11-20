@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="f684d04626cd">
+<meta name="gb-build" content="b70c41ed051c">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -595,6 +595,47 @@ details.pl-more{padding:10px 14px}.bs-more{margin-top:.4em}.bs-chips{margin-top:
 .engsrch{width:100%;max-width:260px;border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;font-size:14px;margin:0 0 10px;background:#fff;color:var(--ink)}
 .engscan{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}@media(min-width:820px){.engscan{grid-template-columns:1fr 1fr}}
 .engscan h3{margin:0 0 4px;font-size:14px;color:var(--navy)}
+</style>
+<style id="ft-20261120">
+/* 2026-11-20 (Galath t787u): visual pass to match the owner's app style. Additive overrides only; rollback = delete this block + #ftbar + ft script. */
+:root{--ft-teal:#0f3d44;--ft-teal-2:#0b2f36;--ft-teal-act:#1d5b60;--ft-mint:#eef7f3;--ft-line:#d6e7e1;--navy:#10283a}
+html,body{background:var(--ft-mint)}
+body{background:
+  linear-gradient(115deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 38%,rgba(255,255,255,0) 52%,rgba(255,255,255,.35) 70%,rgba(255,255,255,0) 86%),
+  linear-gradient(180deg,#f5fbf8 0%,#eaf5f0 55%,#eef7f3 100%);background-attachment:fixed}
+.hdr{background:linear-gradient(180deg,var(--ft-teal) 0%,var(--ft-teal-2) 100%);box-shadow:0 6px 20px rgba(11,47,54,.22);padding-top:calc(14px + env(safe-area-inset-top))}
+.logo{background:#0b2a31;border-color:#2a5a62;box-shadow:inset 0 0 0 1px rgba(126,224,195,.12)}
+.rbtn{width:46px;height:46px;background:#f2f8f6;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.rbtn.spin svg{animation:ftspin .8s linear}
+@keyframes ftspin{to{transform:rotate(360deg)}}
+.card,.sc,.stat{border-color:var(--ft-line)}
+.card{border-radius:20px;padding:20px 18px;box-shadow:0 1px 2px rgba(16,40,58,.03),0 8px 24px rgba(15,61,68,.05);background:rgba(255,255,255,.92)}
+.kicker{color:#16786a;font-size:11.5px;letter-spacing:.16em}
+h1{color:var(--navy);font-weight:800}
+h2{color:var(--navy);font-weight:700}
+.sub,.meta{color:#5d6d76}
+.topnav{background:rgba(238,247,243,.92);border-bottom-color:var(--ft-line)}
+.tabs{background:#e2efea;border-color:var(--ft-line)}
+.tab.on,#tabbtn-test.on,#tabbtn-cl.on,#tabbtn-how.on{background:var(--ft-teal);color:#fff;box-shadow:0 2px 8px rgba(15,61,68,.25)}
+.chip{border-color:var(--ft-line);color:var(--ft-teal)}
+.chip.on,.jump .on,.jump a.on,.jump button.on{background:var(--ft-teal)!important;border-color:var(--ft-teal)!important;color:#fff!important}
+.status.ok{background:#e3f4ec}
+.ft-none{margin:8px 0 2px}
+/* fixed bottom tab bar (phones and tablets) */
+#ftbar{display:none}
+@media(max-width:899px){
+  #ftbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:40;background:linear-gradient(180deg,#123f47 0%,var(--ft-teal-2) 100%);
+    padding:8px 8px calc(8px + env(safe-area-inset-bottom));gap:6px;justify-content:space-around;border-top-left-radius:22px;border-top-right-radius:22px;box-shadow:0 -6px 24px rgba(11,47,54,.28)}
+  #ftbar a{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px 7px;border-radius:14px;color:#c4d5d9;text-decoration:none;font-size:12px;font-weight:600;letter-spacing:.01em;min-width:0;-webkit-tap-highlight-color:transparent}
+  #ftbar a svg{width:22px;height:22px}
+  #ftbar a.on{background:var(--ft-teal-act);color:#fff;box-shadow:inset 0 0 0 1px #2f7c7c}
+  body{padding-bottom:calc(92px + env(safe-area-inset-bottom))!important}
+  .topnav .tabs{display:none}
+  .topnav .jump{margin-top:0}
+  .topnav{padding-top:6px;padding-bottom:6px}
+  .row-between>:first-child{white-space:nowrap}
+  #totop,.totop{bottom:calc(96px + env(safe-area-inset-bottom))!important}
+}
 </style>
 </head>
 <body>
@@ -1920,11 +1961,14 @@ function renderCards(V){
   const C=V.d.strategy_scorecards||[];
   $v(V,"scgrid").innerHTML=C.length?C.map(k=>{const r=k.research||{}, e=exOf(k.strategy);
     return `<div class="sc"><div class="top"><span>${esc(e?e.name:k.strategy)} ${tbadge(V.main&&k.test)}</span><span class="meta">${k.closed_trades} closed${k.holdings?` · ${k.holdings} open`:""}</span></div>
-    <table><tr><th></th><th class="r">Live paper</th><th class="r">Research</th></tr>
-    <tr><td>Closed trades</td><td class="r">${k.closed_trades}</td><td class="r">${r.trades!=null?r.trades.toLocaleString("en-US"):"—"}</td></tr>
-    <tr><td>Win rate</td><td class="r">${pctTxt(k.win_rate_pct,0)}</td><td class="r">${pctTxt(r.win_rate_pct,0)}</td></tr>
-    <tr><td>Avg return / trade</td><td class="r ${cls(k.avg_return_pct)}">${sgn(k.avg_return_pct)}</td><td class="r ${cls(r.avg_return_pct)}">${sgn(r.avg_return_pct)}</td></tr>
-    <tr><td>Avg hold</td><td class="r">${days(k.avg_hold_days)}</td><td class="r">—</td></tr></table>
+    ${(()=>{const hr=r.trades!=null||r.win_rate_pct!=null||r.avg_return_pct!=null; /* 2026-11-20 t787u: no all-empty Research column, no all-empty table */
+      if(!k.closed_trades) return `<p class="meta ft-none">No closed trades yet${k.holdings?`; ${k.holdings} open now`:""}.</p>`;
+      const c=(a,b)=>hr?`<td class="r">${a}</td><td class="r">${b}</td>`:`<td class="r">${a}</td>`;
+      return `<table><tr><th></th><th class="r">Live paper</th>${hr?`<th class="r">Research</th>`:""}</tr>
+    <tr><td>Closed trades</td>${c(k.closed_trades,r.trades!=null?r.trades.toLocaleString("en-US"):"—")}</tr>
+    <tr><td>Win rate</td>${c(pctTxt(k.win_rate_pct,0),pctTxt(r.win_rate_pct,0))}</tr>
+    <tr><td>Avg return / trade</td>${hr?`<td class="r ${cls(k.avg_return_pct)}">${sgn(k.avg_return_pct)}</td><td class="r ${cls(r.avg_return_pct)}">${sgn(r.avg_return_pct)}</td>`:`<td class="r ${cls(k.avg_return_pct)}">${sgn(k.avg_return_pct)}</td>`}</tr>
+    <tr><td>Avg hold</td>${c(days(k.avg_hold_days),"—")}</tr></table>`;})()}
     ${k.win_rate_pct!=null&&r.win_rate_pct!=null?`<div class="cmp"><div><span>Live win rate</span><i style="width:${Math.min(100,k.win_rate_pct).toFixed(0)}%;background:${k.win_rate_pct>=r.win_rate_pct?"var(--green)":"#d9a441"}"></i><b>${k.win_rate_pct.toFixed(0)}%</b></div><div><span>Research</span><i style="width:${Math.min(100,r.win_rate_pct).toFixed(0)}%;background:#8a91a6"></i><b>${r.win_rate_pct.toFixed(0)}%</b></div></div>`:""}
     <p>${esc(r.trades==null&&e?e.why:(k.research_text||""))}</p><p><b>${esc(k.live_text||"")}</b></p>${k.caution?`<div class="caution">${esc(k.caution)}</div>`:""}${howDetails(e,`sc-${V.px||"m"}-${e?e.id:""}`)}</div>`;}).join(""):`<div class="empty">${V.main?"No strategies to show yet.":"No trades yet. A strategy gets a scorecard once it has traded."}</div>`;
 }
@@ -3393,6 +3437,24 @@ clThemes=function(d){_clThemes0(d);try{const t=d.themes;if(!t)return;const per=C
   vzRoot("vzth",$("clheat"),`<div class="vzdash">${vzBox(`Leaders and laggards · ${nm} return`,CL.grp==="theme"?"themes":"sectors",svg,[[VZ.G,"Leading"],[VZ.Y,"Weakening"],[VZ.B,"Improving"],[VZ.R,"Lagging"]])}</div>`);
  }catch(e){console.error("vz themes",e);}};
 /* VZ-END */
+</script>
+<nav id="ftbar" aria-label="Tabs">
+  <a href="#market" data-t="cl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M5 15l4-4 3 3 6-7"/><path d="M15 7h3v3"/></svg>Market</a>
+  <a href="#main" data-t="main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>Main</a>
+  <a href="#test" data-t="test"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3"/><path d="M7.5 15h9"/></svg>Test</a>
+  <a href="#how" data-t="how"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4z"/><path d="M20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"/></svg>Guide</a>
+</nav>
+<script>
+/* 2026-11-20 t787u: bottom bar mirrors the top tabs; refresh spins; Market tab refresh every 3 min and on resume */
+(function(){const bar=document.getElementById("ftbar");if(!bar)return;
+function sync(){const on=document.querySelector(".tabs .tab.on");const id=on?on.id.replace("tabbtn-",""):"cl";bar.querySelectorAll("a").forEach(a=>{const y=a.dataset.t===id;a.classList.toggle("on",y);a.setAttribute("aria-current",y?"page":"false");});}
+bar.addEventListener("click",e=>{const a=e.target.closest("a");if(!a)return;e.preventDefault();const t=document.getElementById("tabbtn-"+a.dataset.t);if(t)t.click();else location.hash=a.getAttribute("href");window.scrollTo({top:0});setTimeout(sync,30);});
+const mo=new MutationObserver(sync);document.querySelectorAll(".tabs .tab").forEach(t=>mo.observe(t,{attributes:true,attributeFilter:["class"]}));
+addEventListener("hashchange",()=>setTimeout(sync,30));sync();
+const rb=document.getElementById("refresh");if(rb)rb.addEventListener("click",()=>{rb.classList.remove("spin");void rb.offsetWidth;rb.classList.add("spin");});
+const mk=()=>{try{const c=document.getElementById("tab-cl");if(c&&!c.hidden&&!document.hidden&&typeof clLoad==="function")clLoad();}catch(e){}};
+setInterval(mk,180000);document.addEventListener("visibilitychange",()=>{if(!document.hidden)mk();});
+})();
 </script>
 </body>
 </html>
