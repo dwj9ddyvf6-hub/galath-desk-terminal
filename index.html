@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="gb-build" content="b70c41ed051c">
+<meta name="gb-build" content="945941fa7850">
 <meta name="robots" content="noindex">
 <title>GrokBot Desk</title>
 <meta name="application-name" content="GrokBot Desk">
@@ -1235,11 +1235,13 @@ const statHTML=rows=>rows.map(([l,v,s,c])=>`<div class="stat"><div class="l">${l
 const laneLabelV=(V,l)=>V.main?laneLabel(l):String(l);
 // ---- 2026-10-15 sleeve explainers (sleeve_explainers.json, generated from the desk's sleeve config) + plain-English helpers
 let EX=null; const EXA={};
+let EXP=null; /* 2026-11-20: one shared fetch (startup callers raced and pulled the 300 KB file up to 4 times) */
 async function loadEx(){
-  if(EX) return;
-  try{const r=await fetch("sleeve_explainers.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) return; const j=await r.json();
+  if(EX) return; if(EXP) return EXP;
+  EXP=(async()=>{try{const r=await fetch("sleeve_explainers.json?t="+Date.now(),{cache:"no-store"}); if(!r.ok) return; const j=await r.json();
     for(const [id,e] of Object.entries(j.sleeves||{})){e.id=id; [id,...(e.aliases||[])].forEach(a=>{const k=String(a).toLowerCase(); if(!(k in EXA)) EXA[k]=id;});}
-    EX=j;}catch(e){console.error("explainers",e);}
+    EX=j;}catch(e){console.error("explainers",e);}})();
+  try{await EXP;}finally{EXP=null;}
 }
 const exOf=k=>{if(!EX||k==null) return null; const id=EXA[String(k).toLowerCase()]; return id?EX.sleeves[id]:null;};
 const exName=(k,fb)=>{const e=exOf(k)||exOf(fb); return e?e.name:(fb||laneName(k));};
