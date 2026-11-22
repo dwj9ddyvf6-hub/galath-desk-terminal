@@ -1,8 +1,8 @@
 {
  "schema": "grokbot-desk/psychology/1",
- "generated_at": "Nov 21, 2026 at 6:53 PM ET",
- "generated_at_iso": "2026-11-21T18:53:04-05:00",
- "as_of": "2026-11-21T23:53:05.394053+00:00",
+ "generated_at": "Nov 22, 2026 at 8:12 AM ET",
+ "generated_at_iso": "2026-11-22T08:12:34-05:00",
+ "as_of": "2026-11-22T13:12:36.226355+00:00",
  "engine": {
   "name": "Psychology Engine",
   "version": "0.4.1",
@@ -25,16 +25,16 @@
    "key": "attention",
    "observed": true,
    "measures": {
-    "article_daily_user_pageviews": 388296.3333333334
+    "article_daily_user_pageviews": 382943.5
    },
-   "observations": 3,
+   "observations": 2,
    "families": 1,
    "coverage": "single_family",
    "populations": [
     {
      "units": "article_daily_user_pageviews",
      "population": "English Wikipedia user page views, summed over the US-listed company articles the desk tracks (about 1,200)",
-     "value": 388296.333
+     "value": 382943.5
     }
    ]
   },
@@ -1189,7 +1189,7 @@
    "reason": null,
    "next_proxy": 30.725,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-21T23:53:05.394053+00:00"
+   "as_of": "2026-11-22T13:12:36.226355+00:00"
   },
   {
    "source": "wikimedia_company_attention",
@@ -1199,7 +1199,7 @@
    "reason": null,
    "next_proxy": 355093.5,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-21T23:53:05.394053+00:00"
+   "as_of": "2026-11-22T13:12:36.226355+00:00"
   },
   {
    "source": "cboe_vvix",
@@ -1209,7 +1209,7 @@
    "reason": null,
    "next_proxy": 133.4925,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-21T23:53:05.394053+00:00"
+   "as_of": "2026-11-22T13:12:36.226355+00:00"
   },
   {
    "source": "cboe_skew",
@@ -1219,7 +1219,7 @@
    "reason": null,
    "next_proxy": 139.29000000000002,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-21T23:53:05.394053+00:00"
+   "as_of": "2026-11-22T13:12:36.226355+00:00"
   }
  ],
  "decision": {
@@ -1265,27 +1265,27 @@
   }
  ],
  "sources_active": 2,
- "evidence_rows": 12,
- "excluded_rows": 382,
+ "evidence_rows": 11,
+ "excluded_rows": 383,
  "source_health": {
   "cboe_vix": {
    "status": "ok",
-   "checked_at": "2026-11-21T23:53:05.339811+00:00",
+   "checked_at": "2026-11-22T13:12:36.162667+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vix3m": {
    "status": "ok",
-   "checked_at": "2026-11-21T23:53:05.366905+00:00",
+   "checked_at": "2026-11-22T13:12:36.184779+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vvix": {
    "status": "ok",
-   "checked_at": "2026-11-21T23:53:05.378788+00:00",
+   "checked_at": "2026-11-22T13:12:36.199902+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_skew": {
    "status": "ok",
-   "checked_at": "2026-11-21T23:53:05.390140+00:00",
+   "checked_at": "2026-11-22T13:12:36.225190+00:00",
    "detail": "80 rows from desk cache"
   },
   "wikimedia_company_attention": {
@@ -1295,11 +1295,11 @@
   }
  },
  "ingest_status": {
+  "wikimedia_company_attention": "unavailable: FileNotFoundError: [Errno 2] No such file or directory: '/workspace/galath-research/WIKI_LIVE/out/wiki_features_history",
   "cboe_vix": "ok: 80 rows, last event 2026-11-19, ingest {\"inserted\": 0, \"duplicates\": 80}",
   "cboe_vix3m": "ok: 80 rows, last event 2026-11-20, ingest {\"inserted\": 0, \"duplicates\": 80}",
   "cboe_vvix": "ok: 80 rows, last event 2026-11-19, ingest {\"inserted\": 0, \"duplicates\": 80}",
-  "cboe_skew": "ok: 80 rows, last event 2026-11-19, ingest {\"inserted\": 0, \"duplicates\": 80}",
-  "wikimedia_company_attention": "ok: 4 rows, last event 2026-11-19, ingest {\"inserted\": 0, \"duplicates\": 4}"
+  "cboe_skew": "ok: 80 rows, last event 2026-11-19, ingest {\"inserted\": 0, \"duplicates\": 80}"
  },
  "interpretation": [
   "A VIX reading is option-implied risk, not a survey of investor fear.",
