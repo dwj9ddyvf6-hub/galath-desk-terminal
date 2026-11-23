@@ -1,29 +1,29 @@
 {
  "schema": 1,
- "generated_at": "2026-11-23 17:06 ET",
+ "generated_at": "2026-11-23 17:15 ET",
  "as_of": "2026-11-23",
  "source": {
   "author": "@ChartsLector",
   "code": "github.com/ChartsLector/TV-Indicators",
-  "note": "Rebuilt from his public TradingView scripts and posts. Today's session is still in progress: prices are about 16 minutes delayed, volume is the day so far, and the SKEW reading is last night's close (CBOE posts it after the close)."
+  "note": "Rebuilt from his public TradingView scripts and posts, run on end-of-day data."
  },
  "mood_ring": {
-  "as_of": "2026-11-23",
-  "composite": 42.6,
-  "state": "PURPLE",
-  "divergence": "Backwardation",
+  "as_of": "2026-11-20",
+  "composite": 19.3,
+  "state": "RED",
+  "divergence": "Complacency Trap",
   "inputs": {
-   "vix": 26.62,
-   "vix3m": 25.5,
-   "term_ratio": 1.044,
-   "vvix": 117.36,
+   "vix": 35.89,
+   "vix3m": 30.94,
+   "term_ratio": 1.16,
+   "vvix": 138.03,
    "skew": 138.84
   },
   "parts": {
-   "vix": 50.7,
-   "term": 16.8,
+   "vix": 10.3,
+   "term": 0.0,
    "skew": 51.3,
-   "vvix": 51.9
+   "vvix": 18.9
   },
   "weights": {
    "vix": 35,
@@ -58,6 +58,10 @@
    ]
   ],
   "history": [
+   {
+    "d": "2025-12-01",
+    "v": 71.2
+   },
    {
     "d": "2025-12-02",
     "v": 73.1
@@ -1061,10 +1065,6 @@
    {
     "d": "2026-11-20",
     "v": 19.3
-   },
-   {
-    "d": "2026-11-23",
-    "v": 42.6
    }
   ]
  },
@@ -1072,7 +1072,7 @@
   "QQQE": {
    "state": "PURPLE",
    "score": 1,
-   "ram": 76.9,
+   "ram": 74.0,
    "ram_level": "HIGH",
    "checks": {
     "above_rising_5ema": true,
@@ -1860,14 +1860,14 @@
      "d": "2026-11-23",
      "s": "PURPLE",
      "sc": 1,
-     "ram": 76.9
+     "ram": 74.0
     }
    ]
   },
   "RSP": {
    "state": "RED",
    "score": 0,
-   "ram": 87.4,
+   "ram": 84.5,
    "ram_level": "EXTREME",
    "checks": {
     "above_rising_5ema": false,
@@ -2655,7 +2655,7 @@
      "d": "2026-11-23",
      "s": "RED",
      "sc": 0,
-     "ram": 87.4
+     "ram": 84.5
     }
    ]
   }
@@ -4455,7 +4455,7 @@
     "opp_prev": 53.5,
     "s10": 61.4,
     "s20": 60.8,
-    "s42": 60.6,
+    "s42": 60.5,
     "s63": 60.0,
     "breakout": 60.5,
     "expansion": 57.5,
@@ -4621,12 +4621,12 @@
    },
    {
     "sym": "COHR",
-    "opp": 31.7,
+    "opp": 31.6,
     "opp_prev": 28.8,
     "s10": 28.3,
     "s20": 31.2,
     "s42": 32.1,
-    "s63": 35.0,
+    "s63": 34.9,
     "breakout": 37.8,
     "expansion": 47.2,
     "risk": 0.0,
@@ -4881,7 +4881,7 @@
     "s10": 17.9,
     "s20": 19.8,
     "s42": 20.5,
-    "s63": 22.4,
+    "s63": 22.3,
     "breakout": 23.7,
     "expansion": 30.5,
     "risk": 0.0,
@@ -5233,18 +5233,18 @@
    },
    {
     "sym": "UMC",
-    "opp": 15.1,
+    "opp": 15.2,
     "opp_prev": 11.0,
-    "s10": 16.2,
-    "s20": 15.9,
-    "s42": 14.2,
+    "s10": 16.4,
+    "s20": 16.1,
+    "s42": 14.3,
     "s63": 14.0,
-    "breakout": 28.0,
-    "expansion": 11.1,
+    "breakout": 28.5,
+    "expansion": 10.9,
     "risk": 0.0,
-    "ext_atr": -4.85,
+    "ext_atr": -4.88,
     "rs1m": 8.3,
-    "atr_rank": 86.7,
+    "atr_rank": 86.5,
     "close": 14.39,
     "rank": 47
    },
@@ -5989,7 +5989,7 @@
     "rs21": 24.0,
     "rs63": 8.0,
     "rs126": 4.0,
-    "rvol": 145.0,
+    "rvol": 119.0,
     "rrr_ratio": 92.28,
     "rrr_mom": 97.99,
     "quadrant": "Lagging",
@@ -7309,7 +7309,7 @@
     "rs21": 5.0,
     "rs63": 2.0,
     "rs126": 1.0,
-    "rvol": 54.0,
+    "rvol": 52.0,
     "rrr_ratio": 94.98,
     "rrr_mom": 99.68,
     "quadrant": "Lagging",
@@ -8199,7 +8199,7 @@
     "rs21": 10.0,
     "rs63": 13.0,
     "rs126": 6.0,
-    "rvol": 115.0,
+    "rvol": 114.0,
     "rrr_ratio": 98.69,
     "rrr_mom": 100.84,
     "quadrant": "Improving",
