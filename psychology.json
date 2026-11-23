@@ -1,8 +1,8 @@
 {
  "schema": "grokbot-desk/psychology/1",
- "generated_at": "Nov 23, 2026 at 3:10 PM ET",
- "generated_at_iso": "2026-11-23T15:10:12-05:00",
- "as_of": "2026-11-23T20:10:12.779137+00:00",
+ "generated_at": "Nov 23, 2026 at 3:23 PM ET",
+ "generated_at_iso": "2026-11-23T15:23:06-05:00",
+ "as_of": "2026-11-23T20:23:07.342316+00:00",
  "engine": {
   "name": "Psychology Engine",
   "version": "0.4.1",
@@ -42,7 +42,7 @@
    "key": "uncertainty",
    "observed": true,
    "measures": {
-    "VVIX_index_points": 127.81666666666668
+    "VVIX_index_points": 127.77333333333334
    },
    "observations": 3,
    "families": 1,
@@ -51,7 +51,7 @@
     {
      "units": "VVIX_index_points",
      "population": "CBOE VVIX (volatility of VIX), daily close",
-     "value": 127.817
+     "value": 127.773
     }
    ]
   },
@@ -84,12 +84,12 @@
     {
      "units": "VIX_index_points",
      "population": "CBOE Volatility Index (S&P 500 30-day implied volatility), daily close",
-     "value": 30.573
+     "value": 30.563
     },
     {
      "units": "VIX3M_index_points",
      "population": "CBOE 3-Month Volatility Index, daily close",
-     "value": 27.923
+     "value": 27.93
     },
     {
      "units": "SKEW_index_points",
@@ -348,7 +348,7 @@
    ],
    [
     "2026-11-23",
-    27.39
+    27.36
    ]
   ],
   "vix3m": [
@@ -590,7 +590,7 @@
    ],
    [
     "2026-11-23",
-    25.8
+    25.82
    ]
   ],
   "vvix": [
@@ -832,7 +832,7 @@
    ],
    [
     "2026-11-23",
-    118.32
+    118.19
    ]
   ],
   "skew": [
@@ -1163,7 +1163,7 @@
    "pattern": "stress_persistence",
    "status": "watch",
    "reason": "Three consecutive observed VIX closes >=25; risk proxy only",
-   "measure": 27.39
+   "measure": 27.36
   },
   {
    "pattern": "source_disagreement",
@@ -1191,9 +1191,9 @@
    "units": "VIX_index_points",
    "status": "research_forecast",
    "reason": null,
-   "next_proxy": 27.872500000000002,
+   "next_proxy": 27.835,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-23T20:10:12.779137+00:00"
+   "as_of": "2026-11-23T20:23:07.342316+00:00"
   },
   {
    "source": "wikimedia_company_attention",
@@ -1203,7 +1203,7 @@
    "reason": null,
    "next_proxy": 258318.0,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-23T20:10:12.779137+00:00"
+   "as_of": "2026-11-23T20:23:07.342316+00:00"
   },
   {
    "source": "cboe_vvix",
@@ -1211,9 +1211,9 @@
    "units": "VVIX_index_points",
    "status": "research_forecast",
    "reason": null,
-   "next_proxy": 117.57999999999998,
+   "next_proxy": 117.41749999999999,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-23T20:10:12.779137+00:00"
+   "as_of": "2026-11-23T20:23:07.342316+00:00"
   },
   {
    "source": "cboe_skew",
@@ -1223,7 +1223,7 @@
    "reason": null,
    "next_proxy": 137.2725,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-23T20:10:12.779137+00:00"
+   "as_of": "2026-11-23T20:23:07.342316+00:00"
   }
  ],
  "decision": {
@@ -1274,27 +1274,27 @@
  "source_health": {
   "cboe_vix": {
    "status": "ok",
-   "checked_at": "2026-11-23T20:10:12.723540+00:00",
+   "checked_at": "2026-11-23T20:23:07.309347+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vix3m": {
    "status": "ok",
-   "checked_at": "2026-11-23T20:10:12.763645+00:00",
+   "checked_at": "2026-11-23T20:23:07.322489+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vvix": {
    "status": "ok",
-   "checked_at": "2026-11-23T20:10:12.771282+00:00",
+   "checked_at": "2026-11-23T20:23:07.331707+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_skew": {
    "status": "ok",
-   "checked_at": "2026-11-23T20:10:12.778507+00:00",
+   "checked_at": "2026-11-23T20:23:07.341000+00:00",
    "detail": "80 rows from desk cache"
   },
   "wikimedia_company_attention": {
    "status": "ok",
-   "checked_at": "2026-11-23T20:10:12.778976+00:00",
+   "checked_at": "2026-11-23T20:23:07.341976+00:00",
    "detail": "1 rows from desk cache"
   }
  },
