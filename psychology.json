@@ -1,8 +1,8 @@
 {
  "schema": "grokbot-desk/psychology/1",
- "generated_at": "Nov 24, 2026 at 4:49 PM ET",
- "generated_at_iso": "2026-11-24T16:49:14-05:00",
- "as_of": "2026-11-24T21:49:15.830391+00:00",
+ "generated_at": "Nov 24, 2026 at 5:05 PM ET",
+ "generated_at_iso": "2026-11-24T17:05:04-05:00",
+ "as_of": "2026-11-24T22:05:05.253310+00:00",
  "engine": {
   "name": "Psychology Engine",
   "version": "0.4.1",
@@ -16,16 +16,16 @@
    "key": "sentiment",
    "observed": true,
    "measures": {
-    "balance": -0.4658256666666667
+    "balance": -0.54081075
    },
-   "observations": 3,
+   "observations": 4,
    "families": 1,
    "coverage": "single_family",
    "populations": [
     {
      "units": "balance",
      "population": "@grok (X) stance on US index/sector ETFs, confidence-weighted daily mean of desk-logged answers",
-     "value": -0.466
+     "value": -0.541
     }
    ]
   },
@@ -1174,7 +1174,7 @@
    ],
    [
     "2026-11-24",
-    0.01
+    -0.77
    ]
   ]
  },
@@ -1219,7 +1219,7 @@
    "reason": null,
    "next_proxy": 26.81,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-24T21:49:15.830391+00:00"
+   "as_of": "2026-11-24T22:05:05.253310+00:00"
   },
   {
    "source": "wikimedia_company_attention",
@@ -1229,7 +1229,7 @@
    "reason": null,
    "next_proxy": 253718.25,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-24T21:49:15.830391+00:00"
+   "as_of": "2026-11-24T22:05:05.253310+00:00"
   },
   {
    "source": "cboe_vvix",
@@ -1239,7 +1239,7 @@
    "reason": null,
    "next_proxy": 112.99499999999999,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-24T21:49:15.830391+00:00"
+   "as_of": "2026-11-24T22:05:05.253310+00:00"
   },
   {
    "source": "cboe_skew",
@@ -1249,7 +1249,7 @@
    "reason": null,
    "next_proxy": 139.7525,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-24T21:49:15.830391+00:00"
+   "as_of": "2026-11-24T22:05:05.253310+00:00"
   }
  ],
  "decision": {
@@ -1301,38 +1301,38 @@
   }
  ],
  "sources_active": 3,
- "evidence_rows": 13,
+ "evidence_rows": 14,
  "excluded_rows": 397,
  "source_health": {
   "cboe_vix": {
    "status": "ok",
-   "checked_at": "2026-11-24T21:49:15.802217+00:00",
+   "checked_at": "2026-11-24T22:05:05.221586+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vix3m": {
    "status": "ok",
-   "checked_at": "2026-11-24T21:49:15.810138+00:00",
+   "checked_at": "2026-11-24T22:05:05.228752+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vvix": {
    "status": "ok",
-   "checked_at": "2026-11-24T21:49:15.818277+00:00",
+   "checked_at": "2026-11-24T22:05:05.239446+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_skew": {
    "status": "ok",
-   "checked_at": "2026-11-24T21:49:15.827766+00:00",
+   "checked_at": "2026-11-24T22:05:05.250182+00:00",
    "detail": "80 rows from desk cache"
   },
   "wikimedia_company_attention": {
    "status": "ok",
-   "checked_at": "2026-11-24T21:49:15.828887+00:00",
+   "checked_at": "2026-11-24T22:05:05.250781+00:00",
    "detail": "2 rows from desk cache"
   },
   "grok_x_stance": {
    "status": "ok",
-   "checked_at": "2026-11-24T21:49:15.830057+00:00",
-   "detail": "3 rows from desk cache"
+   "checked_at": "2026-11-24T22:05:05.252417+00:00",
+   "detail": "4 rows from desk cache"
   }
  },
  "ingest_status": {
@@ -1341,7 +1341,7 @@
   "cboe_vvix": "ok: 80 rows, last event 2026-11-24, ingest {\"inserted\": 1, \"duplicates\": 79}",
   "cboe_skew": "ok: 80 rows, last event 2026-11-24, ingest {\"inserted\": 1, \"duplicates\": 79}",
   "wikimedia_company_attention": "ok: 2 rows, last event 2026-11-22, ingest {\"inserted\": 0, \"duplicates\": 2}",
-  "grok_x_stance": "ok: 3 rows, last event 2026-11-24, ingest {\"inserted\": 3, \"duplicates\": 0}"
+  "grok_x_stance": "ok: 4 rows, last event 2026-11-24, ingest {\"inserted\": 4, \"duplicates\": 0}"
  },
  "interpretation": [
   "A VIX reading is option-implied risk, not a survey of investor fear.",
