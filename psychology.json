@@ -1,8 +1,8 @@
 {
  "schema": "grokbot-desk/psychology/1",
- "generated_at": "Nov 24, 2026 at 11:56 AM ET",
- "generated_at_iso": "2026-11-24T11:56:25-05:00",
- "as_of": "2026-11-24T16:56:26.580418+00:00",
+ "generated_at": "Nov 24, 2026 at 12:10 PM ET",
+ "generated_at_iso": "2026-11-24T12:10:22-05:00",
+ "as_of": "2026-11-24T17:10:22.989848+00:00",
  "engine": {
   "name": "Psychology Engine",
   "version": "0.4.1",
@@ -10,16 +10,24 @@
   "mode": "research advisory only; no order interface; Tensor/the desk keep all timing authority",
   "validation": "70 shipped + 5 independent + 6 operational tests pass on this box; predictive validity NOT established"
  },
- "headline": "Stress reads high: the VIX closed at 28.8 on 2026-11-24, above the 3-month VIX (27.0), so the curve is inverted. Attention: Wikipedia page views for the desk's tracked companies are -21% over the last three days versus the three before.",
+ "headline": "Stress reads high: the VIX closed at 27.9 on 2026-11-24, above the 3-month VIX (26.5), so the curve is inverted. Attention: Wikipedia page views for the desk's tracked companies are -21% over the last three days versus the three before.",
  "dimensions": [
   {
    "key": "sentiment",
-   "observed": false,
-   "measures": null,
-   "observations": 0,
-   "families": 0,
-   "coverage": "unknown",
-   "populations": []
+   "observed": true,
+   "measures": {
+    "balance": -0.4658256666666667
+   },
+   "observations": 3,
+   "families": 1,
+   "coverage": "single_family",
+   "populations": [
+    {
+     "units": "balance",
+     "population": "@grok (X) stance on US index/sector ETFs, confidence-weighted daily mean of desk-logged answers",
+     "value": -0.466
+    }
+   ]
   },
   {
    "key": "attention",
@@ -42,7 +50,7 @@
    "key": "uncertainty",
    "observed": true,
    "measures": {
-    "VVIX_index_points": 125.31666666666668
+    "VVIX_index_points": 124.84333333333333
    },
    "observations": 3,
    "families": 1,
@@ -51,7 +59,7 @@
     {
      "units": "VVIX_index_points",
      "population": "CBOE VVIX (volatility of VIX), daily close",
-     "value": 125.317
+     "value": 124.843
     }
    ]
   },
@@ -84,12 +92,12 @@
     {
      "units": "VIX3M_index_points",
      "population": "CBOE 3-Month Volatility Index, daily close",
-     "value": 27.813
+     "value": 27.66
     },
     {
      "units": "VIX_index_points",
      "population": "CBOE Volatility Index (S&P 500 30-day implied volatility), daily close",
-     "value": 30.42
+     "value": 30.14
     },
     {
      "units": "SKEW_index_points",
@@ -348,7 +356,7 @@
    ],
    [
     "2026-11-24",
-    28.75
+    27.91
    ]
   ],
   "vix3m": [
@@ -590,7 +598,7 @@
    ],
    [
     "2026-11-24",
-    27.0
+    26.54
    ]
   ],
   "vvix": [
@@ -832,7 +840,7 @@
    ],
    [
     "2026-11-24",
-    120.56
+    119.14
    ]
   ],
   "skew": [
@@ -1154,6 +1162,20 @@
     "2026-11-22",
     282775.0
    ]
+  ],
+  "grok_stance": [
+   [
+    "2026-11-21",
+    -1.0
+   ],
+   [
+    "2026-11-23",
+    -0.4
+   ],
+   [
+    "2026-11-24",
+    0.01
+   ]
   ]
  },
  "patterns": [
@@ -1195,9 +1217,9 @@
    "units": "VIX_index_points",
    "status": "research_forecast",
    "reason": null,
-   "next_proxy": 29.7975,
+   "next_proxy": 28.747500000000002,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-24T16:56:26.580418+00:00"
+   "as_of": "2026-11-24T17:10:22.989848+00:00"
   },
   {
    "source": "wikimedia_company_attention",
@@ -1207,7 +1229,7 @@
    "reason": null,
    "next_proxy": 253718.25,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-24T16:56:26.580418+00:00"
+   "as_of": "2026-11-24T17:10:22.989848+00:00"
   },
   {
    "source": "cboe_vvix",
@@ -1215,9 +1237,9 @@
    "units": "VVIX_index_points",
    "status": "research_forecast",
    "reason": null,
-   "next_proxy": 121.1075,
+   "next_proxy": 119.3325,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-24T16:56:26.580418+00:00"
+   "as_of": "2026-11-24T17:10:22.989848+00:00"
   },
   {
    "source": "cboe_skew",
@@ -1227,7 +1249,7 @@
    "reason": null,
    "next_proxy": 139.7525,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-24T16:56:26.580418+00:00"
+   "as_of": "2026-11-24T17:10:22.989848+00:00"
   }
  ],
  "decision": {
@@ -1236,7 +1258,7 @@
   "orders_allowed": false,
   "action": "review_evidence",
   "minimum_source_families": 2,
-  "observed_source_families": 2,
+  "observed_source_families": 3,
   "predictive_validation": "not_established",
   "reason": "No calibrated trading mapping is enabled."
  },
@@ -1252,6 +1274,12 @@
    "status": "active",
    "detail": "daily user page views summed over the desk's tracked US companies (WIKI_LIVE); 19 days",
    "dimension": "attention"
+  },
+  {
+   "name": "@grok on X stance (desk grok_synergy logs)",
+   "status": "active",
+   "detail": "confidence-weighted @grok stance on index/sector ETFs per day, -1..+1; 3 days; an LLM read of X, not a survey",
+   "dimension": "sentiment"
   },
   {
    "name": "Federal Reserve press releases (RSS)",
@@ -1272,34 +1300,39 @@
    "dimension": "various"
   }
  ],
- "sources_active": 2,
- "evidence_rows": 14,
+ "sources_active": 3,
+ "evidence_rows": 17,
  "excluded_rows": 393,
  "source_health": {
   "cboe_vix": {
    "status": "ok",
-   "checked_at": "2026-11-24T16:56:26.549621+00:00",
+   "checked_at": "2026-11-24T17:10:22.958566+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vix3m": {
    "status": "ok",
-   "checked_at": "2026-11-24T16:56:26.559749+00:00",
+   "checked_at": "2026-11-24T17:10:22.967544+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vvix": {
    "status": "ok",
-   "checked_at": "2026-11-24T16:56:26.568561+00:00",
+   "checked_at": "2026-11-24T17:10:22.976441+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_skew": {
    "status": "ok",
-   "checked_at": "2026-11-24T16:56:26.579773+00:00",
+   "checked_at": "2026-11-24T17:10:22.986518+00:00",
    "detail": "80 rows from desk cache"
   },
   "wikimedia_company_attention": {
    "status": "ok",
-   "checked_at": "2026-11-24T16:56:26.580215+00:00",
+   "checked_at": "2026-11-24T17:10:22.987945+00:00",
    "detail": "2 rows from desk cache"
+  },
+  "grok_x_stance": {
+   "status": "ok",
+   "checked_at": "2026-11-24T17:10:22.988790+00:00",
+   "detail": "3 rows from desk cache"
   }
  },
  "ingest_status": {
@@ -1307,11 +1340,13 @@
   "cboe_vix3m": "ok: 80 rows, last event 2026-11-24, ingest {\"inserted\": 1, \"duplicates\": 79}",
   "cboe_vvix": "ok: 80 rows, last event 2026-11-24, ingest {\"inserted\": 1, \"duplicates\": 79}",
   "cboe_skew": "ok: 80 rows, last event 2026-11-24, ingest {\"inserted\": 1, \"duplicates\": 79}",
-  "wikimedia_company_attention": "ok: 2 rows, last event 2026-11-22, ingest {\"inserted\": 0, \"duplicates\": 2}"
+  "wikimedia_company_attention": "ok: 2 rows, last event 2026-11-22, ingest {\"inserted\": 0, \"duplicates\": 2}",
+  "grok_x_stance": "ok: 3 rows, last event 2026-11-24, ingest {\"inserted\": 3, \"duplicates\": 0}"
  },
  "interpretation": [
   "A VIX reading is option-implied risk, not a survey of investor fear.",
   "Attention is page views, not sentiment.",
+  "Sentiment is @grok's stance on X (an LLM's read of the crowd), not a survey; the desk reads it contrarian-aware.",
   "Dimension values are descriptive; they are not calibrated probabilities or trading signals.",
   "Single source family per dimension: the engine abstains from multi-family conclusions."
  ]
