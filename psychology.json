@@ -1,8 +1,8 @@
 {
  "schema": "grokbot-desk/psychology/1",
- "generated_at": "Nov 23, 2026 at 6:08 PM ET",
- "generated_at_iso": "2026-11-23T18:08:06-05:00",
- "as_of": "2026-11-23T23:08:12.400780+00:00",
+ "generated_at": "Nov 24, 2026 at 6:31 AM ET",
+ "generated_at_iso": "2026-11-24T06:31:41-05:00",
+ "as_of": "2026-11-24T11:31:43.350778+00:00",
  "engine": {
   "name": "Psychology Engine",
   "version": "0.4.1",
@@ -10,7 +10,7 @@
   "mode": "research advisory only; no order interface; Tensor/the desk keep all timing authority",
   "validation": "70 shipped + 5 independent + 6 operational tests pass on this box; predictive validity NOT established"
  },
- "headline": "Stress reads high: the VIX closed at 35.9 on 2026-11-20, above the 3-month VIX (30.9), so the curve is inverted. Attention: Wikipedia page views for the desk's tracked companies are -16% over the last three days versus the three before.",
+ "headline": "Stress reads high: the VIX closed at 35.9 on 2026-11-20, above the 3-month VIX (30.9), so the curve is inverted. Attention: Wikipedia page views for the desk's tracked companies are -21% over the last three days versus the three before.",
  "dimensions": [
   {
    "key": "sentiment",
@@ -25,7 +25,7 @@
    "key": "attention",
    "observed": true,
    "measures": {
-    "article_daily_user_pageviews": 331084.5
+    "article_daily_user_pageviews": 285345.5
    },
    "observations": 2,
    "families": 1,
@@ -34,7 +34,7 @@
     {
      "units": "article_daily_user_pageviews",
      "population": "English Wikipedia user page views, summed over the US-listed company articles the desk tracks (about 1,200)",
-     "value": 331084.5
+     "value": 285345.5
     }
    ]
   },
@@ -1149,6 +1149,10 @@
    [
     "2026-11-21",
     287916.0
+   ],
+   [
+    "2026-11-22",
+    282775.0
    ]
   ]
  },
@@ -1157,7 +1161,7 @@
    "pattern": "attention_acceleration",
    "status": "context",
    "reason": "Latest three observations versus prior three; 50% research threshold",
-   "measure": -0.16111912026817365
+   "measure": -0.21053616543464038
   },
   {
    "pattern": "stress_persistence",
@@ -1193,7 +1197,7 @@
    "reason": null,
    "next_proxy": 39.135,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-23T23:08:12.400780+00:00"
+   "as_of": "2026-11-24T11:31:43.350778+00:00"
   },
   {
    "source": "wikimedia_company_attention",
@@ -1201,9 +1205,9 @@
    "units": "article_daily_user_pageviews",
    "status": "research_forecast",
    "reason": null,
-   "next_proxy": 258318.0,
+   "next_proxy": 253718.25,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-23T23:08:12.400780+00:00"
+   "as_of": "2026-11-24T11:31:43.350778+00:00"
   },
   {
    "source": "cboe_vvix",
@@ -1213,7 +1217,7 @@
    "reason": null,
    "next_proxy": 143.98,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-23T23:08:12.400780+00:00"
+   "as_of": "2026-11-24T11:31:43.350778+00:00"
   },
   {
    "source": "cboe_skew",
@@ -1223,7 +1227,7 @@
    "reason": null,
    "next_proxy": 136.9675,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-23T23:08:12.400780+00:00"
+   "as_of": "2026-11-24T11:31:43.350778+00:00"
   }
  ],
  "decision": {
@@ -1246,7 +1250,7 @@
   {
    "name": "Wikipedia attention (tracked companies)",
    "status": "active",
-   "detail": "daily user page views summed over the desk's tracked US companies (WIKI_LIVE); 18 days",
+   "detail": "daily user page views summed over the desk's tracked US companies (WIKI_LIVE); 19 days",
    "dimension": "attention"
   },
   {
@@ -1270,32 +1274,32 @@
  ],
  "sources_active": 2,
  "evidence_rows": 6,
- "excluded_rows": 392,
+ "excluded_rows": 393,
  "source_health": {
   "cboe_vix": {
    "status": "ok",
-   "checked_at": "2026-11-23T23:08:12.255788+00:00",
+   "checked_at": "2026-11-24T11:31:43.307241+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vix3m": {
    "status": "ok",
-   "checked_at": "2026-11-23T23:08:12.322762+00:00",
+   "checked_at": "2026-11-24T11:31:43.325178+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vvix": {
    "status": "ok",
-   "checked_at": "2026-11-23T23:08:12.357343+00:00",
+   "checked_at": "2026-11-24T11:31:43.336873+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_skew": {
    "status": "ok",
-   "checked_at": "2026-11-23T23:08:12.387170+00:00",
+   "checked_at": "2026-11-24T11:31:43.345552+00:00",
    "detail": "80 rows from desk cache"
   },
   "wikimedia_company_attention": {
    "status": "ok",
-   "checked_at": "2026-11-23T23:08:12.393080+00:00",
-   "detail": "1 rows from desk cache"
+   "checked_at": "2026-11-24T11:31:43.348937+00:00",
+   "detail": "2 rows from desk cache"
   }
  },
  "ingest_status": {
@@ -1303,7 +1307,7 @@
   "cboe_vix3m": "ok: 80 rows, last event 2026-11-20, ingest {\"inserted\": 0, \"duplicates\": 80}",
   "cboe_vvix": "ok: 80 rows, last event 2026-11-20, ingest {\"inserted\": 0, \"duplicates\": 80}",
   "cboe_skew": "ok: 80 rows, last event 2026-11-20, ingest {\"inserted\": 0, \"duplicates\": 80}",
-  "wikimedia_company_attention": "ok: 1 rows, last event 2026-11-21, ingest {\"inserted\": 0, \"duplicates\": 1}"
+  "wikimedia_company_attention": "ok: 2 rows, last event 2026-11-22, ingest {\"inserted\": 1, \"duplicates\": 1}"
  },
  "interpretation": [
   "A VIX reading is option-implied risk, not a survey of investor fear.",
