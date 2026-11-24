@@ -1,29 +1,29 @@
 {
  "schema": 1,
- "generated_at": "2026-11-24 17:06 ET",
+ "generated_at": "2026-11-24 17:17 ET",
  "as_of": "2026-11-24",
  "source": {
   "author": "@ChartsLector",
   "code": "github.com/ChartsLector/TV-Indicators",
-  "note": "Rebuilt from his public TradingView scripts and posts. Today's session is still in progress: prices are about 16 minutes delayed, volume is the day so far, and the SKEW reading is last night's close (CBOE posts it after the close)."
+  "note": "Rebuilt from his public TradingView scripts and posts, run on end-of-day data."
  },
  "mood_ring": {
-  "as_of": "2026-11-24",
-  "composite": 43.7,
+  "as_of": "2026-11-23",
+  "composite": 41.9,
   "state": "PURPLE",
   "divergence": "Backwardation",
   "inputs": {
-   "vix": 26.36,
-   "vix3m": 25.47,
-   "term_ratio": 1.035,
-   "vvix": 114.07,
+   "vix": 26.62,
+   "vix3m": 25.5,
+   "term_ratio": 1.044,
+   "vvix": 117.36,
    "skew": 140.37
   },
   "parts": {
-   "vix": 52.2,
-   "term": 19.5,
+   "vix": 50.7,
+   "term": 16.8,
    "skew": 48.7,
-   "vvix": 55.9
+   "vvix": 51.9
   },
   "weights": {
    "vix": 35,
@@ -58,6 +58,10 @@
    ]
   ],
   "history": [
+   {
+    "d": "2025-12-02",
+    "v": 73.1
+   },
    {
     "d": "2025-12-03",
     "v": 72.0
@@ -1061,10 +1065,6 @@
    {
     "d": "2026-11-23",
     "v": 41.9
-   },
-   {
-    "d": "2026-11-24",
-    "v": 43.7
    }
   ]
  },
@@ -4453,7 +4453,7 @@
     "sym": "CHYM",
     "opp": 65.4,
     "opp_prev": 60.7,
-    "s10": 65.9,
+    "s10": 66.0,
     "s20": 65.6,
     "s42": 65.2,
     "s63": 64.8,
@@ -4592,8 +4592,8 @@
     "s10": 26.4,
     "s20": 27.8,
     "s42": 27.2,
-    "s63": 28.6,
-    "breakout": 39.5,
+    "s63": 28.5,
+    "breakout": 39.4,
     "expansion": 33.4,
     "risk": 0.0,
     "ext_atr": -2.25,
@@ -4914,7 +4914,7 @@
     "opp_prev": 24.1,
     "s10": 19.1,
     "s20": 19.7,
-    "s42": 18.8,
+    "s42": 18.7,
     "s63": 19.3,
     "breakout": 29.9,
     "expansion": 20.7,
@@ -7309,7 +7309,7 @@
     "rs21": 5.0,
     "rs63": 2.0,
     "rs126": 1.0,
-    "rvol": 82.0,
+    "rvol": 81.0,
     "rrr_ratio": 94.91,
     "rrr_mom": 99.61,
     "quadrant": "Lagging",
