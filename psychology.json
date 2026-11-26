@@ -1,8 +1,8 @@
 {
  "schema": "grokbot-desk/psychology/1",
- "generated_at": "Nov 26, 2026 at 8:08 AM ET",
- "generated_at_iso": "2026-11-26T08:08:03-05:00",
- "as_of": "2026-11-26T13:08:05.373262+00:00",
+ "generated_at": "Nov 26, 2026 at 5:05 PM ET",
+ "generated_at_iso": "2026-11-26T17:05:06-05:00",
+ "as_of": "2026-11-26T22:05:07.739136+00:00",
  "engine": {
   "name": "Psychology Engine",
   "version": "0.4.1",
@@ -1227,7 +1227,7 @@
    "reason": null,
    "next_proxy": 26.81,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-26T13:08:05.373262+00:00"
+   "as_of": "2026-11-26T22:05:07.739136+00:00"
   },
   {
    "source": "wikimedia_company_attention",
@@ -1237,7 +1237,7 @@
    "reason": null,
    "next_proxy": 436418.0,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-26T13:08:05.373262+00:00"
+   "as_of": "2026-11-26T22:05:07.739136+00:00"
   },
   {
    "source": "cboe_vvix",
@@ -1247,7 +1247,7 @@
    "reason": null,
    "next_proxy": 112.99499999999999,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-26T13:08:05.373262+00:00"
+   "as_of": "2026-11-26T22:05:07.739136+00:00"
   },
   {
    "source": "cboe_skew",
@@ -1257,7 +1257,7 @@
    "reason": null,
    "next_proxy": 138.24,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-26T13:08:05.373262+00:00"
+   "as_of": "2026-11-26T22:05:07.739136+00:00"
   }
  ],
  "decision": {
@@ -1314,32 +1314,32 @@
  "source_health": {
   "cboe_vix": {
    "status": "ok",
-   "checked_at": "2026-11-26T13:08:05.309385+00:00",
+   "checked_at": "2026-11-26T22:05:07.701798+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vix3m": {
    "status": "ok",
-   "checked_at": "2026-11-26T13:08:05.335431+00:00",
+   "checked_at": "2026-11-26T22:05:07.715696+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vvix": {
    "status": "ok",
-   "checked_at": "2026-11-26T13:08:05.353157+00:00",
+   "checked_at": "2026-11-26T22:05:07.725151+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_skew": {
    "status": "ok",
-   "checked_at": "2026-11-26T13:08:05.364552+00:00",
+   "checked_at": "2026-11-26T22:05:07.732296+00:00",
    "detail": "80 rows from desk cache"
   },
   "wikimedia_company_attention": {
    "status": "ok",
-   "checked_at": "2026-11-26T13:08:05.369673+00:00",
+   "checked_at": "2026-11-26T22:05:07.736054+00:00",
    "detail": "4 rows from desk cache"
   },
   "grok_x_stance": {
    "status": "error",
-   "checked_at": "2026-11-26T13:08:05.371882+00:00",
+   "checked_at": "2026-11-26T22:05:07.737479+00:00",
    "detail": "ingest failed: ValueError: revision collision: changed payload needs a new revision"
   }
  },
@@ -1348,7 +1348,7 @@
   "cboe_vix3m": "ok: 80 rows, last event 2026-11-24, ingest {\"inserted\": 0, \"duplicates\": 80}",
   "cboe_vvix": "ok: 80 rows, last event 2026-11-24, ingest {\"inserted\": 0, \"duplicates\": 80}",
   "cboe_skew": "ok: 80 rows, last event 2026-11-24, ingest {\"inserted\": 0, \"duplicates\": 80}",
-  "wikimedia_company_attention": "ok: 4 rows, last event 2026-11-24, ingest {\"inserted\": 1, \"duplicates\": 3}",
+  "wikimedia_company_attention": "ok: 4 rows, last event 2026-11-24, ingest {\"inserted\": 0, \"duplicates\": 4}",
   "grok_x_stance": "ingest failed: ValueError: revision collision: changed payload needs a new revision"
  },
  "interpretation": [
