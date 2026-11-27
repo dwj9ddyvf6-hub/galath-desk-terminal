@@ -5,9 +5,9 @@
  "rules_version": "1.4.13",
  "account_type": "paper account (simulated money)",
  "start_date": "2026-10-01",
- "generated_at": "Nov 27, 2026 at 5:02 PM ET",
- "generated_at_iso": "2026-11-27T17:02:56-05:00",
- "headline": "Market closed. By the latest marks (5:02 PM ET), the desk is up 0.95% versus the prior close and behind SPY by 8.33 percentage points since it started.",
+ "generated_at": "Nov 27, 2026 at 5:07 PM ET",
+ "generated_at_iso": "2026-11-27T17:07:08-05:00",
+ "headline": "Market closed. By the latest marks (5:07 PM ET), the desk is up 0.95% versus the prior close and behind SPY by 8.33 percentage points since it started.",
  "headline_scope": "last_close",
  "headline_as_of": "2026-11-27",
  "headline_basis": null,
@@ -155,7 +155,7 @@
    "spy_pct": -0.868
   },
   {
-   "t": "2026-11-27T17:02",
+   "t": "2026-11-27T17:07",
    "label": "now",
    "desk_pct": -12.752,
    "spy_pct": -4.392
@@ -3581,8 +3581,14 @@
    "plain": "Traders are paying up for protection; markets are on edge."
   },
   "vix_unavailable": null,
-  "breadth": null,
-  "breadth_unavailable": "Market breadth unavailable right now.",
+  "breadth": {
+   "value_pct": 49.5,
+   "change_pts": 4.4,
+   "as_of": "2026-11-27",
+   "label": "soft",
+   "plain": "About 50% of the watch-list stocks are trading above their 50-day average right now (live, about 15 minutes delayed) — more stocks are falling than rising."
+  },
+  "breadth_unavailable": null,
   "options_protection": null,
   "options_protection_label": "Options protection (IV / skew): coming soon"
  },
@@ -8235,7 +8241,7 @@
   "realized_usd": -11106.8,
   "unrealized_usd": 3912.71,
   "start_date": "2026-10-12",
-  "as_of": "Nov 27, 2026 at 5:02 PM ET",
+  "as_of": "Nov 27, 2026 at 5:07 PM ET",
   "stale": false,
   "note": "Runs on its own paper account with simulated money. Its numbers are kept completely apart from the main desk.",
   "unavailable": null,
@@ -16210,7 +16216,7 @@
     "as_of": "2026-11-27",
     "unavailable": null
    },
-   "generated_at": "Nov 27, 2026 at 5:02 PM ET",
+   "generated_at": "Nov 27, 2026 at 5:07 PM ET",
    "desk_version": "Test desk",
    "account_type": "separate paper account (simulated money)",
    "day_label": "Since the start",
@@ -18384,8 +18390,14 @@
      "plain": "Traders are paying up for protection; markets are on edge."
     },
     "vix_unavailable": null,
-    "breadth": null,
-    "breadth_unavailable": "Market breadth unavailable right now.",
+    "breadth": {
+     "value_pct": 49.5,
+     "change_pts": 4.4,
+     "as_of": "2026-11-27",
+     "label": "soft",
+     "plain": "About 50% of the watch-list stocks are trading above their 50-day average right now (live, about 15 minutes delayed) — more stocks are falling than rising."
+    },
+    "breadth_unavailable": null,
     "options_protection": null,
     "options_protection_label": "Options protection (IV / skew): coming soon",
     "attention": {
