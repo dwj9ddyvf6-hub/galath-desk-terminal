@@ -1,8 +1,8 @@
 {
  "schema": "grokbot-desk/psychology/1",
- "generated_at": "Nov 27, 2026 at 6:08 PM ET",
- "generated_at_iso": "2026-11-27T18:08:16-05:00",
- "as_of": "2026-11-27T23:08:17.091063+00:00",
+ "generated_at": "Nov 28, 2026 at 8:08 AM ET",
+ "generated_at_iso": "2026-11-28T08:08:33-05:00",
+ "as_of": "2026-11-28T13:08:34.933721+00:00",
  "engine": {
   "name": "Psychology Engine",
   "version": "0.4.1",
@@ -10,22 +10,22 @@
   "mode": "research advisory only; no order interface; Tensor/the desk keep all timing authority",
   "validation": "70 shipped + 5 independent + 6 operational tests pass on this box; predictive validity NOT established"
  },
- "headline": "Stress reads high: the VIX closed at 26.8 on 2026-11-26, above the 3-month VIX (26.3), so the curve is inverted. Attention: Wikipedia page views for the desk's tracked companies are +25% over the last three days versus the three before.",
+ "headline": "Stress reads high: the VIX closed at 26.8 on 2026-11-26, above the 3-month VIX (26.3), so the curve is inverted. Attention: Wikipedia page views for the desk's tracked companies are +10% over the last three days versus the three before.",
  "dimensions": [
   {
    "key": "sentiment",
    "observed": true,
    "measures": {
-    "balance": -0.3794555
+    "balance": -0.765766
    },
-   "observations": 2,
+   "observations": 1,
    "families": 1,
    "coverage": "single_family",
    "populations": [
     {
      "units": "balance",
      "population": "@grok (X) stance on US index/sector ETFs, confidence-weighted daily mean of desk-logged answers",
-     "value": -0.379
+     "value": -0.766
     }
    ]
   },
@@ -33,7 +33,7 @@
    "key": "attention",
    "observed": true,
    "measures": {
-    "article_daily_user_pageviews": 393751.6666666667
+    "article_daily_user_pageviews": 361075.3333333333
    },
    "observations": 3,
    "families": 1,
@@ -42,7 +42,7 @@
     {
      "units": "article_daily_user_pageviews",
      "population": "English Wikipedia user page views, summed over the US-listed company articles the desk tracks (about 1,200)",
-     "value": 393751.667
+     "value": 361075.333
     }
    ]
   },
@@ -1173,6 +1173,10 @@
    [
     "2026-11-25",
     344533.0
+   ],
+   [
+    "2026-11-26",
+    314708.0
    ]
   ],
   "grok_stance": [
@@ -1195,7 +1199,7 @@
    "pattern": "attention_acceleration",
    "status": "context",
    "reason": "Latest three observations versus prior three; 50% research threshold",
-   "measure": 0.2500793697827597
+   "measure": 0.10147972195219168
   },
   {
    "pattern": "stress_persistence",
@@ -1231,7 +1235,7 @@
    "reason": null,
    "next_proxy": 24.5275,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-27T23:08:17.091063+00:00"
+   "as_of": "2026-11-28T13:08:34.933721+00:00"
   },
   {
    "source": "wikimedia_company_attention",
@@ -1239,9 +1243,9 @@
    "units": "article_daily_user_pageviews",
    "status": "research_forecast",
    "reason": null,
-   "next_proxy": 358687.25,
+   "next_proxy": 322691.25,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-27T23:08:17.091063+00:00"
+   "as_of": "2026-11-28T13:08:34.933721+00:00"
   },
   {
    "source": "cboe_vvix",
@@ -1251,7 +1255,7 @@
    "reason": null,
    "next_proxy": 112.44999999999999,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-27T23:08:17.091063+00:00"
+   "as_of": "2026-11-28T13:08:34.933721+00:00"
   },
   {
    "source": "cboe_skew",
@@ -1261,7 +1265,7 @@
    "reason": null,
    "next_proxy": 142.36,
    "method": "persistence and mean of last four first differences",
-   "as_of": "2026-11-27T23:08:17.091063+00:00"
+   "as_of": "2026-11-28T13:08:34.933721+00:00"
   }
  ],
  "decision": {
@@ -1284,7 +1288,7 @@
   {
    "name": "Wikipedia attention (tracked companies)",
    "status": "active",
-   "detail": "daily user page views summed over the desk's tracked US companies (WIKI_LIVE); 22 days",
+   "detail": "daily user page views summed over the desk's tracked US companies (WIKI_LIVE); 23 days",
    "dimension": "attention"
   },
   {
@@ -1313,46 +1317,46 @@
   }
  ],
  "sources_active": 3,
- "evidence_rows": 14,
- "excluded_rows": 405,
+ "evidence_rows": 13,
+ "excluded_rows": 407,
  "source_health": {
   "cboe_vix": {
    "status": "ok",
-   "checked_at": "2026-11-27T23:08:17.065392+00:00",
+   "checked_at": "2026-11-28T13:08:34.868432+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vix3m": {
    "status": "ok",
-   "checked_at": "2026-11-27T23:08:17.073160+00:00",
+   "checked_at": "2026-11-28T13:08:34.893590+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_vvix": {
    "status": "ok",
-   "checked_at": "2026-11-27T23:08:17.080016+00:00",
+   "checked_at": "2026-11-28T13:08:34.907561+00:00",
    "detail": "80 rows from desk cache"
   },
   "cboe_skew": {
    "status": "ok",
-   "checked_at": "2026-11-27T23:08:17.088116+00:00",
+   "checked_at": "2026-11-28T13:08:34.923081+00:00",
    "detail": "80 rows from desk cache"
   },
   "wikimedia_company_attention": {
    "status": "ok",
-   "checked_at": "2026-11-27T23:08:17.088733+00:00",
-   "detail": "5 rows from desk cache"
+   "checked_at": "2026-11-28T13:08:34.930016+00:00",
+   "detail": "6 rows from desk cache"
   },
   "grok_x_stance": {
    "status": "error",
-   "checked_at": "2026-11-27T23:08:17.089180+00:00",
+   "checked_at": "2026-11-28T13:08:34.932447+00:00",
    "detail": "ingest failed: ValueError: revision collision: changed payload needs a new revision"
   }
  },
  "ingest_status": {
-  "cboe_vix": "ok: 80 rows, last event 2026-11-26, ingest {\"inserted\": 1, \"duplicates\": 79}",
+  "cboe_vix": "ok: 80 rows, last event 2026-11-26, ingest {\"inserted\": 0, \"duplicates\": 80}",
   "cboe_vix3m": "ok: 80 rows, last event 2026-11-25, ingest {\"inserted\": 0, \"duplicates\": 80}",
   "cboe_vvix": "ok: 80 rows, last event 2026-11-25, ingest {\"inserted\": 0, \"duplicates\": 80}",
   "cboe_skew": "ok: 80 rows, last event 2026-11-25, ingest {\"inserted\": 0, \"duplicates\": 80}",
-  "wikimedia_company_attention": "ok: 5 rows, last event 2026-11-25, ingest {\"inserted\": 0, \"duplicates\": 5}",
+  "wikimedia_company_attention": "ok: 6 rows, last event 2026-11-26, ingest {\"inserted\": 1, \"duplicates\": 5}",
   "grok_x_stance": "ingest failed: ValueError: revision collision: changed payload needs a new revision"
  },
  "interpretation": [
